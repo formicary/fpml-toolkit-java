@@ -19,9 +19,9 @@ import com.handcoded.meta.Specification;
 /**
  * The <CODE>Releases</CODE> class contains a set of static objects describing
  * the HandCoded Acme extension schemas.
- * 
+ *
  * @author	BitWise
- * @version	$Id$
+ * @version	$Rev$
  * @since	TFP 1.0
  */
 public final class Releases
@@ -33,7 +33,7 @@ public final class Releases
 	 */
 	public static Specification	ACME
 		= new Specification ("Acme");
-	
+
 	/**
 	 * A <CODE>SchemaRelease</CODE> instance containing the details for the
 	 * Acme 1-0 schema.
@@ -43,7 +43,7 @@ public final class Releases
 		= new SchemaRelease (ACME, "1-0",
 				"http://www.handcoded.com/spec/2005/Acme-1-0", "acme-1-0.xsd",
 				"acme", null, "");
-	
+
 	/**
 	 * Ensures no instances can be constructed.
 	 * @since	TFP 1.0
