@@ -43,10 +43,11 @@ import com.handcoded.xml.resolver.Catalog;
 import com.handcoded.xml.resolver.CatalogManager;
 
 /**
- * The <CODE>FpMLUtility</b> class contains a set of methods for performing 
+ * The <CODE>FpMLUtility</CODE> class contains a set of methods for performing 
  * common operations on FpML document instances.
  * 
  * @author	BitWise
+ * @version	$Id$
  * @since	TFP 1.0
  */
 public final class FpMLUtility

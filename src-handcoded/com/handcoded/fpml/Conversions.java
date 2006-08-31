@@ -45,7 +45,7 @@ import com.handcoded.xml.XPath;
 public final class Conversions
 {
 	/**
-	 * The <CODE>R1_0__R2_0</CODE> class contains the logix to migrate a
+	 * The <CODE>R1_0__R2_0</CODE> class contains the logic to migrate a
 	 * FpML 1-0 instance document to 2-0. The specific changes needed (other
 	 * than basic DOCTYPE changes) are:
 	 * <UL>
@@ -164,7 +164,7 @@ public final class Conversions
 	};
 
 	/**
-	 * The <CODE>R2_0__R3_0</CODE> class contains the logix to migrate a
+	 * The <CODE>R2_0__R3_0</CODE> class contains the logic to migrate a
 	 * FpML 2-0 instance document to 3-0. The specific changes needed (other
 	 * than basic DOCTYPE changes) are:
 	 * <UL>
@@ -292,7 +292,7 @@ public final class Conversions
 	};
 
 	/**
-	 * The <CODE>R3_0__R4_0</CODE> class contains the logix to migrate a
+	 * The <CODE>R3_0__R4_0</CODE> class contains the logic to migrate a
 	 * FpML 3-0 instance document to 4-0. The specific changes needed (other
 	 * than basic DOCTYPE changes) are:
 	 * <UL>
