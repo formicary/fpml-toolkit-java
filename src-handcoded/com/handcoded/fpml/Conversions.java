@@ -30,12 +30,24 @@ import com.handcoded.meta.Schema;
 import com.handcoded.xml.DOM;
 import com.handcoded.xml.XPath;
 
+/**
+ * The <CODE>Conversions</CODE> class contains the <CODE>Conversion</CODE>
+ * instances used to migrate FpML documents between the different releases
+ * of the specification.
+ * <P>
+ * Currently only conversions from earlier releases to later ones are
+ * supported.
+ * 
+ * @author	BitWise
+ * @version	$Id$
+ * @since	TFP 1.0
+ */
 public final class Conversions
 {
 	/**
-	 * A <CODE>Conversion</CODE> instance configured for FpML 1-0 to 2-0
-	 * transformation. The specific changes needed (other than basic DOCTYPE
-	 * changes) are:
+	 * The <CODE>R1_0__R2_0</CODE> class contains the logix to migrate a
+	 * FpML 1-0 instance document to 2-0. The specific changes needed (other
+	 * than basic DOCTYPE changes) are:
 	 * <UL>
 	 * <LI>The &lt;product&gt; constainer element was removed.</LI>
 	 * <LI>Superfluous <CODE>type</CODE> attributes are removed.</LI>
@@ -152,9 +164,9 @@ public final class Conversions
 	};
 
 	/**
-	 * A <CODE>Conversion</CODE> instance configured for FpML 2-0 to 3-0
-	 * transformation. The specific changes needed (other than basic DOCTYPE
-	 * changes) are:
+	 * The <CODE>R2_0__R3_0</CODE> class contains the logix to migrate a
+	 * FpML 2-0 instance document to 3-0. The specific changes needed (other
+	 * than basic DOCTYPE changes) are:
 	 * <UL>
 	 * <LI><CODE>href</CODE> attributes are come <CODE>IDREF</CODE> strings
 	 * rather then XLink expressions.</LI>
@@ -280,8 +292,9 @@ public final class Conversions
 	};
 
 	/**
-	 * A <CODE>Conversion</CODE> instance configured for FpML 3-0 to 4-0
-	 * transformation. The specific changes needed are:
+	 * The <CODE>R3_0__R4_0</CODE> class contains the logix to migrate a
+	 * FpML 3-0 instance document to 4-0. The specific changes needed (other
+	 * than basic DOCTYPE changes) are:
 	 * <UL>
 	 * <LI>The document is becomes XML schema referencing.</LI>
 	 * <LI>Legacy documents become FpML DataDocument instances.</LI>
@@ -619,6 +632,12 @@ public final class Conversions
 		}		
 	};
 	
+	/**
+	 * The <CODE>R4_0__R4_1</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.0 schema based document to 4.1 
+	 * 
+	 * @since	TFP 1.0
+	 */
 	public static class R4_0__R4_1 extends DirectConversion 
 	{
 		public R4_0__R4_1 ()
@@ -1069,6 +1088,12 @@ public final class Conversions
 		}
 	};
 
+	/**
+	 * The <CODE>R4_1__TR4_2</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.1 schema based document to 4.2 
+	 * 
+	 * @since	TFP 1.0
+	 */
 	public static class R4_1__TR4_2 extends DirectConversion 
 	{
 		public R4_1__TR4_2 ()
@@ -1141,6 +1166,10 @@ public final class Conversions
 		}
 	}
 	
+	/**
+	 * Ensures no instances can be constructed.
+	 * @since	TFP 1.0
+	 */
 	private Conversions ()
 	{ }
 }
