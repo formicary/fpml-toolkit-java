@@ -13,8 +13,18 @@
 
 package com.handcoded.xml;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.Validator;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
@@ -25,16 +35,256 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
+import com.handcoded.xml.parser.DOMParser;
 
 /**
  * Provides utility functions for processing XML.
- *
+ * <P>
+ * The new Java APIs for XML parsing and validation require that you know in
+ * advance whether a file is DTD or schema based. If you don't know if
+ * which kind of document you have then the safest approach seems to be
+ * to do a non-validating parse and check for the presence of a DOCTYPE
+ * node. Obviously this means that the validation is slower (as you do
+ * it twice) and it also means that the input source must be reprocessable
+ * (e.g. either a file or a string but not a stream). 
+ *	 
  * @author	BitWise
  * @version	$Id$
  * @since	TFP 1.0
  */
 public final class XmlUtility
 {
+	/**
+	 * A constant value indicating that only DTD based documents are expected.
+	 * @see #validatingParse(int, File, Schema, EntityResolver, ErrorHandler)
+	 * @see #validatingParse(int, String, Schema, EntityResolver, ErrorHandler)
+	 */
+	public static final int	DTD_ONLY		= 1;
+	
+	/**
+	 * A constant value indicating that only schema based documents are expected.
+	 * @see #validatingParse(int, File, Schema, EntityResolver, ErrorHandler)
+	 * @see #validatingParse(int, String, Schema, EntityResolver, ErrorHandler)
+	 */
+	public static final int	SCHEMA_ONLY		= 2;
+	
+	/**
+	 * A constant value indicating that either a DTD or schema based documents
+	 * could be provided.
+	 * @see #validatingParse(int, File, Schema, EntityResolver, ErrorHandler)
+	 * @see #validatingParse(int, String, Schema, EntityResolver, ErrorHandler)
+	 */
+	public static final int DTD_OR_SCHEMA	= 3;
+	
+	/**
+	 * Performs a non-validating parse of the indicated XML string discarding any
+	 * errors generated.
+	 * 
+	 * @param 	xml			The XML <CODE>String</CODE> to be processed.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.0
+	 */
+	public static Document nonValidatingParse (final String xml)
+	{
+		Document	document	= null;
+		
+		try {
+			document = new DOMParser (false, true, null, null,
+				new ErrorHandler ()
+				{
+					public void fatalError (SAXParseException notUsed)
+					{  }
+					
+					public void error (SAXParseException notUsed)
+					{  }
+					
+					public void warning (SAXParseException notUsed)
+					{  }
+				}).parse (xml);
+		}
+		catch (ParserConfigurationException error) {
+			logger.severe ("JAXP failed to provided a XML parser");
+		}
+		catch (IOException error) {
+			logger.log (Level.SEVERE, "Unexpected I/O error", error);
+		}
+		return (document);
+	}
+	
+	/**
+	 * Performs a non-validating parse of the indicated XML file discarding any
+	 * errors generated.
+	 * 
+	 * @param 	file			The <CODE>File</CODE> to be processed.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.0
+	 */
+	public static Document nonValidatingParse (File file)
+	{
+		Document	document	= null;
+		
+		try {
+			document = new DOMParser (false, true, null, null,
+				new ErrorHandler ()
+				{
+					public void fatalError (SAXParseException notUsed)
+					{  }
+					
+					public void error (SAXParseException notUsed)
+					{  }
+					
+					public void warning (SAXParseException notUsed)
+					{  }
+				}).parse (file);
+		}
+		catch (ParserConfigurationException error) {
+			logger.severe ("JAXP failed to provided a XML parser");
+		}
+		catch (IOException error) {
+			logger.log (Level.SEVERE, "Unexpected I/O error", error);
+		}
+		return (document);
+	}
+	
+	/**
+	 * Performs a validating parse of the indicated XML <CODE>String<CODE> using the
+	 * most optimal technique given the mode. If the type of grammar is unknown
+	 * then a non-validating parse is done first and the document inspected to
+	 * see if it references a DOCTYPE.
+	 * 
+	 * @param 	grammar			Indicates the type of grammar used by the document. 
+	 * @param 	xml				The XML <CODE>String</CODE> to be processed.
+	 * @param 	schema			A compiler <CODE>Schema</CODE> collection.
+	 * @param 	entityResolver	The <CODE>EntityResolver</CODE>.
+	 * @param 	errorHandler	The users <CODE>ErrorHandler</CODE>.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.0
+	 */
+	public static Document validatingParse (int grammar, final String xml, Schema schema,
+			EntityResolver entityResolver, ErrorHandler errorHandler)
+	{
+		Document	document	= null;
+		
+		if (grammar == SCHEMA_ONLY) {
+			try {
+				return (new DOMParser (false, true, schema, entityResolver, errorHandler).parse (xml));
+			}
+			catch (ParserConfigurationException error) {
+				logger.severe ("JAXP failed to provided a XML parser");
+			}
+			catch (IOException error) {
+				logger.log (Level.SEVERE, "Unexpected I/O error", error);
+			}
+			return (null);
+		}
+		
+		if (grammar == DTD_OR_SCHEMA) {
+			if ((document = nonValidatingParse (xml)) == null) return (null);
+			
+			grammar = (document.getDoctype() != null) ? DTD_ONLY : SCHEMA_ONLY;
+		}
+
+		try {
+			if (grammar == DTD_ONLY) {
+				document = new DOMParser (true, true, null, entityResolver, errorHandler).parse (xml);
+			}
+			
+			if (grammar == SCHEMA_ONLY) {
+				DOMResult		result	= new DOMResult ();
+				
+				Validator validator = schema.newValidator ();
+				validator.setErrorHandler (errorHandler);
+				validator.validate (new DOMSource (document), result);
+				
+				document = (Document) result.getNode ();				
+			}
+		}
+		catch (ParserConfigurationException error) {
+			logger.severe ("JAXP failed to provided a XML parser");
+		}
+		catch (SAXException error) {
+			logger.log (Level.SEVERE, "Unexpected SAX Exception", error);
+		}
+		catch (IOException error) {
+			logger.log (Level.SEVERE, "Unexpected I/O error", error);
+		}
+		return (document);
+	}
+	
+	/**
+	 * Performs a validating parse of the indicated <CODE>File<CODE> using the
+	 * most optimal technique given the mode. If the type of grammar is unknown
+	 * then a non-validating parse is done first and the document inspected to
+	 * see if it references a DOCTYPE.
+	 * 
+	 * @param 	grammar			Indicates the type of grammar used by the document. 
+	 * @param 	file			The <CODE>File</CODE> to be processed.
+	 * @param 	schema			A compiler <CODE>Schema</CODE> collection.
+	 * @param 	entityResolver	The <CODE>EntityResolver</CODE>.
+	 * @param 	errorHandler	The users <CODE>ErrorHandler</CODE>.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.0
+	 */
+	public static Document validatingParse (int grammar, File file, Schema schema,
+			EntityResolver entityResolver, ErrorHandler errorHandler)
+	{
+		Document	document	= null;
+		
+		if (grammar == SCHEMA_ONLY) {
+			try {
+				return (new DOMParser (false, true, schema, entityResolver, errorHandler).parse (file));
+			}
+			catch (ParserConfigurationException error) {
+				logger.severe ("JAXP failed to provided a XML parser");
+			}
+			catch (IOException error) {
+				logger.log (Level.SEVERE, "Unexpected I/O error", error);
+			}
+			return (null);
+		}
+		
+		if (grammar == DTD_OR_SCHEMA) {
+			if ((document = nonValidatingParse (file)) == null) return (null);
+			
+			grammar = (document.getDoctype() != null) ? DTD_ONLY : SCHEMA_ONLY;
+		}
+
+		try {
+			if (grammar == DTD_ONLY) {
+				document = new DOMParser (true, true, null, entityResolver, errorHandler).parse (file);
+			}
+			
+			if (grammar == SCHEMA_ONLY) {
+				DOMResult		result	= new DOMResult ();
+				
+				Validator validator = schema.newValidator ();
+				validator.setErrorHandler (errorHandler);
+				validator.validate (new DOMSource (document), result);
+				
+				document = (Document) result.getNode ();				
+			}
+		}
+		catch (ParserConfigurationException error) {
+			logger.severe ("JAXP failed to provided a XML parser");
+		}
+		catch (SAXException error) {
+			logger.log (Level.SEVERE, "Unexpected SAX Exception", error);
+		}
+		catch (IOException error) {
+			logger.log (Level.SEVERE, "Unexpected I/O error", error);
+		}
+		return (document);
+	}
+	
 	/**
 	 * Recursively walks the DOM tree starting at the given <CODE>Node</CODE>
 	 * printing the gory details of its construction to <CODE>System.out</CODE>.
@@ -77,6 +327,13 @@ public final class XmlUtility
 		out.flush ();
 	}
 	
+	/**
+	 * A <CODE>Logger</CODE> instance used to report serious errors.
+	 * @since	TFP 1.0
+	 */
+	private static Logger	logger
+		= Logger.getLogger ("com.handcoded.xml.XmlUtility");
+
 	/**
 	 * Ensures no instances can be constructed.
 	 * @since	TFP 1.0

@@ -100,7 +100,7 @@ public final class NodeIndex
 	 * Returns the <CODE>Element</CODE> in the indexed document that has
 	 * an id attribute with the given value.
 	 * 
-	 * @param 	id				The require id attribute value.
+	 * @param 	id				The required id attribute value.
 	 * @return	The matching <CODE>Element</CODE> or <CODE>null</CODE> if
 	 * 			none. 
 	 * @since	TFP 1.0
