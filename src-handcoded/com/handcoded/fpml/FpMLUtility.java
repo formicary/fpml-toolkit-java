@@ -14,31 +14,22 @@
 package com.handcoded.fpml;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.XMLConstants;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Source;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import com.handcoded.fpml.validation.AllRules;
 import com.handcoded.meta.SchemaRelease;
 import com.handcoded.validation.RuleSet;
 import com.handcoded.validation.ValidationErrorHandler;
-import com.handcoded.xml.parser.DOMParser;
+import com.handcoded.xml.SchemaSet;
+import com.handcoded.xml.XmlUtility;
 import com.handcoded.xml.resolver.Catalog;
 import com.handcoded.xml.resolver.CatalogManager;
 
@@ -53,18 +44,28 @@ import com.handcoded.xml.resolver.CatalogManager;
 public final class FpMLUtility
 {
 	/**
-	 * Provides access to the compile schema collection used by the parse
+	 * Provides access to the schema set.
+	 * 
+	 * @return	The <CODE>SchemaSet</CODE> instance.
+	 */
+	public static SchemaSet getSchemaSet ()
+	{
+		return (schemaSet);
+	}
+	
+	/**
+	 * Provides access to the compiled schema collection used by the parse
 	 * functions.
 	 * <P>
 	 * Calling this function will force the runtime to load all the known
 	 * FpML schemas into memory if it has not already been done.
 	 * 
-	 * @return	The default <CODE>Schema</CODE> collection.
+	 * @return	The compiled <CODE>Schema</CODE> collection.
 	 * @since	TFP 1.0
 	 */
 	public static Schema getSchema ()
 	{
-		return (schema);
+		return (schemaSet.getSchema ());
 	}
 	
 	/**
@@ -78,79 +79,14 @@ public final class FpMLUtility
 	 */
 	public static Document parse (final String xml, ErrorHandler errorHandler)
 	{
-		try {
-			DOMParser	parser = new DOMParser (false, true, null, getCatalog (), errorHandler);
-			Document	document = parser.parse (xml);
-			
-			if ((document != null) && (document.getDoctype() != null)) {
-				parser = new DOMParser (true, true, null, getCatalog (), errorHandler);
-				document = parser.parse (xml);
-			}
-			else {
-				DOMResult		result	= new DOMResult ();
-				
-				Validator validator = schema.newValidator ();
-				validator.setErrorHandler (errorHandler);
-				validator.validate (new DOMSource (document), result);
-				
-				document = (Document) result.getNode ();
-			}			
-			return (document);
-		}
-		catch (ParserConfigurationException error) {
-			logger.severe ("JAXP failed to provided a XML parser");
-		}
-		catch (SAXException error) {
-			logger.log (Level.SEVERE, "Unexpected SAX Exception", error);
-		}
-		catch (IOException error) {
-			logger.log (Level.SEVERE, "Unexpected I/O error", error);
-		}
-		return (null);
-	}
-
-	/**
-	 * Parses an XML document from the given <CODE>InputSource</CODE> passing
-	 * any reported errors to the <CODE>ErrorHandler</CODE> instance.
-	 *
-	 * @param	source			The <CODE>InputSource</CODE> to process XML from.
-	 * @param	errorHandler	The <CODE>ErrorHandler</CODE> instance or <CODE>null</CODE>
-	 * @return	A <CODE>Document</CODE> instance constructed from the XML document.
-	 * @since	TFP 1.0
-	 */
-	public static Document parse (InputSource source, ErrorHandler errorHandler)
-	{
-		try {
-			DOMParser	parser = new DOMParser (false, true, null, getCatalog (), errorHandler);
-			Document	document = parser.parse (source);
-			
-			if ((document != null) && (document.getDoctype() != null)) {
-				parser = new DOMParser (true, true, null, getCatalog (), errorHandler);
-				document = parser.parse (source);
-			}
-			else {
-				DOMResult		result	= new DOMResult ();
-				
-				Validator validator = schema.newValidator ();
-				validator.setErrorHandler (errorHandler);
-				validator.validate (new DOMSource (document), result);
-				
-				document = (Document) result.getNode ();
-			}			
-			return (document);
-		}
-		catch (ParserConfigurationException error) {
-			logger.severe ("JAXP failed to provided a XML parser");
-		}
-		catch (SAXException error) {
-			logger.log (Level.SEVERE, "Unexpected SAX Exception", error);
-		}
-		catch (IOException error) {
-			logger.log (Level.SEVERE, "Unexpected I/O error", error);
-		}
-		return (null);
+		return (parse (XmlUtility.DTD_OR_SCHEMA, xml, errorHandler));
 	}
 	
+	public static Document parse (int grammar, final String xml, ErrorHandler errorHandler)
+	{
+		return (XmlUtility.validatingParse (grammar, xml, getSchema (), getCatalog (), errorHandler));
+	}
+
 	/**
 	 * Parses an XML document from the given <CODE>File</CODE> passing
 	 * any reported errors to the <CODE>EerorHandler</CODE> instance.
@@ -162,35 +98,12 @@ public final class FpMLUtility
 	 */
 	public static Document parse (File file, ErrorHandler errorHandler)
 	{
-		try {
-			DOMParser	parser = new DOMParser (false, true, null, getCatalog (), errorHandler);
-			Document	document = parser.parse (file);
-			
-			if ((document != null) && (document.getDoctype() != null)) {
-				parser = new DOMParser (true, true, null, getCatalog (), errorHandler);
-				document = parser.parse (file);
-			}
-			else {
-				DOMResult		result	= new DOMResult ();
-				
-				Validator validator = schema.newValidator ();
-				validator.setErrorHandler (errorHandler);
-				validator.validate (new DOMSource (document), result);
-				
-				document = (Document) result.getNode ();
-			}			
-			return (document);
-		}
-		catch (ParserConfigurationException error) {
-			logger.severe ("JAXP failed to provided a XML parser");
-		}
-		catch (SAXException error) {
-			logger.log (Level.SEVERE, "Unexpected SAX Exception", error);
-		}
-		catch (IOException error) {
-			logger.log (Level.SEVERE, "Unexpected I/O error", error);
-		}
-		return (null);
+		return (parse (XmlUtility.DTD_OR_SCHEMA, file, errorHandler));
+	}
+	
+	public static Document parse (int grammar, File file, ErrorHandler errorHandler)
+	{
+		return (XmlUtility.validatingParse (grammar, file, getSchema (), getCatalog (), errorHandler));
 	}
 	
 	/**
@@ -245,26 +158,6 @@ public final class FpMLUtility
 
 		return ((document != null) ? rules.validate (document, validationErrorHandler) : false);
 	}
-
-	/**
-	 * Attempts to parse an XML document from the indicated <CODE>InputSource</CODE>
-	 * and then pass it through the specified validation rule set.
-	 * <P>
-	 * This function does not provide any access to the DOM <CODE>Document</CODE>
-	 * created during the parsing process.
-	 * 
-	 * @param	source			The <CODE>InputSource</CODE> to be parsed.
-	 * @param 	rules			The <CODE>RuleSet</CODE> used for validation.
-	 * @param 	errorHandler	The <CODE>ErrorHandler</CODE> used to report parser errors.
-	 * @param 	validationErrorHandler	The <CODE>ValidationErrorHandler</CODE> used to semantic report issues.
-	 * @since	TFP 1.0
-	 */
-	public static boolean parseAndValidate (InputSource source, RuleSet rules, ErrorHandler errorHandler, ValidationErrorHandler validationErrorHandler)
-	{
-		Document		document = parse (source, errorHandler);
-
-		return ((document != null) ? rules.validate (document, validationErrorHandler) : false);
-	}
 	
 	/**
 	 * Attempts to parse an XML document from the indicated <CODE>File</CODE>
@@ -301,23 +194,6 @@ public final class FpMLUtility
 	public static boolean parseAndValidate (final String xml, ErrorHandler errorHandler, ValidationErrorHandler validationErrorHandler)
 	{
 		return (parseAndValidate (xml, AllRules.getRules (), errorHandler, validationErrorHandler));
-	}
-
-	/**
-	 * Attempts to parse an XML document from the indicated <CODE>InputSource</CODE>
-	 * and then pass it through the default FpML validation rule set.
-	 * <P>
-	 * This function does not provide any access to the DOM <CODE>Document</CODE>
-	 * created during the parsing process.
-	 * 
-	 * @param	source			The <CODE>InputSource</CODE> to be parsed.
-	 * @param 	errorHandler	The <CODE>ErrorHandler</CODE> used to report parser errors.
-	 * @param 	validationErrorHandler	The <CODE>ValidationErrorHandler</CODE> used to semantic report issues.
-	 * @since	TFP 1.0
-	 */
-	public static boolean parseAndValidate (InputSource source, ErrorHandler errorHandler, ValidationErrorHandler validationErrorHandler)
-	{
-		return (parseAndValidate (source, AllRules.getRules (), errorHandler, validationErrorHandler));
 	}
 
 	/**
@@ -367,7 +243,7 @@ public final class FpMLUtility
 	 * The schema collection used to validate schema based documents.
 	 * @since	TFp 1.0
 	 */
-	private static Schema		schema;
+	private static SchemaSet	schemaSet = new SchemaSet ();
 		
 	/**
 	 * Ensures no instances can be created
@@ -385,22 +261,22 @@ public final class FpMLUtility
 	 * @param 	release			The <CODE>SchemaRelease</CODE> to resolve.
 	 * @since	TFP 1.0
 	 */
-	private static void resolveSchema (Vector sources, SchemaRelease release)
+	private static StreamSource resolveSchema (SchemaRelease release)
 	{
 		try {
 			StreamSource	source = catalog.resolveUri (release.getNamespaceUri());
 			
-			if (source != null) 
-				sources.add (source);
-			else {
+			if (source == null) {
 				logger.severe ("Failed to resolve schema URI '" + release.getNamespaceUri() + "'");
-				sources.add (new StreamSource (release.getSchemaLocation()));
+				source = new StreamSource (release.getSchemaLocation ());
 			}
+			return (source);
 		}
 		catch (SAXException error) {
 			logger.log (Level.SEVERE, "Unexpected SAX exception creating schema source", error);
 			System.exit (2);
-		}		
+		}
+		return (null);
 	}
 	
 	/**
@@ -408,7 +284,6 @@ public final class FpMLUtility
 	 * accessed.
 	 */
 	static {
-		
 		try {
 			catalog = CatalogManager.find ("com/handcoded/fpml/catalog.xml");
 		}
@@ -417,23 +292,11 @@ public final class FpMLUtility
 			System.exit (2);
 		}
 	
-		try {
-			Vector sources	= new Vector ();
-
-			resolveSchema (sources, com.handcoded.dsig.Releases.R1_0);
-			resolveSchema (sources, com.handcoded.fpml.Releases.R4_0);
-			resolveSchema (sources, com.handcoded.fpml.Releases.R4_1);
-			resolveSchema (sources, com.handcoded.fpml.Releases.TR4_2);
-			resolveSchema (sources, com.handcoded.acme.Releases.R1_0);
-			
-			Source [] sourceArray = new Source [sources.size()];
-			sources.copyInto (sourceArray);
-
-			schema = SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema (sourceArray);
-		}
-		catch (SAXException error) {
-			logger.log (Level.SEVERE, "Unexpected SAX exception compiling schemas", error);
-			System.exit (2);
-		}	
+		schemaSet.add (resolveSchema (com.handcoded.dsig.Releases.R1_0));
+		schemaSet.add (resolveSchema (com.handcoded.fpml.Releases.R4_0));
+		schemaSet.add (resolveSchema (com.handcoded.fpml.Releases.R4_1));
+		schemaSet.add (resolveSchema (com.handcoded.fpml.Releases.TR4_2));
+		
+		schemaSet.add (resolveSchema (com.handcoded.acme.Releases.R1_0));
 	}
 }
