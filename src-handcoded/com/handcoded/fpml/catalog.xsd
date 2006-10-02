@@ -4,7 +4,7 @@
            targetNamespace='urn:oasis:names:tc:entity:xmlns:xml:catalog'
            elementFormDefault='qualified'>
 
-  <!-- $Id: catalog.xsd,v 1.10 2002/10/18 23:54:58 ndw Exp $ -->
+  <!-- $Id$ -->
 
   <xs:simpleType name='pubIdChars'>
     <!-- A string of the characters defined as pubIdChar in production 13
