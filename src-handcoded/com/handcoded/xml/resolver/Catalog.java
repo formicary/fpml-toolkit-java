@@ -49,7 +49,7 @@ public final class Catalog implements EntityResolver
 	 */
 	public Catalog (final String url)
 	{
-		logger.info ("url = '" +url + "'");
+//		logger.info ("url = '" +url + "'");
 		
 		this.url  = url;
 	}
@@ -297,11 +297,11 @@ public final class Catalog implements EntityResolver
 	public final StreamSource resolveUri (final String uri)
 		throws SAXException
 	{
-		logger.info ("\nuri    = " + ((uri != null) ? uri : "null"));
+//		logger.info ("\nuri    = " + ((uri != null) ? uri : "null"));
 
 		String				result = applyRules (uri, new Stack ());
 
-		logger.info ("\nresult = " + ((result != null) ? result   : "null"));
+//		logger.info ("\nresult = " + ((result != null) ? result   : "null"));
 
 		if (result != null) {
 			if (result.startsWith ("file:"))
@@ -646,9 +646,9 @@ public final class Catalog implements EntityResolver
 			if (publicUri.equals (targetUri)) {
 				try {
 					
-	logger.info ("%% base = " + getBase ());
-	logger.info ("%% uri  = " + uri);
-	logger.info ("%% sum  = " + getBase ().resolve (new URI (uri)));
+//	logger.info ("%% base = " + getBase ());
+//	logger.info ("%% uri  = " + uri);
+//	logger.info ("%% sum  = " + getBase ().resolve (new URI (uri)));
 	
 					return (getBase ().resolve (new URI (uri)).toString ());
 				}
@@ -1258,7 +1258,6 @@ public final class Catalog implements EntityResolver
 
 		catalogs.push (this);
 
-		//
 		if ((uri != null) && (uri.length () > 0)) {
 			for (int index = 0; index < rules.size (); ++index) {
 				if (rules.elementAt (index) instanceof UriEntry) {
