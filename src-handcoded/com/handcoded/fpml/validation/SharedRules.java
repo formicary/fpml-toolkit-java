@@ -610,7 +610,7 @@ public final class SharedRules extends Logic
 						continue;
 					}
 					
-					Element target	= nodeIndex.getDocument ().getElementById (href.substring (1));
+					Element target	= nodeIndex.getElementById (href.substring (1));
 					
 					if ((target == null) || !(target.getLocalName ().equals ("party") || target.getLocalName ().equals ("tradeSide"))) {
 						errorHandler.error ("305", context,
@@ -689,7 +689,7 @@ public final class SharedRules extends Logic
 						continue;
 					}
 					
-					Element target	= nodeIndex.getDocument ().getElementById (href.substring (1));
+					Element target	= nodeIndex.getElementById (href.substring (1));
 					
 					if ((target == null) || !(target.getLocalName ().equals ("party"))) {
 						errorHandler.error ("305", context,
@@ -768,7 +768,7 @@ public final class SharedRules extends Logic
 						continue;
 					}
 					
-					Element target	= nodeIndex.getDocument ().getElementById (href.substring (1));
+					Element target	= nodeIndex.getElementById (href.substring (1));
 					
 					if ((target == null) || !(target.getLocalName ().equals ("party"))) {
 						errorHandler.error ("305", context,
@@ -853,7 +853,7 @@ public final class SharedRules extends Logic
 			 * @param	list		The <CODE>NodeList</CODE> of candidate elements.
 			 * @param	errorHandler The <CODE>ErrorHandler</CODE> to report
 			 *						semantic errors through.
-			 * @return	<CODE>false</CODE> of the RULE failed, <CODE>true
+			 * @return	<CODE>false</CODE> if the RULE failed, <CODE>true
 			 *			</CODE> otherwise.
 			 */
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
