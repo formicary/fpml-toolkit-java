@@ -645,7 +645,7 @@ public final class SharedRules extends Logic
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context = (Element) list.item (index);
 					String  href	= context.getAttribute ("href");
-					Element target	= nodeIndex.getDocument ().getElementById (href);
+					Element target	= nodeIndex.getElementById (href);
 					
 					if ((target == null) || !(target.getLocalName ().equals ("party")  || target.getLocalName ().equals ("tradeSide"))) {
 						errorHandler.error ("305", context,
@@ -724,7 +724,7 @@ public final class SharedRules extends Logic
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context = (Element) list.item (index);
 					String  href	= context.getAttribute ("href");
-					Element target	= nodeIndex.getDocument ().getElementById (href);
+					Element target	= nodeIndex.getElementById (href);
 					
 					if ((target == null) || !(target.getLocalName ().equals ("party"))) {
 						errorHandler.error ("305", context,
@@ -803,7 +803,7 @@ public final class SharedRules extends Logic
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context = (Element) list.item (index);
 					String  href	= context.getAttribute ("href");
-					Element target	= nodeIndex.getDocument ().getElementById (href);
+					Element target	= nodeIndex.getElementById (href);
 					
 					if ((target == null) || !(target.getLocalName ().equals ("party"))) {
 						errorHandler.error ("305", context,
