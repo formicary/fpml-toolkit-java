@@ -15,6 +15,7 @@ package com.handcoded.xml;
 
 import java.util.Hashtable;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,6 +29,9 @@ import org.w3c.dom.NodeList;
  * traversal of the DOM tree every time the <CODE>getElementsByName</CODE>
  * method is called. This class does a one off traversal on construction and
  * then uses the cached results to return <CODE>NodeList</CODE> instances.
+ * <P>
+ * The <CODE>NodeIndex</CODE> also indexes 'id' attributes as the DOM has been
+ * found to be unreliable at indexing these during post parse schema validation.
  *
  * @author	BitWise
  * @version	$Id$
@@ -103,7 +107,7 @@ public final class NodeIndex
 	 */
 	public Element getElementById (final String id)
 	{
-		return (document.getElementById (id));
+		return ((Element) ids.get(id));
 	}
 	
 	/**
@@ -124,7 +128,14 @@ public final class NodeIndex
 	 * instances indexed by element name.
 	 * @since	TFP 1.0
 	 */
-	private Hashtable		elements = new Hashtable (); 
+	private Hashtable		elements 	= new Hashtable ();
+	
+	/**
+	 * A <CODE>Hashtable</CODE> containing <CODE>Element</CODE>
+	 * instances indexed by id value.
+	 * @since	TFP 1.0
+	 */
+	private Hashtable		ids			= new Hashtable ();
 	
 	/**
 	 * Recursively walks a DOM tree creating an index of the elements by
@@ -149,6 +160,10 @@ public final class NodeIndex
 					elements.put (name, list = new MutableNodeList ());
 					
 				list.add (node);
+				
+				Attr id = ((Element) node).getAttributeNode ("id");
+				
+				if (id != null) ids.put (id.getValue (), node);
 				
 				for (Node child = node.getFirstChild (); child != null;) {
 					if (child.getNodeType () == Node.ELEMENT_NODE)
