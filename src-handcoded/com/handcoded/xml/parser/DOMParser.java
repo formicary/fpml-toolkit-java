@@ -52,7 +52,8 @@ public final class DOMParser
 	 * @throws	ParserConfigurationException If JAXP cannot provide a suitable parser.	
 	 * @since	TFP 1.0	
 	 */
-	public DOMParser (final boolean	validating, final boolean namespaceAware, Schema schema, EntityResolver entityResolver, ErrorHandler	errorHandler)
+	public DOMParser (final boolean	validating, final boolean namespaceAware, Schema schema,
+			EntityResolver entityResolver, ErrorHandler	errorHandler)
 		throws ParserConfigurationException
 	{
 		synchronized (factory) {
