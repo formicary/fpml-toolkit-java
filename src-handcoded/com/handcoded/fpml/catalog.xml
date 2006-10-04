@@ -27,7 +27,7 @@
 	  
 	<uri
 	 name="http://www.w3.org/2000/09/xmldsig#"
-	 uri="../dsig/schemas/dsig/xmldsig-core-schema.xsd"/>
+	 uri="../dsig/schemas/xmldsig-core-schema.xsd"/>
 	 
 	<!--
 	  == The XML Parser does resolve namespace URI through the catalog so
