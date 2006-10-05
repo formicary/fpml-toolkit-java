@@ -772,8 +772,8 @@ public final class Releases
 	{
 		SchemeCollection	schemes = new SchemeCollection ();
 		
-		schemes.parse ("com/handcoded/fpml/data/" + suffix);
-		schemes.parse ("com/handcoded/fpml/data/additionalDefinitions.xml");
+		schemes.parse ("files/data/" + suffix);
+		schemes.parse ("files/data/additionalDefinitions.xml");
 		
 		return (schemes);
 	}

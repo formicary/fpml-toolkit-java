@@ -60,9 +60,7 @@ public final class SchemeCollection
 			SAXParser parser = new SAXParser (false, true, false, false, null, null);
 			
 			try {
-				parser.parse (new InputSource (
-					ClassLoader.getSystemResourceAsStream (uri)),
-					new BootStrap ());
+				parser.parse (new InputSource (uri), new BootStrap ());
 			}
 			catch (Exception error) {
 				logger.log (Level.SEVERE, "Unable to load standard FpML schemes", error);	
