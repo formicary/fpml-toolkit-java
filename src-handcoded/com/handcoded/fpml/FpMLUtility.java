@@ -285,7 +285,7 @@ public final class FpMLUtility
 	 */
 	static {
 		try {
-			catalog = CatalogManager.find ("com/handcoded/fpml/catalog.xml");
+			catalog = CatalogManager.find ("files/catalog.xml");
 		}
 		catch (SAXException error) {
 			logger.log (Level.SEVERE, "Unexpected SAX exception loading schema catalog", error);

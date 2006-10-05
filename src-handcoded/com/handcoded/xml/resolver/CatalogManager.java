@@ -54,7 +54,7 @@ public final class CatalogManager
 	{
 		Catalog 			catalog;
 		
-		url = CatalogManager.class.getClassLoader().getResource (url).toString();
+		// TODO: url = CatalogManager.class.getClassLoader().getResource (url).toString();
 
 		if ((catalog = (Catalog) catalogs.get (url)) == null) {
 			try {
