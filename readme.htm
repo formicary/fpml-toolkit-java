@@ -1,0 +1,115 @@
+<html>
+	<head>
+		<title>New Page 1</title>
+		<meta http-equiv="Content-Language" content="en-gb">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+		<meta name="ProgId" content="FrontPage.Editor.Document">
+		<link rel="StyleSheet" href="manual/styles.css" type="text/css">
+	</head>
+	<body>
+		<P><font size="6">Toolkit for FpML Processing<BR>
+				Java Open Source Release 1.0</font></P>
+		<p><font size="5">5th October, 2006</font></p>
+		<P><font size="5">Copyright (C),2006 HandCoded Software Ltd.<BR>
+				All rights reserved.</font></P>
+		<p></p>
+		<h1>Introduction</h1>
+		<p>This document accompanies Java 1.0 release of the 'HandCoded Toolkit for FpML 
+			Processing' and describes the contents of the release area. The source code for 
+			this release is not included but is available from the SVN repository on 
+			SourceForge.</p>
+		<h2>License</h2>
+		<p>This toolkit is distributed under the terms if the 'Open Source License 
+			"OSL"&nbsp; Version 3.0'. A full copy of the license terms is included in the 
+			repository (click <a href="license.txt" target="_blank">here</a> to access) and 
+			must be distributed along with this file if you distribute this code to other 
+			parties.</p>
+		<H2>Directory Structure</H2>
+		<P>The ZIP file that contained this release expands into a number of files and 
+			sub-directories. The following briefly describes the purpose of each.
+		</P>
+		<UL class="L1">
+			<LI>
+			readme.html (The file you are reading)
+			<LI>
+				license.txt<BR>
+				<BR>
+			A copy of the license terms under which the toolkit is distributed.
+			<LI>
+				handcoded.jar<BR>
+				<BR>
+			This file contains all compiled Java class files for the toolkit and its 
+			demonstration applications.
+			<LI>
+				example.bat<BR>
+				<BR>
+			Running this file will execute a simple batch validation of a selection of FpML 
+			examples. Examples prior to FpML 4.2 contain some mistakes and a few will 
+			output error messages.
+			<LI>
+				files
+				<BR>
+				<BR>
+				Contains an XML catalog file (and its associated schema) used to resolve DTD 
+				system identifiers and schema namespace URIs to physical file locations.</LI>
+			<UL class="L2">
+				<LI>
+					schemas<BR>
+					<BR>
+				Contains a subdirectory for each version of the FpML as well as the schema for 
+				digital signatures and the HandCoded extensions for 'RejectedDocuments'
+				<LI>
+					data<BR>
+					<BR>
+				A set of XML data files containing the scheme code values defined by FpML for 
+				each release and a set of additional definitions for currency and country 
+				codes.
+				<LI>
+					examples<BR>
+					<BR>
+				A copy of the FpML example file for each schema release. Some may contain 
+				mistakes as many have not been properly validated.
+				<LI>
+					test-cases<BR>
+					<BR>
+					A copy of the FpML validation test files for&nbsp;both valid and invalid case. 
+					It is important to note some valid test cases still generate errors, just not 
+					the one they are supposed to test.</LI></UL>
+			<LI>
+				lib<BR>
+				<BR>
+			Contains a copy of the Xerces 2.8.0 JAR images used by the example application.
+			<LI>
+				doc<BR>
+				<BR>
+				Contains the javadoc generated API descriptions for the programmer accessible 
+				classes and methods within the toolkit.</LI></UL>
+		<H2>Example Applications</H2>
+		<p>The toolkit is provided with a simple test application (implemented in the class 
+			demo.com.handcoded.fpml.Validate) that demonstrates its performance. Running 
+			the example batch file will process a small selection of FpML examples 
+			displaying the results to the screen.</p>
+		<P>At the end of the run the program calculates the average processing &nbsp;time 
+			for each file and displays the number of rules tested against each file as 
+			shown below.</P>
+		<PRE>&gt;&gt; files/examples/fpml4-0/ird_ex26_fxnotional_swap_with_cfs.xml<BR>&gt;&gt; files/examples/fpml4-0/ird_ex27_inverse_floater.xml<BR>&gt;&gt; files/examples/fpml4-0/ird_ex28_bullet_payments.xml<BR>&gt;&gt; files/examples/fpml4-0/msg_ex01_request_confirmation.xml<BR>&gt;&gt; files/examples/fpml4-0/msg_ex02_trade_confirmed.xml<BR>&gt;&gt; files/examples/fpml4-0/msg_ex03_portfolio.xml<BR>&gt;&gt; files/examples/fpml4-0/td_ex01_simple_term_deposit.xml<BR>&gt;&gt; files/examples/fpml4-0/td_ex02_term_deposit_w_settlement_etc.xml<BR>== Processed 91 files in 1391 milliseconds<BR>== 65.42056074766356 files/sec checking 219 rules</PRE>
+		<P>The application responds to a number of command line options and can be 
+			configured to test the FpML defined rules (e.g. excludes HandCoded rules 
+			including scheme value checking) or to use a more streamlined XML parsing 
+			technique that only supports schema based instances from FpML 4.0 or later. The 
+			default configuration is to process both DTD and schema based instances which 
+			is less efficient.</P>
+		<P>Futures releases will add further demonstration applications</P>
+		<H2>Support</H2>
+		<P>If you find a problem using toolkit then please use the forum and bug reporting 
+			facilities on the <A href="http://sourceforge.net/projects/fpml-toolkit">SourceForge 
+				project</A> site to record the issue.</P>
+		<H2>Change History</H2>
+		<P>N/A</P>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+	</body>
+</html>
