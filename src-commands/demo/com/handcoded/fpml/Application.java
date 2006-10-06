@@ -18,14 +18,12 @@ import java.util.logging.Logger;
 import org.xml.sax.SAXException;
 
 import com.handcoded.framework.Option;
-import com.handcoded.xml.parser.DOMParser;
 import com.handcoded.xml.resolver.Catalog;
 import com.handcoded.xml.resolver.CatalogManager;
 
 /**
  * The <CODE>Application</CODE> contains some standard option handling
- * and Xerces XML parser configuration settings that are common to all FpML
- * demonstration applications.
+ * that is common to all FpML demonstration applications.
  * 
  * @author	BitWise
  * @version	$Id$
@@ -84,32 +82,8 @@ public abstract class Application extends com.handcoded.framework.Application
 		= Logger.getLogger ("demo.com.handcoded.fpml");
 	
 	/**
-	 * A string constant used to reference the Xerces property related to
-	 * parser configuration.
+	 * A command line option that allows the default catalog to be overriden.
 	 * @since	TFP 1.0
-	 */
-	private static final String	XML_PARSER_CONFIGURATION
-		= "org.apache.xerces.xni.parser.XMLParserConfiguration";
-	
-	/**
-	 * A string constant used to configure Xerces to use its grammar caching
-	 * configuration.
-	 * @since	TFP 1.0
-	 */
-	private static final String XML_GRAMMAR_CACHING_CONFIGURATION
-		= "org.apache.xerces.parsers.XMLGrammarCachingConfiguration";
-	
-	/**
-	 * A string constant used to reference a Xerces parser property that allows
-	 * the value of the <CODE>schemaLocation</CODE> attribute in an instance
-	 * document to be overriden.
-	 * @since	TFP 1.0
-	 */
-	private static final String	EXTERNAL_SCHEMALOCATION_PROPERTY
-		= "http://apache.org/xml/properties/schema/external-schemaLocation";
-	
-	/**
-	 * TODO
 	 */
 	private Option		catalogOption
 		= new Option ("-catalog", "Use url to create an XML catalog for parsing", "url");
@@ -119,23 +93,4 @@ public abstract class Application extends com.handcoded.framework.Application
 	 * @since	TFP 1.0
 	 */
 	private Catalog		catalog	= null;
-	
-	/**
-	 * This initialiser configures the Xerces XML parser to use schema caching
-	 * as standard and sets up <CODE>schemaLocation</CODE> mapping for known
-	 * FpML and DSIG releases.
-	 * @since	TFP 1.0
-	 */
-	static {
-		System.setProperty (XML_PARSER_CONFIGURATION, XML_GRAMMAR_CACHING_CONFIGURATION);
-		
-		if (!DOMParser.setAttribute (EXTERNAL_SCHEMALOCATION_PROPERTY,
-				com.handcoded.fpml.Releases.R4_0.getNamespaceUri ()  + " urn:tfp:fpml-4-0 " +
-				com.handcoded.fpml.Releases.R4_1.getNamespaceUri ()  + " urn:tfp:fpml-4-1 " +
-				com.handcoded.fpml.Releases.TR4_2.getNamespaceUri () + " urn:tfp:fpml-4-2 " +
-				com.handcoded.dsig.Releases.R1_0.getNamespaceUri ()  + " urn:tfp:dsig")) {
-			logger.severe ("JAXP implementation does not support schemaLocation mapping");
-			System.exit (2);
-		}
-	}
 }
