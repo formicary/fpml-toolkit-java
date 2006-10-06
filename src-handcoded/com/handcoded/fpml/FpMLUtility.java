@@ -70,6 +70,46 @@ public final class FpMLUtility
 	
 	/**
 	 * Parses the XML string provided passing any validation problems to
+	 * the indicated <CODE>ErrorHandler</CODE>. The <CODE>schemaOnly</CODE>
+	 * argument indicates if both DTD and schema, or just schema documents
+	 * should be supported.
+	 *
+	 * @param	schemaOnly		Indicates only schema based documents to be processed. 
+	 * @param	xml				The XML string to be parsed.
+	 * @param	errorHandler	The <CODE>ErrorHandler</CODE> instance or <CODE>null</CODE>
+	 * @return	A <CODE>Document</CODE> instance constructed from the XML document.
+	 * @since	TFP 1.0
+	 */
+	public static Document parse (boolean schemaOnly, final String xml, ErrorHandler errorHandler)
+	{
+		return (
+			XmlUtility.validatingParse (
+				(schemaOnly ? XmlUtility.SCHEMA_ONLY : XmlUtility.DTD_OR_SCHEMA),
+				xml, getSchema (), getCatalog (), errorHandler));
+	}
+
+	/**
+	 * Parses an XML document from the given <CODE>File</CODE> passing
+	 * any reported errors to the <CODE>EerorHandler</CODE> instance. The
+	 * <CODE>schemaOnly</CODE> argument indicates if both DTD and schema,
+	 * or just schema documents should be supported.
+	 *
+	 * @param	schemaOnly		Indicates only schema based documents to be processed. 
+	 * @param	file			The <CODE>File</CODE> to process XML from.
+	 * @param	errorHandler	The <CODE>ErrorHandler</CODE> instance or <CODE>null</CODE>
+	 * @return	A <CODE>Document</CODE> instance constructed from the XML document.
+	 * @since	TFP 1.0
+	 */
+	public static Document parse (boolean schemaOnly, File file, ErrorHandler errorHandler)
+	{
+		return (
+			XmlUtility.validatingParse (
+				(schemaOnly ? XmlUtility.SCHEMA_ONLY : XmlUtility.DTD_OR_SCHEMA),
+				file, getSchema (), getCatalog (), errorHandler));
+	}
+	
+	/**
+	 * Parses the XML string provided passing any validation problems to
 	 * the indicated <CODE>ErrorHandler</CODE>.
 	 *
 	 * @param	xml				The XML string to be parsed.
@@ -79,14 +119,9 @@ public final class FpMLUtility
 	 */
 	public static Document parse (final String xml, ErrorHandler errorHandler)
 	{
-		return (parse (XmlUtility.DTD_OR_SCHEMA, xml, errorHandler));
+		return (parse (false, xml, errorHandler));
 	}
 	
-	public static Document parse (int grammar, final String xml, ErrorHandler errorHandler)
-	{
-		return (XmlUtility.validatingParse (grammar, xml, getSchema (), getCatalog (), errorHandler));
-	}
-
 	/**
 	 * Parses an XML document from the given <CODE>File</CODE> passing
 	 * any reported errors to the <CODE>EerorHandler</CODE> instance.
@@ -98,12 +133,7 @@ public final class FpMLUtility
 	 */
 	public static Document parse (File file, ErrorHandler errorHandler)
 	{
-		return (parse (XmlUtility.DTD_OR_SCHEMA, file, errorHandler));
-	}
-	
-	public static Document parse (int grammar, File file, ErrorHandler errorHandler)
-	{
-		return (XmlUtility.validatingParse (grammar, file, getSchema (), getCatalog (), errorHandler));
+		return (parse (false, file, errorHandler));
 	}
 	
 	/**
@@ -154,9 +184,7 @@ public final class FpMLUtility
 	 */
 	public static boolean parseAndValidate (final String xml, RuleSet rules, ErrorHandler errorHandler, ValidationErrorHandler validationErrorHandler)
 	{
-		Document		document = parse (xml, errorHandler);
-
-		return ((document != null) ? rules.validate (document, validationErrorHandler) : false);
+		return (parseAndValidate (false, xml, rules, errorHandler, validationErrorHandler));
 	}
 	
 	/**
@@ -174,9 +202,7 @@ public final class FpMLUtility
 	 */
 	public static boolean parseAndValidate (File file, RuleSet rules, ErrorHandler errorHandler, ValidationErrorHandler validationErrorHandler)
 	{
-		Document		document = parse (file, errorHandler);
-
-		return ((document != null) ? rules.validate (document, validationErrorHandler) : false);
+		return (parseAndValidate (false, file, rules, errorHandler, validationErrorHandler));
 	}
 	
 	/**
@@ -211,6 +237,88 @@ public final class FpMLUtility
 	public static boolean parseAndValidate (File file, ErrorHandler errorHandler, ValidationErrorHandler validationErrorHandler)
 	{
 		return (parseAndValidate (file, AllRules.getRules (), errorHandler, validationErrorHandler));
+	}
+
+	/**
+	 * Attempts to parse an XML document from a string and then pass it through
+	 * the specified validation rule set.
+	 * <P>
+	 * This function does not provide any access to the DOM <CODE>Document</CODE>
+	 * created during the parsing process.
+	 * 
+	 * @param	schemaOnly		Indicates only schema based documents to be processed. 
+	 * @param	xml				The XML string to be parsed.
+	 * @param 	rules			The <CODE>RuleSet</CODE> used for validation.
+	 * @param 	errorHandler	The <CODE>ErrorHandler</CODE> used to report parser errors.
+	 * @param 	validationErrorHandler	The <CODE>ValidationErrorHandler</CODE> used to semantic report issues.
+	 * @since	TFP 1.0
+	 */
+	public static boolean parseAndValidate (boolean schemaOnly, final String xml,
+			RuleSet rules, ErrorHandler errorHandler, ValidationErrorHandler validationErrorHandler)
+	{
+		Document		document = parse (schemaOnly, xml, errorHandler);
+
+		return ((document != null) ? rules.validate (document, validationErrorHandler) : false);
+	}
+	
+	/**
+	 * Attempts to parse an XML document from the indicated <CODE>File</CODE>
+	 * and then pass it through the specified validation rule set.
+	 * <P>
+	 * This function does not provide any access to the DOM <CODE>Document</CODE>
+	 * created during the parsing process.
+	 * 
+	 * @param	schemaOnly		Indicates only schema based documents to be processed. 
+	 * @param	file			The <CODE>File</CODE> to be parsed.
+	 * @param 	rules			The <CODE>RuleSet</CODE> used for validation.
+	 * @param 	errorHandler	The <CODE>ErrorHandler</CODE> used to report parser errors.
+	 * @param 	validationErrorHandler	The <CODE>ValidationErrorHandler</CODE> used to semantic report issues.
+	 * @since	TFP 1.0
+	 */
+	public static boolean parseAndValidate (boolean schemaOnly, File file,
+			RuleSet rules, ErrorHandler errorHandler, ValidationErrorHandler validationErrorHandler)
+	{
+		Document		document = parse (schemaOnly, file, errorHandler);
+
+		return ((document != null) ? rules.validate (document, validationErrorHandler) : false);
+	}
+	
+	/**
+	 * Attempts to parse an XML document from a string and then pass it through
+	 * the default FpML validation rule set.
+	 * <P>
+	 * This function does not provide any access to the DOM <CODE>Document</CODE>
+	 * created during the parsing process.
+	 * 
+	 * @param	schemaOnly		Indicates only schema based documents to be processed. 
+	 * @param	xml				The XML string to be parsed.
+	 * @param 	errorHandler	The <CODE>ErrorHandler</CODE> used to report parser errors.
+	 * @param 	validationErrorHandler	The <CODE>ValidationErrorHandler</CODE> used to semantic report issues.
+	 * @since	TFP 1.0
+	 */
+	public static boolean parseAndValidate (boolean schemaOnly, final String xml,
+			ErrorHandler errorHandler, ValidationErrorHandler validationErrorHandler)
+	{
+		return (parseAndValidate (schemaOnly, xml, AllRules.getRules (), errorHandler, validationErrorHandler));
+	}
+
+	/**
+	 * Attempts to parse an XML document from the indicated <CODE>File</CODE>
+	 * and then pass it through the default FpML validation rule set.
+	 * <P>
+	 * This function does not provide any access to the DOM <CODE>Document</CODE>
+	 * created during the parsing process.
+	 * 
+	 * @param	schemaOnly		Indicates only schema based documents to be processed. 
+	 * @param	file			The <CODE>File</CODE> to be parsed.
+	 * @param 	errorHandler	The <CODE>ErrorHandler</CODE> used to report parser errors.
+	 * @param 	validationErrorHandler	The <CODE>ValidationErrorHandler</CODE> used to semantic report issues.
+	 * @since	TFP 1.0
+	 */
+	public static boolean parseAndValidate (boolean schemaOnly, File file,
+			ErrorHandler errorHandler, ValidationErrorHandler validationErrorHandler)
+	{
+		return (parseAndValidate (schemaOnly, file, AllRules.getRules (), errorHandler, validationErrorHandler));
 	}
 
 	/**
