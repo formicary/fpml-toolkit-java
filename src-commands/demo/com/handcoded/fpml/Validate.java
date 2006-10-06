@@ -83,7 +83,8 @@ public final class Validate extends Application
 		RuleSet					rules = strictOption.isPresent () ? FpMLRules.getRules() : AllRules.getRules ();
 		String []				arguments = getArguments ();
 		ParserErrorHandler		parserErrorHandler = new ParserErrorHandler ();
-		ValidationErrorHandler	validationErrorHandler = new ValidationErrorHandler ();	
+		ValidationErrorHandler	validationErrorHandler = new ValidationErrorHandler ();
+		boolean					schemaOnly = schemaOnlyOption.isPresent();
 		int						count = 0;
 		
 		try {
@@ -95,7 +96,7 @@ public final class Validate extends Application
 					
 					System.err.println (">> " + arguments [which]);
 					
-					FpMLUtility.parseAndValidate(new File (arguments [which]), rules, parserErrorHandler, validationErrorHandler);
+					FpMLUtility.parseAndValidate (schemaOnly, new File (arguments [which]), rules, parserErrorHandler, validationErrorHandler);
 					++count;
 				}
 			}
@@ -193,6 +194,13 @@ public final class Validate extends Application
 	 */
 	private Option			strictOption
 		= new Option ("-strict", "Use only FpML defined rules (no extensions)");
+	
+	/**
+	 * The <CODE>Option</CODE> instance use to detect <CODE>-strict</CODE>
+	 * @since	TFP 1.0
+	 */
+	private Option			schemaOnlyOption
+		= new Option ("-schemaOnly", "Only accept schema based documents");
 	
 	/**
 	 * A counter for the number of time to reprocess the files.
