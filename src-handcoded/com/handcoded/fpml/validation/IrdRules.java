@@ -1093,7 +1093,7 @@ public final class IrdRules extends Logic
 							not (exists (XPath.path (context, "step"))),
 							notEqual (
 								XPath.path (context, "initialValue"),
-								BigDecimal.ZERO))) continue;
+								ZERO))) continue;
 
 					errorHandler.error ("305", context,
 						"An non-zero initial value must be provided when there are no steps " +
@@ -2645,6 +2645,14 @@ public final class IrdRules extends Logic
 	{
 		return (rules);
 	}
+	
+	/**
+	 * A <CODE>BigDecimal</CODE> constant with the value zero. The code
+	 * used to reference the constant in <CODE>BigDecimal</CODE> class
+	 * but <B>javadoc</B> kept complaining about it.
+	 * @since	TFP 1.0 
+	 */
+	private static final BigDecimal	ZERO  = new BigDecimal (0);
 	
 	/**
 	 * A <CODE>RuleSet</CODE> containing all the standard FpML defined

@@ -257,7 +257,6 @@ public final class FpMLUtility
 	 * catalog to its external location. A <CODE>StreamSource</CODE> is created for
 	 * each schema add to the <CODE>sources</CODE> vector.
 	 * 
-	 * @param 	sources			A <CODE>Vector</CODE> schemas to process later.
 	 * @param 	release			The <CODE>SchemaRelease</CODE> to resolve.
 	 * @since	TFP 1.0
 	 */
