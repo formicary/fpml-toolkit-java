@@ -161,7 +161,7 @@ public final class XmlUtility
 	 * 
 	 * @param 	grammar			Indicates the type of grammar used by the document. 
 	 * @param 	xml				The XML <CODE>String</CODE> to be processed.
-	 * @param 	schema			A compiler <CODE>Schema</CODE> collection.
+	 * @param 	schema			A compiled <CODE>Schema</CODE> collection.
 	 * @param 	entityResolver	The <CODE>EntityResolver</CODE>.
 	 * @param 	errorHandler	The users <CODE>ErrorHandler</CODE>.
 	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
@@ -227,7 +227,7 @@ public final class XmlUtility
 	 * 
 	 * @param 	grammar			Indicates the type of grammar used by the document. 
 	 * @param 	file			The <CODE>File</CODE> to be processed.
-	 * @param 	schema			A compiler <CODE>Schema</CODE> collection.
+	 * @param 	schema			A compiled <CODE>Schema</CODE> collection.
 	 * @param 	entityResolver	The <CODE>EntityResolver</CODE>.
 	 * @param 	errorHandler	The users <CODE>ErrorHandler</CODE>.
 	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or

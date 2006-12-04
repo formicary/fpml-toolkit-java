@@ -63,49 +63,9 @@ public final class FpMLUtility
 	 * @return	The compiled <CODE>Schema</CODE> collection.
 	 * @since	TFP 1.0
 	 */
-	public static Schema getSchema ()
+	public static Schema getSchemas ()
 	{
 		return (schemaSet.getSchema ());
-	}
-	
-	/**
-	 * Parses the XML string provided passing any validation problems to
-	 * the indicated <CODE>ErrorHandler</CODE>. The <CODE>schemaOnly</CODE>
-	 * argument indicates if both DTD and schema, or just schema documents
-	 * should be supported.
-	 *
-	 * @param	schemaOnly		Indicates only schema based documents to be processed. 
-	 * @param	xml				The XML string to be parsed.
-	 * @param	errorHandler	The <CODE>ErrorHandler</CODE> instance or <CODE>null</CODE>
-	 * @return	A <CODE>Document</CODE> instance constructed from the XML document.
-	 * @since	TFP 1.0
-	 */
-	public static Document parse (boolean schemaOnly, final String xml, ErrorHandler errorHandler)
-	{
-		return (
-			XmlUtility.validatingParse (
-				(schemaOnly ? XmlUtility.SCHEMA_ONLY : XmlUtility.DTD_OR_SCHEMA),
-				xml, getSchema (), getCatalog (), errorHandler));
-	}
-
-	/**
-	 * Parses an XML document from the given <CODE>File</CODE> passing
-	 * any reported errors to the <CODE>EerorHandler</CODE> instance. The
-	 * <CODE>schemaOnly</CODE> argument indicates if both DTD and schema,
-	 * or just schema documents should be supported.
-	 *
-	 * @param	schemaOnly		Indicates only schema based documents to be processed. 
-	 * @param	file			The <CODE>File</CODE> to process XML from.
-	 * @param	errorHandler	The <CODE>ErrorHandler</CODE> instance or <CODE>null</CODE>
-	 * @return	A <CODE>Document</CODE> instance constructed from the XML document.
-	 * @since	TFP 1.0
-	 */
-	public static Document parse (boolean schemaOnly, File file, ErrorHandler errorHandler)
-	{
-		return (
-			XmlUtility.validatingParse (
-				(schemaOnly ? XmlUtility.SCHEMA_ONLY : XmlUtility.DTD_OR_SCHEMA),
-				file, getSchema (), getCatalog (), errorHandler));
 	}
 	
 	/**
@@ -136,6 +96,46 @@ public final class FpMLUtility
 		return (parse (false, file, errorHandler));
 	}
 	
+	/**
+	 * Parses the XML string provided passing any validation problems to
+	 * the indicated <CODE>ErrorHandler</CODE>. The <CODE>schemaOnly</CODE>
+	 * argument indicates if both DTD and schema, or just schema documents
+	 * should be supported.
+	 *
+	 * @param	schemaOnly		Indicates only schema based documents to be processed. 
+	 * @param	xml				The XML string to be parsed.
+	 * @param	errorHandler	The <CODE>ErrorHandler</CODE> instance or <CODE>null</CODE>
+	 * @return	A <CODE>Document</CODE> instance constructed from the XML document.
+	 * @since	TFP 1.0
+	 */
+	public static Document parse (boolean schemaOnly, final String xml, ErrorHandler errorHandler)
+	{
+		return (
+			XmlUtility.validatingParse (
+				(schemaOnly ? XmlUtility.SCHEMA_ONLY : XmlUtility.DTD_OR_SCHEMA),
+				xml, getSchemas (), getCatalog (), errorHandler));
+	}
+
+	/**
+	 * Parses an XML document from the given <CODE>File</CODE> passing
+	 * any reported errors to the <CODE>EerorHandler</CODE> instance. The
+	 * <CODE>schemaOnly</CODE> argument indicates if both DTD and schema,
+	 * or just schema documents should be supported.
+	 *
+	 * @param	schemaOnly		Indicates only schema based documents to be processed. 
+	 * @param	file			The <CODE>File</CODE> to process XML from.
+	 * @param	errorHandler	The <CODE>ErrorHandler</CODE> instance or <CODE>null</CODE>
+	 * @return	A <CODE>Document</CODE> instance constructed from the XML document.
+	 * @since	TFP 1.0
+	 */
+	public static Document parse (boolean schemaOnly, File file, ErrorHandler errorHandler)
+	{
+		return (
+			XmlUtility.validatingParse (
+				(schemaOnly ? XmlUtility.SCHEMA_ONLY : XmlUtility.DTD_OR_SCHEMA),
+				file, getSchemas (), getCatalog (), errorHandler));
+	}
+
 	/**
 	 * Uses the given <CODE>RuleSet</CODE> to perform a semantic validation of
 	 * the DOM <CODE>Document</CODE> and reports errors (if any).
