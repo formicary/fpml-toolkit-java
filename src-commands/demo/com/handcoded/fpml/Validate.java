@@ -71,7 +71,7 @@ public final class Validate extends Application
 			System.exit (1);
 		}
 		
-		FpMLUtility.getSchema ();
+		FpMLUtility.getSchemas ();
 	}
 
 	/**
