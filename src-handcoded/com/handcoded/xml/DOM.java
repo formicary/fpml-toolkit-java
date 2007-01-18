@@ -13,6 +13,7 @@
 
 package com.handcoded.xml;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -298,7 +299,44 @@ public final class DOM
 		
 		context.appendChild (context.getOwnerDocument ().createTextNode (text));
 	}
+
+	/**
+	 * Gets the value of the specified attribute on the indicated context
+	 * <CODE>Element</CODE>. Note that this method returns <CODE>null</CODE>
+	 * if the attribute is not present compared to the DOM function which
+	 * returns a empty string.
+	 *  
+	 * @param 	context		The context <CODE>Element</CODE>.
+	 * @param 	name		The attribute name.
+	 * @return	The value of the attribute or <CODE>null</CODE> if it was
+	 * 			not present.
+	 * @since	TFP 1.0
+	 */
+	public static String getAttribute (Element context, final String name)
+	{
+		Attr		attr = context.getAttributeNode (name);
 		
+		return ((attr != null) ? attr.getValue () : null);
+	}
+	
+	/**
+	 * Sets the value of specified attribute on the indicated context
+	 * <CODE>Element</CODE>. If the value is <CODE>null</CODE> then the
+	 * attribute is removed.
+	 * 
+	 * @param 	context		The context <CODE>Element</CODE>.
+	 * @param 	name		The attribute name.
+	 * @param	value		The new value or <CODE>null</CODE>.
+	 * @since	TFP 1.0
+	 */
+	public static void setAttribute (Element context, final String name, final String value)
+	{
+		if (value != null)
+			context.setAttribute (name, value);
+		else
+			context.removeAttribute (name);
+	}
+	
 	/**
 	 * Ensures no instances can be constructed. 
 	 */
