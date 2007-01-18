@@ -1,0 +1,128 @@
+// Copyright (C),2005-2007 HandCoded Software Ltd.
+// All rights reserved.
+//
+// This software is licensed in accordance with the terms of the 'Open Source
+// License (OSL) Version 3.0'. Please see 'license.txt' for the details.
+//
+// HANDCODED SOFTWARE LTD MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE
+// SUITABILITY OF THE SOFTWARE, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT
+// LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+// PARTICULAR PURPOSE, OR NON-INFRINGEMENT. HANDCODED SOFTWARE LTD SHALL NOT BE
+// LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
+// OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
+
+package demo.com.handcoded.fpml;
+
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import com.handcoded.classification.Category;
+import com.handcoded.fpml.FpMLUtility;
+import com.handcoded.fpml.ProductType;
+import com.handcoded.xml.NodeIndex;
+import com.handcoded.xml.XmlUtility;
+
+/**
+ * This application demonstrates the classification components being used to
+ * identify the type of product within an FpML document based on its structure.
+ * 
+ * @author	BitWise
+ * @version	$Id$
+ * @since	TFP 1.0
+ */
+public class Classify extends Application
+{
+	/**
+	 * Creates an application instance and invokes its <CODE>run</CODE>
+	 * method passing the command line arguments.
+	 * 
+	 * @param 	arguments		The command line arguments
+	 * @since	TFP 1.0
+	 */
+	public static void main (String [] arguments)
+	{   
+		new Classify ().run (arguments);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * @since	TFP 1.0
+	 */
+	protected void startUp ()
+	{
+		if (getArguments ().length == 0) {
+			logger.severe ("No files are present on the command line");
+			System.exit (1);
+		}
+		
+		FpMLUtility.getSchemas ();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @since	TFP 1.0
+	 */
+	protected void execute ()
+	{
+		String []		arguments 	= getArguments ();
+		Document		document;
+		NodeIndex		nodeIndex;
+		
+		try {
+			for (int index = 0; index < arguments.length; ++index) {
+				String filename = arguments [index];
+				document = XmlUtility.nonValidatingParse (new File (filename));
+				nodeIndex = new NodeIndex (document);
+				
+				System.out.println (filename + ":");
+				classify (nodeIndex.getElementsByName ("trade"), "Trade");
+				classify (nodeIndex.getElementsByName ("contract"), "Contract");
+			}
+		}
+		catch (Exception error) {
+			logger.log (Level.SEVERE, "Unexpected exception during processing", error);
+		}
+		
+		setFinished (true);
+	}
+	
+	/**
+	 * {@inheritDoc} 
+	 * @since	TFP 1.0
+	 */
+	protected String describeArguments ()
+	{
+		return (" files ...");
+	}
+	
+	/**
+	 * A <CODE>Logger</CODE> instance used to report serious errors.
+	 * @since	TFP 1.0
+	 */
+	private static Logger	logger
+		= Logger.getLogger ("demo.com.handcoded.fpml.Classify");
+
+	/**
+	 * Uses the predefined FpML product types to attempt to classify a
+	 * product within the document.
+	 *  
+	 * @param 	list		A set of context elements to analyze.
+	 * @param 	container	The type of product container for display.
+	 * @since	TFP 1.0.1
+	 */
+	private void classify (final NodeList list, final String container)
+	{
+		for (int index = 0; index < list.getLength (); ++index) {
+			Category	category = ProductType.classify ((Element) list.item (index));
+			
+			System.out.print ("> " + container + "(");
+			System.out.print ((category != null) ? category.toString () : "UNKNOWN");
+			System.out.println (")");
+		}
+	}
+}
