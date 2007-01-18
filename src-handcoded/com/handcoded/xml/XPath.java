@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -192,6 +192,69 @@ public final class XPath
 		return (path (path (path (path (path (context, name1), name2), name3), name4), name5));
 	}
 
+	/**
+	 * Evaluates a simple single valued path access from the given context
+	 * node to the named great-great-great-grandchild element.
+	 *
+	 * @param 	context			The context <CODE>Element</CODE>.
+	 * @param 	name1			The name of the required child.
+	 * @param 	name2			The name of the required grandchild.
+	 * @param 	name3			The name of the required great-grandchild.
+	 * @param 	name4			The name of the required great-great-grandchild.
+	 * @param 	name5			The name of the required great-great-great-grandchild.
+	 * @param 	name6			The name of the required great-great-great-great-grandchild.
+	 * @return	The child <CODE>Element</CODE> or <CODE>null</CODE> if no
+	 * 			matching element exists.
+	 * @since	TFP 1.0
+	 */
+	public static Element path (final Element context, final String name1, final String name2, final String name3, final String name4, final String name5, final String name6)
+	{
+		return (path (path (path (path (path (path (context, name1), name2), name3), name4), name5), name6));
+	}
+
+	/**
+	 * Evaluates a simple single valued path access from the given context
+	 * node to the named great-great-great-grandchild element.
+	 *
+	 * @param 	context			The context <CODE>Element</CODE>.
+	 * @param 	name1			The name of the required child.
+	 * @param 	name2			The name of the required grandchild.
+	 * @param 	name3			The name of the required great-grandchild.
+	 * @param 	name4			The name of the required great-great-grandchild.
+	 * @param 	name5			The name of the required great-great-great-grandchild.
+	 * @param 	name6			The name of the required great-great-great-great-grandchild.
+	 * @param 	name7			The name of the required great-great-great-great-great-grandchild.
+	 * @return	The child <CODE>Element</CODE> or <CODE>null</CODE> if no
+	 * 			matching element exists.
+	 * @since	TFP 1.0
+	 */
+	public static Element path (final Element context, final String name1, final String name2, final String name3, final String name4, final String name5, final String name6, final String name7)
+	{
+		return (path (path (path (path (path (path (path (context, name1), name2), name3), name4), name5), name6), name7));
+	}
+
+	/**
+	 * Evaluates a simple single valued path access from the given context
+	 * node to the named great-great-great-grandchild element.
+	 *
+	 * @param 	context			The context <CODE>Element</CODE>.
+	 * @param 	name1			The name of the required child.
+	 * @param 	name2			The name of the required grandchild.
+	 * @param 	name3			The name of the required great-grandchild.
+	 * @param 	name4			The name of the required great-great-grandchild.
+	 * @param 	name5			The name of the required great-great-great-grandchild.
+	 * @param 	name6			The name of the required great-great-great-great-grandchild.
+	 * @param 	name7			The name of the required great-great-great-great-great-grandchild.
+	 * @param 	name8			The name of the required great-great-great-great-great-great-grandchild.
+	 * @return	The child <CODE>Element</CODE> or <CODE>null</CODE> if no
+	 * 			matching element exists.
+	 * @since	TFP 1.0
+	 */
+	public static Element path (final Element context, final String name1, final String name2, final String name3, final String name4, final String name5, final String name6, final String name7, final String name8)
+	{
+		return (path (path (path (path (path (path (path (path (context, name1), name2), name3), name4), name5), name6), name7), name8));
+	}
+
 	//---------------------------------------------------------------------------
 
 	/**
@@ -362,6 +425,49 @@ public final class XPath
 	public static NodeList paths (final Element context, final String name1, final String name2, final String name3, final String name4, final String name5, final String name6)
 	{
 		return (paths (paths (paths (paths (paths (paths (context, name1), name2), name3), name4), name5), name6));
+	}
+
+	/**
+	 * Evaluates a simple multiple valued path access from the given context
+	 * node to the named great-great-great-great-grandchild elements.
+	 *
+	 * @param	context			The context <CODE>Element</CODE>.
+	 * @param	name1			The name of the required child.
+	 * @param 	name2			The name of the required grandchild.
+	 * @param 	name3			The name of the required great-grandchild.
+	 * @param	name4			The name of the required great-great-grandchild.
+	 * @param	name5			The name of the required great-great-great-grandchild.
+	 * @param	name6			The name of the required great-great-great-great-grandchild.
+	 * @param	name7			The name of the required great-great-great-great-great-grandchild.
+	 * @return	A possibly empty <CODE>NodeList</CODE> of matching
+	 *			great-great-great-great-grandchild elements.
+	 * @since	TFP 1.0
+	 */
+	public static NodeList paths (final Element context, final String name1, final String name2, final String name3, final String name4, final String name5, final String name6, final String name7)
+	{
+		return (paths (paths (paths (paths (paths (paths (paths (context, name1), name2), name3), name4), name5), name6), name7));
+	}
+
+	/**
+	 * Evaluates a simple multiple valued path access from the given context
+	 * node to the named great-great-great-great-grandchild elements.
+	 *
+	 * @param	context			The context <CODE>Element</CODE>.
+	 * @param	name1			The name of the required child.
+	 * @param 	name2			The name of the required grandchild.
+	 * @param 	name3			The name of the required great-grandchild.
+	 * @param	name4			The name of the required great-great-grandchild.
+	 * @param	name5			The name of the required great-great-great-grandchild.
+	 * @param	name6			The name of the required great-great-great-great-grandchild.
+	 * @param	name7			The name of the required great-great-great-great-great-grandchild.
+	 * @param	name8			The name of the required great-great-great-great-great-great-grandchild.
+	 * @return	A possibly empty <CODE>NodeList</CODE> of matching
+	 *			great-great-great-great-grandchild elements.
+	 * @since	TFP 1.0
+	 */
+	public static NodeList paths (final Element context, final String name1, final String name2, final String name3, final String name4, final String name5, final String name6, final String name7, final String name8)
+	{
+		return (paths (paths (paths (paths (paths (paths (paths (paths (context, name1), name2), name3), name4), name5), name6), name7), name8));
 	}
 
 	/**
