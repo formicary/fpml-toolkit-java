@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -51,6 +51,13 @@ final class Feature
     public static final String		SCHEMA_FULL_CHECKING_FEATURE_ID
 		= "http://apache.org/xml/features/validation/schema-full-checking";
 
+    /**
+     * Deferred node expansion feature if (http://apache.org/xml/features/dom/defer-node-expansion).
+     * @since	TFP 1.0.1
+     */
+    public static final String		DEFER_NODE_EXPANSION_FEATURE_ID
+    	= "http://apache.org/xml/features/dom/defer-node-expansion";
+    
 	/**
 	 * Ensures that an instance cannot be constructed.
 	 * @since	TFP 1.0

@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -211,5 +211,12 @@ public final class DOMParser
 		 System.setProperty (
 				"org.apache.xerces.xni.parser.XMLParserConfiguration",
 		    	"org.apache.xerces.parsers.XMLGrammarCachingConfiguration");
+		 
+		 try {
+			 factory.setFeature(Feature.DEFER_NODE_EXPANSION_FEATURE_ID, false);
+		 }
+		 catch (ParserConfigurationException error) {
+			 logger.info ("Installed XML Parser does not support deferred node expansion feature.");
+		 }
 	}
 }
