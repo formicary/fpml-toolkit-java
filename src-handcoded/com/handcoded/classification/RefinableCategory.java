@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,6 +13,8 @@
 
 package com.handcoded.classification;
 
+import java.util.HashSet;
+
 /**
  * A <CODE>RefinableCategory</CODE> instance can be used to provide a 'catch-all'
  * category should its sub-categories fail to isolate a specific variant.
@@ -23,27 +25,6 @@ package com.handcoded.classification;
  */
 public abstract class RefinableCategory extends AbstractCategory
 {
-	/**
-	 * {@inheritDoc}
-	 * A <CODE>RefinableCategory</CODE> first determines if it (and its
-	 * sub-categories) is applicable to the <CODE>Object</CODE> before
-	 * attempting to classify it. If an applicable <CODE>Object</CODE> is
-	 * not claimed by a sub-category then the <CODE>RefinableCategory</CODE>
-	 * will 'generically' claim it.
-	 * 
- 	 * @since	TFP 1.0
-	 */
-	public Category classify (final Object value)
-	{
-		Category		match	= null;
-
-		if (isApplicable (value)) {
-			if ((match = super.classify (value)) == null)
-				match = this;
-		}
-		return (match);
-	}
-
 	/**
 	 * Construct an <CODE>AbstractCategory</CODE> with a given name.
 	 * 
@@ -79,6 +60,27 @@ public abstract class RefinableCategory extends AbstractCategory
 	protected RefinableCategory (final String name, Category [] parents)
 	{
 		super (name, parents);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * A <CODE>RefinableCategory</CODE> first determines if it (and its
+	 * sub-categories) is applicable to the <CODE>Object</CODE> before
+	 * attempting to classify it. If an applicable <CODE>Object</CODE> is
+	 * not claimed by a sub-category then the <CODE>RefinableCategory</CODE>
+	 * will 'generically' claim it.
+	 * 
+ 	 * @since	TFP 1.0
+	 */
+	protected Category classify (final Object value, HashSet visited)
+	{
+		Category		match	= null;
+
+		if (isApplicable (value)) {
+			if ((match = super.classify (value, visited)) == null)
+				match = this;
+		}
+		return (match);
 	}
 
 	/**

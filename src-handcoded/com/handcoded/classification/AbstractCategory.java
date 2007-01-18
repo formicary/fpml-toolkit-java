@@ -14,6 +14,7 @@
 package com.handcoded.classification;
 
 import java.util.Enumeration;
+import java.util.HashSet;
 
 /**
  * An <CODE>AbstractCategory</CODE> is used to relate a set of sub-category
@@ -63,29 +64,27 @@ public class AbstractCategory extends Category
 	}
 	
 	/**
-	 * {@inheritDoc}
-	 * For an <CODE>AbstractCategory</CODE> this is determined by
-	 * recursively checking each sub-category to see if it matches.
-	 * 
-	 * @since	TFP 1.0
+	 * {@inheritDoc
 	 */
-	public Category classify (final Object value)
+	protected Category classify (final Object value, HashSet visited)
 	{
 		Category			result	= null;
 		Enumeration			cursor	= subCategories.elements ();
 		
+		visited.add (this);
 		while (cursor.hasMoreElements ()) {
-			Category 		category = (Category)(cursor.nextElement ());
-			Category		match;
+			Category 			category = (Category)(cursor.nextElement ());
+			Category			match;
 
-			if ((category.superCategories.size () == 0) &&
-				((match = category.classify (value)) != null)) {
+			if (!visited.contains (category) && (match = category.classify (value)) != null) {
 				if ((result != null) && (result != match))
-					throw new RuntimeException ("Object cannot be unambiguously classified");
+					throw new RuntimeException ("Object cannot be unambiguously classified ("
+													+ result + " & " + match + ")");
 
 				result = match;
 			}
 		}
+		visited.remove (this);
 		return (result);
 	}	
 }

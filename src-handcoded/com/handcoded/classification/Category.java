@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -15,6 +15,7 @@ package com.handcoded.classification;
 
 import java.util.Enumeration;
 import java.util.Vector;
+import java.util.HashSet;
 
 /**
  * The <CODE>Category</CODE> class represents a possible classification of an
@@ -37,6 +38,24 @@ public abstract class Category
 	public final String getName ()
 	{
 		return (name);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @since	TFP 1.0
+	 */
+	public final String toString ()
+	{
+		return (name);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @since	TFP 1.0
+	 */
+	public final int hashCode ()
+	{
+		return (name.hashCode ());
 	}
 
 	/**
@@ -92,7 +111,10 @@ public abstract class Category
 	 * 			or <CODE>null</CODE> if none could be determined.
 	 * @since	TFP 1.0
 	 */
-	public abstract Category classify (final Object value);
+	public final Category classify (final Object value)
+	{
+		return (classify (value, new HashSet ()));
+	}
 
 	/**
 	 * <CODE>Category</CODE> instances that reference this instance.
@@ -150,6 +172,16 @@ public abstract class Category
 			parents [index].subCategories.add (this);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param 	value			The <CODE>Object</CODE> to be classified.		
+	 * @param 	visited			A <CODE>HashSet</CODE> used to track visited nodes.
+	 * @return	The matching <CODE>Category</CODE> for the <CODE>Object</CODE>
+	 * 			or <CODE>null</CODE> if none could be determined.
+	 * @since	TFP 1.0
+	 */
+	protected abstract Category classify (final Object value, HashSet visited);
 
 	/**
 	 * The name of this <CODE>Category</CODE>.
