@@ -64,7 +64,7 @@ public class AbstractCategory extends Category
 	}
 	
 	/**
-	 * {@inheritDoc
+	 * {@inheritDoc}
 	 */
 	protected Category classify (final Object value, HashSet visited)
 	{
