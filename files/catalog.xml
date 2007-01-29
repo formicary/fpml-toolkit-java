@@ -24,8 +24,14 @@
 	<uri name="http://www.fpml.org/2005/FpML-4-2" uri="schemas/fpml4-2/fpml-main-4-2.xsd"/>
 	
 	<!--
+	  == Standard extensions to FpML 4-2 for non-derivative products.
+	  -->
+	<uri name="http://www.fpml.org/extensions" uri="schemas/fpml-ext1-0/fpml-extensions-1-0.xsd"/>
+	
+	<!--
 	  == HandCoded extensions for errors and messaging are provided in
 	  == this schema.
 	  -->
 	<uri name="http://www.handcoded.com/spec/2005/Acme-1-0" uri="schemas/acme1-0/acme-1-0.xsd"/>
+	<uri name="http://www.handcoded.com/spec/2007/Acme-2-0" uri="schemas/acme2-0/acme-2-0.xsd"/>
 </catalog>
