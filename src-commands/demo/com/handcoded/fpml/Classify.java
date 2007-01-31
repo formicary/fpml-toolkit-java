@@ -26,6 +26,8 @@ import com.handcoded.fpml.FpMLUtility;
 import com.handcoded.fpml.ProductType;
 import com.handcoded.xml.NodeIndex;
 import com.handcoded.xml.XmlUtility;
+import com.handcoded.meta.Release;
+import com.handcoded.meta.Specification;
 
 /**
  * This application demonstrates the classification components being used to
@@ -77,9 +79,14 @@ public class Classify extends Application
 			for (int index = 0; index < arguments.length; ++index) {
 				String filename = arguments [index];
 				document = XmlUtility.nonValidatingParse (new File (filename));
-				nodeIndex = new NodeIndex (document);
 				
 				System.out.println (filename + ":");
+
+				Release release = Specification.releaseForDocument (document);
+				
+				if (release != null) System.out.println ("= " + release);
+				
+				nodeIndex = new NodeIndex (document);
 				classify (nodeIndex.getElementsByName ("trade"), "Trade");
 				classify (nodeIndex.getElementsByName ("contract"), "Contract");
 			}
