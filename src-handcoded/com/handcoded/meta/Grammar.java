@@ -34,6 +34,14 @@ public interface Grammar
 	public String [] getRootElements ();
 	
 	/**
+	 * Indicates that the schema is a pure extension (e.g. has no root elements).
+	 *
+	 * @return	<CODE>true</CODE> if the schema is an extension.
+	 * @since	TFP 1.0
+	 */
+	public boolean isExtensionOnly ();
+	
+	/**
 	 * Determines if the provided <CODE>Document</CODE> instance uses this
 	 * <CODE>Grammar</CODE>.
 	 * 

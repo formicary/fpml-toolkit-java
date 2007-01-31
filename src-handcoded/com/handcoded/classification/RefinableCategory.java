@@ -76,6 +76,7 @@ public abstract class RefinableCategory extends AbstractCategory
 	{
 		Category		match	= null;
 
+		visited.add (this);
 		if (isApplicable (value)) {
 			if ((match = super.classify (value, visited)) == null)
 				match = this;

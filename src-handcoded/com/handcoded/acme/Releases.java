@@ -42,7 +42,17 @@ public final class Releases
 	public static SchemaRelease	R1_0
 		= new SchemaRelease (ACME, "1-0",
 				"http://www.handcoded.com/spec/2005/Acme-1-0", "acme-1-0.xsd",
-				"acme", null, "");
+				"acme", null);
+	
+	/**
+	 * A <CODE>SchemaRelease</CODE> instance containing the details for the
+	 * Acme 2-0 schema.
+	 * @since	TFP 1.0
+	 */
+	public static SchemaRelease	R2_0
+		= new SchemaRelease (ACME, "2-0",
+				"http://www.handcoded.com/spec/2005/Acme-2-0", "acme-2-0.xsd",
+				"acme", null);
 	
 	/**
 	 * Ensures no instances can be constructed.
@@ -50,4 +60,13 @@ public final class Releases
 	 */
 	private Releases ()
 	{ }
+	
+	/**
+	 * Add a schema import link between the Acme extension schemas and the
+	 * version of FpML they relate to.
+	 */
+	static {
+		R1_0.addImport (com.handcoded.fpml.Releases.R4_0);
+		R2_0.addImport (com.handcoded.fpml.Releases.TR4_2);
+	}
 }

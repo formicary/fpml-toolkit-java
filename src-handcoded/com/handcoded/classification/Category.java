@@ -174,6 +174,8 @@ public abstract class Category
 	}
 	
 	/**
+	 * Determine if the given <CODE>Object</CODE> can be classified by the
+	 * graph of <CODE>Category</CODE> instances related to this entry point.
 	 * 
 	 * @param 	value			The <CODE>Object</CODE> to be classified.		
 	 * @param 	visited			A <CODE>HashSet</CODE> used to track visited nodes.

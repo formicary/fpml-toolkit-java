@@ -777,4 +777,10 @@ public final class Releases
 		
 		return (schemes);
 	}
+	
+	static {
+		R4_0.addImport (com.handcoded.dsig.Releases.R1_0);
+		R4_1.addImport (com.handcoded.dsig.Releases.R1_0);
+		TR4_2.addImport (com.handcoded.dsig.Releases.R1_0);
+	}
 }

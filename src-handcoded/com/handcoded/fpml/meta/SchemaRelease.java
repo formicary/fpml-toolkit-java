@@ -13,6 +13,8 @@
 
 package com.handcoded.fpml.meta;
 
+import java.util.Vector;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -83,7 +85,7 @@ public final class SchemaRelease extends com.handcoded.meta.SchemaRelease implem
 	 * {@inheritDoc}
 	 * @since 	TFP 1.0
 	 */
-	public SchemeDefaults getSchemeDefaults ()
+	public final SchemeDefaults getSchemeDefaults ()
 	{
 		return (schemeDefaults);
 	}
@@ -92,7 +94,7 @@ public final class SchemaRelease extends com.handcoded.meta.SchemaRelease implem
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
-	public SchemeCollection getSchemeCollection ()
+	public final SchemeCollection getSchemeCollection ()
 	{
 		return (schemeCollection);
 	}
@@ -100,12 +102,14 @@ public final class SchemaRelease extends com.handcoded.meta.SchemaRelease implem
 	/**
 	 * The <CODE>SchemeDefaults</CODE>instance describing scheme values for
 	 * this release.
+	 * @since	TFP 1.0
 	 */
 	private final SchemeDefaults	schemeDefaults;
 	
 	/**
 	 * The <CODE>SchemeCollection</CODE> instance containg the schemes used
 	 * for validation.
+	 * @since	TFP 1.0
 	 */
 	private final SchemeCollection	schemeCollection;
 }

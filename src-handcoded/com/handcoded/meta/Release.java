@@ -60,6 +60,24 @@ public abstract class Release implements Grammar
 	
 	/**
 	 * {@inheritDoc}
+	 * @since	TFP 1.0
+	 */
+	public final boolean isExtensionOnly ()
+	{
+		return (rootElements == null);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @since	TFP 1.0
+	 */
+	public final String toString ()
+	{
+		return (specification.getName () + " " + version);
+	}
+
+	/**
+	 * {@inheritDoc}
 	 * @since 	TFP 1.0
 	 */
 	public abstract Document newInstance (final String rootElement);

@@ -144,8 +144,7 @@ public final class ProductType
 	 * @since  	TFP 1.0
 	 */
 	public static final Category FX_BARRIER_OPTION
-		= new RefinableCategory ("FX_BARRIER OPTION", 
-				new Category [] { FX_OPTION })
+		= new RefinableCategory ("FX_BARRIER OPTION", FX_OPTION)
 		{
 			/**
 			 * {@inheritDoc}
@@ -229,8 +228,10 @@ public final class ProductType
 					Element		ccy1	= (Element) currencies.item (index - 1);
 					Element		ccy2	= (Element) currencies.item (index);
 					
-					if (!DOM.getInnerText (ccy1).equals (DOM.getInnerText (ccy2)))
+					if (!DOM.getInnerText (ccy1).equals (DOM.getInnerText (ccy2))) {
 						different = true;
+						break;
+					}
 				}
 				return (different);
 			}

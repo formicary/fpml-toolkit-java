@@ -13,6 +13,7 @@
 
 package com.handcoded.meta;
 
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +38,32 @@ public class SchemaRelease extends Release implements Schema
 	/**
 	 * Constructs a <CODE>SchemaRelease</CODE> instance describing a schema
 	 * based release of a particular <CODE>Specification</CODE>.
+	 * <P>
+	 * This constructor should be used when creating a description of a pure
+	 * extension schema, i.e. one that contains no useable root elements.
+	 * 
+	 * @param 	specification	A reference to the owning specification.
+	 * @param 	version			The version identifier for this release.
+	 * @param 	namespaceUri	The namespace used to identify the schema.
+	 * @param 	schemaLocation	The default schema location.
+	 * @param 	preferredPrefix	The preferred prefix for the namespace.
+	 * @param 	alternatePrefix	The alternate prefix for the namespace.
+	 * @since	TFP 1.0
+	 */
+	public SchemaRelease (Specification specification, final String version,
+			final String namespaceUri, final String schemaLocation,
+			final String preferredPrefix, final String alternatePrefix)
+	{
+		this (specification, version, namespaceUri, schemaLocation,
+				preferredPrefix, alternatePrefix, (String []) null);
+	}
+	
+	/**
+	 * Constructs a <CODE>SchemaRelease</CODE> instance describing a schema
+	 * based release of a particular <CODE>Specification</CODE>.
+	 * <P>
+	 * This constructor should be used when creating a description of a
+	 * schema that has only a single root element.
 	 * 
 	 * @param 	specification	A reference to the owning specification.
 	 * @param 	version			The version identifier for this release.
@@ -52,17 +79,16 @@ public class SchemaRelease extends Release implements Schema
 			final String preferredPrefix, final String alternatePrefix,
 			final String rootElement)
 	{
-		super (specification, version, new String [] { rootElement });
-		
-		this.namespaceUri    = namespaceUri;
-		this.schemaLocation  = schemaLocation;
-		this.preferredPrefix = preferredPrefix;
-		this.alternatePrefix = alternatePrefix;
+		this (specification, version, namespaceUri, schemaLocation,
+				preferredPrefix, alternatePrefix, new String [] { rootElement });
 	}
 	
 	/**
 	 * Constructs a <CODE>SchemaRelease</CODE> instance describing a schema
 	 * based release of a particular <CODE>Specification</CODE>.
+	 * <P>
+	 * This constructor should be used when creating a description of a
+	 * schema that has multiple root elements.
 	 * 
 	 * @param 	specification	A reference to the owning specification.
 	 * @param 	version			The version identifier for this release.
@@ -137,7 +163,7 @@ public class SchemaRelease extends Release implements Schema
 		
 		return (document);
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
@@ -160,6 +186,32 @@ public class SchemaRelease extends Release implements Schema
 			}
 		}
 		return (false);
+	}
+	
+	/**
+	 * Creates a bi-directional reference between this <CODE>SchemaRelease</CODE>
+	 * and the meta data for other instance that it imports.
+	 * 
+	 * @param 	release			The imported <CODE>SchemaRelease</CODE>.
+	 * @since	TFP 1.0
+	 */
+	public final void addImport (SchemaRelease release)
+	{
+		this.imports.add (release);
+		release.importedBy.add (this);
+	}
+	
+	/**
+	 * Breaks the bi-directional reference between this <CODE>SchemaRelease</CODE>
+	 * and the indicated one.
+	 * 
+	 * @param 	release			The <CODE>SchemaRelease</CODE> no longer imported.
+	 * @since	TFP 1.0
+	 */
+	public final void removeImport (SchemaRelease release)
+	{
+		this.imports.remove (release);
+		release.importedBy.remove (this);
 	}
 	
 	/**
@@ -201,7 +253,22 @@ public class SchemaRelease extends Release implements Schema
 	private final String		alternatePrefix;
 
 	/**
-	 * 
+	 * The set of other <CODE>SchemaRelease</CODE> instances imported into this
+	 * one.
+	 * @since	TFP 1.0
+	 */
+	private Vector				imports		= new Vector ();
+	
+	/**
+	 * The set of other <CODE>SchemaRelease</CODE> instances that import thia
+	 * one.
+	 * @since	TFP 1.0
+	 */
+	private Vector				importedBy	= new Vector ();
+
+	/**
+	 * Constructs a document builder used to create new document instances.
+	 * @since	TFP 1.0
 	 */
 	static {
 		DocumentBuilderFactory	factory = DocumentBuilderFactory.newInstance ();

@@ -65,6 +65,7 @@ public class AbstractCategory extends Category
 	
 	/**
 	 * {@inheritDoc}
+	 * @since	TFP 1.0
 	 */
 	protected Category classify (final Object value, HashSet visited)
 	{
@@ -76,15 +77,16 @@ public class AbstractCategory extends Category
 			Category 			category = (Category)(cursor.nextElement ());
 			Category			match;
 
-			if (!visited.contains (category) && (match = category.classify (value)) != null) {
-				if ((result != null) && (result != match))
+			if (!visited.contains (category) && (match = category.classify (value, visited)) != null) {
+				if ((result != null) && (result != match)) {
+					if (result.isA (match)) continue;
+		
 					throw new RuntimeException ("Object cannot be unambiguously classified ("
 													+ result + " & " + match + ")");
-
+				}
 				result = match;
 			}
 		}
-		visited.remove (this);
 		return (result);
 	}	
 }
