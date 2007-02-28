@@ -17,11 +17,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.handcoded.fpml.meta.DTDRelease;
+import com.handcoded.fpml.meta.FpMLInstanceInitialiser;
+import com.handcoded.fpml.meta.FpMLSchemaRecogniser;
 import com.handcoded.fpml.meta.SchemaRelease;
 import com.handcoded.fpml.meta.SchemeDefaults;
 import com.handcoded.fpml.schemes.SchemeCollection;
 import com.handcoded.meta.Conversion;
+import com.handcoded.meta.InstanceInitialiser;
 import com.handcoded.meta.Release;
+import com.handcoded.meta.SchemaRecogniser;
 import com.handcoded.meta.Specification;
 
 /**
@@ -34,6 +38,18 @@ import com.handcoded.meta.Specification;
  */
 public final class Releases
 {
+	/**
+	 * The <CODE>InstanceInitialiser</CODE> used to populate new documents.
+	 * @since	TFP 1.1
+	 */
+	private static InstanceInitialiser	initialiser	= new FpMLInstanceInitialiser ();
+	
+	/**
+	 * The <CODE>SchemaRecogniser</CODE> used to detect schema based documents.
+	 * @since	TFP 1.1
+	 */
+	private static SchemaRecogniser		recogniser	= new FpMLSchemaRecogniser ();
+		
 	/**
 	 * A <CODE>Specification</CODE> instance representing FpML as a whole.
 	 * @since	TFP 1.0
@@ -504,7 +520,7 @@ public final class Releases
 	public static SchemaRelease	R4_0
 		= new SchemaRelease (FPML, "4-0",
 				"http://www.fpml.org/2003/FpML-4-0", "fpml-main-4-0.xsd",
-				"fpml", "fpml4-0", "FpML",
+				"fpml", "fpml4-0", initialiser, recogniser, "FpML",
 				new SchemeDefaults (
 						new String [][] {
 							{	"additionalTermScheme",
@@ -560,7 +576,7 @@ public final class Releases
 	public static SchemaRelease	R4_1
 		= new SchemaRelease (FPML, "4-1",
 				"http://www.fpml.org/2004/FpML-4-1", "fpml-main-4-1.xsd",
-				"fpml", "fpml4-1", "FpML",
+				"fpml", "fpml4-1", initialiser, recogniser, "FpML",
 				new SchemeDefaults (
 						new String [][] {
 							{	"additionalTermScheme",
@@ -616,7 +632,7 @@ public final class Releases
 	public static SchemaRelease	TR4_2
 		= new SchemaRelease (FPML, "4-2",
 				"http://www.fpml.org/2005/FpML-4-2", "fpml-main-4-2.xsd",
-				"fpml", "fpml4-2", "FpML",
+				"fpml", "fpml4-2", initialiser, recogniser, "FpML",
 				new SchemeDefaults (
 						new String [][] {
 							{	"additionalTermScheme",

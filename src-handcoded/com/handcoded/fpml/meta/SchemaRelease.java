@@ -13,12 +13,9 @@
 
 package com.handcoded.fpml.meta;
 
-import java.util.Vector;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import com.handcoded.fpml.schemes.SchemeCollection;
+import com.handcoded.meta.InstanceInitialiser;
+import com.handcoded.meta.SchemaRecogniser;
 import com.handcoded.meta.Specification;
 
 /**
@@ -61,26 +58,21 @@ public final class SchemaRelease extends com.handcoded.meta.SchemaRelease implem
 		this.schemeCollection = schemeCollection;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * @since	TFP 1.0
-	 */
-	public Document newInstance (final String rootElement)
+	public SchemaRelease (Specification specification, final String version,
+			final String namespaceUri, final String schemaLocation,
+			final String preferredPrefix, final String alternatePrefix,
+			final InstanceInitialiser initialiser, final SchemaRecogniser recogniser,
+			final String rootElement, SchemeDefaults schemeDefaults,
+			SchemeCollection schemeCollection)
 	{
-		Document		document 	= super.newInstance (rootElement);
-		Element			root		= document.getDocumentElement ();
+		super (specification, version, namespaceUri, schemaLocation,
+				preferredPrefix, alternatePrefix,
+				initialiser, recogniser, rootElement);
 		
-		root.setAttributeNS (NAMESPACES_URL, "xmlns:dsig",
-				com.handcoded.dsig.Releases.R1_0.getNamespaceUri ());
-		root.setAttributeNS (INSTANCE_URL, "xsi:schemaLocation",
-				getNamespaceUri () + " " + getSchemaLocation ()
-				+ " " + com.handcoded.dsig.Releases.R1_0.getNamespaceUri ()
-				+ " " + com.handcoded.dsig.Releases.R1_0.getSchemaLocation ());
-		root.setAttributeNS (null, "version", getVersion ());
-
-		return (document);
+		this.schemeDefaults   = schemeDefaults;
+		this.schemeCollection = schemeCollection;
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 * @since 	TFP 1.0

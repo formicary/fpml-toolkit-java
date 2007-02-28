@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -20,6 +20,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
+ * The <CODE>Release</CODE> class represents an recognizable version of a
+ * grammar used by XML instance documents.
+ * 
  * @author 	BitWise
  * @version	$Id$
  * @since	TFP 1.0
@@ -65,6 +68,24 @@ public abstract class Release implements Grammar
 	public final boolean isExtensionOnly ()
 	{
 		return (rootElements == null);
+	}
+	
+	/**
+	 * Determines if the indicate root element name is one accepted by this
+	 * <CODE>Release</CODE>.
+	 * 
+	 * @param 	rootElement		The root element name to test.
+	 * @return	<CODE>true</CODE> if the root element name is known, <CODE>false
+	 * 			</CODE> otherwise.
+	 * @since	TFP 1.1
+	 */
+	public final boolean hasRootElement (final String rootElement)
+	{
+		if (rootElements != null)
+			for (int index = 0; index < rootElements.length; ++index)
+				if (rootElements [index].equals (rootElement)) return (true);
+		
+		return (false);
 	}
 	
 	/**

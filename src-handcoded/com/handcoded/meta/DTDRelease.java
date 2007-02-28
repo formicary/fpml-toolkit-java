@@ -117,14 +117,9 @@ public class DTDRelease extends Release implements DTD
 			String	publicId = doctype.getPublicId ();
 			Element root = document.getDocumentElement ();
 			
-			if ((publicId != null) && publicId.equals (this.publicId)) {
-				String [] rootElements = getRootElements ();
-				
-				for (int index = 0; index < rootElements.length; ++index) {
-					if (root.getLocalName ().equals (rootElements [index]))
-						return (true);
-				}
-			}
+			if ((publicId != null) && publicId.equals (this.publicId)
+					&& hasRootElement (root.getLocalName ()))
+				return (true);
 		}
 		return (false);
 	}
