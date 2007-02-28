@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -42,7 +42,7 @@ public final class Releases
 	public static SchemaRelease	R1_0
 		= new SchemaRelease (DSIG, "1-0",
 				"http://www.w3.org/2000/09/xmldsig#", "xmldsig-core-schema.xsd",
-				"dsig", null, "");
+				"dsig", null);
 	
 	/**
 	 * Ensures no instances can be constructed.
