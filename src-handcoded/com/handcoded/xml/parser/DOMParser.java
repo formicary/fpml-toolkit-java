@@ -29,6 +29,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * The <CODE>DOMParser</CODE> class provides a wrapper around the JAXP interface
@@ -129,8 +130,12 @@ public final class DOMParser
 		try {
 			return (builder.parse (source));
 		}
+		catch (SAXParseException error) {
+//			logger.log (Level.WARNING, "Unhandled SAX Exception", error);
+			return (null);
+		}
 		catch (SAXException error) {
-			logger.log (Level.SEVERE, "Unhandled SAX Exception", error);
+			logger.log (Level.WARNING, "Unhandled SAX Exception", error);
 			return (null);
 		}
 	}
@@ -151,8 +156,12 @@ public final class DOMParser
 		try {
 			return (builder.parse (file));
 		}
+		catch (SAXParseException error) {
+//			logger.log (Level.WARNING, "Unhandled SAX Exception", error);
+			return (null);
+		}
 		catch (SAXException error) {
-			logger.log (Level.SEVERE, "Unhandled SAX Exception", error);
+			logger.log (Level.WARNING, "Unhandled SAX Exception", error);
 			return (null);
 		}		
 	}
