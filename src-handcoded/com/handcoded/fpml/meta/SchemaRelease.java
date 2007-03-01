@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -58,6 +58,23 @@ public final class SchemaRelease extends com.handcoded.meta.SchemaRelease implem
 		this.schemeCollection = schemeCollection;
 	}
 
+	/**
+	 * Constructs a <CODE>SchemaRelease</CODE> instance describing a schema
+	 * based release of a particular <CODE>Specification</CODE>.
+	 * 
+	 * @param 	specification	A reference to the owning specification.
+	 * @param 	version			The version identifier for this release.
+	 * @param 	namespaceUri	The namespace used to identify the schema.
+	 * @param 	schemaLocation	The default schema location.
+	 * @param 	preferredPrefix	The preferred prefix for the namespace.
+	 * @param 	alternatePrefix	The alternate prefix for the namespace.
+	 * @param	initialiser		The <CODE>InstanceInitialise</CODE> or <CODE>null</CODE>.
+	 * @param	recogniser		The <CODE>SchemaRecogniser</CODE> or <CODE>null</CODE>.
+	 * @param 	rootElement		The normal root element.
+	 * @param	schemeDefaults	The scheme defaults for the release.
+	 * @param	schemeCollection The scheme collection for the release.
+	 * @since	TFP 1.1
+	 */
 	public SchemaRelease (Specification specification, final String version,
 			final String namespaceUri, final String schemaLocation,
 			final String preferredPrefix, final String alternatePrefix,
