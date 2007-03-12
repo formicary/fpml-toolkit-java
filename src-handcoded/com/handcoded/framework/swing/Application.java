@@ -13,12 +13,16 @@
 
 package com.handcoded.framework.swing;
 
-import java.util.Vector;
 import java.util.Enumeration;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 /**
  * Extends the basic <CODE>Application</CODE> class to provide functionality
@@ -51,6 +55,28 @@ public abstract class Application extends com.handcoded.framework.Application
 	public static final String		MOTIF	= "CDE/Motif";
 
 	/**
+	 * Determines if the Operating System is Microsoft Windows.
+	 *
+	 * @return 	<CODE>true</CODE> if the JVM is executing on Windows.
+	 * @since	TFP 1.0
+	 */
+	public static boolean isWindows ()
+	{
+		return (System.getProperty ("os.name", "").startsWith ("Windows"));
+	}
+
+	/**
+	 * Determines if the Operating System is Mac OS.
+	 *
+	 * @return 	<CODE>true</CODE> if the JVM is executing on Mac OS.
+	 * @since	TFP 1.0
+	 */
+	public static boolean isMac ()
+	{
+		return (System.getProperty ("os.name", "").startsWith ("Mac"));
+	}
+
+	/**
 	 * Returns the name of the current active Swing look and feel.
 	 *
 	 * @return	The current look and feel name.
@@ -58,6 +84,33 @@ public abstract class Application extends com.handcoded.framework.Application
 	public final String getLookAndFeel ()
 	{
 		return (UIManager.getLookAndFeel ().getName ());
+	}
+
+	/**
+	 * Provides access to the system preferences for this <CODE>Application
+	 * </CODE>. For this function to work the derived class must override the
+	 * implementation of <CODE>getSystemPreferencesRoot</CODE>.
+	 *
+	 * @return	The <CODE>Preferences</CODE> node for system settings.
+	 * @since	TFP 1.0
+	 */
+	public final Preferences getSystemPreferences ()
+	{
+		return (systemPreferences);
+	}
+
+	/**
+	 * Provides access to the system preferences for this <CODE>Application
+	 * </CODE>. For this function to work the derived class must override either
+	 * the implementation of <CODE>getSystemPreferencesRoot</CODE> or
+	 * <CODE>getUserPreferencesRoot</CODE>.
+	 *
+	 * @return	The <CODE>Preferences</CODE> node for system settings.
+	 * @since	TFP 1.0
+	 */
+	public final Preferences getUserPreferences ()
+	{
+		return (userPreferences);
 	}
 
 	/**
@@ -147,13 +200,23 @@ public abstract class Application extends com.handcoded.framework.Application
 	{ }
 
 	/**
-	 *
+	 * Provides an <CODE>Application</CODE> with a chance to perform any
+	 * initialisation. This implementation initialises the system and user
+	 * preferences. Derived classes may extend the functionality.
+	 * @since	TFP 1.0
 	 */
 	protected void startUp ()
 	{
+		String			root;
+		String			style 	= METAL;
+
 		super.startUp ();
 
-		String				style 	= METAL;
+		if ((root = getSystemPreferencesRoot ()) != null)
+			systemPreferences = Preferences.systemRoot ().node (root);
+
+		if ((root = getUserPreferencesRoot ()) != null)
+			userPreferences = Preferences.userRoot ().node (root);
 
 		if (isWindows ())
 			style = WINDOWS;
@@ -182,10 +245,86 @@ public abstract class Application extends com.handcoded.framework.Application
 	}
 
 	/**
+	 * Provides an <CODE>Application</CODE> with a chance to perform any
+	 * closing actions. This implementation ensures that preference settings
+	 * are flushed. Derived classes may extend the functionality.
+	 * @since	TFP 1.0
 	 */
 	protected void cleanUp ()
 	{
 		super.cleanUp ();
+
+		try {
+			if (systemPreferences != null)
+				systemPreferences.flush ();
+		}
+		catch (BackingStoreException error) {
+			logger.log (Level.SEVERE, "Failed to flush system preferences", error);
+		}
+		finally {
+			systemPreferences = null;	
+		}
+
+		try {
+			if (userPreferences != null)
+				userPreferences.flush ();
+		}
+		catch (BackingStoreException error) {
+			logger.log (Level.SEVERE, "Failed to flush user preferences", error);
+		}
+		finally {
+			userPreferences = null;			
+		}
+	}
+
+	/**
+	 * Returns the path for the system preferences. If the value is <CODE>null
+	 * </CODE> (as in this default implementation) then no preferences will be
+	 * initialised.
+	 *
+	 * @return	The path name for system preferences, <CODE>null</CODE> if none
+	 * 			are required.
+	 * @since	TFP 1.0
+	 */
+	protected String getSystemPreferencesRoot ()
+	{
+		return (null);
+	}
+	
+	/**
+	 * Returns the path for the user preferences. If the value is <CODE>null
+	 * </CODE> then no preferences will be initialised. The default
+	 * implementation is to copy the system references path.
+	 *
+	 * @return	The path name for user preferences, <CODE>null</CODE> if none
+	 * 			are required.
+	 * @since	TFP 1.0
+	 */
+	protected String getUserPreferencesRoot ()
+	{
+		return (getSystemPreferencesRoot ());
+	}
+	
+	/**
+	 * Converts the instance's member values to <CODE>String</CODE> representations
+	 * and concatenates them all together. This function is used by toString and
+	 * may be overriden in derived classes.
+	 *
+	 * @return	The object's <CODE>String</CODE> representation.
+	 * @since	TFP 1.0
+	 */
+	protected String toDebug ()
+	{
+		StringBuffer		buffer 	= new StringBuffer ();
+		
+		buffer.append (super.toDebug ());
+		buffer.append (",systemPreferences="
+			+ ((systemPreferences != null) ? systemPreferences.toString () : "null"));
+		buffer.append (",userPreferences="
+			+ ((userPreferences   != null) ? userPreferences.toString () : "null"));
+		buffer.append (",finished=" + isFinished ());
+		
+		return (buffer.toString ());
 	}
 
 	/**
@@ -194,7 +333,26 @@ public abstract class Application extends com.handcoded.framework.Application
 	private static final String	LOOKANDFEEL		= "lookAndFeel";
 
 	/**
+	 * A <CODE>Logger</CODE> instance used to report run-time errors.
+	 * @since	TFP 1.0
+	 */
+	private static Logger		logger
+		= Logger.getLogger ("com.handcoded.framework.swing.Application");
+
+	/**
 	 * The set of active <CODE>Frame</CODE> windows.
 	 */
-	private Vector			frames = new Vector ();
+	private Vector				frames = new Vector ();
+	
+	/**
+	 * The system root <CODE>Preferences</CODE> node.
+	 * @since	TFP 1.0
+	 */
+	private Preferences			systemPreferences	= null;
+
+	/**
+	 * The user root <CODE>Preferences</CODE> node.
+	 * @since	TFP 1.0
+	 */
+	private Preferences			userPreferences		= null;
 }
