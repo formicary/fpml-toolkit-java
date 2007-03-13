@@ -32,7 +32,7 @@ import com.handcoded.xml.NodeIndex;
  * by mistake.
  * 
  * @author	BitWise
- * @version	$Release$
+ * @version	$Id$
  * @since	TFP 1.0
  *
  */
