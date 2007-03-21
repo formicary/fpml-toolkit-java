@@ -22,12 +22,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.handcoded.classification.Category;
-import com.handcoded.fpml.FpMLUtility;
 import com.handcoded.fpml.ProductType;
-import com.handcoded.xml.NodeIndex;
-import com.handcoded.xml.XmlUtility;
 import com.handcoded.meta.Release;
 import com.handcoded.meta.Specification;
+import com.handcoded.xml.NodeIndex;
+import com.handcoded.xml.XmlUtility;
 
 /**
  * This application demonstrates the classification components being used to
@@ -62,7 +61,7 @@ public class Classify extends Application
 			System.exit (1);
 		}
 		
-		FpMLUtility.getSchemas ();
+		XmlUtility.getDefaultSchemaSet ().getSchema ();
 	}
 	
 	/**

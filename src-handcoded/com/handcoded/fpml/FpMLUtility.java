@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -14,24 +14,14 @@
 package com.handcoded.fpml;
 
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
 
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
 
 import com.handcoded.fpml.validation.AllRules;
-import com.handcoded.meta.SchemaRelease;
 import com.handcoded.validation.RuleSet;
 import com.handcoded.validation.ValidationErrorHandler;
-import com.handcoded.xml.SchemaSet;
 import com.handcoded.xml.XmlUtility;
-import com.handcoded.xml.resolver.Catalog;
-import com.handcoded.xml.resolver.CatalogManager;
 
 /**
  * The <CODE>FpMLUtility</CODE> class contains a set of methods for performing 
@@ -43,31 +33,6 @@ import com.handcoded.xml.resolver.CatalogManager;
  */
 public final class FpMLUtility
 {
-	/**
-	 * Provides access to the schema set.
-	 * 
-	 * @return	The <CODE>SchemaSet</CODE> instance.
-	 */
-	public static SchemaSet getSchemaSet ()
-	{
-		return (schemaSet);
-	}
-	
-	/**
-	 * Provides access to the compiled schema collection used by the parse
-	 * functions.
-	 * <P>
-	 * Calling this function will force the runtime to load all the known
-	 * FpML schemas into memory if it has not already been done.
-	 * 
-	 * @return	The compiled <CODE>Schema</CODE> collection.
-	 * @since	TFP 1.0
-	 */
-	public static Schema getSchemas ()
-	{
-		return (schemaSet.getSchema ());
-	}
-	
 	/**
 	 * Parses the XML string provided passing any validation problems to
 	 * the indicated <CODE>ErrorHandler</CODE>.
@@ -112,8 +77,9 @@ public final class FpMLUtility
 	{
 		return (
 			XmlUtility.validatingParse (
-				(schemaOnly ? XmlUtility.SCHEMA_ONLY : XmlUtility.DTD_OR_SCHEMA),
-				xml, getSchemas (), getCatalog (), errorHandler));
+				(schemaOnly ? XmlUtility.SCHEMA_ONLY : XmlUtility.DTD_OR_SCHEMA), xml,
+				XmlUtility.getDefaultSchemaSet ().getSchema (),
+				XmlUtility.getDefaultCatalog (), errorHandler));
 	}
 
 	/**
@@ -132,8 +98,9 @@ public final class FpMLUtility
 	{
 		return (
 			XmlUtility.validatingParse (
-				(schemaOnly ? XmlUtility.SCHEMA_ONLY : XmlUtility.DTD_OR_SCHEMA),
-				file, getSchemas (), getCatalog (), errorHandler));
+				(schemaOnly ? XmlUtility.SCHEMA_ONLY : XmlUtility.DTD_OR_SCHEMA), file,
+				XmlUtility.getDefaultSchemaSet ().getSchema (),
+				XmlUtility.getDefaultCatalog (), errorHandler));
 	}
 
 	/**
@@ -322,88 +289,9 @@ public final class FpMLUtility
 	}
 
 	/**
-	 * Provides access to the <CODE>Catalog</CODE> instance to be used for
-	 * entity resolution. If the <CODE>-catalog</CODE> option was not specified
-	 * then the result will be <CODE>null</CODE>
-	 * 
-	 * @return	The <CODE>Catalog</CODE> instance or <CODE>null</CODE>.
-	 * @since	TFP 1.0
-	 */
-	protected static Catalog getCatalog ()
-	{
-		return (catalog);
-	}
-	
-	/**
-	 * A <CODE>Logger</CODE> instance used to report serious errors.
-	 * @since	TFP 1.0
-	 */
-	private static Logger	logger
-		= Logger.getLogger ("com.handcoded.fpml.FpMLUtility");
-
-	/**
-	 * The catalog used to resolve DTD and schema references.
-	 * @since	TFP 1.0
-	 */
-	private static Catalog		catalog;
-
-	/**
-	 * The schema collection used to validate schema based documents.
-	 * @since	TFp 1.0
-	 */
-	private static SchemaSet	schemaSet = new SchemaSet ();
-		
-	/**
 	 * Ensures no instances can be created
 	 * @since	TFP 1.0
 	 */
 	private FpMLUtility()
 	{ }
-	
-	/**
-	 * This routine attempts to resolve a schemas target namespace through the
-	 * catalog to its external location. A <CODE>StreamSource</CODE> is created for
-	 * each schema add to the <CODE>sources</CODE> vector.
-	 * 
-	 * @param 	release			The <CODE>SchemaRelease</CODE> to resolve.
-	 * @since	TFP 1.0
-	 */
-	private static StreamSource resolveSchema (SchemaRelease release)
-	{
-		try {
-			StreamSource	source = catalog.resolveUri (release.getNamespaceUri());
-			
-			if (source == null) {
-				logger.severe ("Failed to resolve schema URI '" + release.getNamespaceUri() + "'");
-				source = new StreamSource (release.getSchemaLocation ());
-			}
-			return (source);
-		}
-		catch (SAXException error) {
-			logger.log (Level.SEVERE, "Unexpected SAX exception creating schema source", error);
-			System.exit (2);
-		}
-		return (null);
-	}
-	
-	/**
-	 * Construct a catalog and schema collection when this class is first
-	 * accessed.
-	 */
-	static {
-		try {
-			catalog = CatalogManager.find ("files/catalog.xml");
-		}
-		catch (SAXException error) {
-			logger.log (Level.SEVERE, "Unexpected SAX exception loading schema catalog", error);
-			System.exit (2);
-		}
-	
-		schemaSet.add (resolveSchema (com.handcoded.dsig.Releases.R1_0));
-		schemaSet.add (resolveSchema (com.handcoded.fpml.Releases.R4_0));
-		schemaSet.add (resolveSchema (com.handcoded.fpml.Releases.R4_1));
-		schemaSet.add (resolveSchema (com.handcoded.fpml.Releases.TR4_2));
-		
-		schemaSet.add (resolveSchema (com.handcoded.acme.Releases.R1_0));
-	}
 }

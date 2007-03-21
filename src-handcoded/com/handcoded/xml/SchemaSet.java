@@ -1,4 +1,4 @@
-// Copyright (C),2006 HandCoded Software Ltd.
+// Copyright (C),2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,7 +13,9 @@
 
 package com.handcoded.xml;
 
+import java.util.Iterator;
 import java.util.Vector;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +26,9 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
+
+import com.handcoded.meta.SchemaRelease;
+import com.handcoded.xml.resolver.Catalog;
 
 /**
  * The <CODE>SchemaSet</CODE> class hold a collection of <CODE>StreamSource</CODE>
@@ -45,19 +50,57 @@ public final class SchemaSet
 	{ }
 
 	/**
-	 * Adds a new <CODE>StreamSource</CODE> to the set. Any previously compiled
-	 * representation is discarded.
+	 * Resolve the location of the indicated <CODE>SchemaRelease</CODE> (and
+	 * any that it imports) to the schema set using default XML catalog to
+	 * resolve the schema location.
 	 * 
-	 * @param 	source			The <CODE>StreamSource</CODE> to be added.
-	 * @since	TFP 1.0
+	 * @param 	release			The <CODE>SchemaRelease</CODE> to be added.
+	 * @since	TFP 1.1
 	 */
-	public void add (StreamSource source)
+	public void add (SchemaRelease release)
 	{
-		sources.add (source);
+		add (release, XmlUtility.getDefaultCatalog ());
 	}
 	
 	/**
-	 * Returns the compiled representation of the schemas, if neccesary compiling
+	 * Resolve the location of the indicated <CODE>SchemaRelease</CODE> (and
+	 * any that it imports) to the schema set using the given XML catalog to
+	 * resolve the schema location.
+	 * 
+	 * @param 	release			The <CODE>SchemaRelease</CODE> to be added.
+	 * @param	catalog			The <CODE>Catalog</CODE> to resolve with.
+	 * @since	TFP 1.1
+	 */
+	public void add (SchemaRelease release, Catalog catalog)
+	{
+		Vector	imports = release.getImportSet ();
+		
+		for (Iterator cursor = imports.iterator (); cursor.hasNext ();) {
+			SchemaRelease schema = (SchemaRelease) cursor.next ();
+
+			try {
+				StreamSource source = catalog.resolveUri (schema.getNamespaceUri());
+				
+				if (!schemas.contains (schema)) {
+					if (source == null) {
+						logger.severe ("Failed to resolve schema URI '" + schema.getNamespaceUri() + "'");
+						source = new StreamSource (schema.getSchemaLocation ());
+					}
+					sources.add (source);
+					schemas.add (schema);
+					
+					schema = null;
+				}
+			}
+			catch (SAXException error) {
+				logger.log (Level.SEVERE, "Unexpected SAX exception creating schema source", error);
+				System.exit (2);
+			}
+		}
+	}
+		
+	/**
+	 * Returns the compiled representation of the schema(s), if neccesary compiling
 	 * them from thier source streams.
 	 * 
 	 * @return	The compiled schema representation for the set.
@@ -87,12 +130,20 @@ public final class SchemaSet
 		= Logger.getLogger ("com.handcoded.xml.SchemaSet");
 
 	/**
+	 * The set of <CODE>SchemaReleases</CODE> added to the set.
+	 * @since	TFP 1.1
+	 */
+	private HashSet			schemas		= new HashSet ();
+	
+	/**
 	 * The set of <CODE>StreamSource</CODE> instances for the schemas.
+	 * @since	TFP 1.0
 	 */
 	private Vector			sources		= new Vector ();
 	
 	/**
 	 * The compiled schema representation of the schemas.
+	 * @since	TFP 1.0
 	 */
 	private Schema			schema		= null;	
 }

@@ -41,6 +41,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import com.handcoded.xml.parser.DOMParser;
+import com.handcoded.xml.resolver.Catalog;
 
 /**
  * Provides utility functions for processing XML.
@@ -81,6 +82,39 @@ public final class XmlUtility
 	 */
 	public static final int DTD_OR_SCHEMA	= 3;
 	
+	/**
+	 * Provides access to the default <CODE>Catalog</CODE> instance to be used for
+	 * entity resolution. If the <CODE>-catalog</CODE> option was not specified
+	 * then the result will be <CODE>null</CODE>
+	 * 
+	 * @return	The <CODE>Catalog</CODE> instance or <CODE>null</CODE>.
+	 * @since	TFP 1.0
+	 */
+	public static Catalog getDefaultCatalog ()
+	{
+		return (defaultCatalog);
+	}
+	
+	/**
+	 * 
+	 * @param 	catalog
+	 * @since	TFP 1.1
+	 */
+	public static void setDefaultCatalog (Catalog catalog)
+	{
+		defaultCatalog = catalog;
+	}
+	
+	/**
+	 * Provides access to the defailt schema set.
+	 * 
+	 * @return	The <CODE>SchemaSet</CODE> instance.
+	 */
+	public static SchemaSet getDefaultSchemaSet ()
+	{
+		return (defaultSchemaSet);
+	}
+		
 	/**
 	 * Performs a non-validating parse of the indicated XML string discarding any
 	 * errors generated.
@@ -334,6 +368,18 @@ public final class XmlUtility
 	private static Logger	logger
 		= Logger.getLogger ("com.handcoded.xml.XmlUtility");
 
+	/**
+	 * The default catalog used to resolve DTD and schema references.
+	 * @since	TFP 1.0
+	 */
+	private static Catalog		defaultCatalog	= null;
+
+	/**
+	 * The default schema collection used to validate schema based documents.
+	 * @since	TFp 1.0
+	 */
+	private static SchemaSet	defaultSchemaSet = new SchemaSet ();
+		
 	/**
 	 * Ensures no instances can be constructed.
 	 * @since	TFP 1.0

@@ -18,8 +18,10 @@ import java.util.logging.Logger;
 import org.xml.sax.SAXException;
 
 import com.handcoded.framework.Option;
+import com.handcoded.xml.XmlUtility;
 import com.handcoded.xml.resolver.Catalog;
 import com.handcoded.xml.resolver.CatalogManager;
+import com.handcoded.fpml.Releases;
 
 /**
  * The <CODE>Application</CODE> contains some standard option handling
@@ -46,19 +48,28 @@ public abstract class Application extends com.handcoded.framework.Application
 	{
 		super.startUp();
 		
+		// Initialise the default catalog
+		String		catalogPath = "files/catalog.xml";
+		
 		if (catalogOption.isPresent ()) {
-			if (catalogOption.getValue() != null) {
-				try {
-					catalog = CatalogManager.find (catalogOption.getValue ());
-				}
-				catch (SAXException error) {
-					logger.severe ("Failed to parse XML catalog");
-					System.exit (1);
-				}
-			}
+			if (catalogOption.getValue() != null)
+				catalogPath = catalogOption.getValue ();
 			else
 				logger.severe ("Missing argument for -catalog option");
 		}
+
+		try {
+			XmlUtility.setDefaultCatalog (CatalogManager.find (catalogPath));
+		}
+		catch (SAXException error) {
+			logger.severe ("Failed to parse XML catalog");
+			System.exit (1);
+		}
+		
+		// Active the FpML Schemas
+		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_0);
+		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_1);
+		XmlUtility.getDefaultSchemaSet ().add (Releases.TR4_2);
 	}
 	
 	/**
@@ -85,12 +96,12 @@ public abstract class Application extends com.handcoded.framework.Application
 	 * A command line option that allows the default catalog to be overriden.
 	 * @since	TFP 1.0
 	 */
-	private Option		catalogOption
+	private Option				catalogOption
 		= new Option ("-catalog", "Use url to create an XML catalog for parsing", "url");
 
 	/**
 	 * The <CODE>Catalog</CODE> instance if specified by the options.
 	 * @since	TFP 1.0
 	 */
-	private Catalog		catalog	= null;
+	private Catalog				catalog	= null;
 }

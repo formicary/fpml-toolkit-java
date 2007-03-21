@@ -156,6 +156,22 @@ public final class ProductType
 		};
 		
 	/**
+	 * A <CODE>Category</CODE> representing all foreign exchange digital options.
+	 * @since  	TFP 1.1
+	 */
+	public static final Category FX_DIGITAL_OPTION
+		= new RefinableCategory ("FX_DIGITAL OPTION", FX_OPTION)
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "fxDigitalOption") != null);
+			}
+		};
+			
+	/**
 	 * A <CODE>Category</CODE> representing all bullet payments.
 	 * @since 	TFP 1.0
 	 */
@@ -274,7 +290,7 @@ public final class ProductType
 	 * A <CODE>Category</CODE> representing all interest rate caps and floors.
 	 * @since 	TFP 1.0
 	 */
-	public static final Category CAP_FLOOR
+	public static final Category INTEREST_RATE_CAP_FLOOR
 		= new RefinableCategory ("INTEREST RATE CAP/FLOOR", INTEREST_RATE_DERIVATIVE)
 		{
 			/**
@@ -290,8 +306,8 @@ public final class ProductType
 	 * A <CODE>Category</CODE> representing all interest rate caps.
 	 * @since 	TFP 1.0
 	 */
-	public static final Category CAP
-		= new RefinableCategory ("INTEREST RATE CAP", CAP_FLOOR)
+	public static final Category INTEREST_RATE_CAP
+		= new RefinableCategory ("INTEREST RATE CAP", INTEREST_RATE_CAP_FLOOR)
 		{
 			/**
 			 * {@inheritDoc}
@@ -309,8 +325,8 @@ public final class ProductType
 	 * A <CODE>Category</CODE> representing all interest rate floors.
 	 * @since 	TFP 1.0
 	 */
-	public static final Category FLOOR
-		= new RefinableCategory ("INTEREST RATE FLOOR", CAP_FLOOR)
+	public static final Category INTEREST_RATE_FLOOR
+		= new RefinableCategory ("INTEREST RATE FLOOR", INTEREST_RATE_CAP_FLOOR)
 		{
 			/**
 			 * {@inheritDoc}
@@ -328,8 +344,8 @@ public final class ProductType
 	 * A <CODE>Category</CODE> representing all interest rate collars.
 	 * @since 	TFP 1.0
 	 */
-	public static final Category COLLAR
-		= new RefinableCategory ("INTEREST RATE COLLAR", CAP_FLOOR)
+	public static final Category INTEREST_RATE_COLLAR
+		= new RefinableCategory ("INTEREST RATE COLLAR", INTEREST_RATE_CAP_FLOOR)
 		{
 			/**
 			 * {@inheritDoc}
@@ -398,6 +414,40 @@ public final class ProductType
 			protected boolean isApplicable (final Object value)
 			{
 				return (XPath.path ((Element) value, "equityOption") != null);
+			}
+		};
+
+	/**
+	 * A <CODE>Category</CODE> representing all equity options.
+	 * @since	TFP 1.0
+	 */
+	public static final Category	EQUITY_OPTION_SHORT_FORM
+		= new RefinableCategory ("EQUITY OPTION SHORT FORM", 
+				new Category [] { EQUITY_DERIVATIVE, OPTION })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "brokerEquityOption") != null);
+			}
+		};
+
+	/**
+	 * A <CODE>Category</CODE> representing all equity options.
+	 * @since	TFP 1.0
+	 */
+	public static final Category	EQUITY_OPTION_TRANSACTION_SUPPLEMENT
+		= new RefinableCategory ("EQUITY OPTION OPTION TRANSACTION SUPPLEMENT", 
+				new Category [] { EQUITY_DERIVATIVE, OPTION })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "equityOptionTransactionSupplement") != null);
 			}
 		};
 

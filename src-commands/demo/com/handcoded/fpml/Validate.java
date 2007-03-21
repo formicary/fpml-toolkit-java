@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -26,6 +26,7 @@ import com.handcoded.fpml.validation.FpMLRules;
 import com.handcoded.framework.Option;
 import com.handcoded.validation.RuleSet;
 import com.handcoded.xml.XPath;
+import com.handcoded.xml.XmlUtility;
 
 /**
  * This application demonstrates the validation components being used to
@@ -71,7 +72,7 @@ public final class Validate extends Application
 			System.exit (1);
 		}
 		
-		FpMLUtility.getSchemas ();
+		XmlUtility.getDefaultSchemaSet ().getSchema ();
 	}
 
 	/**
