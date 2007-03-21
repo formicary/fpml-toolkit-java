@@ -73,10 +73,10 @@ public final class Builder extends com.handcoded.xml.Builder
 	 * @param	release			The FpML <CODE>SchemaRelease</CODE> to construct.
 	 * @param	type			The document or message type to construct.
 	 */
-	public Builder (SchemaRelease release, String type)
+	public Builder (SchemaRelease release, final String type)
 	{
 		this (release);
 
-		setAttribute ("xsi:type", type);
+		setAttribute (SchemaRelease.INSTANCE_URL, "xsi:type", type);
 	}
 }
