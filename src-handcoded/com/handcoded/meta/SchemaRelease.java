@@ -13,7 +13,6 @@
 
 package com.handcoded.meta;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -264,7 +263,7 @@ public class SchemaRelease extends Release implements Schema
 	 */
 	public Document newInstance (final String rootElement)
 	{
-		HashSet			releases	= new HashSet ();
+		Vector			releases	= new Vector ();
 		SchemaRelease	mainSchema	= null;
 	
 		findAllImports (releases);
@@ -309,7 +308,7 @@ public class SchemaRelease extends Release implements Schema
 		if (recogniser.recognises (this, document)) {
 			Element			root = document.getDocumentElement ();
 
-			// TODO
+			// TODO: Improve import detection
 			return (true);
 		}
 		return (false);
@@ -339,6 +338,18 @@ public class SchemaRelease extends Release implements Schema
 	{
 		this.imports.remove (release);
 		release.importedBy.remove (this);
+	}
+	
+	/**
+	 * Returns a <CODE>Vector</CODE> containing this <CODE>schemaRelease</CODE>
+	 * and any it imports in dependency order.
+	 * 
+	 * @return	The <CODE>Vector</CODE> of <CODE>SchemeRelease</CODE> instances.
+	 * @since	TFP 1.1
+	 */
+	public final Vector getImportSet ()
+	{
+		return (findAllImports (new Vector ()));
 	}
 	
 	/**
@@ -407,18 +418,28 @@ public class SchemaRelease extends Release implements Schema
 
 	/**
 	 * Recursively build a set of <CODE>SchemaRelease</CODE> instances
-	 * containing this one and any that it imports.
+	 * containing this one and any that it imports with the least
+	 * dependent first.
 	 * 
 	 * @param 	releases		The <CODE>HashSet</CODE> of matches (so far).
+	 * @return	The updated set of imported releases.
+	 * @since	TFP 1.1
 	 */
-	private void findAllImports (HashSet releases)
+	private Vector findAllImports (Vector releases)
 	{
 		if (!releases.contains (this)) {
+			// Add this schema to prevent infinte recursion
 			releases.add (this);
 			
-			for (int index = 0; index < imports.size (); ++index)
-				((SchemaRelease) imports.elementAt (index)).findAllImports (releases); 
+			for (int index = 0; index < imports.size (); ++index) {
+				((SchemaRelease) imports.elementAt (index)).findAllImports (releases);
+			
+				// But reposition it after any schemas it imports
+				releases.remove (this);
+				releases.add (this);
+			}
 		}
+		return (releases);
 	}
 	
 	/**
