@@ -18,7 +18,7 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
 /**
- * The <CODE>ValidationErrorSetAdapter<CODE> provides an implementation of both
+ * The <CODE>ValidationErrorSetAdapter</CODE> provides an implementation of both
  * the SAX <CODE>ErrorHandler</CODE> and the business rule <CODE>ValidationErrorHandler</CODE>
  * interfaces which captures errors and records them in a <CODE>ValidationErrorSet</CODE>.
  * 
@@ -29,7 +29,7 @@ import org.xml.sax.SAXParseException;
 public final class ValidationErrorSetAdapter implements ErrorHandler, ValidationErrorHandler
 {
 	/**
-	 * Construct a <CODE>ValidationErrorSetAdapter<CODE> which will capture
+	 * Construct a <CODE>ValidationErrorSetAdapter</CODE> which will capture
 	 * errors and store them in the indicated <CODE>ValidationErrorSet</CODE>.
 	 * 
 	 * @param 	errorSet		The <CODE>ValidationErrorSet</CODE> to populate with errors.
@@ -93,6 +93,7 @@ public final class ValidationErrorSetAdapter implements ErrorHandler, Validation
 	
 	/**
 	 * The <CODE>ValidationErrorSet</CODE> to be populated with errors.
+	 * @since	TFP 1.1
 	 */
 	private ValidationErrorSet		errorSet;
 }
