@@ -188,7 +188,7 @@ public final class XmlUtility
 	}
 	
 	/**
-	 * Performs a validating parse of the indicated XML <CODE>String<CODE> using the
+	 * Performs a validating parse of the indicated XML <CODE>String</CODE> using the
 	 * most optimal technique given the mode. If the type of grammar is unknown
 	 * then a non-validating parse is done first and the document inspected to
 	 * see if it references a DOCTYPE.
@@ -254,7 +254,7 @@ public final class XmlUtility
 	}
 	
 	/**
-	 * Performs a validating parse of the indicated <CODE>File<CODE> using the
+	 * Performs a validating parse of the indicated <CODE>File</CODE> using the
 	 * most optimal technique given the mode. If the type of grammar is unknown
 	 * then a non-validating parse is done first and the document inspected to
 	 * see if it references a DOCTYPE.
