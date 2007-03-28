@@ -10,6 +10,7 @@
 // PARTICULAR PURPOSE, OR NON-INFRINGEMENT. HANDCODED SOFTWARE LTD SHALL NOT BE
 // LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
 // OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
+
 package com.handcoded.fpml.validation;
 
 import org.w3c.dom.Element;
@@ -33,6 +34,7 @@ public final class VersionPrecondition extends Precondition
 	 * version number.
 	 * 
 	 * @param 	version			The required version number.
+	 * @since	TFP 1.0
 	 */
 	public VersionPrecondition (final String version)
 	{
@@ -41,6 +43,7 @@ public final class VersionPrecondition extends Precondition
 	
 	/**
 	 * {@inheritDoc}
+	 * @since	TFP 1.0
 	 */
 	public boolean evaluate (NodeIndex nodeIndex)
 	{
@@ -56,6 +59,7 @@ public final class VersionPrecondition extends Precondition
 	
 	/**
 	 * {@inheritDoc}
+	 * @since	TFP 1.0
 	 */
 	public String toString ()
 	{
