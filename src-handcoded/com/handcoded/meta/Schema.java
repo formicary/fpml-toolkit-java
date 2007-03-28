@@ -24,19 +24,22 @@ package com.handcoded.meta;
 public interface Schema extends Grammar
 {
 	/**
-	 * 
+	 * The standard URL for XML namespaces.
+	 * @since	TFP 1.0
 	 */
 	public static final String 	NAMESPACES_URL
 		= "http://www.w3.org/2000/xmlns/";
 	
 	/**
-	 * 
+	 * The standard URL for XML schema 1.0
+	 * @since	TFP 1.0
 	 */
 	public static final String	SCHEMA_URL
 		= "http://www.w3.org/2001/XMLSchema";
 	
 	/**
-	 * 
+	 * The standard URL from XML schema 1.0 instances.
+	 * @since	TFP 1.0
 	 */
 	public static final String	INSTANCE_URL
 		= "http://www.w3.org/2001/XMLSchema-instance";
