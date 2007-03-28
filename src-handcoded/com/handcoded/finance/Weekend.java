@@ -54,6 +54,46 @@ public abstract class Weekend
 	};
 
 	/**
+	 * A <CODE>Weekend</CODE> instance that defines Friday and Saturday
+	 * as non-working days.
+	 * @since	TFP 1.1
+	 */
+	public static final Weekend		FRI_SAT
+		= new Weekend ("FRI/SAT")
+	{
+		/**
+		 * {@inheritDoc}
+		 * @since	TFP 1.0
+		 */
+		public boolean isWeekend (final Date date)
+		{
+			int day = date.weekday ();
+			
+			return ((day == Date.FRIDAY) || (day == Date.SATURDAY));
+		}
+	};
+	
+	/**
+	 * A <CODE>Weekend</CODE> instance that defines Thursday and Friday
+	 * as non-working days.
+	 * @since	TFP 1.1
+	 */
+	public static final Weekend		THU_FRI
+		= new Weekend ("THU/FRI")
+	{
+		/**
+		 * {@inheritDoc}
+		 * @since	TFP 1.0
+		 */
+		public boolean isWeekend (final Date date)
+		{
+			int day = date.weekday ();
+			
+			return ((day == Date.THURSDAY) || (day == Date.FRIDAY));
+		}
+	};
+
+	/**
 	 * Attempts to find a <CODE>Weekend</CODE> instance in the extent set with
 	 * the given reference name.
 	 * 
