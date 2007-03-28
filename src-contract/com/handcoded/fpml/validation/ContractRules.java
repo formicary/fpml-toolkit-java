@@ -14,6 +14,7 @@
 package com.handcoded.fpml.validation;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import com.handcoded.meta.Schema;
 import com.handcoded.validation.Rule;
@@ -29,7 +30,7 @@ import com.handcoded.xml.NodeIndex;
  * @version	$Id$
  * @since	TFP 1.1
  */
-public class ContractRules
+public final class ContractRules
 {
 	/**
 	 * A <CODE>Rule</CODE> instance that ensures the document contains only
@@ -43,22 +44,29 @@ public class ContractRules
 		 */
 		public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 		{
-			Element		root = nodeIndex.getDocument ().getDocumentElement ();
-			String 		type = root.getAttributeNS (Schema.INSTANCE_URL, "type");
-		
-			if (type.endsWith ("ContractCreated")
-				|| type.endsWith ("ContractCancelled")
-				|| type.endsWith ("ContractAmended")
-				|| type.endsWith ("ContractNovated")
-				|| type.endsWith ("ContractPartialTermination")
-				|| type.endsWith ("ContractFullTermination")
-				|| type.endsWith ("ContractIncreased"))
-				return (true);
+			NodeList	list = nodeIndex.getElementsByName ("FpML");
+			boolean		result = true;
 			
-			errorHandler.error ("305", root,
-					"Document must only contain a contract notification message",
-					getName (), type);
-			return (false);
+			for (int index = 0; index < list.getLength (); ++index) {
+				Element		root = (Element) list.item (index);
+				String 		type = root.getAttributeNS (Schema.INSTANCE_URL, "type");
+				
+				if (type.endsWith ("ContractCreated")
+					|| type.endsWith ("ContractCancelled")
+					|| type.endsWith ("ContractAmended")
+					|| type.endsWith ("ContractNovated")
+					|| type.endsWith ("ContractPartialTermination")
+					|| type.endsWith ("ContractFullTermination")
+					|| type.endsWith ("ContractIncreased"))
+					continue;
+				
+				errorHandler.error ("305", root,
+						"Document must only contain a contract notification message",
+						getName (), type);
+				
+				result = false;
+			}
+			return (result);
 		}
 	};
 	
