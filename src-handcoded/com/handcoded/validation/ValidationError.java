@@ -17,7 +17,6 @@ package com.handcoded.validation;
 
 import org.w3c.dom.Node;
 
-import com.handcoded.xml.Builder;
 import com.handcoded.xml.XPath;
 
 /**
@@ -135,11 +134,6 @@ public class ValidationError
 		return (additionalData);
 	}
 	
-	// TODO: Complete
-	public void Build (Builder builder)
-	{
-	}
-
 	/**
 	 * The number code classifier for the error.
 	 * @since	TFP 1.0
