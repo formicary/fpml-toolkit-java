@@ -34,7 +34,13 @@ public final class XmlFileFilter extends FileFilter
 	{ }
 	
 	/**
-	 * {@inheritDoc}
+	 * Implements a filter that only allows directories and files with a
+	 * '.xml' suffix to be accepted.
+	 * 
+	 * @param	file			The <CODE>File</CODE> to be filtered.
+	 * @return	<CODE>true</CODE> if the <CODE>File</CODE> was a directory
+	 * 			or XML file.
+	 * @since	TFP 1.0
 	 */
 	public boolean accept (File file)
 	{
@@ -42,7 +48,11 @@ public final class XmlFileFilter extends FileFilter
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Returns a description of the filter that is displayed in any
+	 * <CODE>javax.swing.JFileChooser</CODE> which uses it.
+	 * 
+	 * @return	A brief textual description of the filter.
+	 * @since	TFP 1.0
 	 */
 	public String getDescription ()
 	{
