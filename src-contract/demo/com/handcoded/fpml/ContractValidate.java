@@ -119,5 +119,5 @@ public class ContractValidate
 	 * @since	TFP 1.1
 	 */
 	private static Logger		logger
-		= Logger.getLogger ("demo.com.handcoded.fpml.CUGValidate");
+		= Logger.getLogger ("demo.com.handcoded.fpml.ContractValidate");
 }
