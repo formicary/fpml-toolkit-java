@@ -726,7 +726,7 @@ public final class SharedRules extends Logic
 					String  href	= context.getAttribute ("href");
 					Element target	= nodeIndex.getElementById (href);
 					
-					if ((target == null) || !(target.getLocalName ().equals ("party"))) {
+					if ((target == null) || !(target.getLocalName ().equals ("party") || target.getLocalName ().equals ("tradeSide"))) {
 						errorHandler.error ("305", context,
 							"The @href attribute does not reference a party element",
 							getName (), href);
