@@ -2616,6 +2616,50 @@ public final class IrdRules extends Logic
 			}
 		};
 		
+		/**
+		 * A <CODE>Rule</CODE> that ensures the calculation period dates
+		 * reference matches a calculation period dates in same interest
+		 * rate stream.
+		 * <P>
+		 * Applies to all FpML releases.
+		 * @since	TFP 1.0
+		 */
+		public static final Rule	RULE59 = new Rule ("ird-59")
+			{
+				/**
+				 * {@inheritDoc}
+				 */
+				public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+				{
+					boolean		result  = true;
+					NodeList	list	= nodeIndex.getElementsByName ("resetDates");
+					
+					for (int index = 0; index < list.getLength (); ++index) {
+						Element	context		= (Element) list.item (index);
+						Element	reference	= XPath.path (context, "calculationPeriodDatesReference");
+						Element	definition	= XPath.path (context, "..", "calculationPeriodDates");
+
+						if ((reference != null) && (definition != null)) {
+							String		href = reference.getAttribute ("href");
+							String		id	 = definition.getAttribute ("id");
+
+							// Remove leading # from XPointer type references
+							if ((href != null) && (href.length () > 0) && (href.charAt (0) == '#'))
+								href = href.substring (1);
+
+							if ((href != null) && (id != null) && equal (href, id)) continue;
+
+							errorHandler.error ("305", context,
+								"The calculation period dates reference does not match with dates defined " +
+								"in the same interest rate stream", getName (), href);
+
+							result = false;
+						}
+					}
+					return (result);
+				}
+			};
+			
 	/**
 	 * Determines if an element of type <CODE>InterestRateStream</CODE>
 	 * contains no <CODE>cashflows</CODE> element, or
@@ -2812,5 +2856,6 @@ public final class IrdRules extends Logic
 		rules.add (RULE56);
 		rules.add (RULE57);
 		rules.add (RULE58);		
+		rules.add (RULE59);	
 	}
 }
