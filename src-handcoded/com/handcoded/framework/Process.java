@@ -25,7 +25,7 @@ package com.handcoded.framework;
 public abstract class Process
 {
 	/**
-	 * Causes the <CODE>Process</CODE> to process to begin execution.
+	 * Causes the <CODE>Process</CODE> to begin execution.
 	 * @since	TFP 1.0
 	 */
 	public void run ()
