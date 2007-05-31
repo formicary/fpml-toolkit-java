@@ -38,9 +38,9 @@ public final class ValidationErrorSet
 	{ }
 	
 	/**
-	 * Returns the number of <CODE>ValidationError</CODE> instance in the set.
+	 * Returns the number of <CODE>ValidationError</CODE> instances in the set.
 	 * 
-	 * @return	The number of <CODE>ValidationError</CODE> instance held.
+	 * @return	The number of <CODE>ValidationError</CODE> instances held.
 	 * @since	TFP 1.0
 	 */
 	public int count ()

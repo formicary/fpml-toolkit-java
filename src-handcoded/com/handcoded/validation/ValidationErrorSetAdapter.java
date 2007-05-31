@@ -95,5 +95,5 @@ public final class ValidationErrorSetAdapter implements ErrorHandler, Validation
 	 * The <CODE>ValidationErrorSet</CODE> to be populated with errors.
 	 * @since	TFP 1.1
 	 */
-	private ValidationErrorSet		errorSet;
+	private final ValidationErrorSet	errorSet;
 }

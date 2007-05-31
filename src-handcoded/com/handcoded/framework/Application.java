@@ -16,7 +16,6 @@ package com.handcoded.framework;
 import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 /**
  * The <CODE>Application</CODE> class extends the basic <CODE>Process</CODE>

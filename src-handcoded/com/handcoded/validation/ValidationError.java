@@ -91,7 +91,7 @@ public class ValidationError
 	}
 
 	/**
-	 * Indicates if the context is express lexically.
+	 * Indicates if the context is expressed lexically.
 	 * 
 	 * @return	The lexical context indicator.
 	 * @since	TFP 1.0
