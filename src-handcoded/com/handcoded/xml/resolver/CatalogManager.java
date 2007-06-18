@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -15,6 +15,7 @@ package com.handcoded.xml.resolver;
 
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,11 +61,10 @@ public final class CatalogManager
 			try {
 				SAXParser parser = new SAXParser (validate, true, validate, false, null, null);
 
-				catalog = new Catalog (url);
-
-				parser.parse (
-					new InputSource (url),
-					new CatalogHandler (catalog));
+				CatalogHandler handler = new CatalogHandler (url);
+				parser.parse (new InputSource (url), handler);
+				
+				catalog = handler.getCatalog ();
 			}
 			catch (ParserConfigurationException error)
 			{
@@ -120,12 +120,23 @@ public final class CatalogManager
 		 * Constructs a <CODE>CatalogHandler</CODE> and records the details of
 		 * the <CODE>Catalog</CODE> to be poplulated by the parse.
 		 *
-		 * @param	catalog			The <CODE>Catalog</CODE> to populate.
+		 * @param	url			The catalog's URI.
 		 * @since	TFP 1.0
 		 */
-		public CatalogHandler (Catalog catalog)
+		public CatalogHandler (final String url)
 		{
-			this.catalog = catalog;
+			this.url = url;
+		}
+		
+		/**
+		 * Provides access to the catalog created during parsing.
+		 * 
+		 * @return	The parsed catalog.
+		 * @since	TFP 1.1
+		 */
+		public Catalog getCatalog ()
+		{
+			return (catalog);
 		}
 
 		/**
@@ -142,79 +153,103 @@ public final class CatalogManager
 		public void startElement (String namespace, String localName, String QName, Attributes attributes)
 			throws SAXException
 		{
-			if (localName.equals ("catalog"))
-				;
-			else if (localName.equals ("group"))
-				;
-			else if (localName.equals ("public")) {
-				String publicId 	= attributes.getValue ("publicId");
-				String uri 			= attributes.getValue ("uri");
-				String base			= attributes.getValue ("xml:base");
-
-				catalog.addPublic (publicId, uri, base);
-			}
-			else if (localName.equals ("system")) {
-				String systemId		= attributes.getValue ("systemId");
-				String uri			= attributes.getValue ("uri");
-				String base			= attributes.getValue ("xml:base");
-
-				catalog.addSystem (systemId, uri, base);
-			}
-			else if (localName.equals ("rewriteSystem")) {
-				String startString	= attributes.getValue ("systemIdStartString");
-				String rewritePrefix= attributes.getValue ("rewritePrefix");
-
-				catalog.addRewriteSystem (startString, rewritePrefix);
-			}
-			else if (localName.equals ("delegatePublic")) {
-				String startString	= attributes.getValue ("publicIdStartString");
-				String file			= attributes.getValue ("catalog");
-				String base			= attributes.getValue ("xml:base");
-
-				catalog.addDelegatePublic (startString, file, base);
-			}
-			else if (localName.equals ("delegateSystem")) {
-				String startString	= attributes.getValue ("systemIdStartString");
-				String file			= attributes.getValue ("catalog");
-				String base			= attributes.getValue ("xml:base");
-
-				catalog.addDelegateSystem (startString, file, base);
-			}
-			else if (localName.equals ("uri")) {
-				String name			= attributes.getValue ("name");
-				String uri			= attributes.getValue ("uri");
-				String base			= attributes.getValue ("xml:base");
+			if (localName.equals ("catalog")) {
+				String prefer		= attributes.getValue ("prefer");
+				String xmlbase		= attributes.getValue ("xml:base");
 				
-				catalog.addUri (name, uri, base);
+				stack.push ((catalog = new Catalog (url, prefer, xmlbase)).getDefinition ());
 			}
-			else if (localName.equals ("rewriteUri")) {
-				String startString	= attributes.getValue ("uriStartString");
-				String rewritePrefix= attributes.getValue ("rewritePrefix");
-				
-				catalog.addRewriteUri (startString, rewritePrefix);
+			else if (localName.equals ("group")) {
+					String prefer		= attributes.getValue ("prefer");
+					String xmlbase		= attributes.getValue ("xml:base");
+					
+					stack.push (catalog.getDefinition ().addGroup (prefer, xmlbase));
 			}
-			else if (localName.equals ("delegateUri")) {
-				String startString	= attributes.getValue ("uriStartString");
-				String file			= attributes.getValue ("catalog");
-				String base			= attributes.getValue ("xml:base");
+			else {
+				GroupEntry		group	=	(GroupEntry) stack.peek();
+		 
 
-				catalog.addDelegateUri (startString, file, base);
+				if (localName.equals ("public")) {
+					String publicId 	= attributes.getValue ("publicId");
+					String uri 			= attributes.getValue ("uri");
+					String xmlbase		= attributes.getValue ("xml:base");
+	
+					group.addPublic (publicId, uri, xmlbase);
+				}
+				else if (localName.equals ("system")) {
+					String systemId		= attributes.getValue ("systemId");
+					String uri			= attributes.getValue ("uri");
+					String xmlbase		= attributes.getValue ("xml:base");
+	
+					group.addSystem (systemId, uri, xmlbase);
+				}
+				else if (localName.equals ("rewriteSystem")) {
+					String startString	= attributes.getValue ("systemIdStartString");
+					String rewritePrefix= attributes.getValue ("rewritePrefix");
+	
+					group.addRewriteSystem (startString, rewritePrefix);
+				}
+				else if (localName.equals ("delegatePublic")) {
+					String startString	= attributes.getValue ("publicIdStartString");
+					String file			= attributes.getValue ("catalog");
+					String xmlbase		= attributes.getValue ("xml:base");
+	
+					group.addDelegatePublic (startString, file, xmlbase);
+				}
+				else if (localName.equals ("delegateSystem")) {
+					String startString	= attributes.getValue ("systemIdStartString");
+					String file			= attributes.getValue ("catalog");
+					String xmlbase		= attributes.getValue ("xml:base");
+	
+					group.addDelegateSystem (startString, file, xmlbase);
+				}
+				else if (localName.equals ("uri")) {
+					String name			= attributes.getValue ("name");
+					String uri			= attributes.getValue ("uri");
+					String xmlbase		= attributes.getValue ("xml:base");
+					
+					group.addUri (name, uri, xmlbase);
+				}
+				else if (localName.equals ("rewriteUri")) {
+					String startString	= attributes.getValue ("uriStartString");
+					String rewritePrefix= attributes.getValue ("rewritePrefix");
+					
+					group.addRewriteUri (startString, rewritePrefix);
+				}
+				else if (localName.equals ("delegateUri")) {
+					String startString	= attributes.getValue ("uriStartString");
+					String file			= attributes.getValue ("catalog");
+					String xmlbase		= attributes.getValue ("xml:base");
+	
+					group.addDelegateUri (startString, file, xmlbase);
+				}
+				else if (localName.equals ("nextCatalog")) {
+					String file			= attributes.getValue ("catalog");
+					String xmlbase		= attributes.getValue ("xml:base");
+	
+					group.addNextCatalog (file, xmlbase);
+				}
+				else
+					throw new SAXException ("Unexpected element tag in XML catalog file");
 			}
-			else if (localName.equals ("nextCatalog")) {
-				String file			= attributes.getValue ("catalog");
-				String base			= attributes.getValue ("xml:base");
-
-				catalog.addNextCatalog (file, base);
-			}
-			else
-				throw new SAXException ("Unexpected element tag in XML catalog file");
 		}
 
+		public void endElement (String ns, String localName, String qName)
+			throws SAXException
+		{
+			if (localName.equals ("catalog") || localName.equals("group"))
+				stack.pop ();
+		}
+		
 		/**
 		 * The <CODE>Catalog</CODE> instance to populate from the XML file.
 		 * @since 	TFP 1.0
 		 */
 		private Catalog		catalog;
+		
+		private String		url;
+		
+		private Stack		stack		= new Stack ();
 	};
 
 	/**
