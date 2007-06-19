@@ -681,6 +681,62 @@ public final class Releases
 						parseSchemes ("schemes4-2.xml"));
 			
 	/**
+	 * A <CODE>SchemaRelease</CODE> instance containing the details for
+	 * FpML 4-3 working draft.
+	 * @since	TFP 1.0
+	 */
+	public static SchemaRelease	WD4_3
+		= new SchemaRelease (FPML, "4-3",
+				"http://www.fpml.org/2007/FpML-4-3", "fpml-main-4-3.xsd",
+				"fpml", "fpml4-3", initialiser, recogniser, "FpML",
+				new SchemeDefaults (
+						new String [][] {
+							{	"additionalTermScheme",
+								"http://www.fpml.org/spec/2003/additional-term-1-0" },
+							{	"businessCenterScheme",
+								"http://www.fpml.org/spec/2000/business-center-1-0" },
+							{	"clearanceSystemIdScheme",
+								"http://www.fpml.org/spec/2002/clearance-system-1-0" },
+							{	"contractualDefinitionsScheme",
+								"http://www.fpml.org/spec/2003/contractual-definitions-2-0" },
+							{	"contractualSupplementScheme",
+								"http://www.fpml.org/spec/2003/contractual-supplement-1-0" },
+							{	"countryScheme",
+								"http://www.fpml.org/ext/iso3166" },
+							{	"currencyScheme",
+								"http://www.fpml.org/ext/iso4217-2001-08-15" },
+							{	"cutNameScheme",
+								"http://www.fpml.org/spec/2002/cut-name-1-0" },
+							{	"exchangeIdScheme",
+								"http://www.fpml.org/spec/2002/exchange-id-MIC-1-0" },
+							{	"floatingRateIndexScheme",
+								"http://www.fpml.org/ext/isda-2000-definitions" },
+							{	"fxFeatureTypeScheme",
+								"http://www.fpml.org/spec/2003/fxFeatureType-1-0" },
+							{	"governingLawScheme",
+								"http://www.fpml.org/spec/2002/governing-law-1-0" },
+							{	"informationProviderScheme",
+								"http://www.fpml.org/spec/2003/information-provider-2-0" },
+							{	"marketDisruptionScheme",
+								"http://www.fpml.org/spec/2003/marketDisruption-1-0" },
+							{	"masterAgreementTypeScheme",
+								"http://www.fpml.org/spec/2002/master-agreement-type-1-0" },
+							{	"masterConfirmationTypeScheme",
+								"http://www.fpml.org/spec/2003/master-confirmation-type-1-0" },
+							{	"partyIdScheme",
+								"http://www.fpml.org/ext/iso9362" },
+							{	"restructuringScheme",
+								"http://www.fpml.org/spec/2003/restructuring-1-0" },
+							{ 	"routingIdScheme",
+								"http://www.fpml.org/spec/2002/routing-id-code-1-0" },
+							{ 	"settlementMethodScheme",
+								"http://www.fpml.org/spec/2002/settlement-method-1-0" },
+							{ 	"settlementPriceSourceScheme",
+								"http://www.fpml.org/spec/2002/settlement-price-source-1-0" }
+						}),
+						parseSchemes ("schemes4-3.xml"));
+	
+	/**
 	 * A <CODE>Conversion</CODE> instance configured for FpML 1-0 to 2-0
 	 * transformation. The specific changes needed (other than basic DOCTYPE
 	 * changes) are:
@@ -798,5 +854,6 @@ public final class Releases
 		R4_0.addImport (com.handcoded.dsig.Releases.R1_0);
 		R4_1.addImport (com.handcoded.dsig.Releases.R1_0);
 		TR4_2.addImport (com.handcoded.dsig.Releases.R1_0);
+		WD4_3.addImport (com.handcoded.dsig.Releases.R1_0);
 	}
 }
