@@ -65,7 +65,7 @@ final class UriEntry extends RelativeEntry implements UriRule
 			if (uri.startsWith ("file:"))
 				targetUri = new File (uri.substring (5)).toURI ();
 			else
-				targetUri = new URI (uri);
+				targetUri = baseAsUri ().resolve (new URI (uri));
 		}
 		catch (URISyntaxException error) {
 			throw new SAXException ("Failed to normalise target URI", error);
