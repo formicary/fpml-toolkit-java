@@ -51,7 +51,7 @@ public final class Releases
 	 */
 	public static SchemaRelease	R2_0
 		= new SchemaRelease (ACME, "2-0",
-				"http://www.handcoded.com/spec/2005/Acme-2-0", "acme-2-0.xsd",
+				"http://www.handcoded.com/spec/2007/Acme-2-0", "acme-2-0.xsd",
 				"acme", null);
 	
 	/**
