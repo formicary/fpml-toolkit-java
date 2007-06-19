@@ -21,6 +21,7 @@ import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
 import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.xml.NodeIndex;
+import com.handcoded.xml.XPath;
 
 /**
  * The <CODE>ContractRules</CODE> class contains a <CODE>RuleSet</CODE>
@@ -71,6 +72,73 @@ public final class ContractRules
 	};
 	
 	/**
+	 * A <CODE>Rule</CODE> that ensures only versioned contract identifiers
+	 * are present.
+	 * @since	TFP 1.1
+	 */
+	public static final Rule	RULE02	= new Rule ("contract-2")
+	{
+		/**
+		 * {@inheritDoc}
+		 */
+		public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+		{
+			NodeList	list 	= nodeIndex.getElementsByName ("identifier");
+			boolean		result 	= true;
+			
+			for (int index = 0; index < list.getLength (); ++index) {
+				Element		context 	= (Element) list.item (index);
+				Element		identifier	= XPath.path (context, "contractId");
+				
+				if (identifier == null) continue;
+				
+				errorHandler.error("305", context,
+						"Only versioned contract identifiers should be present",
+						getName (), null);
+				result = false;
+			}
+			return (result);
+		}
+	};
+	
+	/**
+	 * A <CODE>Rule</CODE> that ensures that novations contain either references
+	 * to the new and old contracts or a new contract definition and optionally
+	 * an old contract reference.
+	 * @since	TFP 1.1
+	 */
+	public static final Rule	RULE03	= new Rule ("contract-3")
+	{
+		/**
+		 * {@inheritDoc}
+		 */
+		public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+		{
+			NodeList	list 	= nodeIndex.getElementsByName ("novation");
+			boolean		result 	= true;
+
+			for (int index = 0; index < list.getLength (); ++index) {
+				Element		context	= (Element) list.item (index);
+				Element		oldRef	= XPath.path (context, "oldContractReference");
+				Element		newRef	= XPath.path (context, "newContractReference");
+				Element 	newDeal	= XPath.path (context, "newContract");
+				
+				if (((oldRef != null) && (newRef != null)) && (newDeal == null)) continue;
+				if (((oldRef == null) && (newRef == null)) && (newDeal != null)) continue;
+				if (((oldRef != null) && (newRef == null)) && (newDeal != null)) continue;
+				
+				errorHandler.error ("305", context,
+						"Novations must reference either the old and new contracts "
+						+ "or contain a new contract definition and optionally an "
+						+ "old contract reference",
+						getName (), null);
+				result = false;
+			}
+			return (result);
+		}
+	};
+	
+	/**
 	 * Provides access to the validation rule set.
 	 * 
 	 * @return	The data type validation rule set.
@@ -105,5 +173,7 @@ public final class ContractRules
 		rules.add (SchemeRules.getRules ());
 		
 		rules.add (RULE01);
+		rules.add (RULE02);
+		rules.add (RULE03);
 	}
 }
