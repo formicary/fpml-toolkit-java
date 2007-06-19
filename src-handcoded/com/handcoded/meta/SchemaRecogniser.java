@@ -28,7 +28,7 @@ public interface SchemaRecogniser
 {
 	/**
 	 * Determines if the XML <CODE>Document</CODE> could be an instance of the
-	 * indicateed <CODE>SchemaRelease</CODE>.
+	 * indicated <CODE>SchemaRelease</CODE>.
 	 *
 	 * @param 	release			The potential <CODE>SchemaRelease</CODE>.
 	 * @param 	document		The <CODE>Document</CODE> to be tested.

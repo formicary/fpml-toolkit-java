@@ -17,7 +17,7 @@ import org.w3c.dom.Element;
 
 /**
  * An instance of the <CODE>InstanceInitialiser</CODE> interface is used to
- * initialise new schema based <CODE>Documents</CODE>.
+ * initialise new schema based <CODE>Document</CODE> instances.
  *  
  * @author	BitWise
  * @version	$Id$
@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
 public interface InstanceInitialiser
 {
 	/**
-	 * Initialises a new <CODE>Document<CODE> by adding required definitions to
+	 * Initialises a new <CODE>Document</CODE> by adding required definitions to
 	 * the structure indicated by its root <CODE>Element</CODE>.
 	 * 
 	 * @param 	release			The <CODE>SchemaRelease</CODE> being initialised.
