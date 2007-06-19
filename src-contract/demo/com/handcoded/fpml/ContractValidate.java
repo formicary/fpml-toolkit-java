@@ -68,7 +68,7 @@ public class ContractValidate
 			// Parse the file and then a test against the rule. Output error messages
 			// if any problems are found.
 			FpMLUtility.parseAndValidate (true, new File (arguments [index]), rules,
-					parserErrorHandler, validationErrorHandler);	
+					parserErrorHandler, validationErrorHandler);
 		}
 	}
 
