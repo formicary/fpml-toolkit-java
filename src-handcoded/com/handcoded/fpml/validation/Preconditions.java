@@ -75,6 +75,14 @@ public interface Preconditions
 		= new VersionPrecondition (Releases.TR4_2.getVersion ());
 
 	/**
+	 * A <CODE>Precondition</CODE> instance that detects FpML 4-3 compatible
+	 * documents.
+	 * @since	TFP 1.1
+	 */
+	public static final Precondition 	WD4_3
+		= new VersionPrecondition (Releases.WD4_3.getVersion ());
+
+	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions that use
 	 * XPointer syntax for intra-document links.
 	 * @since	TFP 1.0
@@ -106,8 +114,9 @@ public interface Preconditions
 	public static final Precondition	R2_0__LATER
 		= Precondition.or (
 		    Precondition.or (
+			  Precondition.or (
 				Precondition.or (
-					Precondition.or (R2_0, TR3_0), R4_0), R4_1), TR4_2) ;
+				  Precondition.or (R2_0, TR3_0), R4_0), R4_1), TR4_2), WD4_3);
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML version 3-0 and
 	 * later.
@@ -116,7 +125,8 @@ public interface Preconditions
 	public static final Precondition	TR3_0__LATER
 			= Precondition.or (
 		        Precondition.or (
-		        	Precondition.or (TR3_0, R4_0), R4_1), TR4_2);
+		          Precondition.or (
+		        	Precondition.or (TR3_0, R4_0), R4_1), TR4_2), WD4_3);
 
     /**
 	 * A <CODE>Precondition</CODE> instance that detects either FpML 3-0 or
@@ -133,14 +143,17 @@ public interface Preconditions
 	 */
 	public static final Precondition	R4_0__LATER
 			= Precondition.or (
-				Precondition.or (R4_0, R4_1), TR4_2);
+				Precondition.or (
+				  Precondition.or (R4_0, R4_1), TR4_2), WD4_3);
+	
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-1 and
 	 * later.
 	 * @since	TFP 1.0
 	 */
 	public static final Precondition	R4_1__LATER
-			= Precondition.or (R4_1, TR4_2);
+			= Precondition.or (
+				Precondition.or (R4_1, TR4_2), WD4_3);
 
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-2 and
@@ -148,7 +161,7 @@ public interface Preconditions
 	 * @since	TFP 1.0
 	 */
 	public static final Precondition	TR4_2__LATER
-			= TR4_2;
+			= Precondition.or (TR4_2, WD4_3);
 
    /**
 	 * A <CODE>Precondition</CODE> instance that detects all FpML versions except
