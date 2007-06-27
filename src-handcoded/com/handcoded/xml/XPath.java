@@ -440,7 +440,7 @@ public final class XPath
 	 * @param	name6			The name of the required great-great-great-great-grandchild.
 	 * @param	name7			The name of the required great-great-great-great-great-grandchild.
 	 * @return	A possibly empty <CODE>NodeList</CODE> of matching
-	 *			great-great-great-great-grandchild elements.
+	 *			great-great-great-great-great-grandchild elements.
 	 * @since	TFP 1.0
 	 */
 	public static NodeList paths (final Element context, final String name1, final String name2, final String name3, final String name4, final String name5, final String name6, final String name7)
@@ -462,7 +462,7 @@ public final class XPath
 	 * @param	name7			The name of the required great-great-great-great-great-grandchild.
 	 * @param	name8			The name of the required great-great-great-great-great-great-grandchild.
 	 * @return	A possibly empty <CODE>NodeList</CODE> of matching
-	 *			great-great-great-great-grandchild elements.
+	 *			great-great-great-great-great-great-grandchild elements.
 	 * @since	TFP 1.0
 	 */
 	public static NodeList paths (final Element context, final String name1, final String name2, final String name3, final String name4, final String name5, final String name6, final String name7, final String name8)
