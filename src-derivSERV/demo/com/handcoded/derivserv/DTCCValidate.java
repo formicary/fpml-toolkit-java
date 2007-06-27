@@ -60,10 +60,12 @@ public class DTCCValidate {
 		ValidationErrorHandler	validationErrorHandler = new ValidationErrorHandler ();
 		
 		// Get a reference to the rule set to use for business rule validation
-		RuleSet 				rules = FpMLRules.getRules (); 
-		
+		RuleSet 				rules = FpMLRules.getRules ();
+			
 		// Process each of the filenames on the command line
-		for (int index = 0; index < arguments.length; ++index) {
+		long start = System.currentTimeMillis();
+		int  count = arguments.length;
+		for (int index = 0; index < count; ++index) {
 			System.out.println ("Parsing: " + arguments [index]);
 			
 			// Parse the file and then a test against the rule. Output error messages
@@ -71,6 +73,12 @@ public class DTCCValidate {
 			FpMLUtility.parseAndValidate (true, new File (arguments [index]), rules,
 					parserErrorHandler, validationErrorHandler);
 		}
+		long end = System.currentTimeMillis ();
+		
+		System.err.println ("== Processed " + count + " files in "
+			+ (end - start) + " milliseconds");
+		System.err.println ("== " + ((1000.0 * count) / (end - start))
+			+ " files/sec checking " + rules.size () + " rules");		
 	}
 
 	/**
