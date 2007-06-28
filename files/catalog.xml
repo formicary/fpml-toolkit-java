@@ -22,7 +22,8 @@
 	<uri name="http://www.fpml.org/2003/FpML-4-0" uri="schemas/fpml4-0/fpml-main-4-0.xsd"/>
 	<uri name="http://www.fpml.org/2004/FpML-4-1" uri="schemas/fpml4-1/fpml-main-4-1.xsd"/>
 	<uri name="http://www.fpml.org/2005/FpML-4-2" uri="schemas/fpml4-2/fpml-main-4-2.xsd"/>
-	
+	<uri name="http://www.fpml.org/2007/FpML-4-3" uri="schemas/fpml4-3/fpml-main-4-3.xsd"/>
+
 	<!--
 	  == Standard extensions to FpML 4-2 for non-derivative products.
 	  -->
