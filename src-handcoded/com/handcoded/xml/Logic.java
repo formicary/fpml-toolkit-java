@@ -143,7 +143,7 @@ public abstract class Logic
 	 */
 	public static String string (final Node node)
 	{
-		return (DOM.getInnerText ((Element) node));
+		return (DOM.getInnerText ((Element) node).trim ());
 	}
 
 	/**
