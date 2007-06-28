@@ -626,10 +626,10 @@ public final class Releases
 			
 	/**
 	 * A <CODE>SchemaRelease</CODE> instance containing the details for
-	 * FpML 4-2 trial recommendation.
+	 * FpML 4-2 recommendation.
 	 * @since	TFP 1.0
 	 */
-	public static SchemaRelease	TR4_2
+	public static SchemaRelease	R4_2
 		= new SchemaRelease (FPML, "4-2",
 				"http://www.fpml.org/2005/FpML-4-2", "fpml-main-4-2.xsd",
 				"fpml", "fpml4-2", initialiser, recogniser, "FpML",
@@ -803,8 +803,8 @@ public final class Releases
 	 * </UL>
 	 * @since	TFP 1.0
 	 */
-	public static final Conversion R4_1__TR4_2
-		= new Conversions.R4_1__TR4_2 ();
+	public static final Conversion R4_1__R4_2
+		= new Conversions.R4_1__R4_2 ();
 	
 	/**
 	 * Examines the provided <CODE>Document</CODE> to determine the associated
@@ -853,7 +853,7 @@ public final class Releases
 	static {
 		R4_0.addImport (com.handcoded.dsig.Releases.R1_0);
 		R4_1.addImport (com.handcoded.dsig.Releases.R1_0);
-		TR4_2.addImport (com.handcoded.dsig.Releases.R1_0);
+		R4_2.addImport (com.handcoded.dsig.Releases.R1_0);
 		WD4_3.addImport (com.handcoded.dsig.Releases.R1_0);
 	}
 }

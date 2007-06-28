@@ -1094,11 +1094,11 @@ public final class Conversions
 	 * 
 	 * @since	TFP 1.0
 	 */
-	public static class R4_1__TR4_2 extends DirectConversion 
+	public static class R4_1__R4_2 extends DirectConversion 
 	{
-		public R4_1__TR4_2 ()
+		public R4_1__R4_2 ()
 		{
-			super (Releases.R4_1, Releases.TR4_2);
+			super (Releases.R4_1, Releases.R4_2);
 		}
 		
 		/**

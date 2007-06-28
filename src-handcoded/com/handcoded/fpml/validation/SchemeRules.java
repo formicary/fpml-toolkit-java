@@ -765,7 +765,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE70
-		= new SchemeRule (Preconditions.TR4_2, "scheme-70", "creditSeniorityTrading", "creditSeniorityTradingScheme");
+		= new SchemeRule (Preconditions.R4_2, "scheme-70", "creditSeniorityTrading", "creditSeniorityTradingScheme");
 	
 	/**
 	 * Rule 71: The value of any <CODE>derivativeCalculationMethod</CODE> element must be valid
@@ -775,7 +775,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE71
-		= new SchemeRule (Preconditions.TR4_2, "scheme-71", "derivativeCalculationMethod", "derivativeCalculationMethodScheme");
+		= new SchemeRule (Preconditions.R4_2, "scheme-71", "derivativeCalculationMethod", "derivativeCalculationMethodScheme");
 	
 	/**
 	 * Rule 72: The value of any <CODE>matrixType</CODE> element must be valid
@@ -785,7 +785,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE72
-		= new SchemeRule (Preconditions.TR4_2, "scheme-72", "matrixType", "matrixTypeScheme");
+		= new SchemeRule (Preconditions.R4_2, "scheme-72", "matrixType", "matrixTypeScheme");
 	
 	/**
 	 * Provides access to the scheme validation rule set.

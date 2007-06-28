@@ -897,7 +897,7 @@ public final class SharedRules extends Logic
 	 * Applies to FpML 4.2 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule RULE16	= new Rule (Preconditions.TR4_2__LATER, "shared-16")
+	public static final Rule RULE16	= new Rule (Preconditions.R4_2__LATER, "shared-16")
 		{
 			/**
 			 * {@inheritDoc}
@@ -931,7 +931,7 @@ public final class SharedRules extends Logic
 	 * Applies to FpML 4.2 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule RULE17	= new Rule (Preconditions.TR4_2__LATER, "shared-17")
+	public static final Rule RULE17	= new Rule (Preconditions.R4_2__LATER, "shared-17")
 		{
 			/**
 			 * {@inheritDoc}

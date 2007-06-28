@@ -67,6 +67,6 @@ public final class Releases
 	 */
 	static {
 		R1_0.addImport (com.handcoded.fpml.Releases.R4_0);
-		R2_0.addImport (com.handcoded.fpml.Releases.TR4_2);
+		R2_0.addImport (com.handcoded.fpml.Releases.R4_2);
 	}
 }
