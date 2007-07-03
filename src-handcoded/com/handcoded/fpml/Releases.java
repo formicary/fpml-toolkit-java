@@ -685,7 +685,7 @@ public final class Releases
 	 * FpML 4-3 working draft.
 	 * @since	TFP 1.0
 	 */
-	public static SchemaRelease	WD4_3
+	public static SchemaRelease	R4_3
 		= new SchemaRelease (FPML, "4-3",
 				"http://www.fpml.org/2007/FpML-4-3", "fpml-main-4-3.xsd",
 				"fpml", "fpml4-3", initialiser, recogniser, "FpML",
@@ -854,6 +854,6 @@ public final class Releases
 		R4_0.addImport (com.handcoded.dsig.Releases.R1_0);
 		R4_1.addImport (com.handcoded.dsig.Releases.R1_0);
 		R4_2.addImport (com.handcoded.dsig.Releases.R1_0);
-		WD4_3.addImport (com.handcoded.dsig.Releases.R1_0);
+		R4_3.addImport (com.handcoded.dsig.Releases.R1_0);
 	}
 }
