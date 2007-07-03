@@ -52,7 +52,7 @@ public class ContractValidate
 		}
 
 		// Contract notifications are included in FpML 4.2
-		XmlUtility.getDefaultSchemaSet ().add (Releases.TR4_2);
+		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_2);
 		
 		// Create error handlers for both XML and business rule failures
 		ParserErrorHandler		parserErrorHandler = new ParserErrorHandler ();
