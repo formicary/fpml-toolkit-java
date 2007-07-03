@@ -376,7 +376,7 @@
     </xsd:annotation>
     <xsd:simpleContent>
       <xsd:extension base="xsd:normalizedString">
-        <xsd:attribute name="businessCenterScheme" type="xsd:anyURI" default="http://www.fpml.org/coding-scheme/business-center-6-1" />
+        <xsd:attribute name="businessCenterScheme" type="xsd:anyURI" default="http://www.fpml.org/coding-scheme/business-center-6-2" />
         <xsd:attribute name="id" type="xsd:ID" />
       </xsd:extension>
     </xsd:simpleContent>
