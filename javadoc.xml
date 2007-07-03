@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="private" additionalparam=" -breakiterator" author="true" classpath="lib/xml-apis.jar;lib/xercesImpl.jar" destdir="doc" doctitle="HandCoded Toolkit for FpML Processing (Open Source) 1.1" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.handcoded.framework,com.handcoded.xml,com.handcoded.framework.swing.filechooser,com.handcoded.validation,com.handcoded.meta,com.handcoded.finance,com.handcoded.fpml.validation,com.handcoded.xml.resolver,com.handcoded.fpml.xml,com.handcoded.xml.parser,com.handcoded.classification,com.handcoded.fpml.meta,com.handcoded.framework.swing.event,demo.com.handcoded.fpml,com.handcoded.framework.swing,com.handcoded.acme,com.handcoded.xml.writer,com.handcoded.fpml.schemes,com.handcoded.dsig" source="1.3" sourcefiles="src-handcoded/com/handcoded/fpml/Conversions.java,src-handcoded/com/handcoded/fpml/FpMLUtility.java,src-handcoded/com/handcoded/fpml/Releases.java,src-handcoded/com/handcoded/fpml/ProductType.java" sourcepath="src-commands;src-handcoded;src-contract" splitindex="true" use="true" version="true"/>
+    </target>
+</project>
