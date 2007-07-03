@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -37,7 +37,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE01
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-1", "averagingMethod", "averagingMethodScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-1", "averagingMethod", "averagingMethodScheme");
 
 	/**
 	 * Rule 2: The value of any <CODE>businessCenter</CODE> element must be valid
@@ -58,7 +58,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE03
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-3", "businessDayConvention", "businessDayConventionScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-3", "businessDayConvention", "businessDayConventionScheme");
 
 	/**
 	 * Rule 4: The value of any <CODE>compoundingMethod</CODE> element must be
@@ -69,7 +69,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE04
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-4", "compoundingMethod", "compoundingMethodScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-4", "compoundingMethod", "compoundingMethodScheme");
 
 	/**
 	 * Rule 5: The value of any <CODE>Currency</CODE> type element must be valid
@@ -94,7 +94,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE06
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-6", "dateRelativeTo", "dateRelativeToScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-6", "dateRelativeTo", "dateRelativeToScheme");
 
 	/**
 	 * Rule 7: The value of any <CODE>dayCountFraction</CODE> element must be valid
@@ -114,7 +114,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE08
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-8", "dayType", "dayTypeScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-8", "dayType", "dayTypeScheme");
 
 	/**
 	 * Rule 9: The value of any <CODE>discountingType</CODE> element must be valid
@@ -124,7 +124,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE09
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-9", "discountingType", "discountingTypeScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-9", "discountingType", "discountingTypeScheme");
 
 //	/**
 //	 * Rule 10: The value of any <CODE>floatingRateIndex</CODE> type element must
@@ -144,7 +144,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE11
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-11", "negativeInterestRateTreatment", "negativeInterestRateTreatmentScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-11", "negativeInterestRateTreatment", "negativeInterestRateTreatmentScheme");
 
 	/**
 	 * Rule 12: The value of any <CODE>payRelativeTo</CODE> element must be valid
@@ -154,7 +154,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE12
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-12", "payRelativeTo", "payRelativeToScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-12", "payRelativeTo", "payRelativeToScheme");
 
 	/**
 	 * Rule 13: The value of any <CODE>period</CODE> element must be valid
@@ -164,7 +164,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE13
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-13", "period", "periodScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-13", "period", "periodScheme");
 
 	/**
 	 * Rule 14: The value of any <CODE>rateTreatment</CODE> element must be valid
@@ -174,7 +174,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE14
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-14", "rateTreatment", "rateTreatmentScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-14", "rateTreatment", "rateTreatmentScheme");
 
 	/**
 	 * Rule 15: The value of any <CODE>resetRelativeTo</CODE> element must be valid
@@ -184,7 +184,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE15
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-15", "resetRelativeTo", "resetRelativeToScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-15", "resetRelativeTo", "resetRelativeToScheme");
 
 	/**
 	 * Rule 16: The value of any <CODE>rollConvention</CODE> element must be valid
@@ -194,7 +194,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE16
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-16", "rollConvention", "rollConventionScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-16", "rollConvention", "rollConventionScheme");
 
 	/**
 	 * Rule 17: The value of any <CODE>roundingDirection</CODE> element must be valid
@@ -204,7 +204,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE17
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-17", "roundingDirection", "roundingDirectionScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-17", "roundingDirection", "roundingDirectionScheme");
 
 	/**
 	 * Rule 18: The value of any <CODE>stepRelativeTo</CODE> element must be valid
@@ -214,7 +214,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE18
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-18", "stepRelativeTo", "stepRelativeToScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-18", "stepRelativeTo", "stepRelativeToScheme");
 
 	/**
 	 * Rule 19: The value of any <CODE>weeklyRollConvention</CODE> element must be valid
@@ -224,7 +224,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE19
-		= new SchemeRule (Preconditions.R1_0__TR3_0, "scheme-19", "weeklyRollConvention", "weeklyRollConventionScheme");
+		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-19", "weeklyRollConvention", "weeklyRollConventionScheme");
 
 	// FpML 2.0 ------------------------------------------------------------
 
@@ -236,7 +236,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE20
-		= new SchemeRule (Preconditions.R2_0__TR3_0, "scheme-20", "calculationAgentParty", "calculationAgentPartyScheme");
+		= new SchemeRule (Preconditions.R2_0__R3_0, "scheme-20", "calculationAgentParty", "calculationAgentPartyScheme");
 
 	/**
 	 * Rule 21: The value of any <CODE>rateSource</CODE> element must be valid
@@ -257,7 +257,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE22
-		= new SchemeRule (Preconditions.R2_0__TR3_0, "scheme-22",
+		= new SchemeRule (Preconditions.R2_0__R3_0, "scheme-22",
 		new String [] { "buyer", "seller" }, "payerReceiverScheme");
 
 	/**
@@ -269,7 +269,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE23
-		= new SchemeRule (Preconditions.R2_0__TR3_0, "scheme-23", "quotationRateType", "quotationRateTypeScheme");
+		= new SchemeRule (Preconditions.R2_0__R3_0, "scheme-23", "quotationRateType", "quotationRateTypeScheme");
 
 	// FpML 3.0 ------------------------------------------------------------
 
@@ -281,7 +281,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE24A
-		= new SchemeRule (Preconditions.TR3_0__R4_0, "scheme-24a", "clearanceSystem", "clearanceSystemScheme");
+		= new SchemeRule (Preconditions.R3_0__R4_0, "scheme-24a", "clearanceSystem", "clearanceSystemScheme");
 	
 	/**
 	 * Rule 24B: The value of any <CODE>clearanceSystem</CODE> element must be valid
@@ -302,7 +302,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE25
-		= new SchemeRule (Preconditions.TR3_0__LATER, "scheme-25", "contractualDefinitions", "contractualDefinitionsScheme");
+		= new SchemeRule (Preconditions.R3_0__LATER, "scheme-25", "contractualDefinitions", "contractualDefinitionsScheme");
 
 	/**
 	 * Rule 26: The value of any <CODE>country</CODE> element must be valid
@@ -312,7 +312,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE26
-		= new SchemeRule (Preconditions.TR3_0__LATER, "scheme-26", "country", "countryScheme");
+		= new SchemeRule (Preconditions.R3_0__LATER, "scheme-26", "country", "countryScheme");
 
 	/**
 	 * Rule 27: The value of any <CODE>cutName</CODE> element must be valid
@@ -322,7 +322,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE27
-		= new SchemeRule (Preconditions.TR3_0__LATER, "scheme-27", "cutName", "cutNameScheme");
+		= new SchemeRule (Preconditions.R3_0__LATER, "scheme-27", "cutName", "cutNameScheme");
 	
 	/**
 	 * Rule 28: The value of any <CODE>exerciseStyle</CODE> element must be valid
@@ -332,7 +332,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE28
-		= new SchemeRule (Preconditions.TR3_0, "scheme-28", "exerciseStyle", "exerciseStyleScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-28", "exerciseStyle", "exerciseStyleScheme");
 	
 	/**
 	 * Rule 29: The value of any <CODE>fxBarrierType</CODE> element must be valid
@@ -342,7 +342,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE29
-		= new SchemeRule (Preconditions.TR3_0, "scheme-29", "fxBarrierType", "fxBarrierTypeScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-29", "fxBarrierType", "fxBarrierTypeScheme");
 	
 	/**
 	 * Rule 30: The value of any <CODE>governingLaw</CODE> element must be valid
@@ -352,7 +352,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE30
-		= new SchemeRule (Preconditions.TR3_0__LATER, "scheme-30", "governingLaw", "governingLawScheme");
+		= new SchemeRule (Preconditions.R3_0__LATER, "scheme-30", "governingLaw", "governingLawScheme");
 	
 	/**
 	 * Rule 31: The value of any <CODE>masterAgreementType</CODE> element must be valid
@@ -362,7 +362,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE31
-		= new SchemeRule (Preconditions.TR3_0__LATER, "scheme-31", "masterAgreementType", "masterAgreementTypeScheme");
+		= new SchemeRule (Preconditions.R3_0__LATER, "scheme-31", "masterAgreementType", "masterAgreementTypeScheme");
 	
 	/**
 	 * Rule 32: The value of any <CODE>methodOfAdjustment</CODE> element must be valid
@@ -372,7 +372,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE32
-		= new SchemeRule (Preconditions.TR3_0, "scheme-32", "methodOfAdjustment", "methodOfAdjustmentScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-32", "methodOfAdjustment", "methodOfAdjustmentScheme");
 	
 	/**
 	 * Rule 33: The value of any <CODE>nationalisationOrInsolvency</CODE> element must be valid
@@ -382,7 +382,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE33
-		= new BrokenSchemeRule (Preconditions.TR3_0, "scheme-33",
+		= new BrokenSchemeRule (Preconditions.R3_0, "scheme-33",
 				new String [] {
 					"nationalisationOrInsolvency", "delisting" },
 				"nationalisationOrInsolvencyOrDelistingScheme");
@@ -395,7 +395,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE34
-		= new BrokenSchemeRule (Preconditions.TR3_0, "scheme-34", "optionType", "optionTypeScheme");
+		= new BrokenSchemeRule (Preconditions.R3_0, "scheme-34", "optionType", "optionTypeScheme");
 	
 	/**
 	 * Rule 35: The value of any <CODE>partyContactDetails</CODE> element must be valid
@@ -405,7 +405,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE35
-		= new SchemeRule (Preconditions.TR3_0, "scheme-35", "partyContactDetails", "partyContactDetailsScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-35", "partyContactDetails", "partyContactDetailsScheme");
 	
 	/**
 	 * Rule 36: The value of any <CODE>payout</CODE> element must be valid
@@ -415,7 +415,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE36
-		= new SchemeRule (Preconditions.TR3_0, "scheme-36", "payoutStyle", "payoutScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-36", "payoutStyle", "payoutScheme");
 
 	/**
 	 * Rule 37: The value of any <CODE>premiumQuoteBasis</CODE> element must be valid
@@ -425,7 +425,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE37
-		= new SchemeRule (Preconditions.TR3_0, "scheme-37", "premiumQuoteBasis", "premiumQuoteBasisScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-37", "premiumQuoteBasis", "premiumQuoteBasisScheme");
 
 	/**
 	 * Rule 38: The value of any <CODE>quoteBasis</CODE> element must be valid
@@ -435,7 +435,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE38
-		= new SchemeRule (Preconditions.TR3_0, "scheme-38", "quoteBasis", "quoteBasisScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-38", "quoteBasis", "quoteBasisScheme");
 
 	/**
 	 * Rule 39: The value of any <CODE>routingCodeId</CODE> element must be valid
@@ -445,7 +445,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE39
-		= new SchemeRule (Preconditions.TR3_0__LATER, "scheme-39", "routingCodeId", "routingCodeIdScheme");
+		= new SchemeRule (Preconditions.R3_0__LATER, "scheme-39", "routingCodeId", "routingCodeIdScheme");
 	
 	/**
 	 * Rule 40: The value of any <CODE>settlementMethod</CODE> element must be valid
@@ -455,7 +455,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE40
-		= new SchemeRule (Preconditions.TR3_0__LATER, "scheme-40", "settlementMethod", "settlementMethodScheme");
+		= new SchemeRule (Preconditions.R3_0__LATER, "scheme-40", "settlementMethod", "settlementMethodScheme");
 	
 	/**
 	 * Rule 41: The value of any <CODE>settlementPriceSource</CODE> element must be valid
@@ -465,7 +465,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE41
-		= new SchemeRule (Preconditions.TR3_0__LATER, "scheme-41", "settlementPriceSource", "settlementPriceSourceScheme");
+		= new SchemeRule (Preconditions.R3_0__LATER, "scheme-41", "settlementPriceSource", "settlementPriceSourceScheme");
 	
 	/**
 	 * Rule 42: The value of any <CODE>settlementType</CODE> element must be valid
@@ -475,7 +475,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE42
-		= new SchemeRule (Preconditions.TR3_0, "scheme-42", "settlementType", "settlementTypeScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-42", "settlementType", "settlementTypeScheme");
 
 	/**
 	 * Rule 43: The value of any <CODE>shareExtraordinaryEvent</CODE> element must be valid
@@ -485,7 +485,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE43
-		= new SchemeRule (Preconditions.TR3_0, "scheme-43", "shareExtraordinaryEvent", "shareExtraordinaryEventScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-43", "shareExtraordinaryEvent", "shareExtraordinaryEventScheme");
 
 	/**
 	 * Rule 44: The value of any <CODE>sideRateBasis</CODE> element must be valid
@@ -495,7 +495,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE44
-		= new SchemeRule (Preconditions.TR3_0, "scheme-44", "sideRateBasis", "sideRateBasisScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-44", "sideRateBasis", "sideRateBasisScheme");
 
 	/**
 	 * Rule 45: The value of any <CODE>standardSettlementStyle</CODE> element must be valid
@@ -505,7 +505,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE45
-		= new SchemeRule (Preconditions.TR3_0, "scheme-45", "standardSettlementStyle", "standardSettlementStyleScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-45", "standardSettlementStyle", "standardSettlementStyleScheme");
 
 	/**
 	 * Rule 46: The value of any <CODE>strikeQuoteBasis</CODE> element must be valid
@@ -515,7 +515,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE46
-		= new SchemeRule (Preconditions.TR3_0, "scheme-46", "strikeQuoteBasis", "strikeQuoteBasisScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-46", "strikeQuoteBasis", "strikeQuoteBasisScheme");
 
 	/**
 	 * Rule 47: The value of any <CODE>timeType</CODE> element must be valid
@@ -525,7 +525,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE47
-		= new SchemeRule (Preconditions.TR3_0, "scheme-47",
+		= new SchemeRule (Preconditions.R3_0, "scheme-47",
 				new String [] {
 					  "latestExerciseTimeType", "equityExpirationTimeType", "valuationTimeType" },
 				"timeTypeScheme");
@@ -538,7 +538,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE48
-		= new SchemeRule (Preconditions.TR3_0, "scheme-48", "touchCondition", "touchConditionScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-48", "touchCondition", "touchConditionScheme");
 
 	/**
 	 * Rule 49: The value of any <CODE>triggerCondition</CODE> element must be valid
@@ -548,7 +548,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE49
-		= new SchemeRule (Preconditions.TR3_0, "scheme-49", "triggerCondition", "triggerConditionScheme");
+		= new SchemeRule (Preconditions.R3_0, "scheme-49", "triggerCondition", "triggerConditionScheme");
 
 	// FpML 4.0 ------------------------------------------------------------
 

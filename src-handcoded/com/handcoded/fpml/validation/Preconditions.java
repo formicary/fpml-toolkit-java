@@ -47,8 +47,8 @@ public interface Preconditions
 	 * documents.
 	 * @since	TFP 1.0
 	 */
-	public static final Precondition 	TR3_0
-		= new VersionPrecondition (Releases.TR3_0.getVersion ());
+	public static final Precondition 	R3_0
+		= new VersionPrecondition (Releases.R3_0.getVersion ());
 
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML 4-0 compatible
@@ -95,24 +95,24 @@ public interface Preconditions
 	 * 2-0 or 3-0 compatible documents.
 	 * @since	TFP 1.0
 	 */
-	public static final Precondition	R1_0__TR3_0
-		= Precondition.or (R1_0__R2_0, TR3_0);
+	public static final Precondition	R1_0__R3_0
+		= Precondition.or (R1_0__R2_0, R3_0);
 
     /**
 	 * A <CODE>Precondition</CODE> instance that detects either FpML 2-0 or
 	 * 3-0 compatible documents.
 	 * @since	TFP 1.0
 	 */
-	public static final Precondition	R2_0__TR3_0
-		= Precondition.or (R2_0, TR3_0);
+	public static final Precondition	R2_0__R3_0
+		= Precondition.or (R2_0, R3_0);
 
     /**
 	 * A <CODE>Precondition</CODE> instance that detects either FpML 3-0 or
 	 * 4-0 compatible documents.
 	 * @since	TFP 1.0
 	 */
-	public static final Precondition	TR3_0__R4_0
-		= Precondition.or (TR3_0, R4_0);
+	public static final Precondition	R3_0__R4_0
+		= Precondition.or (R3_0, R4_0);
 	
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-3 and
@@ -151,8 +151,8 @@ public interface Preconditions
 	 * later.
 	 * @since	TFP 1.0
 	 */
-	public static final Precondition	TR3_0__LATER
-			= Precondition.or (TR3_0, R4_0__LATER);
+	public static final Precondition	R3_0__LATER
+			= Precondition.or (R3_0, R4_0__LATER);
 
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML version 2-0 and
@@ -160,7 +160,7 @@ public interface Preconditions
 	 * @since	TFP 1.0
 	 */
 	public static final Precondition	R2_0__LATER
-		= Precondition.or (R2_0, TR3_0__LATER);
+		= Precondition.or (R2_0, R3_0__LATER);
 
 	
 	/**

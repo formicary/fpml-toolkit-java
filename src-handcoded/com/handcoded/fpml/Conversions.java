@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -174,11 +174,11 @@ public final class Conversions
 	 * </UL> 
 	 * @since	TFP 1.0
 	 */
-	public static class R2_0__TR3_0 extends DirectConversion
+	public static class R2_0__R3_0 extends DirectConversion
 	{
-		public R2_0__TR3_0 ()
+		public R2_0__R3_0 ()
 		{
-			super (Releases.R2_0, Releases.TR3_0);
+			super (Releases.R2_0, Releases.R3_0);
 		}
 		
 		/**
@@ -200,7 +200,7 @@ public final class Conversions
 					String value = attr.getValue ();
 					
 					if (Releases.R2_0.getSchemeDefaults ().getDefaultUriForAttribute (name).equals (value))
-						value = Releases.TR3_0.getSchemeDefaults ().getDefaultUriForAttribute (name);
+						value = Releases.R3_0.getSchemeDefaults ().getDefaultUriForAttribute (name);
 					
 					if (value != null) newRoot.setAttributeNS (null, name, value);
 				}
@@ -264,12 +264,12 @@ public final class Conversions
 							}
 							else if (name.endsWith ("Scheme")) {
 								String oldDefault = Releases.R2_0.getSchemeDefaults ().getDefaultAttributeForScheme (name);
-								String newDefault = Releases.TR3_0.getSchemeDefaults ().getDefaultAttributeForScheme (name);
+								String newDefault = Releases.R3_0.getSchemeDefaults ().getDefaultAttributeForScheme (name);
 								
 								if (oldDefault != null && newDefault != null) {
 									String 	defaultUri = Releases.R2_0.getSchemeDefaults ().getDefaultUriForAttribute (oldDefault); 
 									if ((defaultUri != null) && defaultUri.equals (value))
-										value = Releases.TR3_0.getSchemeDefaults ().getDefaultUriForAttribute (newDefault);
+										value = Releases.R3_0.getSchemeDefaults ().getDefaultUriForAttribute (newDefault);
 								}
 							}
 							
@@ -310,11 +310,11 @@ public final class Conversions
 	 * </UL>
 	 * @since	TFP 1.0
 	 */
-	public static class TR3_0__R4_0 extends DirectConversion 
+	public static class R3_0__R4_0 extends DirectConversion 
 	{
-		public TR3_0__R4_0 ()
+		public R3_0__R4_0 ()
 		{
-			super (Releases.TR3_0, Releases.R4_0);
+			super (Releases.R3_0, Releases.R4_0);
 		}
 		
 		/**

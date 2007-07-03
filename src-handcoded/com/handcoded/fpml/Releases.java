@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -293,7 +293,7 @@ public final class Releases
 	 * FpML 3-0 trial recommendation.
 	 * @since	TFP 1.0
 	 */
-	public static DTDRelease	TR3_0
+	public static DTDRelease	R3_0
 		= new DTDRelease (FPML, "3-0",
 				"-//FpML//DTD Financial product Markup Language 3-0//EN",
 				"fpml-dtd-main-3-0.dtd", "FpML",
@@ -760,8 +760,8 @@ public final class Releases
 	 * </UL> 
 	 * @since	TFP 1.0
 	 */
-	public static final Conversion R2_0__TR3_0
-		= new Conversions.R2_0__TR3_0 ();
+	public static final Conversion R2_0__R3_0
+		= new Conversions.R2_0__R3_0 ();
 			
 	/**
 	 * A <CODE>Conversion</CODE> instance configured for FpML 3-0 to 4-0
@@ -781,8 +781,8 @@ public final class Releases
 	 * </UL>
 	 * @since	TFP 1.0
 	 */
-	public static final Conversion TR3_0__R4_0
-		= new Conversions.TR3_0__R4_0 ();
+	public static final Conversion R3_0__R4_0
+		= new Conversions.R3_0__R4_0 ();
 	
 	/**
 	 * A <CODE>Conversion</CODE> instance configured for FpML 4-0 to 4-1

@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -47,7 +47,7 @@ public final class DataTypeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE01
-		= new Rule (Preconditions.R1_0__TR3_0, "datatype-1")
+		= new Rule (Preconditions.R1_0__R3_0, "datatype-1")
 		{
 			/**
 			 * {@inheritDoc}
@@ -105,7 +105,7 @@ public final class DataTypeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE02
-		= new Rule (Preconditions.R1_0__TR3_0, "datatype-2")
+		= new Rule (Preconditions.R1_0__R3_0, "datatype-2")
 		{			
 			/**
 			 * {@inheritDoc}
@@ -212,7 +212,7 @@ public final class DataTypeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE03
-		= new Rule (Preconditions.R1_0__TR3_0, "datatype-3")
+		= new Rule (Preconditions.R1_0__R3_0, "datatype-3")
 		{			
 			/**
 			 * {@inheritDoc}
@@ -319,7 +319,7 @@ public final class DataTypeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE04
-		= new Rule (Preconditions.R1_0__TR3_0, "datatype-4")
+		= new Rule (Preconditions.R1_0__R3_0, "datatype-4")
 		{
 			/**
 			 * {@inheritDoc}
@@ -388,7 +388,7 @@ public final class DataTypeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE05
-		= new Rule (Preconditions.R1_0__TR3_0, "datatype-5")
+		= new Rule (Preconditions.R1_0__R3_0, "datatype-5")
 		{			
 			/**
 			 * {@inheritDoc}
@@ -458,7 +458,7 @@ public final class DataTypeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE06
-		= new Rule (Preconditions.R1_0__TR3_0, "datatype-6")
+		= new Rule (Preconditions.R1_0__R3_0, "datatype-6")
 		{
 			/**
 			 * {@inheritDoc}
@@ -526,7 +526,7 @@ public final class DataTypeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE07
-		= new Rule (Preconditions.R1_0__TR3_0, "datatype-7")
+		= new Rule (Preconditions.R1_0__R3_0, "datatype-7")
 		{			
 			/**
 			 * {@inheritDoc}

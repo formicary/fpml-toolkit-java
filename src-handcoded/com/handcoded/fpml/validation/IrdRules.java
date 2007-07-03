@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -1191,7 +1191,7 @@ public final class IrdRules extends Logic
 	 * Applies to FpML 1-0, 2-0 and 3-0.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE28A = new Rule (Preconditions.R1_0__TR3_0, "ird-28a")
+	public static final Rule	RULE28A = new Rule (Preconditions.R1_0__R3_0, "ird-28a")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1906,7 +1906,7 @@ public final class IrdRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE46A
-		= new Rule (Preconditions.R1_0__TR3_0, "ird-46a")
+		= new Rule (Preconditions.R1_0__R3_0, "ird-46a")
 		{
 			/**
 			 * {@inheritDoc}

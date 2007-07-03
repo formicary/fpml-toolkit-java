@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -97,7 +97,7 @@ public final class SharedRules extends Logic
 	 * Applies to FpML 1.0, 2.0 and 3.0.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE02 = new Rule (Preconditions.R1_0__TR3_0, "shared-2")
+	public static final Rule	RULE02 = new Rule (Preconditions.R1_0__R3_0, "shared-2")
 		{
 			/*
 			 * {@inheritDoc}
@@ -147,7 +147,7 @@ public final class SharedRules extends Logic
 	 * Applies to FpML 1.0, 2.0 and 3.0.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE03 = new Rule (Preconditions.R1_0__TR3_0, "shared-3")
+	public static final Rule	RULE03 = new Rule (Preconditions.R1_0__R3_0, "shared-3")
 		{
 			/*
 			 * {@inheritDoc}
@@ -276,7 +276,7 @@ public final class SharedRules extends Logic
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule 	RULE06
-		= new Rule (Preconditions.TR3_0__LATER, "shared-06")
+		= new Rule (Preconditions.R3_0__LATER, "shared-06")
 		{
 			/**
 			 * {@inheritDoc}
@@ -321,7 +321,7 @@ public final class SharedRules extends Logic
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule 	RULE07 
-		= new Rule (Preconditions.TR3_0__LATER, "shared-07")
+		= new Rule (Preconditions.R3_0__LATER, "shared-07")
 		{
 			/**
 			 * {@inheritDoc}
@@ -366,7 +366,7 @@ public final class SharedRules extends Logic
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE08 
-		= new Rule (Preconditions.TR3_0__LATER, "shared-8")
+		= new Rule (Preconditions.R3_0__LATER, "shared-8")
 		{
 			/**
 			 * {@inheritDoc}
@@ -423,7 +423,7 @@ public final class SharedRules extends Logic
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE09 
-		= new Rule (Preconditions.TR3_0__LATER, "shared-9")
+		= new Rule (Preconditions.R3_0__LATER, "shared-9")
 		{
 			/**
 			 * {@inheritDoc}
@@ -522,7 +522,7 @@ public final class SharedRules extends Logic
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE11 
-		= new Rule (Preconditions.TR3_0__LATER, "shared-11")
+		= new Rule (Preconditions.R3_0__LATER, "shared-11")
 		{
 			/**
 			 * {@inheritDoc}
@@ -632,7 +632,7 @@ public final class SharedRules extends Logic
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE12B
-		= new Rule (Preconditions.TR3_0__LATER, "shared-12b")
+		= new Rule (Preconditions.R3_0__LATER, "shared-12b")
 		{
 			/**
 			 * {@inheritDoc}
@@ -711,7 +711,7 @@ public final class SharedRules extends Logic
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE13B 
-		= new Rule (Preconditions.TR3_0__LATER, "shared-13b")
+		= new Rule (Preconditions.R3_0__LATER, "shared-13b")
 		{
 			/**
 			 * {@inheritDoc}
@@ -790,7 +790,7 @@ public final class SharedRules extends Logic
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE14B
-		= new Rule (Preconditions.TR3_0__LATER, "shared-14b")
+		= new Rule (Preconditions.R3_0__LATER, "shared-14b")
 		{
 			/**
 			 * {@inheritDoc}
