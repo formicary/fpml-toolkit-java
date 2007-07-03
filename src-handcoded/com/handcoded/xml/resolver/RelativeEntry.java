@@ -38,13 +38,10 @@ abstract class RelativeEntry extends CatalogComponent
 	{
 		if (xmlbase != null)
 			return (xmlbase);
-		
-		GroupEntry parent = getParent ();
-		
-		if (parent != null)
-			return (parent.getXmlBase ());
-
-		return (null);
+		else if (getParent () != null)
+			return (getParent ().getXmlBase ());
+		else
+			return (null);
 	}
 	
 	/**
@@ -62,7 +59,8 @@ abstract class RelativeEntry extends CatalogComponent
 	}
 	
 	/**
-	 * Constructs the base URI used to resolve any local URI values.
+	 * Converts the <CODE>xml:base</CODE> into a <CODE>URI</CODE>
+	 * for resolution operations.
 	 *
 	 * @return	The base <CODE>URI</CODE> for resolution.
 	 * @throws 	URISyntaxException if the xml:base or the catalog URL is

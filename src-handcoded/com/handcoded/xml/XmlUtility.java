@@ -126,10 +126,25 @@ public final class XmlUtility
 	 */
 	public static Document nonValidatingParse (final String xml)
 	{
+		return (nonValidatingParse (xml, defaultCatalog));
+	}
+
+	/**
+	 * Performs a non-validating parse of the indicated XML string discarding any
+	 * errors generated.
+	 * 
+	 * @param 	xml			The XML <CODE>String</CODE> to be processed.
+	 * @param 	entityResolver	The <CODE>EntityResolver</CODE>.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.0
+	 */
+	public static Document nonValidatingParse (final String xml, EntityResolver entityResolver)
+	{
 		Document	document	= null;
 		
 		try {
-			document = new DOMParser (false, true, null, null,
+			document = new DOMParser (false, true, null, entityResolver,
 				new ErrorHandler ()
 				{
 					public void fatalError (SAXParseException notUsed)
@@ -162,10 +177,25 @@ public final class XmlUtility
 	 */
 	public static Document nonValidatingParse (File file)
 	{
+		return (nonValidatingParse (file, defaultCatalog));
+	}
+	
+	/**
+	 * Performs a non-validating parse of the indicated XML file discarding any
+	 * errors generated.
+	 * 
+	 * @param 	file			The <CODE>File</CODE> to be processed.
+	 * @param 	entityResolver	The <CODE>EntityResolver</CODE>.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.0
+	 */
+	public static Document nonValidatingParse (File file, EntityResolver entityResolver)
+	{
 		Document	document	= null;
 		
 		try {
-			document = new DOMParser (false, true, null, null,
+			document = new DOMParser (false, true, null, entityResolver,
 				new ErrorHandler ()
 				{
 					public void fatalError (SAXParseException notUsed)
@@ -221,7 +251,7 @@ public final class XmlUtility
 		}
 		
 		if (grammar == DTD_OR_SCHEMA) {
-			if ((document = nonValidatingParse (xml)) == null) return (null);
+			if ((document = nonValidatingParse (xml, entityResolver)) == null) return (null);
 			
 			grammar = (document.getDoctype() != null) ? DTD_ONLY : SCHEMA_ONLY;
 		}
@@ -287,7 +317,7 @@ public final class XmlUtility
 		}
 		
 		if (grammar == DTD_OR_SCHEMA) {
-			if ((document = nonValidatingParse (file)) == null) return (null);
+			if ((document = nonValidatingParse (file, entityResolver)) == null) return (null);
 			
 			grammar = (document.getDoctype() != null) ? DTD_ONLY : SCHEMA_ONLY;
 		}

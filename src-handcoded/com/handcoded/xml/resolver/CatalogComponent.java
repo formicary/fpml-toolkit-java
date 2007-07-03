@@ -24,7 +24,7 @@ package com.handcoded.xml.resolver;
 abstract class CatalogComponent
 {
 	/**
-	 * Provides access to the parent <CODE>CatalogEntry</CODE>.
+	 * Provides access to the parent <CODE>GroupEntry</CODE>.
 	 * 
 	 * @return 	The parent <CODE>GroupEntry</CODE>.
 	 * @since	TFP 1.1
@@ -47,7 +47,7 @@ abstract class CatalogComponent
 	}
 
 	/**
-	 * Constructs a <CODE>CatalogRule</CODE> component.
+	 * Constructs a <CODE>CatalogComponent</CODE> instance.
 	 * 
 	 * @param	parent			The containing catalog element.
 	 * @since	TFP 1.0

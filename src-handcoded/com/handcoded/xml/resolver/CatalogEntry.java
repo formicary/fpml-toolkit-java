@@ -14,12 +14,14 @@
 package com.handcoded.xml.resolver;
 
 /**
+ * An instance of the <CODE>CatalogEntry</CODE> class represents the
+ * &lt;catlog&gt; element within a parsed catalog file.
  * 
  * @author	BitWise
  * @version	$Id$
  * @since	TFP 1.1
  */
-class CatalogEntry extends GroupEntry
+final class CatalogEntry extends GroupEntry
 {
 	/**
 	 * Constructs a <CODE>CatalogEntry</CODE> given its containing entry

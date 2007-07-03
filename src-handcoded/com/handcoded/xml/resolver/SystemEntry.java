@@ -35,7 +35,7 @@ final class SystemEntry extends RelativeEntry implements EntityRule
 	 * a system identifier with a URI.
 	 *
 	 * @param	parent			The containing element.
-	 * @param	systemId		The system identifier to be matched
+	 * @param	systemId		The system identifier to be matched.
 	 * @param	uri				The replacement URI.
 	 * @param	xmlbase			Optional <CODE>xml:base</CODE> value.
 	 * @since	TFP 1.0

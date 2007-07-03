@@ -25,10 +25,6 @@ import org.xml.sax.SAXException;
 /**
  * The <CODE>Catalog</CODE> provides a configurable <CODE>EntityResolver
  * </CODE> for a SAX or DOM based XML parser.
- * <P>
- * Using the various add methods a set of rules can be established to direct
- * the XML parser to the appropriate DTD or schema file overriding any filename
- * contained within the document itself.
  *
  * @author	BitWise
  * @version	$Id$
@@ -116,10 +112,11 @@ public final class Catalog implements EntityResolver
 	}
 	
 	/**
-	 * Constructs a new <CODE>Catalog</CODE> which does not contain
-	 * resolution rules.
+	 * Constructs a new <CODE>Catalog</CODE> instance.
 	 *
-	 * @param	url				The URL of this <CODE>Catalog</CODE>
+	 * @param	url				The URL of this <CODE>Catalog</CODE>.
+	 * @param 	prefer			Optional <CODE>prefer</CODE> value.
+	 * @param 	xmlbase			Optional <CODE>xml:base</CODE> value.
 	 * @since	TFP 1.0
 	 */
 	protected Catalog (final String url, final String prefer, final String xmlbase)
