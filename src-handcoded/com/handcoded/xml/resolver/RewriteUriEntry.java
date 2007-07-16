@@ -73,7 +73,7 @@ final class RewriteUriEntry extends CatalogComponent implements UriRule
 	private final String		startString;
 	
 	/**
-	 * The replacement reprefix.
+	 * The replacement prefix.
 	 * @since	TFP 1.0
 	 */
 	private final String		rewritePrefix;

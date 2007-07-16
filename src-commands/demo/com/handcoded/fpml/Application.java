@@ -66,7 +66,7 @@ public abstract class Application extends com.handcoded.framework.Application
 			System.exit (1);
 		}
 		
-		// Active the FpML Schemas
+		// Activate the FpML Schemas
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_0);
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_1);
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_2);

@@ -73,11 +73,11 @@ final class DelegatePublicEntry extends RelativeEntry implements EntityRule
 	 * The prefix to match against.
 	 * @since	TFP 1.0
 	 */
-	final String			prefix;
+	private final String	prefix;
 
 	/**
 	 * The URI of the sub-catalog.
 	 * @since	TFP 1.0
 	 */
-	final String			catalog;
+	private final String	catalog;
 }

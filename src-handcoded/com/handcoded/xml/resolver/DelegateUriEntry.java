@@ -18,6 +18,7 @@ import java.util.Stack;
 import org.xml.sax.SAXException;
 
 /**
+ * The <CODE>DelegateUriEntry</CODE> class implements uri delegation.
  * 
  * @author 	BitWise
  * @version	$Id$
@@ -25,9 +26,10 @@ import org.xml.sax.SAXException;
  */
 final class DelegateUriEntry extends RelativeEntry implements UriRule
 {
-	public DelegateUriEntry (final GroupEntry parent, final String startString, final String catalog, final String base)
+	public DelegateUriEntry (final GroupEntry parent, final String startString,
+			final String catalog, final String xmlbase)
 	{
-		super (parent, base);
+		super (parent, xmlbase);
 		
 		this.startString  = startString;
 		this.catalog = catalog;
@@ -58,12 +60,14 @@ final class DelegateUriEntry extends RelativeEntry implements UriRule
 	}
 
 	/**
+	 * The uri prefix to match with.
 	 * @since	TFP 1.0
 	 */
-	final String		startString;
+	private final String	startString;
 	
 	/**
+	 * The catalog to delegate to.
 	 * @since	TFP 1.0
 	 */
-	final String		catalog;
+	private final String	catalog;
 }

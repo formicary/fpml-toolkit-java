@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 final class NextCatalogEntry extends RelativeEntry implements EntityRule, UriRule
 {
 	/**
-	 * Constructs a <CODE>DelegatePublic</CODE> instance that will direct
+	 * Constructs a <CODE>NextCatalogEntry</CODE> instance that will direct
 	 * searches to another catalog.
 	 *
 	 * @param	catalog			The URI of the chained catalog.
@@ -77,5 +77,5 @@ final class NextCatalogEntry extends RelativeEntry implements EntityRule, UriRul
 	 * The URI of the catalog to chain to.
 	 * @since	TFP 1.0
 	 */
-	final String			catalog;
+	private final String		catalog;
 }

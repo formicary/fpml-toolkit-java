@@ -456,7 +456,6 @@ class GroupEntry extends RelativeEntry
 		}
 
 		// Finally try any other chained catalogs
-		// Finally try any other chained catalogs
 		if ((result = applyNextCatalogEntries (uri, catalogs)) != null) {
 			catalogs.pop ();
 			return (result);

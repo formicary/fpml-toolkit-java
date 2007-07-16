@@ -18,7 +18,7 @@ import java.util.Stack;
 import org.xml.sax.SAXException;
 
 /**
- * The <CODE>DelegateSystem</CODE> class implements system identifier
+ * The <CODE>DelegateSystemEntry</CODE> class implements system identifier
  * delegation.
  * 
  * @author	BitWise
