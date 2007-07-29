@@ -2188,7 +2188,9 @@ public final class CdsRules extends Logic
 	 */
 	private static boolean isSingleName (Element cds)
 	{
-		if (exists (XPath.path (cds, "generalTerms", "referenceInformation")))
+		if (exists (XPath.path (cds, "generalTerms", "referenceInformation", "referenceObligation", "bond")))
+			return (true);
+		if (exists (XPath.path (cds, "generalTerms", "referenceInformation", "referenceObligation", "convertableBond")))
 			return (true);
 
 		return (false);

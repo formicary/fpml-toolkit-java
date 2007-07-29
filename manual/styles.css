@@ -49,19 +49,29 @@ P
 	}
 
 
-UL.L1	{
+UL      {
 		margin-left: 		20%;
-		}
-	
-UL.L2	{
-		margin-left: 		5%;
 	}
 	
-UL.L3	{
+
+LI.L1	{
+		padding-bottom:		10pt;
+	}
+	
+	
+LI.L2
+	{
 		margin-left: 		5%;
+		padding-bottom:		10pt;
 	}
 
-LI {
+LI.L3
+	{
+		margin-left: 		5%;
+		padding-bottom:		10pt;
+	}
+
+LI 	{
 		padding-bottom:		10pt;
 	}
 

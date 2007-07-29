@@ -1,0 +1,2 @@
+java -cp handcoded.jar;lib\xml-apis.jar;lib\xercesimpl.jar demo.com.handcoded.fpml.Classify files/examples/fpml4-3/credit-derivatives/*.xml files/examples/fpml4-3/equity-options/*.xml files/examples/fpml4-3/equity-forwards/*.xml files/examples/fpml4-3/equity-swaps/*.xml files/examples/fpml4-3/variance-swaps/*.xml files/examples/fpml4-3/fx-derivatives/*.xml files/examples/fpml4-3/inflation-swaps/*.xml
+pause

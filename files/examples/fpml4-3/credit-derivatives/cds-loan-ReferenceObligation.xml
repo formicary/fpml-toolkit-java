@@ -28,21 +28,13 @@
 					<unadjustedDate>2006-10-27</unadjustedDate>
 					<dateAdjustments>
 						<businessDayConvention>NONE</businessDayConvention>
-						<businessCenters>
-							<businessCenter>GBLO</businessCenter>
-							<businessCenter>USNY</businessCenter>
-						</businessCenters>
 					</dateAdjustments>
 				</effectiveDate>
 				<scheduledTerminationDate>
 					<adjustableDate>
-						<unadjustedDate>2010-06-17</unadjustedDate>
+						<unadjustedDate>2010-06-25</unadjustedDate>
 						<dateAdjustments>
 							<businessDayConvention>NONE</businessDayConvention>
-							<businessCenters>
-								<businessCenter>GBLO</businessCenter>
-								<businessCenter>USNY</businessCenter>
-							</businessCenters>
 						</dateAdjustments>
 					</adjustableDate>
 				</scheduledTerminationDate>
@@ -84,7 +76,7 @@
 						<period>M</period>
 					</paymentFrequency>
 					<firstPaymentDate>2006-12-20</firstPaymentDate>
-					<lastRegularPaymentDate>2010-06-17</lastRegularPaymentDate>
+					<lastRegularPaymentDate>2010-06-20</lastRegularPaymentDate>
 					<rollConvention>20</rollConvention>
 					<fixedAmountCalculation>
 						<calculationAmount>

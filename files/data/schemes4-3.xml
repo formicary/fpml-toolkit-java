@@ -267,7 +267,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/business-center-6-2" name="businessCenterScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/business-center-6-3" name="businessCenterScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="ARBA">
 				<paragraph>Buenos Aires</paragraph>

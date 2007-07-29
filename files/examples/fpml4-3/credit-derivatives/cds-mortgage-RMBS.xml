@@ -4,7 +4,7 @@
   == Financial Products Markup Language is subject to the FpML public license.
   == A copy of this license is available at http://www.fpml.org/documents/license.html
   -->
-<FpML version="4-2" xsi:type="RequestTradeConfirmation" xmlns="http://www.fpml.org/2007/FpML-4-3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.fpml.org/2007/FpML-4-3 ../fpml-main-4-3.xsd">
+<FpML version="4-3" xsi:type="RequestTradeConfirmation" xmlns="http://www.fpml.org/2007/FpML-4-3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.fpml.org/2007/FpML-4-3 ../fpml-main-4-3.xsd">
 	<header>
 		<messageId messageIdScheme="http://www.partyA.com/coding-scheme/messsage-id">456a789b</messageId>
 		<sentBy partyIdScheme="http://www.partyA.com/coding-scheme/party-id">msdw</sentBy>

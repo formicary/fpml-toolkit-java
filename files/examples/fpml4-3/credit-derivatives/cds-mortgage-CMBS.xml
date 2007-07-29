@@ -94,7 +94,7 @@
 							<amount>15000000</amount>
 						</calculationAmount>
 						<fixedRate>0.050</fixedRate>
-						<dayCountFraction>Act/360 isda</dayCountFraction>
+						<dayCountFraction>ACT/360</dayCountFraction>
 					</fixedAmountCalculation>
 				</periodicPayment>
 				<paymentDelay>false</paymentDelay>
