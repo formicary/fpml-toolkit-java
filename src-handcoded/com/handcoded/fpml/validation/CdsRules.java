@@ -116,12 +116,12 @@ public final class CdsRules extends Logic
 							Date tradeDate		= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (context, "tradeHeader", "tradeDate")));
 							Date effectiveDate	= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (creditDefaultSwap, "generalTerms", "effectiveDate", "unadjustedDate")));
 						
-							if (tradeDate.compareTo (effectiveDate) >= 0) {
-								errorHandler.error ("305", context,
-										"The tradeHeader/tradeDate must not be before creditDefaultSwap/generalTerms/effectiveDate/unadjustedDate",
-										getName (), null);
-								result = false;
-							}
+							if (tradeDate.compareTo (effectiveDate) >= 0) continue;
+
+							errorHandler.error ("305", context,
+									"The tradeHeader/tradeDate must not be before creditDefaultSwap/generalTerms/effectiveDate/unadjustedDate",
+									getName (), null);
+							result = false;
 						}
 						catch (IllegalArgumentException error) {
 							// Syntax errors handled elsewhere
