@@ -26,15 +26,11 @@ public interface ImmutableDate
 {
 	/**
 	 * Calculates the day of the week on which a date falls.
+	 * <P>
+	 * See the constants in <CODE>Date</CODE> and <CODE>DateTime</CODE>
+	 * for day values (e.g. SUNDAY, MONDAY, etc.).
 	 *
-	 * @return	The weekday (Sunday = 1, Monday = 2, ..., Saturday = 7).
-	 * @see 	#SUNDAY
-	 * @see 	#MONDAY
-	 * @see 	#TUESDAY
-	 * @see 	#WEDNESDAY
-	 * @see 	#THURSDAY
-	 * @see 	#FRIDAY
-	 * @see 	#SATURDAY
+	 * @return	The weekday.
 	 * @since	TFP 1.0
 	 */
 	public int weekday ();
