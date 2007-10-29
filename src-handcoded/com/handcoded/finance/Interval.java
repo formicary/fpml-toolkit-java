@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -121,11 +121,6 @@ public final class Interval implements Serializable
 			multiplier *= 7;
 		}
 
-		if (period == Period.TERM) {
-			period = Period.MONTH;
-			multiplier *= 3;
-		}
-
 		if (period == Period.YEAR) {
 			if (first.month ()	    != last.month ())		return (false);
 			if (first.dayOfMonth () != last.dayOfMonth ())	return (false);
@@ -142,6 +137,40 @@ public final class Interval implements Serializable
 		return (((last.hashCode () - first.hashCode ()) % multiplier) == 0);
 	}
 
+	/**
+	 * Calculates the result of adding another <CODE>Interval</CODE> to this
+	 * one.
+	 * 
+	 * @param 	other			The <CODE>Interval</CODE> to add.
+	 * @return	A new <CODE>Interval</CODE> representing the combined time
+	 * 			period.
+	 * @throws	IllegalArgumentException If the two time periods cannot be
+	 * 			combined.
+	 * @since	TFP 1.1
+	 */
+	public Interval plus (Interval other)
+	{
+		// One of the Intervals is zero length?
+		if (multiplier == 0) return (other);
+		if (other.multiplier == 0) return (this);
+
+		// Both Intervals have the same unit?
+		if (period == other.period)
+			return (new Interval (multiplier + other.multiplier, period));
+	
+		// Otherwise check for equivalences
+		if ((period == Period.YEAR) && (other.period == Period.MONTH))
+			return (new Interval (12 * multiplier + other.multiplier, Period.MONTH));
+		if ((period == Period.MONTH) && (other.period == Period.YEAR))
+			return (new Interval (multiplier + 12 * other.multiplier, Period.MONTH));
+		if ((period == Period.WEEK) && (other.period == Period.DAY))
+			return (new Interval (7 * multiplier + other.multiplier, Period.MONTH));
+		if ((period == Period.DAY) && (other.period == Period.WEEK))
+			return (new Interval (multiplier + 7 * other.multiplier, Period.MONTH));
+	
+		throw new IllegalArgumentException ("Intervals cannot be combined");
+	}
+	
 	/**
 	 * Returns the hash value of the <CODE>Interval</CODE> for hash based data
 	 * structures and algorithms.
@@ -183,7 +212,7 @@ public final class Interval implements Serializable
 		if (period == other.period)
 			return (multiplier == other.multiplier);
 
-		// Handle 1Y == 4T == 12M equivalence
+		// Handle 1Y == 12M equivalence
 		if (period == Period.YEAR) {
 			if (other.period == Period.MONTH)
 				return ((multiplier * 12) == other.multiplier);
@@ -192,8 +221,6 @@ public final class Interval implements Serializable
         if (period == Period.MONTH) {
 			if (other.period == Period.YEAR)
 				return (multiplier == (other.multiplier * 12));
-			if (other.period == Period.TERM)
-				return (multiplier == (other.multiplier * 3));
 			return (false);
 		}
 

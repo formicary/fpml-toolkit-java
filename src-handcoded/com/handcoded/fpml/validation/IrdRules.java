@@ -2763,12 +2763,16 @@ public final class IrdRules extends Logic
 	 */
 	private static boolean isUnadjustedCalculationPeriodDate (Date paymentDate, Date startDate, Date endDate, Interval freq)
 	{
-		while (startDate.compareTo (endDate) <= 0) {
-			if (paymentDate.equals (startDate)) return (true);
+		Interval	step = new Interval (0, Period.DAY);
+
+		for (;;) {
+			Date		targetDate = startDate.plus (step);
+
+			if (targetDate.compareTo (endDate) > 0) return (false);
+			if (targetDate.equals (paymentDate)) return (true);
 			
-			startDate = startDate.plus (freq);
+			step = step.plus (freq);
 		}
-		return (false);
 	}
 	
 	/**
