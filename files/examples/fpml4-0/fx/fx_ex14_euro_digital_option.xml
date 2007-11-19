@@ -45,7 +45,7 @@
           <hourMinuteTime>14:00:00</hourMinuteTime>
           <businessCenter>GBLO</businessCenter>
         </expiryTime>
-        <cutName>LONDON</cutName>
+        <cutName>LondonEveningPgm</cutName>
       </expiryDateTime>
       <fxOptionPremium>
         <payerPartyReference

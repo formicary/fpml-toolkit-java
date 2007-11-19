@@ -237,7 +237,6 @@
 				<unadjustedDate id="BrokerageFeePaymentDate">2002-09-30</unadjustedDate>
 				<dateAdjustments>
 					<businessDayConvention>NotApplicable</businessDayConvention>
-					<businessCentersReference href="PrimaryBusinessCenter"/>
 				</dateAdjustments>
 			</paymentDate>
 			<paymentType>BrokerageFee</paymentType>

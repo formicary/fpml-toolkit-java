@@ -57,10 +57,9 @@
         <expiryTime>
           <hourMinuteTime>14:00:00</hourMinuteTime>
           <businessCenter
-           id="primarybusinesscenter"
-           businessCenterScheme=" http://www.markets.Reuters.com/rss/spec/2001/business-center-1-0">USNY</businessCenter>
+           id="primarybusinesscenter">USNY</businessCenter>
         </expiryTime>
-        <cutName>New York</cutName>
+        <cutName>NewYork</cutName>
       </expiryDateTime>
       <exerciseStyle>European</exerciseStyle>
       <fxOptionPremium>

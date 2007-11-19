@@ -74,6 +74,7 @@
           <relativeDate>
             <periodMultiplier>3</periodMultiplier>
             <period>D</period>
+            <dayType>Calendar</dayType>
             <businessDayConvention>FOLLOWING</businessDayConvention>
             <businessCenters>
               <businessCenter>EUTA</businessCenter>
@@ -132,6 +133,7 @@
                 <relativeDate>
                   <periodMultiplier>3</periodMultiplier>
                   <period>D</period>
+            	  <dayType>Calendar</dayType>
                   <businessDayConvention>FOLLOWING</businessDayConvention>
                   <businessCenters>
                     <businessCenter>EUTA</businessCenter>
@@ -151,7 +153,7 @@
          href="partyA" />
         <paymentAmount>
           <currency>EUR</currency>
-          <amount>405000</amount>
+          <amount>400000</amount>
         </paymentAmount>
         <paymentDate>
           <unadjustedDate>2002-07-30</unadjustedDate>
@@ -159,7 +161,7 @@
             <businessDayConvention>NONE</businessDayConvention>
           </dateAdjustments>
         </paymentDate>
-        <percentageOfNotional>5</percentageOfNotional>
+        <percentageOfNotional>0.05</percentageOfNotional>
       </equityPremium>
       <methodOfAdjustment>CalculationAgent</methodOfAdjustment>
     </equityOption>

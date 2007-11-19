@@ -10,7 +10,7 @@
         <partyReference href="partyB" />
         <tradeId tradeIdScheme="http://www.abcbank.com/cd-trade-id">abc1234</tradeId>
       </partyTradeIdentifier>
-      <tradeDate>2002-12-03</tradeDate>
+      <tradeDate>2002-12-02</tradeDate>
     </tradeHeader>
     <creditDefaultSwap>
       <generalTerms>

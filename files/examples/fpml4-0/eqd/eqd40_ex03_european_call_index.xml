@@ -25,7 +25,7 @@
 		<equityOption>
 			<productType>europeanCallIndex</productType>
 			<buyerPartyReference href="partyB"/>
-			<sellerPartyReference href="partyB"/>
+			<sellerPartyReference href="partyA"/>
 			<optionType>Call</optionType>
 			<underlyer>
         <singleUnderlyer>
@@ -63,7 +63,7 @@
 					<relativeDate>
 						<periodMultiplier>2</periodMultiplier>
 						<period>D</period>
-						<dayType>Business</dayType>
+						<dayType>Calendar</dayType>
 						<businessDayConvention>FOLLOWING</businessDayConvention>
 						<businessCenters>
 							<businessCenter>CHZU</businessCenter>
@@ -79,7 +79,7 @@
 				<payerPartyReference 
 				href="partyB"/>
 				<receiverPartyReference 
-				href="partyB"/>
+				href="partyA"/>
 				<paymentAmount>
 					<currency>CHF</currency>
 					<amount>300000</amount>

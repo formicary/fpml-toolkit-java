@@ -65,7 +65,8 @@
         <settlementCurrency>USD</settlementCurrency>
         <fixing>
           <primaryRateSource>
-            <rateSource informationProviderScheme="http://www.fpml.org/spec/2003/information-provider-extra">RBIB</rateSource>
+            <rateSource>Reuters</rateSource>
+            <rateSourcePage>RBIB</rateSourcePage>
           </primaryRateSource>
           <fixingTime>
             <hourMinuteTime>14:30:00</hourMinuteTime>

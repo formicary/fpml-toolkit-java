@@ -10,7 +10,7 @@
         <partyReference href="partyB" />
         <tradeId tradeIdScheme="http://www.swapswire.com/spec/2001/trade-id-1-0">37261</tradeId>
       </partyTradeIdentifier>
-      <tradeDate>2002-07-11</tradeDate>
+      <tradeDate>2002-07-10</tradeDate>
     </tradeHeader>
     <creditDefaultSwap>
       <generalTerms>

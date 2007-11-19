@@ -61,7 +61,7 @@
             <hourMinuteTime>14:00:00</hourMinuteTime>
             <businessCenter>USNY</businessCenter>
           </expiryTime>
-          <cutName>New York</cutName>
+          <cutName>NewYork</cutName>
         </expiryDateTime>
         <exerciseStyle>European</exerciseStyle>
         <fxOptionPremium>
