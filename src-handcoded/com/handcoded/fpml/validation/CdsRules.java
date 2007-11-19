@@ -2011,13 +2011,13 @@ public final class CdsRules extends Logic
 						if (!exists (XPath.path(context, "feeLeg", "initialPayment"))) continue;
 						
 						Element		payer		= XPath.path (context, "feeLeg", "initialPayment", "payerPartyReference");
+						Element		receiver 	= XPath.path (context, "feeLeg", "initialPayment", "receiverPartyReference");
 						Element		seller		= XPath.path (context, "generalTerms", "sellerPartyReference");
-						Element		receiver 	= XPath.path (context, "feeLeg", "initialPayment", "payerPartyReference");
 						Element		buyer		= XPath.path (context, "generalTerms", "buyerPartyReference");
 
 						if ((payer != null) && (seller != null) && (receiver != null) && (buyer != null)) {
-							if (DOM.getAttribute (payer, "href").equals(DOM.getAttribute (seller, "href")) &&
-								DOM.getAttribute (receiver, "href").equals(DOM.getAttribute (buyer, "href")))
+							if (DOM.getAttribute (payer, "href").equals(DOM.getAttribute (buyer, "href")) &&
+								DOM.getAttribute (receiver, "href").equals(DOM.getAttribute (seller, "href")))
 								continue;
 						}
 						

@@ -83,6 +83,14 @@ public interface Preconditions
 		= new VersionPrecondition (Releases.R4_3.getVersion ());
 
 	/**
+	 * A <CODE>Precondition</CODE> instance that detects FpML 4-3 compatible
+	 * documents.
+	 * @since	TFP 1.1
+	 */
+	public static final Precondition 	R4_4
+		= new VersionPrecondition (Releases.R4_4.getVersion ());
+
+	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions that use
 	 * XPointer syntax for intra-document links.
 	 * @since	TFP 1.0
@@ -119,8 +127,16 @@ public interface Preconditions
 	 * later.
 	 * @since	TFP 1.0
 	 */
+	public static final Precondition	R4_4__LATER
+			= R4_4;
+
+	/**
+	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-3 and
+	 * later.
+	 * @since	TFP 1.0
+	 */
 	public static final Precondition	R4_3__LATER
-			= R4_3;
+			= Precondition.or (R4_3, R4_4__LATER);
 
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-2 and

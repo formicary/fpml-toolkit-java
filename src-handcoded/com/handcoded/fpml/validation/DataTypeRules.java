@@ -13,18 +13,19 @@
 
 package com.handcoded.fpml.validation;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.handcoded.xml.NodeIndex;
-import com.handcoded.xml.DOM;
 import com.handcoded.finance.Time;
-import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
+import com.handcoded.validation.ValidationErrorHandler;
+import com.handcoded.xml.DOM;
+import com.handcoded.xml.NodeIndex;
 
 /**
  * This class provides datatype validation rules for the DTD based FpML
@@ -76,7 +77,7 @@ public final class DataTypeRules
 					String  value	= DOM.getInnerText (context);
 					
 					try {
-						if (Time.parse (value).seconds () != 0) {
+						if (!Time.parse (value).seconds ().equals (BigDecimal.ZERO)) {
 							errorHandler.error ("305", context,
 								"The seconds component of the time must be zeroes",
 								getName (), value);
