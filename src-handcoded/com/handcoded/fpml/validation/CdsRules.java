@@ -2074,7 +2074,7 @@ public final class CdsRules extends Logic
 	/**
 	 * Provides access to the CDS validation rule set.
 	 * 
-	 * @return	The data type validation rule set.
+	 * @return	The CDS validation rule set.
 	 * @since	TFP 1.0
 	 */
 	public static RuleSet getRules ()
@@ -2214,7 +2214,7 @@ public final class CdsRules extends Logic
 
 	/**
 	 * A <CODE>RuleSet</CODE> containing all the standard FpML defined
-	 * validation rules for interest rate products.
+	 * validation rules for credit derivative swaps products.
 	 * @since	TFP 1.0
 	 */
 	private static final RuleSet	rules = new RuleSet ();
