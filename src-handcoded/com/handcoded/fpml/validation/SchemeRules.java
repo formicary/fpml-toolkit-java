@@ -126,15 +126,15 @@ public final class SchemeRules
 	public static final Rule	RULE09
 		= new SchemeRule (Preconditions.R1_0__R3_0, "scheme-9", "discountingType", "discountingTypeScheme");
 
-//	/**
-//	 * Rule 10: The value of any <CODE>floatingRateIndex</CODE> type element must
-//	 * be valid within the domain defined by its <CODE>@floatingRateIndexScheme</CODE> attribute.
-//	 * <P>
-//	 * Applies to all FpML releases.
-//	 * @since	TFP 1.0	
-//	 */
-//	public static final Rule	RULE10
-//		= new SchemeRule ("scheme-10", "floatingRateIndex", "floatingRateIndexScheme");
+	/**
+	 * Rule 10: The value of any <CODE>floatingRateIndex</CODE> type element must
+	 * be valid within the domain defined by its <CODE>@floatingRateIndexScheme</CODE> attribute.
+	 * <P>
+	 * Applies to all FpML releases.
+	 * @since	TFP 1.0	
+	 */
+	public static final Rule	RULE10
+		= new SchemeRule ("scheme-10", "floatingRateIndex", "floatingRateIndexScheme");
 
 	/**
 	 * Rule 11: The value of any <CODE>negativeInterestRateTreatment</CODE> element must be valid
@@ -246,7 +246,7 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE21
-		= new SchemeRule (Preconditions.R2_0__LATER, "scheme-21", "rateSource", "informationProviderScheme");
+		= new SchemeRule (Preconditions.R2_0__LATER, "scheme-21", "informationSource", "rateSource", "informationProviderScheme");
 
 	/**
 	 * Rule 22: The value of any <CODE>buyer</CODE> or <CODE>seller</CODE> element
@@ -787,6 +787,22 @@ public final class SchemeRules
 	public static final Rule	RULE72
 		= new SchemeRule (Preconditions.R4_2, "scheme-72", "matrixType", "matrixTypeScheme");
 	
+	// FpML 4.3 ------------------------------------------------------------
+
+	/**
+	 * Rule 10: The value of any <CODE>interestShortfall/rateSource</CODE> type element must
+	 * be valid within the domain defined by its <CODE>@floatingRateIndexScheme</CODE> attribute.
+	 * <P>
+	 * Applies to all FpML releases.
+	 * @since	TFP 1.0	
+	 */
+	public static final Rule	RULE73
+		= new SchemeRule ("scheme-73", "interestShortfall", "rateSource", "floatingRateIndexScheme");
+
+
+	// FpML 4.4 ------------------------------------------------------------
+
+	
 	/**
 	 * Provides access to the scheme validation rule set.
 	 * 
@@ -828,7 +844,7 @@ public final class SchemeRules
 		rules.add (RULE07);
 		rules.add (RULE08);
 		rules.add (RULE09);
-		// rules.add (RULE10);
+		rules.add (RULE10);
 		rules.add (RULE11);
 		rules.add (RULE12);
 		rules.add (RULE13);
@@ -892,5 +908,6 @@ public final class SchemeRules
 		rules.add (RULE70);
 		rules.add (RULE71);
 		rules.add (RULE72);
+		rules.add (RULE73);
 	}
 }
