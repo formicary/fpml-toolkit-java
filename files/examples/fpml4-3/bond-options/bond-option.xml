@@ -100,7 +100,7 @@
          <bond>
             <instrumentId instrumentIdScheme="CUSIP">ExampleCUSIP1</instrumentId>
             <currency>JPY</currency>
-            <clearanceSystem>BOJ NET SYSTEM</clearanceSystem>
+            <clearanceSystem>Clearstream</clearanceSystem>
             <couponRate>0.014</couponRate>
             <maturity>2011-03-20-05:00</maturity>
             <parValue>10000000000</parValue>

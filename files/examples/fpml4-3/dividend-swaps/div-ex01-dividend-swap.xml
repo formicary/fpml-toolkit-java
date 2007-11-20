@@ -62,6 +62,7 @@
                   <relativeDate>
                      <periodMultiplier>3</periodMultiplier>
                      <period>D</period>
+                     <dayType>Calendar</dayType>
                      <businessDayConvention>FOLLOWING</businessDayConvention>
                      <dateRelativeTo href="e1"/>
                   </relativeDate>
@@ -78,6 +79,7 @@
                   <relativeDate>
                      <periodMultiplier>3</periodMultiplier>
                      <period>D</period>
+                     <dayType>Calendar</dayType>
                      <businessDayConvention>FOLLOWING</businessDayConvention>
                      <dateRelativeTo href="e2"/>
                   </relativeDate>

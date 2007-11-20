@@ -25,7 +25,7 @@
             <payerPartyReference href="Party2"/>
             <receiverPartyReference href="Party1"/>
             <paymentAmount>
-               <currency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">USD</currency>
+               <currency>USD</currency>
                <amount>45000</amount>
             </paymentAmount>
             <paymentDate>
@@ -33,10 +33,10 @@
                   <periodMultiplier>3</periodMultiplier>
                   <period>D</period>
                   <dayType>Business</dayType>
-                  <businessDayConvention>NotApplicable</businessDayConvention>
+                  <businessDayConvention>NONE</businessDayConvention>
                   <businessCenters>
-                     <businessCenter businessCenterScheme="http://www.fpml.org/coding-scheme/business-center-4-0">USNY</businessCenter>
-                     <businessCenter businessCenterScheme="http://www.fpml.org/coding-scheme/business-center-4-0">GBLO</businessCenter>
+                     <businessCenter>USNY</businessCenter>
+                     <businessCenter>GBLO</businessCenter>
                   </businessCenters>
                   <dateRelativeTo href="TRADEDATE"/>
                </relativeDate>
@@ -123,11 +123,11 @@
       </creditDefaultSwapOption>
       <documentation>
          <masterAgreement>
-            <masterAgreementType>ISDA</masterAgreementType>
+            <masterAgreementType>ISDA1992</masterAgreementType>
             <masterAgreementDate>1997-11-05Z</masterAgreementDate>
          </masterAgreement>
          <masterConfirmation>
-            <masterConfirmationType>Dow Jones CDX Master Credit Derivatives Confirmation Agreement</masterConfirmationType>
+            <masterConfirmationType>DJ.CDX.NA</masterConfirmationType>
             <masterConfirmationDate>2004-09-20Z</masterConfirmationDate>
          </masterConfirmation>
          <contractualDefinitions>ISDA2000</contractualDefinitions>

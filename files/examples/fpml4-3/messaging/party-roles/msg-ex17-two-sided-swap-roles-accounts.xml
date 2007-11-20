@@ -90,11 +90,11 @@
                   <notionalSchedule>
                      <notionalStepSchedule>
                         <initialValue>50000000.00</initialValue>
-                        <currency currencyScheme="http://www.fpml.org/ext/iso4217">DEM</currency>
+                        <currency>EUR</currency>
                      </notionalStepSchedule>
                   </notionalSchedule>
                   <floatingRateCalculation>
-                     <floatingRateIndex>DEM-LIBOR-BBA</floatingRateIndex>
+                     <floatingRateIndex>EUR-LIBOR-BBA</floatingRateIndex>
                      <indexTenor>
                         <periodMultiplier>6</periodMultiplier>
                         <period>M</period>
@@ -148,7 +148,7 @@
                   <notionalSchedule>
                      <notionalStepSchedule>
                         <initialValue>50000000.00</initialValue>
-                        <currency currencyScheme="http://www.fpml.org/ext/iso4217">DEM</currency>
+                        <currency>EUR</currency>
                      </notionalStepSchedule>
                   </notionalSchedule>
                   <fixedRateSchedule>

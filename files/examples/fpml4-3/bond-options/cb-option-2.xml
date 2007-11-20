@@ -80,7 +80,7 @@
                <periodMultiplier>8</periodMultiplier>
                <period>D</period>
                <dayType>Business</dayType>
-               <businessDayConvention>FOLLOWING</businessDayConvention>
+               <businessDayConvention>NONE</businessDayConvention>
                <businessCenters>
                   <businessCenter>GBLO</businessCenter>
                   <businessCenter>JPTO</businessCenter>
@@ -103,7 +103,7 @@
          <convertibleBond>
             <instrumentId instrumentIdScheme="ISIN">ExampleISIN2</instrumentId>
             <currency>JPY</currency>
-            <clearanceSystem>DTC</clearanceSystem>
+            <clearanceSystem>DTCC</clearanceSystem>
             <issuerName>DEF Holdings</issuerName>
             <couponRate>0.0</couponRate>
             <maturity>2009-06-15-05:00</maturity>

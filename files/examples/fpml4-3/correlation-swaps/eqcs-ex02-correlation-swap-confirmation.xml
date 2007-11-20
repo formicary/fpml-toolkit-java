@@ -95,7 +95,7 @@
 						<periodMultiplier>3</periodMultiplier>
 						<period>D</period>
 						<dayType>Business</dayType>							
-						<businessDayConvention>FOLLOWING</businessDayConvention>
+						<businessDayConvention>NONE</businessDayConvention>
 						<businessCenters>
 							<businessCenter>USNY</businessCenter>
 						</businessCenters>

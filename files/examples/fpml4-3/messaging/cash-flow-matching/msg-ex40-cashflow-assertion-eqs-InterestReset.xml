@@ -89,7 +89,7 @@ Example of a cashflow assertion related to a single stock equity swap, with a ne
                <adjustedStartDate>2004-03-25Z</adjustedStartDate>
                <adjustedEndDate>2004-04-01Z</adjustedEndDate>
                <numberOfDays>7</numberOfDays>
-               <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">ACT/360</dayCountFraction>
+               <dayCountFraction>ACT/360</dayCountFraction>
                <dayCountYearFraction>0.01944</dayCountYearFraction>
             </calculationPeriod>
          </calculationElements>

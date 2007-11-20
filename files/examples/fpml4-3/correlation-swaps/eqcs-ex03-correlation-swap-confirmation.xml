@@ -135,10 +135,10 @@
 						<periodMultiplier>3</periodMultiplier>
 						<period>D</period>
 						<dayType>Business</dayType>							
-						<businessDayConvention>FOLLOWING</businessDayConvention>
+						<businessDayConvention>NONE</businessDayConvention>
 						<businessCenters>
 							<!-- business days -->
-							<businessCenter>TARGET</businessCenter>
+							<businessCenter>EUTA</businessCenter>
 						</businessCenters>
 						<dateRelativeTo href="vs8292"/>
 					</relativeDate>

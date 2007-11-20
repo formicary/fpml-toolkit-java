@@ -73,7 +73,7 @@ Example of a cashflow assertion related to an interest rate swap with vanilla fi
                <adjustedStartDate>2004-05-19Z</adjustedStartDate>
                <adjustedEndDate>2005-05-19Z</adjustedEndDate>
                <numberOfDays>360</numberOfDays>
-               <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">30/360</dayCountFraction>
+               <dayCountFraction>30/360</dayCountFraction>
             </calculationPeriod>
          </calculationElements>
       </calculationDetails>
@@ -105,7 +105,7 @@ Example of a cashflow assertion related to an interest rate swap with vanilla fi
                <adjustedStartDate>2005-02-22Z</adjustedStartDate>
                <adjustedEndDate>2005-05-19Z</adjustedEndDate>
                <numberOfDays>87</numberOfDays>
-               <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">ACT/360</dayCountFraction>
+               <dayCountFraction>ACT/360</dayCountFraction>
                <dayCountYearFraction>0.2417</dayCountYearFraction>
             </calculationPeriod>
          </calculationElements>

@@ -177,7 +177,7 @@
                      </notionalStepSchedule>
                   </notionalSchedule>
                   <inflationRateCalculation>
-                     <floatingRateIndex floatingRateIndexScheme="http://www.fpml.org/coding-scheme/inflation-index-description-1-0">UK-RPI</floatingRateIndex>
+                     <floatingRateIndex floatingRateIndexScheme="http://www.fpml.org/coding-scheme/inflation-index-description-2-0">UK-RPI</floatingRateIndex>
                      <indexTenor>
                         <periodMultiplier>30</periodMultiplier>
                         <period>Y</period>

@@ -64,7 +64,7 @@
 						<dayType>CurrencyBusiness</dayType>
 						<businessDayConvention>FOLLOWING</businessDayConvention>
 						<businessCenters>
-							<businessCenter>New York</businessCenter>
+							<businessCenter>USNY</businessCenter>
 						</businessCenters>
 						<dateRelativeTo href="vd903"/>
 					</relativeDate>

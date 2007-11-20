@@ -69,7 +69,7 @@ Example of a cashflow assertion related to a single name credit default swap, wi
                <adjustedStartDate>2005-06-20Z</adjustedStartDate>
                <adjustedEndDate>2005-09-20Z</adjustedEndDate>
                <numberOfDays>92</numberOfDays>
-               <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">ACT/360</dayCountFraction>
+               <dayCountFraction>ACT/360</dayCountFraction>
                <dayCountYearFraction>0.2555</dayCountYearFraction>
             </calculationPeriod>
          </calculationElements>

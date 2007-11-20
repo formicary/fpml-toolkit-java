@@ -75,7 +75,7 @@
                <periodMultiplier>8</periodMultiplier>
                <period>D</period>
                <dayType>Business</dayType>
-               <businessDayConvention>FOLLOWING</businessDayConvention>
+               <businessDayConvention>NONE</businessDayConvention>
                <businessCenters>
                   <businessCenter>GBLO</businessCenter>
                   <businessCenter>CHZU</businessCenter>
@@ -98,7 +98,7 @@
                   <floatingRateIndex>EUR-LIBOR-BBA</floatingRateIndex>
                   <spread>85</spread>
                   <side>Bid</side>
-                  <interpolationMethod>linear</interpolationMethod>
+                  <interpolationMethod>LinearZeroYield</interpolationMethod>
                   <earlyCallDate>2006-07-19-05:00</earlyCallDate>
                </makeWholeAmount>
             </referenceSwapCurve>

@@ -37,10 +37,6 @@
                   <unadjustedDate>2046-07-12Z</unadjustedDate>
                   <dateAdjustments>
                      <businessDayConvention>NONE</businessDayConvention>
-                     <businessCenters>
-                        <businessCenter>GBLO</businessCenter>
-                        <businessCenter>USNY</businessCenter>
-                     </businessCenters>
                   </dateAdjustments>
                </adjustableDate>
             </scheduledTerminationDate>
@@ -92,7 +88,7 @@
                      <amount>15000000</amount>
                   </calculationAmount>
                   <fixedRate>0.050</fixedRate>
-                  <dayCountFraction>Act/360 isda</dayCountFraction>
+                  <dayCountFraction>ACT/360</dayCountFraction>
                </fixedAmountCalculation>
             </periodicPayment>
             <paymentDelay>false</paymentDelay>

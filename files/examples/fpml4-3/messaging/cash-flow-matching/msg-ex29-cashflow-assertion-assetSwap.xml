@@ -83,7 +83,7 @@ Example of a cashflow assertion related to an asset swap.
                <adjustedStartDate>2005-03-27Z</adjustedStartDate>
                <adjustedEndDate>2005-09-27Z</adjustedEndDate>
                <numberOfDays>180</numberOfDays>
-               <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">30/360</dayCountFraction>
+               <dayCountFraction>30/360</dayCountFraction>
             </calculationPeriod>
          </calculationElements>
       </calculationDetails>
@@ -119,7 +119,7 @@ Example of a cashflow assertion related to an asset swap.
                <adjustedStartDate>2005-06-27Z</adjustedStartDate>
                <adjustedEndDate>2005-09-27Z</adjustedEndDate>
                <numberOfDays>92</numberOfDays>
-               <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">ACT/360</dayCountFraction>
+               <dayCountFraction>ACT/360</dayCountFraction>
                <dayCountYearFraction>0.25555</dayCountYearFraction>
             </calculationPeriod>
          </calculationElements>
