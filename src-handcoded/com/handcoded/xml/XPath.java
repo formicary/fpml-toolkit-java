@@ -48,19 +48,19 @@ public final class XPath
 					int		succ = 0;
 					int		pred = 0;
 				
-					for (Node temp = node.getPreviousSibling (); temp != null;) {
+					for (Element temp = DOM.getPreviousSibling ((Element) node); temp != null;) {
 						if (!node.getLocalName ().equals (temp.getLocalName ()))
 							break;
 							
-						temp = temp.getPreviousSibling ();
+						temp = DOM.getPreviousSibling (temp);
 						++succ;
 					}
 					
-					for (Node temp = node.getNextSibling (); temp != null;) {
+					for (Element temp = DOM.getNextSibling ((Element) node); temp != null;) {
 						if (!node.getLocalName ().equals (temp.getLocalName ()))
 							break;
 							
-						temp = temp.getNextSibling ();
+						temp = DOM.getNextSibling (temp);
 						++pred;
 					}
 					
