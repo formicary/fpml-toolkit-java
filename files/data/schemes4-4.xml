@@ -2962,4 +2962,126 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
+	<!--
+	  == These schemes are referenced as defaults by the schema but are not
+	  == defined in the schemes documentation.
+	  -->
+	<scheme uri="http://www.fpml.org/coding-scheme/master-confirmation-type-5-3" name="masterConfirmationTypeScheme">
+		<schemeValues>
+			<schemeValue name="2003CreditIndex" schemeValueSource="FpML">
+				<paragraph>Used for CDS Index trades. Relevant Master Confirmation determined by the contents of the creditDefaultSwap element. Best practice is to use the most specific code that applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="2004EquityEuropeanInterdealer" schemeValueSource="FpML">
+				<paragraph>A privately negotiated European Interdealer Master Confirmation Agreement applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="DJ.CDX.NA" schemeValueSource="FpML">
+				<paragraph>Used for CDS Index trades executed under the Dow Jones CDX Master Confirmation that covers CDX.NA.IG, CDX.NA.HY, and CDX.NA.XO.</paragraph>
+			</schemeValue>
+			<schemeValue name="DJ.iTraxx.Europe" schemeValueSource="FpML">
+				<paragraph>Used for CDS Index trades executed under the Dow Jones iTraxx Europe Master Confirmation Agreement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA1999Credit" schemeValueSource="FpML">
+				<paragraph>ISDA 1999 Master Credit Derivatives Confirmation Agreement</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditAsia" schemeValueSource="FpML">
+				<paragraph>ISDA 2003 Master Credit Derivatives Confirmation Agreement interpreted as if Asia had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditAustraliaNewZealand" schemeValueSource="FpML">
+				<paragraph>ISDA 2003 Master Credit Derivatives Confirmation Agreement interpreted as if Australia and New Zealand had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditEuropean" schemeValueSource="FpML">
+				<paragraph>ISDA 2003 Master Credit Derivatives Confirmation Agreement interpreted as if European had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditJapan" schemeValueSource="FpML">
+				<paragraph>ISDA 2003 Master Credit Derivatives Confirmation Agreement interpreted as if Japan had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditNorthAmerican" schemeValueSource="FpML">
+				<paragraph>ISDA 2003 Master Credit Derivatives Confirmation Agreement interpreted as if North American had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditSingapore" schemeValueSource="FpML">
+				<paragraph>ISDA 2003 Master Credit Derivatives Confirmation Agreement interpreted as if Singapore had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditSovereignAsia" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2003 Master Credit Derivatives Confirmation Agreement interpreted as if Asia had been specified as the relevant Transaction Type in the Transaction Supplement. The 2003 Sovereign Master Confirmation has been superceded by the 2004.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditSovereignCentralAndEasternEurope" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2003 Master Credit Derivatives Confirmation Agreement interpreted as if Central and Eastern Europe had been specified as the relevant Transaction Type in the Transaction Supplement. The 2003 Sovereign Master Confirmation has been superceded by the 2004.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditSovereignJapan" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2003 Master Credit Derivatives Confirmation Agreement interpreted as if Japan had been specified as the relevant Transaction Type in the Transaction Supplement. The 2003 Sovereign Master Confirmation has been superceded by the 2004.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditSovereignLatinAmerica" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2003 Master Credit Derivatives Confirmation Agreement interpreted as if Latin America had been specified as the relevant Transaction Type in the Transaction Supplement. The 2003 Sovereign Master Confirmation has been superceded by the 2004.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditSovereignMiddleEast" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2003 Master Credit Derivatives Confirmation Agreement interpreted as if Middle East had been specified as the relevant Transaction Type in the Transaction Supplement. The 2003 Sovereign Master Confirmation has been superceded by the 2004.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2003CreditSovereignWesternEurope" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2003 Master Credit Derivatives Confirmation Agreement interpreted as if Western Europe had been specified as the relevant Transaction Type in the Transaction Supplement. The 2003 Sovereign Master Confirmation has been superceded by the 2004.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2004CreditSovereignAsia" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2004 Master Credit Derivatives Confirmation Agreement interpreted as if Asia had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2004CreditSovereignEmergingEuropeanAndMiddleEastern" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2004 Master Credit Derivatives Confirmation Agreement interpreted as if Emerging European and Middle Eastern had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2004CreditSovereignJapan" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2004 Master Credit Derivatives Confirmation Agreement interpreted as if Japan had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2004CreditSovereignLatinAmerican" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2004 Master Credit Derivatives Confirmation Agreement interpreted as if Latin American had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2004CreditSovereignWesternEuropean" schemeValueSource="FpML">
+				<paragraph>ISDA Sovereign 2004 Master Credit Derivatives Confirmation Agreement interpreted as if Western European had been specified as the relevant Transaction Type in the Transaction Supplement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2004EquityAmericasInterdealer" schemeValueSource="FpML">
+				<paragraph>ISDA 2004 Americas Interdealer Master Equity Derivatives Confirmation Agreement applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2005EquityJapaneseInterdealer" schemeValueSource="FpML">
+				<paragraph>The ISDA 2005 Japanese Interdealer Master Equity Derivatives Confirmation Agreement applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="EquityAmericas" schemeValueSource="FpML">
+				<paragraph>A general reference to the types of Americas Master Confirmation Agreements. Use the more specific values to reference a specific type of Americas Master Confirmation Agreement.</paragraph>
+			</schemeValue>
+			<schemeValue name="EquityEuropean" schemeValueSource="FpML">
+				<paragraph>A general reference to the types of European Master Confirmation Agreements. Use the more specific values to reference a specific type of European Master Confirmation Agreement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2005EquityAsiaExcludingJapanInterdealer" schemeValueSource="FpML">
+				<paragraph>ISDA 2005 AEJ (Asia Excluding Japan) Interdealer Master Equity Derivatives Confirmation Agreement applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="2005VarianceSwapEuropeanInterdealer" schemeValueSource="FpML">
+				<paragraph>A privately negotiated European Interdealer Master Confirmation Agreement applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2006VarianceSwapJapaneseInterdealer" schemeValueSource="FpML">
+				<paragraph>ISDA 2006 Variance Swap Japanese Interdealer Confirmation Agreement applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="DJ.CDX.EM" schemeValueSource="FpML">
+				<paragraph>Used for CDS Index trades executed under the Dow Jones CDX Emerging Markets Master Confirmation.</paragraph>
+			</schemeValue>
+			<schemeValue name="DJ.CDX.EM.DIV" schemeValueSource="FpML">
+				<paragraph>Used for CDS Index trades executed under the Dow Jones CDX Emerging Markets Diversified Master Confirmation.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2007VarianceSwapAmericas" schemeValueSource="FpML">
+				<paragraph>The ISDA 2007 Americas Master Variance Swap Confirmation Agreement applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2007VarianceSwapAsiaExcludingJapan" schemeValueSource="FpML">
+				<paragraph>The ISDA 2007 AEJ Master Variance Swap Confirmation Agreement applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2007VarianceSwapEuropean" schemeValueSource="FpML">
+				<paragraph>The ISDA 2007 European Variance Swap Master Confirmation Agreement applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="EquityAsia" schemeValueSource="FpML">
+				<paragraph>A general reference to the types of Asia Master Confirmation Agreements. Use the more specific values to reference a specific type of Asia Master Confirmation Agreement.</paragraph>
+			</schemeValue>
+			<schemeValue name="ISDA2007EquityEuropean" schemeValueSource="FpML">
+				<paragraph>ISDA 2007 European Master Equity Derivatives Confirmation Agreement applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="2006DividendSwapEuropean" schemeValueSource="FpML">
+				<paragraph>A European Interdealer Master Confirmation Agreement not defined by ISDA, and modified by the parties to the transaction applies.</paragraph>
+			</schemeValue>
+			<schemeValue name="2006DividendSwapEuropeanInterdealer" schemeValueSource="FpML">
+				<paragraph>A European Interdealer Master Confirmation Agreement not defined by ISDA applies.</paragraph>
+			</schemeValue>
+		</schemeValues>
+	</scheme>
 </schemeDefinitions>
