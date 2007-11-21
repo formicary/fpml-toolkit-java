@@ -98,7 +98,7 @@ Example of a cashflow assertion related to an interest rate swap with compoundin
                <adjustedStartDate>2004-12-17Z</adjustedStartDate>
                <adjustedEndDate>2005-03-17Z</adjustedEndDate>
                <numberOfDays>90</numberOfDays>
-               <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">ACT/360</dayCountFraction>
+               <dayCountFraction>ACT/360</dayCountFraction>
                <dayCountYearFraction>0.250</dayCountYearFraction>
                <compoundingMethod>Straight</compoundingMethod>
                <accruedAmount>468984.37</accruedAmount>
@@ -108,7 +108,7 @@ Example of a cashflow assertion related to an interest rate swap with compoundin
                <adjustedStartDate>2005-03-17Z</adjustedStartDate>
                <adjustedEndDate>2005-06-17Z</adjustedEndDate>
                <numberOfDays>92</numberOfDays>
-               <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">ACT/360</dayCountFraction>
+               <dayCountFraction>ACT/360</dayCountFraction>
                <dayCountYearFraction>0.2555</dayCountYearFraction>
                <compoundingMethod>Straight</compoundingMethod>
                <accruedAmount>584381.50</accruedAmount>
@@ -124,7 +124,7 @@ Example of a cashflow assertion related to an interest rate swap with compoundin
                <currency>USD</currency>
                <amount>2309576.25</amount>
             </cashflowAmount>
-            <cashflowType cashflowTypeScheme="http://www.fpml.org/coding-scheme/cashflow-type-1-0">Coupon</cashflowType>
+            <cashflowType>Coupon</cashflowType>
          </grossCashflow>
          <observationElements>
             <underlyerReference href="FIXED"/>
@@ -138,7 +138,7 @@ Example of a cashflow assertion related to an interest rate swap with compoundin
                <adjustedStartDate>2004-12-17Z</adjustedStartDate>
                <adjustedEndDate>2005-06-17Z</adjustedEndDate>
                <numberOfDays>180</numberOfDays>
-               <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">30/360</dayCountFraction>
+               <dayCountFraction>30/360</dayCountFraction>
                <dayCountYearFraction>0.50</dayCountYearFraction>
             </calculationPeriod>
          </calculationElements>

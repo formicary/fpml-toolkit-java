@@ -66,8 +66,8 @@
       <valuation>
          <quote>
             <value>12345.00</value>
-            <measureType assetMeasureScheme="http://www.fpml.org/coding-scheme/asset-measure-scheme-2-0">NPV</measureType>
-            <currency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">USD</currency>
+            <measureType>NPV</measureType>
+            <currency>USD</currency>
          </quote>
       </valuation>
    </definePosition>

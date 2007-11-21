@@ -34,7 +34,7 @@
                   <periodMultiplier>3</periodMultiplier>
                   <period>D</period>
                   <dayType>Business</dayType>
-                  <businessDayConvention>NotApplicable</businessDayConvention>
+                  <businessDayConvention>NONE</businessDayConvention>
                   <dateRelativeTo href="TRADEDATE"/>
                </relativeDate>
             </paymentDate>
@@ -155,7 +155,7 @@
                </obligations>
             </protectionTerms>
             <physicalSettlementTerms>
-               <settlementCurrency/>
+               <settlementCurrency>USD<settlementCurrency>
                <physicalSettlementPeriod>
                   <maximumBusinessDays>30</maximumBusinessDays>
                </physicalSettlementPeriod>

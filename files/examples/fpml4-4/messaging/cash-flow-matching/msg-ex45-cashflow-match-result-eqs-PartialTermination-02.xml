@@ -84,8 +84,8 @@ Example of a cashflow match result message related to an interest rate swap with
                <observedValue>
                   <value>40.9492</value>
                   <measureType>TransactedNetPrice</measureType>
-                  <quoteUnits priceQuoteUnitsScheme="http://www.fpml.org/coding-scheme/price-quote-units-1-0">Price</quoteUnits>
-                  <currency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">USD</currency>
+                  <quoteUnits>Price</quoteUnits>
+                  <currency>USD</currency>
                </observedValue>
             </observationElements>
             <observationElements id="observation_ASN.N_2-PROP">
@@ -94,8 +94,8 @@ Example of a cashflow match result message related to an interest rate swap with
                <observedValue>
                   <value>42.6481</value>
                   <measureType>TransactedNetPrice</measureType>
-                  <quoteUnits priceQuoteUnitsScheme="http://www.fpml.org/coding-scheme/price-quote-units-1-0">Price</quoteUnits>
-                  <currency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">USD</currency>
+                  <quoteUnits>Price</quoteUnits>
+                  <currency>USD</currency>
                </observedValue>
             </observationElements>
             <calculationElements>
@@ -114,7 +114,7 @@ Example of a cashflow match result message related to an interest rate swap with
                   <currency>USD</currency>
                   <amount>77.20</amount>
                </cashflowAmount>
-               <cashflowType cashflowTypeScheme="http://www.fpml.org/coding-scheme/cashflow-type-1-0">InterestReturn</cashflowType>
+               <cashflowType>InterestReturn</cashflowType>
             </grossCashflow>
             <observationElements id="observation_USD-LIBOR-BBA-1-PROP">
                <underlyerReference href="USD-LIBOR-BBA-PROP"/>
@@ -137,7 +137,7 @@ Example of a cashflow match result message related to an interest rate swap with
                   <adjustedStartDate>2005-07-25Z</adjustedStartDate>
                   <adjustedEndDate>2005-11-28Z</adjustedEndDate>
                   <numberOfDays>126</numberOfDays>
-                  <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">ACT/360</dayCountFraction>
+                  <dayCountFraction>ACT/360</dayCountFraction>
                </calculationPeriod>
             </calculationElements>
          </calculationDetails><!-- The 2 calculation details sections below presenting the equity PnL and the funding cost related to the portion of 5,859 shares -->
@@ -168,8 +168,8 @@ Example of a cashflow match result message related to an interest rate swap with
                <observedValue>
                   <value>42.6481</value>
                   <measureType>TransactedNetPrice</measureType>
-                  <quoteUnits priceQuoteUnitsScheme="http://www.fpml.org/coding-scheme/price-quote-units-1-0">Price</quoteUnits>
-                  <currency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">USD</currency>
+                  <quoteUnits>Price</quoteUnits>
+                  <currency>USD</currency>
                </observedValue>
             </observationElements>
             <calculationElements>
@@ -188,7 +188,7 @@ Example of a cashflow match result message related to an interest rate swap with
                   <currency>USD</currency>
                   <amount>2524.51</amount>
                </cashflowAmount>
-               <cashflowType cashflowTypeScheme="http://www.fpml.org/coding-scheme/cashflow-type-1-0">InterestReturn</cashflowType>
+               <cashflowType>InterestReturn</cashflowType>
             </grossCashflow>
             <observationElements id="observation_USD-LIBOR-BBA-2-PROP">
                <underlyerReference href="USD-LIBOR-BBA-PROP"/>
@@ -211,7 +211,7 @@ Example of a cashflow match result message related to an interest rate swap with
                   <adjustedStartDate>2005-08-08Z</adjustedStartDate>
                   <adjustedEndDate>2005-11-28Z</adjustedEndDate>
                   <numberOfDays>112</numberOfDays>
-                  <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">ACT/360</dayCountFraction>
+                  <dayCountFraction>ACT/360</dayCountFraction>
                </calculationPeriod>
             </calculationElements>
          </calculationDetails><!-- The 2 calculation details sections below presenting the equity PnL and the funding cost related to the portion of 918 shares -->
@@ -224,7 +224,7 @@ Example of a cashflow match result message related to an interest rate swap with
                   <currency>USD</currency>
                   <amount>4166.25</amount>
                </cashflowAmount>
-               <cashflowType cashflowTypeScheme="http://www.fpml.org/coding-scheme/cashflow-type-1-0">PriceReturn</cashflowType>
+               <cashflowType>PriceReturn</cashflowType>
             </grossCashflow>
             <observationElements id="observation_ASN.N_5-PROP">
                <underlyerReference href="ASN.N-PROP"/>
@@ -232,8 +232,8 @@ Example of a cashflow match result message related to an interest rate swap with
                <observedValue>
                   <value>38.1097</value>
                   <measureType>TransactedNetPrice</measureType>
-                  <quoteUnits priceQuoteUnitsScheme="http://www.fpml.org/coding-scheme/price-quote-units-1-0">Price</quoteUnits>
-                  <currency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">USD</currency>
+                  <quoteUnits>Price</quoteUnits>
+                  <currency>USD</currency>
                </observedValue>
             </observationElements>
             <observationElements id="observation_ASN.N_6-PROP">
@@ -242,8 +242,8 @@ Example of a cashflow match result message related to an interest rate swap with
                <observedValue>
                   <value>42.6481</value>
                   <measureType>TransactedNetPrice</measureType>
-                  <quoteUnits priceQuoteUnitsScheme="http://www.fpml.org/coding-scheme/price-quote-units-1-0">Price</quoteUnits>
-                  <currency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">USD</currency>
+                  <quoteUnits>Price</quoteUnits>
+                  <currency>USD</currency>
                </observedValue>
             </observationElements>
             <calculationElements>
@@ -262,7 +262,7 @@ Example of a cashflow match result message related to an interest rate swap with
                   <currency>USD</currency>
                   <amount>118.85</amount>
                </cashflowAmount>
-               <cashflowType cashflowTypeScheme="http://www.fpml.org/coding-scheme/cashflow-type-1-0">InterestReturn</cashflowType>
+               <cashflowType>InterestReturn</cashflowType>
             </grossCashflow>
             <observationElements id="observation_USD-LIBOR-BBA-3-PROP">
                <underlyerReference href="USD-LIBOR-BBA-PROP"/>
@@ -285,7 +285,7 @@ Example of a cashflow match result message related to an interest rate swap with
                   <adjustedStartDate>2005-10-26Z</adjustedStartDate>
                   <adjustedEndDate>2005-11-28Z</adjustedEndDate>
                   <numberOfDays>33</numberOfDays>
-                  <dayCountFraction dayCountFractionScheme="http://www.fpml.org/coding-scheme/day-count-fraction-1-0">ACT/360</dayCountFraction>
+                  <dayCountFraction>ACT/360</dayCountFraction>
                   <dayCountYearFraction>0.09167</dayCountYearFraction>
                </calculationPeriod>
             </calculationElements>

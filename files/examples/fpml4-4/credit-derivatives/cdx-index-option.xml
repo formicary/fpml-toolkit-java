@@ -124,7 +124,7 @@
       </creditDefaultSwapOption>
       <documentation>
          <masterAgreement>
-            <masterAgreementType>ISDA</masterAgreementType>
+            <masterAgreementType>ISDA1992</masterAgreementType>
             <masterAgreementDate>1997-11-05Z</masterAgreementDate>
          </masterAgreement>
          <masterConfirmation>

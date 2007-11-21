@@ -149,7 +149,7 @@
                            </notionalStepSchedule>
                         </notionalSchedule>
                         <floatingRateCalculation>
-                           <floatingRateIndex>EURIBOR-Telerate</floatingRateIndex>
+                           <floatingRateIndex>EUR-EURIBOR-Telerate</floatingRateIndex>
                            <indexTenor>
                               <periodMultiplier>6</periodMultiplier>
                               <period>M</period>
@@ -164,7 +164,7 @@
                   <settlementProvision>
                      <settlementCurrency>USD</settlementCurrency>
                      <nonDeliverableSettlement>
-                        <referenceCurrency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">EUR</referenceCurrency>
+                        <referenceCurrency>EUR</referenceCurrency>
                         <fxFixingDate>
                            <periodMultiplier>2</periodMultiplier>
                            <period>D</period>

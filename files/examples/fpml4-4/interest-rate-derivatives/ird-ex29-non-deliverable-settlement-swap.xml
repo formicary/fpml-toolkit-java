@@ -85,7 +85,7 @@
                   <notionalSchedule>
                      <notionalStepSchedule id="E2000098notional-0-LTAA0200000096.1">
                         <initialValue>26415000000.00</initialValue>
-                        <currency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">KRW</currency>
+                        <currency>KRW</currency>
                      </notionalStepSchedule>
                   </notionalSchedule>
                   <fixedRateSchedule>
@@ -107,9 +107,9 @@
                </principalExchange>
             </cashflows>
             <settlementProvision>
-               <settlementCurrency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">USD</settlementCurrency>
+               <settlementCurrency>USD</settlementCurrency>
                <nonDeliverableSettlement>
-                  <referenceCurrency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">KRW</referenceCurrency>
+                  <referenceCurrency>KRW</referenceCurrency>
                   <fxFixingDate>
                      <periodMultiplier>2</periodMultiplier>
                      <period>D</period>
@@ -124,7 +124,7 @@
                         <paymentDatesReference href="PrincipalExchanges"/>
                      </dateRelativeToPaymentDates>
                   </fxFixingDate>
-                  <settlementRateOption settlementRateOptionScheme="http://www.fpml.org/coding-scheme/settlement-rate-option-1-0">KRW.KFTC18/KRW02</settlementRateOption>
+                  <settlementRateOption>KRW.KFTC18/KRW02</settlementRateOption>
                </nonDeliverableSettlement>
             </settlementProvision>
          </swapStream>
@@ -220,11 +220,11 @@
                   <notionalSchedule>
                      <notionalStepSchedule id="E2000098notional-1-LTAA0200000096.1">
                         <initialValue>25000000.00</initialValue>
-                        <currency currencyScheme="http://www.fpml.org/ext/iso4217-2001-08-15">USD</currency>
+                        <currency>USD</currency>
                      </notionalStepSchedule>
                   </notionalSchedule>
                   <floatingRateCalculation>
-                     <floatingRateIndex floatingRateIndexScheme="http://www.fpml.org/ext/isda-2000-definitions">USD-LIBOR-BBA</floatingRateIndex>
+                     <floatingRateIndex>USD-LIBOR-BBA</floatingRateIndex>
                      <indexTenor>
                         <periodMultiplier>3</periodMultiplier>
                         <period>M</period>
