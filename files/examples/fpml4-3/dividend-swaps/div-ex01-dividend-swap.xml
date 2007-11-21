@@ -32,8 +32,7 @@
             <underlyer>
                <singleUnderlyer>
                   <index>
-                     <instrumentId instrumentIdScheme="http://www.fpml.org/schemes/4-1/instrumentId"
-                        >.FCHI</instrumentId>
+                     <instrumentId instrumentIdScheme="http://www.fpml.org/schemes/4-1/instrumentId">.FCHI</instrumentId>
                      <description>France CAC 40 Index</description>
                      <currency>EUR</currency>
                      <exchangeId exchangeIdScheme="http://www.fpml.org/schemes/4-1/exchangeId"
@@ -56,6 +55,9 @@
                <unadjustedEndDate id="e1">2011-12-19Z</unadjustedEndDate>
                <dateAdjustments>
                   <businessDayConvention>FOLLOWING</businessDayConvention>
+                  <businessCenters>
+             	     <businessCenter>EUTA</businessCenter>
+             	  </businessCenters>
                </dateAdjustments>
                <fixedStrike>0.045</fixedStrike>
                <paymentDate id="p1">
@@ -73,6 +75,9 @@
                <unadjustedEndDate id="e2">2012-12-19Z</unadjustedEndDate>
                <dateAdjustments>
                   <businessDayConvention>FOLLOWING</businessDayConvention>
+                  <businessCenters>
+             	     <businessCenter>EUTA</businessCenter>
+             	  </businessCenters>
                </dateAdjustments>
                <fixedStrike>0.045</fixedStrike>
                <paymentDate id="p2">
