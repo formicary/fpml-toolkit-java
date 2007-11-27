@@ -181,12 +181,12 @@ public final class EqdRules extends Logic
 					Element	commence	= XPath.path (context, "commencementDate", "adjustableDate", "unadjustedDate");
 					Element	trade		= XPath.path (context, "..", "..", "..", "tradeHeader", "tradeDate");
 
-					if ((commence == null) || (trade == null) || equal (commence, trade))
+					if ((commence == null) || (trade == null) || greaterOrEqual (commence, trade))
 						continue;
 
 					errorHandler.error ("305", context,
 						"Bermuda exercise commencement date " + string (commence) +
-						" should be the same as trade date " + string (trade),
+						" should not be before the trade date " + string (trade),
 						getName (), null);
 
 					result = false;
@@ -226,7 +226,7 @@ public final class EqdRules extends Logic
 
 					errorHandler.error ("305", context,
 						"Bermuda exercise expiration date " + string (expiration) +
-						" should be the same or later than trade date " + string (trade),
+						" should not be before the trade date " + string (trade),
 						getName (), null);
 
 					result = false;
@@ -469,7 +469,7 @@ public final class EqdRules extends Logic
 
 					errorHandler.error ("305", context,
 						"European exercise expiration date " + string (expiration) +
-						" should be the same or later than trade date " + string (trade),
+						" should not be before the trade date " + string (trade),
 						getName (), null);
 
 					result = false;
@@ -669,7 +669,7 @@ public final class EqdRules extends Logic
 					Element	integral	= XPath.path (multiple, "integralMultipleExercise");
 					Element	maximum		= XPath.path (multiple, "maximumNumberOfOptions");
 
-					if ((integral == null) || (maximum == null) || lessOrEqual (decimal (integral).multiply(decimal (maximum)), decimal (number)))
+					if ((integral == null) || (maximum == null) || greaterOrEqual (decimal (integral).multiply(decimal (maximum)), decimal (number)))
 						continue;
 
 					errorHandler.error ("305", context,

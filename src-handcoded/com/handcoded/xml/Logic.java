@@ -501,6 +501,20 @@ public abstract class Logic
 		return (lhs > rhs);
 	}
 
+	/**
+	 * Determines if the value of a <see cref="decimal"/> is greater than
+	 * the value of another.
+	 * 
+	 * @param 	lhs				The <CODE>BigDecimal</CODE> to compare.
+	 * @param 	rhs				The <CODE>BigDecimal</CODE> to compare with.
+	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @since	TFP 1.0
+	 */
+	public static boolean greater (final BigDecimal lhs, final BigDecimal rhs)
+	{
+		return (lhs.compareTo (rhs) > 0);
+	}
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -509,7 +523,7 @@ public abstract class Logic
 	 * 
 	 * @param 	lhs				The first node.
 	 * @param 	rhs				The second node.
-	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @return	<CODE>true</CODE> if the first value is less than the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean lessOrEqual (final Node lhs, final Node rhs)
@@ -525,7 +539,7 @@ public abstract class Logic
 	 *  
 	 * @param 	lhs				The node holding the value.
 	 * @param 	rhs				The value to compare against.
-	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @return	<CODE>true</CODE> if the first value is less than the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean lessOrEqual (final Node lhs, double rhs)
@@ -544,7 +558,7 @@ public abstract class Logic
 	 * 
 	 * @param 	lhs				The first string.</param>
 	 * @param 	rhs				The second string.</param>
-	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @return	<CODE>true</CODE> if the first value is less than the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean lessOrEqual (final String lhs, final String rhs)
@@ -558,7 +572,7 @@ public abstract class Logic
 	 *
 	 * @param 	lhs				The first decimal.
 	 * @param 	rhs				The second decimal.
-	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @return	<CODE>true</CODE> if the first value is less than the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean lessOrEqual (final BigDecimal lhs, final BigDecimal rhs)
@@ -617,6 +631,20 @@ public abstract class Logic
 		}
 	}
 
+	/**
+	 * Compares two <see cref="decimal"/> instances to determine if the
+	 * first is equal to or larger than the second.
+	 *
+	 * @param 	lhs				The first decimal.
+	 * @param 	rhs				The second decimal.
+	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean greaterOrEqual (final BigDecimal lhs, final BigDecimal rhs)
+	{
+		return (lhs.compareTo (rhs) >= 0);
+	}
+	
 	/**
 	 * Constructs a <CODE>Logic</CODE> instance.
 	 * @since 	TFP 1.0
