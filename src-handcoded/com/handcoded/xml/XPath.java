@@ -38,7 +38,23 @@ public final class XPath
 	 */
 	public static String forNode (Node node)
 	{
-		if (node != null) {	
+		return (forNode (node, null));
+	}
+	
+	/**
+	 * Recursively determines the XPath expression for a given <CODE>Node</CODE>
+	 * in a DOM tree until the indicated root point is reached. If the root
+	 * point is <CODE>null</CODE> the algorithm recurses to the top of the
+	 * DOM tree.
+	 *
+	 * @param	node		The DOM <CODE>Node</CODE> to be described.
+	 * @param	root		The root <CODE>Node</CODE> or <CODE>null</CODE>.
+	 * @return	A string in XPath format describing the <CODE>Node</CODE>.
+	 * @since	TFP 1.1
+	 */
+	public static String forNode (Node node, Node root)
+	{
+		if (node != root) {	
 			switch (node.getNodeType ()) {
 			case Node.ATTRIBUTE_NODE:
 				return (forNode (((Attr) node).getOwnerElement ()) + "/@" + node.getLocalName ());
