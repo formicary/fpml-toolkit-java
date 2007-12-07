@@ -57,5 +57,7 @@ public final class FpMLRules
 		rules.add (IrdRules.getRules ());
 		rules.add (CdsRules.getRules ());
 		rules.add (EqdRules.getRules ());
+		rules.add (BusinessProcessRules.getRules ());
+		rules.add (PricingAndRiskRules.getRules ());
 	}
 }
