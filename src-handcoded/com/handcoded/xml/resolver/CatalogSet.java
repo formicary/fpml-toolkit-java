@@ -20,10 +20,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * A <CODE>XmlCatalogSet</CODE> instance contains a collection of <CODE>
- * XmlCatalog</CODE> instances that can be used to resolve XML entity
- * references. The <CODE>XmlCatalogSet</CODE> passes each resolution request
- * to each constituent <CODE>XmlCatalog</CODE> until either a match is found
+ * A <CODE>CatalogSet</CODE> instance contains a collection of <CODE>
+ * Catalog</CODE> instances that can be used to resolve XML entity
+ * references. The <CODE>CatalogSet</CODE> passes each resolution request
+ * to each constituent <CODE>Catalog</CODE> until either a match is found
  * or all the catalogs have been tried.
  *
  * @author	BitWise
