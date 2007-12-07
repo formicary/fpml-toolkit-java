@@ -84,8 +84,7 @@ public final class XmlUtility
 	
 	/**
 	 * Provides access to the default <CODE>Catalog</CODE> instance to be used for
-	 * entity resolution. If the <CODE>-catalog</CODE> option was not specified
-	 * then the result will be <CODE>null</CODE>
+	 * entity resolution.
 	 * 
 	 * @return	The <CODE>Catalog</CODE> instance or <CODE>null</CODE>.
 	 * @since	TFP 1.0
