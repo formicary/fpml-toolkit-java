@@ -94,11 +94,7 @@ public final class Catalog implements EntityResolver
 	public final StreamSource resolveUri (final String uri)
 		throws SAXException
 	{
-//		logger.info ("\nuri    = " + ((uri != null) ? uri : "null"));
-
-		String				result = definition.applyRules (uri, new Stack ());
-
-//		logger.info ("\nresult = " + ((result != null) ? result   : "null"));
+		String				result = resolve (uri);
 
 		if (result != null) {
 			if (result.startsWith ("file:"))
@@ -109,6 +105,24 @@ public final class Catalog implements EntityResolver
 			}
 		}
 		return (null);	
+	}
+	
+	/**
+	 * Attempts to resolve a URI.
+	 * 
+	 * @param 	uri			The URI to be resolved.
+	 * @return 	A xxx <CODE>null</CODE> if the URI was not resolved.
+	 * @since	TFP 1.0
+	 */
+	public final String resolve (final String uri)
+		throws SAXException
+	{
+//		logger.info ("\nuri    = " + ((uri != null) ? uri : "null"));
+
+		String				result = definition.applyRules (uri, new Stack ());
+
+//		logger.info ("\nresult = " + ((result != null) ? result   : "null"));
+		return (result);	
 	}
 	
 	/**
