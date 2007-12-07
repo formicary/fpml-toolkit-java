@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -15,12 +15,11 @@ package com.handcoded.xml;
 
 import java.math.BigDecimal;
 
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * The <CODE>Logic</CODE> class contains functions that make converting XPath/Clix
+ * The <CODE>Logic</CODE> class contains functions that make converting logic
  * based rules to Java easier. Rule set container classes may be derived from this
  * class to make access to the members more (programmer) efficient.
  * 
@@ -28,7 +27,7 @@ import org.w3c.dom.NodeList;
  * @version	$Id$
  * @since	TFP 1.0
  */
-public abstract class Logic
+public abstract class Logic extends Types
 {
 	/**
 	 * Calculates the logical-not of the given predicate result value.
@@ -130,87 +129,6 @@ public abstract class Logic
 	public static int count (NodeList list)
 	{
 		return (list.getLength ());
-	}
-
-	// --------------------------------------------------------------------
-
-	/**
-	 * Returns the value of the given <CODE>Node</CODE> as a string.
-	 *
-	 * @param 	node			The <CODE>Node</CODE> containing the value.
-	 * @return	The value of the node as a Java datatype.
-	 * @since	TFP 1.0
-	 */
-	public static String string (final Node node)
-	{
-		return (DOM.getInnerText ((Element) node).trim ());
-	}
-
-	/**
-	 * Returns the value of the given <CODE>Node</CODE> as an boolean.
-	 * 
-	 * @param 	node			The <CODE>Node</CODE> containing the value.
-	 * @return	The value of the node as a Java datatype.
-	 * @since	TFP 1.0
-	 */
-	public static boolean bool (final Node node)
-	{
-		try {
-			return (Boolean.parseBoolean (string (node)));
-		}
-		catch (Exception error) {
-			;
-		}
-		return (false);
-	}
-	
-	/**
-	 * Returns the value of the given <CODE>Node</CODE> as an integer.
-	 * 
-	 * @param 	node			The <CODE>Node</CODE> containing the value.
-	 * @return	The value of the node as a Java datatype.
-	 * @since	TFP 1.0
-	 */
-	public static int integer (final Node node)
-	{
-		try {
-			return (Integer.parseInt (string (node)));
-		}
-		catch (Exception error) {
-			;
-		}
-		return (0);
-	}
-
-	/**
-	 * Returns the value of the given <CODE>Node</CODE> as a decimal.
-	 * 
-	 * @param	node			The <CODE>Node</CODE> containing the value.
-	 * @return	The value of the node as a Java datatype.
-	 * @since	TFP 1.0
-	 */
-	public static BigDecimal decimal (final Node node)
-	{
-		try {
-            return (new BigDecimal (string (node)));
-		}
-		catch (Exception error) {
-			;
-		}
-		return (BigDecimal.ZERO);
-	}
-
-	/**
-	 * Rounds a monetary decimal value to a given number of places. 
-	 *  
-	 * @param 	value			The <CODE>BigDecimal</CODE> to round.
-	 * @param	places			The number of places required.
-	 * @return	The rounded value.
-	 * @since	TFP 1.0
-	 */
-	public static BigDecimal round (BigDecimal value, int places)
-	{
-		return (new BigDecimal (value.movePointRight (places).toBigInteger ()).movePointLeft (places));
 	}
 
 	// --------------------------------------------------------------------
