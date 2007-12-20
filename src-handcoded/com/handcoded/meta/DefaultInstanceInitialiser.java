@@ -48,7 +48,7 @@ public class DefaultInstanceInitialiser implements InstanceInitialiser
 		if (isDefaultNamespace)
 			root.setAttributeNS (Schema.NAMESPACES_URL, "xmlns", namespaceUri);
 		else
-			root.setAttributeNS (Schema.NAMESPACES_URL, "xmlns:" + preferredPrefix , namespaceUri);
+			root.setAttributeNS (Schema.NAMESPACES_URL, "xmlns:" + preferredPrefix, namespaceUri);
 		
 		// The following works around a problem in DOM
 		NamedNodeMap attrs = root.getAttributes ();
