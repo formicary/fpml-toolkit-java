@@ -28,6 +28,7 @@ import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.xml.DOM;
 import com.handcoded.xml.Logic;
 import com.handcoded.xml.NodeIndex;
+import com.handcoded.xml.Types;
 import com.handcoded.xml.XPath;
 
 /**
@@ -1767,11 +1768,11 @@ public final class CdsRules extends Logic
 
 					if ((ccy1 == null) || (ccy2 == null) || (amount == null) || (minimum == null)
 						|| notEqual (ccy1, ccy2)
-						|| (Double.parseDouble (string (amount)) >= Double.parseDouble (string (minimum))))
+						|| (Double.parseDouble (Types.toString (amount)) >= toDouble (minimum)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"In cash settlement terms, quotation amount " + string (amount) +
+						"In cash settlement terms, quotation amount " + Types.toString (amount) +
 						" must be greater or equal to minimum quotation amount",
 						getName (), null);
 
@@ -1813,7 +1814,7 @@ public final class CdsRules extends Logic
 					
 					BigDecimal total = BigDecimal.ZERO;
 					for (int count = 0; count < items.getLength (); ++count)
-						total = total.add (decimal (items.item (count)));
+						total = total.add (toDecimal (items.item (count)));
 					
 					if (total.equals(BigDecimal.ONE)) continue;
 					
@@ -1856,7 +1857,7 @@ public final class CdsRules extends Logic
 					Element		nth		= XPath.path (context, "nthToDefault");
 					Element		mth		= XPath.path (context, "mthToDefault");
 					
-					if ((nth == null) || (mth == null) || (integer (nth) < integer (mth))) continue;
+					if ((nth == null) || (mth == null) || (toInteger (nth) < toInteger (mth))) continue;
 					
 					errorHandler.error ("305", info,
 							"If nthToDefault is present and mthToDefault is present then nthToDefault must be less than mthToDefault.",
@@ -1897,7 +1898,7 @@ public final class CdsRules extends Logic
 				Element		exhaust	= XPath.path (context, "exhaustionPoint");
 				
 				if ((attach == null) || (exhaust == null) ||
-						(decimal (attach).compareTo (decimal (exhaust)) <= 0)) continue;
+						(toDecimal (attach).compareTo (toDecimal (exhaust)) <= 0)) continue;
 				
 				errorHandler.error ("305", tranche,
 						"attachmentPoint must be less than or equal to exhaustionPoint.",
@@ -2238,8 +2239,8 @@ public final class CdsRules extends Logic
 	{
 		try {
 			return (new Interval (
-				Integer.parseInt (string (XPath.path (context, "periodMultiplier"))),
-				Period.forCode (string (XPath.path (context, "period")))));
+				Integer.parseInt (Types.toString (XPath.path (context, "periodMultiplier"))),
+				Period.forCode (Types.toString (XPath.path (context, "period")))));
 		}
 		catch (Exception error) {
 			return (null);

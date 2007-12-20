@@ -20,12 +20,13 @@ import org.w3c.dom.NodeList;
 
 import com.handcoded.finance.Date;
 import com.handcoded.finance.Time;
-import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
+import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.xml.DOM;
 import com.handcoded.xml.Logic;
 import com.handcoded.xml.NodeIndex;
+import com.handcoded.xml.Types;
 import com.handcoded.xml.XPath;
 
 /**
@@ -182,7 +183,7 @@ public final class SharedRules extends Logic
 					errorHandler.error ("305", context,
 						"Offset has day type set to 'Business' but the period " +
 						"multiplier is set to zero.",
-						getName (), string (XPath.path (context, "periodMultiplier")));
+						getName (), Types.toString (XPath.path (context, "periodMultiplier")));
 
 					result = false;
 				}				

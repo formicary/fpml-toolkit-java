@@ -23,45 +23,28 @@ import com.handcoded.xml.Logic;
 import com.handcoded.xml.NodeIndex;
 
 /**
- * The <CODE>BusinessProcessRules</CODE> class contains a <CODE>RuleSet</CODE>
- * initialised with FpML defined validation rules for business process messages.
+ * The <CODE>ReferencesRules</CODE> class contains a <CODE>RuleSet</CODE>
+ * initialised with FpML defined validation rules for ID/IDREF references.
  *
  * @author	BitWise
  * @version	$Id$
  * @since	TFP 1.1
  */
-public final class BusinessProcessRules extends Logic
+public final class ReferenceRules extends Logic
 {
 	/**
-	 * A <CODE>Rule</CODE> that ensures The @href attribute must match the @id attribute of an element of type Party.
+	 * A <CODE>Rule</CODE> that ensures ...
 	 * <P>
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE01
-		= new Rule (Preconditions.R4_0__LATER, "bp-1")
+		= new Rule (Preconditions.R4_0__LATER, "ref-1")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("firstPeriodStartDate");
 				
-				for (int index = 0; index < list.getLength (); ++index) {
-					Element		context = (Element) list.item (index);
-					String		href	= context.getAttribute ("href");
-					
-					if (href == null) continue;
-					
-					Element		target	= nodeIndex.getElementById (href);
-						
-					if ((target == null) || !target.getLocalName().equals("party")) {
-						errorHandler.error("305", context,
-							"The @href attribute on the firstPeriodStartDate must reference a party",
-							getName (), href);
-						
-						result = false;
-					}
-				}
 				return (result);
 			}
 		};
@@ -88,7 +71,7 @@ public final class BusinessProcessRules extends Logic
 	 * Ensures no instances can be created.
 	 * @since	TFP 1.1
 	 */
-	private BusinessProcessRules ()
+	private ReferenceRules ()
 	{ }
 	
 	/**

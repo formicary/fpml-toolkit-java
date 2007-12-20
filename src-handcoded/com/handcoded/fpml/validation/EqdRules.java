@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2007 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -16,13 +16,14 @@ package com.handcoded.fpml.validation;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
+import com.handcoded.validation.ValidationErrorHandler;
+import com.handcoded.xml.DOM;
 import com.handcoded.xml.Logic;
 import com.handcoded.xml.NodeIndex;
+import com.handcoded.xml.Types;
 import com.handcoded.xml.XPath;
-import com.handcoded.xml.DOM;
 
 /**
  * The <CODE>EqdRules</CODE> class contains a <CODE>RuleSet</CODE>
@@ -61,12 +62,12 @@ public final class EqdRules extends Logic
 					Element	commence	= XPath.path (context, "commencementDate", "adjustableDate", "unadjustedDate");
 					Element	trade		= XPath.path (context, "..", "..", "..", "tradeHeader", "tradeDate");
 
-					if ((commence == null) || (trade == null) || equal (commence, trade))
+					if ((commence == null) || (trade == null) || equal (toDate (commence), toDate (trade)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"American exercise commencement date " + string (commence) +
-						" should be the same as trade date " + string (trade),
+						"American exercise commencement date " + Types.toString (commence) +
+						" should be the same as trade date " + Types.toString (trade),
 						getName (), null);
 
 					result = false;
@@ -101,12 +102,12 @@ public final class EqdRules extends Logic
 					Element	expiration	= XPath.path (context, "expirationDate", "adjustableDate", "unadjustedDate");
 					Element	trade		= XPath.path (context, "..", "..", "..", "tradeHeader", "tradeDate");
 
-					if ((expiration == null) || (trade == null) || greaterOrEqual (expiration, trade))
+					if ((expiration == null) || (trade == null) || greaterOrEqual (toDate (expiration), toDate (trade)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"American exercise expiration date " + string (expiration) +
-						" should be the same or later than trade date " + string (trade),
+						"American exercise expiration date " + Types.toString (expiration) +
+						" should be the same or later than trade date " + Types.toString (trade),
 						getName (), null);
 
 					result = false;
@@ -181,12 +182,12 @@ public final class EqdRules extends Logic
 					Element	commence	= XPath.path (context, "commencementDate", "adjustableDate", "unadjustedDate");
 					Element	trade		= XPath.path (context, "..", "..", "..", "tradeHeader", "tradeDate");
 
-					if ((commence == null) || (trade == null) || greaterOrEqual (commence, trade))
+					if ((commence == null) || (trade == null) || greaterOrEqual (toDate (commence), toDate (trade)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Bermuda exercise commencement date " + string (commence) +
-						" should not be before the trade date " + string (trade),
+						"Bermuda exercise commencement date " + Types.toString (commence) +
+						" should not be before the trade date " + Types.toString (trade),
 						getName (), null);
 
 					result = false;
@@ -221,12 +222,12 @@ public final class EqdRules extends Logic
 					Element	expiration	= XPath.path (context, "expirationDate", "adjustableDate", "unadjustedDate");
 					Element	trade		= XPath.path (context, "..", "..", "..", "tradeHeader", "tradeDate");
 
-					if ((expiration == null) || (trade == null) || greaterOrEqual (expiration, trade))
+					if ((expiration == null) || (trade == null) || greaterOrEqual (toDate (expiration), toDate (trade)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Bermuda exercise expiration date " + string (expiration) +
-						" should not be before the trade date " + string (trade),
+						"Bermuda exercise expiration date " + Types.toString (expiration) +
+						" should not be before the trade date " + Types.toString (trade),
 						getName (), null);
 
 					result = false;
@@ -302,12 +303,12 @@ public final class EqdRules extends Logic
 					Element 	context = (Element) list.item (index);
 					Element		next	= DOM.getNextSibling (context);
 
-					if ((next == null) || less (context, next))
+					if ((next == null) || less (toDate (context), toDate (next)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Bermuda exercise dates " + string (context) + " and " +
-						string (next) + " are not in order",
+						"Bermuda exercise dates " + Types.toString (context) + " and " +
+						Types.toString (next) + " are not in order",
 						getName (), null);
 
 					result = false;
@@ -342,13 +343,13 @@ public final class EqdRules extends Logic
 					Element context 	= (Element) list.item (index);
 					Element	commence	= XPath.path (context, "..", "..", "commencementDate", "adjustableDate", "unadjustedDate");
 
-					if ((commence == null) || greater (context, commence))
+					if ((commence == null) || greater (toDate (context), toDate (commence)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Bermuda exercise date " + string (context) +
+						"Bermuda exercise date " + Types.toString (context) +
 						" should be after exercise period commencement date " +
-						string (commence),
+						Types.toString (commence),
 						getName (), null);
 									
 					result = false;
@@ -383,13 +384,13 @@ public final class EqdRules extends Logic
 					Element context 	= (Element) list.item (index);
 					Element	expiration	= XPath.path (context, "..", "..", "expirationDate", "adjustableDate", "unadjustedDate");
 
-					if ((expiration == null) || lessOrEqual (context, expiration))
+					if ((expiration == null) || lessOrEqual (toDate (context), toDate (expiration)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Bermuda exercise date " + string (context) +
+						"Bermuda exercise date " + Types.toString (context) +
 						" should be on or before exercise period expiration date " +
-						string (expiration),
+						Types.toString (expiration),
 						getName (), null);
 									
 					result = false;
@@ -425,11 +426,11 @@ public final class EqdRules extends Logic
 					Element	other	= DOM.getNextSibling (context);
 
 					for (; other != null; other = DOM.getNextSibling (other)) {
-						if (notEqual (context, other)) continue;
+						if (notEqual (toDate (context), toDate (other))) continue;
 
 						errorHandler.error ("305", context,
-							"Duplicate bermuda exercise date, " + string (other),
-							getName (), string (other));
+							"Duplicate bermuda exercise date, " + Types.toString (other),
+							getName (), Types.toString (other));
 
 						result = false;
 					}
@@ -464,12 +465,12 @@ public final class EqdRules extends Logic
 					Element	expiration	= XPath.path (context, "expirationDate", "adjustableDate", "unadjustedDate");
 					Element	trade		= XPath.path (context, "..", "..", "..", "tradeHeader", "tradeDate");
 
-					if ((expiration == null) || (trade == null) || greaterOrEqual (expiration, trade))
+					if ((expiration == null) || (trade == null) || greaterOrEqual (toDate (expiration), toDate (trade)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"European exercise expiration date " + string (expiration) +
-						" should not be before the trade date " + string (trade),
+						"European exercise expiration date " + Types.toString (expiration) +
+						" should not be before the trade date " + Types.toString (trade),
 						getName (), null);
 
 					result = false;
@@ -504,12 +505,12 @@ public final class EqdRules extends Logic
 					Element	premiumDate	= XPath.path (context, "equityOption", "equityPremium", "paymentDate", "unadjustedDate");
 					Element	tradeDate	= XPath.path (context, "tradeHeader", "tradeDate");
 
-					if ((premiumDate == null) || (tradeDate == null) || greaterOrEqual (premiumDate, tradeDate))
+					if ((premiumDate == null) || (tradeDate == null) || greaterOrEqual (toDate (premiumDate), toDate (tradeDate)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Equity premium payment date " + string (premiumDate) +
-						" must be on or after trade date " + string (tradeDate),
+						"Equity premium payment date " + Types.toString (premiumDate) +
+						" must be on or after trade date " + Types.toString (tradeDate),
 						getName (), null);
 
 					result = false;
@@ -544,12 +545,12 @@ public final class EqdRules extends Logic
 					Element	premiumDate	= XPath.path (context, "brokerEquityOption", "equityPremium", "paymentDate", "unadjustedDate");
 					Element	tradeDate	= XPath.path (context, "tradeHeader", "tradeDate");
 
-					if ((premiumDate == null) || (tradeDate == null) || greaterOrEqual (premiumDate, tradeDate))
+					if ((premiumDate == null) || (tradeDate == null) || greaterOrEqual (toDate (premiumDate), toDate (tradeDate)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Broker equity premium payment date " + string (premiumDate) +
-						" must be on or after trade date " + string (tradeDate),
+						"Broker equity premium payment date " + Types.toString (premiumDate) +
+						" must be on or after trade date " + Types.toString (tradeDate),
 						getName (), null);
 
 					result = false;
@@ -584,7 +585,7 @@ public final class EqdRules extends Logic
 					Element	valuationDate	= XPath.path (context, "equityValuation", "valuationDate", "adjustableDate", "unadjustedDate");
 					Element	expirationDate	= XPath.path (context, "equityEuropeanExercise", "expirationDate", "adjustableDate", "unadjustedDate");
 
-					if ((valuationDate == null) || (expirationDate == null) || equal (valuationDate, expirationDate))
+					if ((valuationDate == null) || (expirationDate == null) || equal (toDate (valuationDate), toDate (expirationDate)))
 						continue;
 
 					errorHandler.error ("305", context,
@@ -623,7 +624,7 @@ public final class EqdRules extends Logic
 					Element	minimum = XPath.path (context, "minimumNumberOfOptions");
 					Element	maximum = XPath.path (context, "maximumNumberOfOptions");
 
-					if ((minimum == null) || (maximum == null) || less (decimal (minimum), decimal (maximum)))
+					if ((minimum == null) || (maximum == null) || less (toDecimal (minimum), toDecimal (maximum)))
 						continue;
 
 					errorHandler.error ("305", context,
@@ -669,7 +670,7 @@ public final class EqdRules extends Logic
 					Element	integral	= XPath.path (multiple, "integralMultipleExercise");
 					Element	maximum		= XPath.path (multiple, "maximumNumberOfOptions");
 
-					if ((integral == null) || (maximum == null) || greaterOrEqual (decimal (integral).multiply(decimal (maximum)), decimal (number)))
+					if ((integral == null) || (maximum == null) || greaterOrEqual (toDecimal (integral).multiply(toDecimal (maximum)), toDecimal (number)))
 						continue;
 
 					errorHandler.error ("305", context,
@@ -716,7 +717,7 @@ public final class EqdRules extends Logic
 					Element	integral	= XPath.path (multiple, "integralMultipleExercise");
 					Element	maximum		= XPath.path (multiple, "maximumNumberOfOptions");
 
-					if ((integral == null) || (maximum == null) || lessOrEqual (decimal (integral).multiply(decimal (maximum)), decimal (number)))
+					if ((integral == null) || (maximum == null) || lessOrEqual (toDecimal (integral).multiply(toDecimal (maximum)), toDecimal (number)))
 						continue;
 
 					errorHandler.error ("305", context,
@@ -755,12 +756,17 @@ public final class EqdRules extends Logic
 				
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
-					Element	notional	= XPath.path (context, "notional", "amount");
+					Element	notional	= XPath.path (context, "notional");
+					Element	payment		= XPath.path (context, "equityPremium", "paymentAmount");
+					
+					if (!isSameCurrency (notional, payment)) continue;
+					
+					Element	totalValue	= XPath.path (notional, "amount");
 					Element	percentage	= XPath.path (context, "equityPremium", "percentageOfNotional");
-					Element	amount		= XPath.path (context, "equityPremium", "paymentAmount", "amount");
+					Element	amount		= XPath.path (payment, "amount");
 
-					if ((notional == null) || (percentage == null) || (amount == null) ||
-						equal (round (decimal (amount), 2), round (decimal (notional).multiply (decimal (percentage)), 2)))
+					if ((totalValue == null) || (percentage == null) || (amount == null) ||
+						equal (round (toDecimal (amount), 2), round (toDecimal (totalValue).multiply (toDecimal (percentage)), 2)))
 						continue;
 
 					errorHandler.error ("305", context,
@@ -798,13 +804,18 @@ public final class EqdRules extends Logic
 				
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
+					Element	price		= XPath.path (context, "equityPremium", "pricePerOption");
+					Element	payment		= XPath.path (context, "equityPremium", "paymentAmount");
+					
+					if (!isSameCurrency (price, payment)) continue;
+					
 					Element	number		= XPath.path (context, "numberOfOptions");
 					Element	entitlement	= XPath.path (context, "optionEntitlement");
-					Element	price		= XPath.path (context, "equityPremium", "pricePerOption", "amount");
-					Element	amount		= XPath.path (context, "equityPremium", "paymentAmount", "amount");
+					Element	priceEach	= XPath.path (price, "amount");
+					Element	amount		= XPath.path (payment, "amount");
 
-					if ((number == null) || (entitlement == null) || (price == null) || (amount == null) ||
-						equal (round (decimal (amount), 2), round (decimal (price).multiply (decimal (number)).multiply (decimal (entitlement)), 2)))
+					if ((number == null) || (entitlement == null) || (priceEach == null) || (amount == null) ||
+						equal (round (toDecimal (amount), 2), round (toDecimal (priceEach).multiply (toDecimal (number)).multiply (toDecimal (entitlement)), 2)))
 						continue;
 
 					errorHandler.error ("305", context,
@@ -971,7 +982,7 @@ public final class EqdRules extends Logic
 					Element	startDate	= XPath.path (context, "startDate");
 					Element	endDate		= XPath.path (context, "endDate");
 
-					if ((startDate == null) || (endDate == null) || lessOrEqual (startDate, endDate))
+					if ((startDate == null) || (endDate == null) || lessOrEqual (toDate (startDate), toDate (endDate)))
 						continue;
 
 					errorHandler.error ("305", context,
@@ -1007,12 +1018,17 @@ public final class EqdRules extends Logic
 				
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context		= (Element) list.item (index);
+					Element	price		= XPath.path (context, "equityPremium", "pricePerOption");
+					Element	payment		= XPath.path (context, "equityPremium", "paymentAmount");
+					
+					if (!isSameCurrency (price, payment)) continue;
+					
 					Element	number		= XPath.path (context, "numberOfOptions");
-					Element	price		= XPath.path (context, "equityPremium", "pricePerOption", "amount");
-					Element	amount		= XPath.path (context, "equityPremium", "paymentAmount", "amount");
+					Element	priceEach	= XPath.path (price, "amount");
+					Element	amount		= XPath.path (payment, "amount");
 
-					if ((number == null) || (price == null) || (amount == null) ||
-						equal (round (decimal (amount), 2), round (decimal (price).multiply (decimal (number)), 2)))
+					if ((number == null) || (priceEach == null) || (amount == null) ||
+						equal (round (toDecimal (amount), 2), round (toDecimal (priceEach).multiply (toDecimal (number)), 2)))
 						continue;
 
 					errorHandler.error ("305", context,
@@ -1050,6 +1066,21 @@ public final class EqdRules extends Logic
 	 */
 	private EqdRules ()
 	{ }
+	
+	/**
+	 * Determine if two <CODE>Element</CODE> structures containing
+	 * <B>Money</B> instances have the same currency code.
+	 * 
+	 * @param	moneyA			The <CODE>Element</CODE> containing the first <B>Money</B>.
+	 * @param	moneyB			The <CODE>Element</CODE> containing the second <B>Money</B>.
+	 * @return	<CODE>true</CODE> if both <B>Money</B> structures have the same currency.
+	 * @since	TFP 1.1
+	 */
+	private static boolean isSameCurrency (Element moneyA, Element moneyB)
+	{
+		return (equal (XPath.path (moneyA, "currency"),
+					   XPath.path (moneyB, "currency")));
+	}
 	
 	/**
 	 * Initialises the <CODE>RuleSet</CODe> by adding the individually defined

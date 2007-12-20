@@ -18,6 +18,10 @@ import java.math.BigDecimal;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.handcoded.finance.Date;
+import com.handcoded.finance.DateTime;
+import com.handcoded.finance.Time;
+
 /**
  * The <CODE>Logic</CODE> class contains functions that make converting logic
  * based rules to Java easier. Rule set container classes may be derived from this
@@ -144,26 +148,26 @@ public abstract class Logic extends Types
 	public static boolean equal (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (equal (string (lhs), string (rhs)));
+			return (equal (toString (lhs), toString (rhs)));
 		return (false);
 	}
 
 	/**
 	 * Determines if the value of a <CODE>Node</CODE> is the same as a
-	 * given <CODE>string</CODE>.
+	 * given <CODE>String</CODE>.
 	 * 
 	 * @param	lhs				The <CODE>Node</CODE> to compare.
-	 * @param	rhs				The <see cref="string"/> value.
+	 * @param	rhs				The <CODE>String</CODE> value.
 	 * @return	<CODE>true</CODE> if the two values are equal.
 	 * @since	TFP 1.0
 	 */
 	public static boolean equal (final Node lhs, final String rhs)
 	{
-		return ((lhs != null) ? equal (string (lhs), rhs) : false);
+		return ((lhs != null) ? equal (toString (lhs), rhs) : false);
 	}
 
 	/**
-	 * Determines if two <see cref="string"/> values have the same contents.
+	 * Determines if two <CODE>String</CODE> values have the same contents.
 	 * 
 	 * @param 	lhs				The <CODE>String</CODE> to compare.
 	 * @param 	rhs				The <CODE>String</CODE> to compare with.
@@ -177,10 +181,10 @@ public abstract class Logic extends Types
 
 	/**
 	 * Determines if the value of a <CODE>Node</CODE> is the same as a
-	 * given <see cref="int"/>.
+	 * given <CODE>int</CODE>.
 	 * 
 	 * @param	lhs				The <CODE>Node</CODE> to compare.
-	 * @param 	rhs				The <see cref="int"/> value.
+	 * @param 	rhs				The <CODE>int</CODE> value.
 	 * @return	<CODE>true</CODE> if the two values are equal.
 	 * @since	TFP 1.0
 	 */
@@ -188,7 +192,7 @@ public abstract class Logic extends Types
 	{
 		if (lhs != null) {
 			try {
-				return (integer (lhs) == rhs);
+				return (toInteger (lhs) == rhs);
 			}
 			catch (Exception error) {
 				return (false);
@@ -223,6 +227,45 @@ public abstract class Logic extends Types
 		return (lhs.equals (rhs));
 	}
 
+	/**
+	 * Determines if two <CODE>Date</CODE> values have the same contents.
+	 * 
+	 * @param 	lhs				The <CODE>Date</CODE> to compare.
+	 * @param 	rhs				The <CODE>Date</CODE> to compare with.
+	 * @return	<CODE>true</CODE> if the <CODE>Date</CODE> values are equal.
+	 * @since	TFP 1.1
+	 */
+	public static boolean equal (final Date lhs, final Date rhs)
+	{
+		return (lhs.equals (rhs));
+	}
+
+	/**
+	 * Determines if two <CODE>DateTime</CODE> values have the same contents.
+	 * 
+	 * @param 	lhs				The <CODE>DateTime</CODE> to compare.
+	 * @param 	rhs				The <CODE>DateTime</CODE> to compare with.
+	 * @return	<CODE>true</CODE> if the <CODE>DateTime</CODE> values are equal.
+	 * @since	TFP 1.1
+	 */
+	public static boolean equal (final DateTime lhs, final DateTime rhs)
+	{
+		return (lhs.equals (rhs));
+	}
+
+	/**
+	 * Determines if two <CODE>Time</CODE> values have the same contents.
+	 * 
+	 * @param 	lhs				The <CODE>Time</CODE> to compare.
+	 * @param 	rhs				The <CODE>Time</CODE> to compare with.
+	 * @return	<CODE>true</CODE> if the <CODE>Time</CODE> values are equal.
+	 * @since	TFP 1.1
+	 */
+	public static boolean equal (final Time lhs, final Time rhs)
+	{
+		return (lhs.equals (rhs));
+	}
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -236,7 +279,7 @@ public abstract class Logic extends Types
 	public static boolean notEqual (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (notEqual (string(lhs), string(rhs)));
+			return (notEqual (toString (lhs), toString (rhs)));
 		return (false);
 	}
 
@@ -251,7 +294,7 @@ public abstract class Logic extends Types
 	 */
 	public static boolean notEqual (final Node lhs, final String rhs)
 	{
-		return ((lhs != null) ? notEqual (string (lhs), rhs) : false);
+		return ((lhs != null) ? notEqual (toString (lhs), rhs) : false);
 	}
 
 	/**
@@ -281,7 +324,7 @@ public abstract class Logic extends Types
 	{
 		if (lhs != null) {
 			try {
-				return (Integer.parseInt (string (lhs)) != rhs);
+				return (toInteger (lhs) != rhs);
 			}
 			catch (Exception error) {
 				return (false);
@@ -303,7 +346,7 @@ public abstract class Logic extends Types
 	{
 		if (lhs != null) {
 			try {
-				return (new BigDecimal (string (lhs)).compareTo (rhs) != 0);
+				return (!toDecimal (lhs).equals (rhs));
 			}
 			catch (Exception error) {
 				return (false);
@@ -312,11 +355,67 @@ public abstract class Logic extends Types
 		return (false);
 	}
 
+	/**
+	 * Determines if two <CODE>BigDecimal</CODE> values are different.
+	 * 
+	 * @param 	lhs			The <CODE>BigDecimal</CODE> to compare.
+	 * @param 	rhs			The <CODE>BigDecimal</CODE> to compare to.
+	 * @return	<CODE>true</CODE> if the two <CODE>BigDecimal</CODE> values are
+	 * 			different.
+	 * @since	TFP 1.0
+	 */
+	public static boolean notEqual (final BigDecimal lhs, final BigDecimal rhs)
+	{
+		return (!lhs.equals (rhs));
+	}
+
+	/**
+	 * Determines if two <CODE>Date</CODE> values are different.
+	 * 
+	 * @param 	lhs			The <CODE>Date</CODE> to compare.
+	 * @param 	rhs			The <CODE>Date</CODE> to compare to.
+	 * @return	<CODE>true</CODE> if the two <CODE>Date</CODE> values are
+	 * 			different.
+	 * @since	TFP 1.1
+	 */
+	public static boolean notEqual (final Date lhs, final Date rhs)
+	{
+		return (!lhs.equals (rhs));
+	}
+
+	/**
+	 * Determines if two <CODE>DateTime</CODE> values are different.
+	 * 
+	 * @param 	lhs			The <CODE>DateTime</CODE> to compare.
+	 * @param 	rhs			The <CODE>DateTime</CODE> to compare to.
+	 * @return	<CODE>true</CODE> if the two <CODE>DateTime</CODE> values are
+	 * 			different.
+	 * @since	TFP 1.1
+	 */
+	public static boolean notEqual (final DateTime lhs, final DateTime rhs)
+	{
+		return (!lhs.equals (rhs));
+	}
+
+	/**
+	 * Determines if two <CODE>Time</CODE> values are different.
+	 * 
+	 * @param 	lhs			The <CODE>Time</CODE> to compare.
+	 * @param 	rhs			The <CODE>Time</CODE> to compare to.
+	 * @return	<CODE>true</CODE> if the two <CODE>Time</CODE> values are
+	 * 			different.
+	 * @since	TFP 1.1
+	 */
+	public static boolean notEqual (final Time lhs, final Time rhs)
+	{
+		return (!lhs.equals (rhs));
+	}
+
 	// --------------------------------------------------------------------
 
 	/**
 	 * Determines if the value of one node is less than another. If either
-	 * node is null then the result is <b>false</b>.
+	 * node is null then the result is <CODE>false</CODE>.
 	 * 
 	 * @param 	lhs				The first node.
 	 * @param 	rhs				The second node.
@@ -327,7 +426,7 @@ public abstract class Logic extends Types
 	public static boolean less (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (less (string (lhs), string (rhs)));
+			return (less (toString (lhs), toString (rhs)));
 		return (false);
 	}
 
@@ -343,11 +442,11 @@ public abstract class Logic extends Types
 	 */
 	public static boolean less (final Node lhs, final String rhs)
 	{
-		return ((lhs != null) ? less (string (lhs), rhs) : false);
+		return ((lhs != null) ? less (toString (lhs), rhs) : false);
 	}
 
 	/**
-	 * Determines if the value of a <see cref="string"/> is lexiographically
+	 * Determines if the value of a <CODE>String</CODE> is lexiographically
 	 * less than the value of another.
 	 * 
 	 * @param	lhs				The <CODE>String</CODE> to compare.
@@ -361,7 +460,7 @@ public abstract class Logic extends Types
 	}
 
 	/**
-	 * Determines if the value of a <see cref="decimal"/> is less than
+	 * Determines if the value of a <CODE>Decimal</CODE> is less than
 	 * the value of another.
 	 * 
 	 * @param 	lhs				The <CODE>BigDecimal</CODE> to compare.
@@ -370,6 +469,48 @@ public abstract class Logic extends Types
 	 * @since	TFP 1.0
 	 */
 	public static boolean less (final BigDecimal lhs, final BigDecimal rhs)
+	{
+		return (lhs.compareTo (rhs) < 0);
+	}
+	
+	/**
+	 * Determines if the value of a <CODE>Date</CODE> is less than
+	 * the value of another.
+	 * 
+	 * @param 	lhs				The <CODE>Date</CODE> to compare.
+	 * @param 	rhs				The <CODE>Date</CODE> to compare with.
+	 * @return	<CODE>true</CODE> if the first value is less than the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean less (final Date lhs, final Date rhs)
+	{
+		return (lhs.compareTo (rhs) < 0);
+	}
+	
+	/**
+	 * Determines if the value of a <CODE>DateTime</CODE> is less than
+	 * the value of another.
+	 * 
+	 * @param 	lhs				The <CODE>DateTime</CODE> to compare.
+	 * @param 	rhs				The <CODE>DateTime</CODE> to compare with.
+	 * @return	<CODE>true</CODE> if the first value is less than the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean less (final DateTime lhs, final DateTime rhs)
+	{
+		return (lhs.compareTo (rhs) < 0);
+	}
+	
+	/**
+	 * Determines if the value of a <CODE>Time</CODE> is less than
+	 * the value of another.
+	 * 
+	 * @param 	lhs				The <CODE>Time</CODE> to compare.
+	 * @param 	rhs				The <CODE>Time</CODE> to compare with.
+	 * @return	<CODE>true</CODE> if the first value is less than the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean less (final Time lhs, final Time rhs)
 	{
 		return (lhs.compareTo (rhs) < 0);
 	}
@@ -388,7 +529,7 @@ public abstract class Logic extends Types
 	public static boolean greater (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (greater (string (lhs), string (rhs)));
+			return (greater (toString (lhs), toString (rhs)));
 		return (false);
 	}
 
@@ -420,7 +561,7 @@ public abstract class Logic extends Types
 	}
 
 	/**
-	 * Determines if the value of a <see cref="decimal"/> is greater than
+	 * Determines if the value of a <CODE>BigDecimal</CODE> is greater than
 	 * the value of another.
 	 * 
 	 * @param 	lhs				The <CODE>BigDecimal</CODE> to compare.
@@ -433,6 +574,48 @@ public abstract class Logic extends Types
 		return (lhs.compareTo (rhs) > 0);
 	}
 	
+	/**
+	 * Determines if the value of a <CODE>Date</CODE> is greater than
+	 * the value of another.
+	 * 
+	 * @param 	lhs				The <CODE>Date</CODE> to compare.
+	 * @param 	rhs				The <CODE>Date</CODE> to compare with.
+	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean greater (final Date lhs, final Date rhs)
+	{
+		return (lhs.compareTo (rhs) > 0);
+	}
+	
+	/**
+	 * Determines if the value of a <CODE>DateTime</CODE> is greater than
+	 * the value of another.
+	 * 
+	 * @param 	lhs				The <CODE>DateTime</CODE> to compare.
+	 * @param 	rhs				The <CODE>DateTime</CODE> to compare with.
+	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean greater (final DateTime lhs, final DateTime rhs)
+	{
+		return (lhs.compareTo (rhs) > 0);
+	}
+	
+	/**
+	 * Determines if the value of a <CODE>Time</CODE> is greater than
+	 * the value of another.
+	 * 
+	 * @param 	lhs				The <CODE>Time</CODE> to compare.
+	 * @param 	rhs				The <CODE>Time</CODE> to compare with.
+	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean greater (final Time lhs, final Time rhs)
+	{
+		return (lhs.compareTo (rhs) > 0);
+	}
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -441,13 +624,14 @@ public abstract class Logic extends Types
 	 * 
 	 * @param 	lhs				The first node.
 	 * @param 	rhs				The second node.
-	 * @return	<CODE>true</CODE> if the first value is less than the second.
+	 * @return	<CODE>true</CODE> if the first value is less than or equal
+	 * 			to the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean lessOrEqual (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (lessOrEqual (string (lhs), string (rhs)));
+			return (lessOrEqual (toString (lhs), toString (rhs)));
 		return (false);
 	}
 
@@ -457,13 +641,14 @@ public abstract class Logic extends Types
 	 *  
 	 * @param 	lhs				The node holding the value.
 	 * @param 	rhs				The value to compare against.
-	 * @return	<CODE>true</CODE> if the first value is less than the second.
+	 * @return	<CODE>true</CODE> if the first value is less than or equal
+	 * 			to the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean lessOrEqual (final Node lhs, double rhs)
 	{
 		try {
-			return (Double.parseDouble (string (lhs)) <= rhs);
+			return (Double.parseDouble (toString (lhs)) <= rhs);
 		}
 		catch (Exception error) {
 			return (false);
@@ -476,7 +661,8 @@ public abstract class Logic extends Types
 	 * 
 	 * @param 	lhs				The first string.</param>
 	 * @param 	rhs				The second string.</param>
-	 * @return	<CODE>true</CODE> if the first value is less than the second.
+	 * @return	<CODE>true</CODE> if the first value is less than or equal
+	 * 			to the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean lessOrEqual (final String lhs, final String rhs)
@@ -485,15 +671,61 @@ public abstract class Logic extends Types
 	}
 	
 	/**
-	 * Compares two <see cref="decimal"/> instances to determine if the
+	 * Compares two <CODE>BigDecimal</CODE> instances to determine if the
 	 * first is equal to or smaller than the second.
 	 *
 	 * @param 	lhs				The first decimal.
 	 * @param 	rhs				The second decimal.
-	 * @return	<CODE>true</CODE> if the first value is less than the second.
+	 * @return	<CODE>true</CODE> if the first value is less than or equal
+	 * 			to the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean lessOrEqual (final BigDecimal lhs, final BigDecimal rhs)
+	{
+		return (lhs.compareTo (rhs) <= 0);
+	}
+	
+	/**
+	 * Compares two <CODE>Date</CODE> instances to determine if the
+	 * first is equal to or smaller than the second.
+	 *
+	 * @param 	lhs				The first <CODE>Date</CODE>.
+	 * @param 	rhs				The second <CODE>Date</CODE>.
+	 * @return	<CODE>true</CODE> if the first value is less than or equal
+	 * 			to the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean lessOrEqual (final Date lhs, final Date rhs)
+	{
+		return (lhs.compareTo (rhs) <= 0);
+	}
+	
+	/**
+	 * Compares two <CODE>DateTime</CODE> instances to determine if the
+	 * first is equal to or smaller than the second.
+	 *
+	 * @param 	lhs				The first <CODE>DateTime</CODE>.
+	 * @param 	rhs				The second <CODE>DateTime</CODE>.
+	 * @return	<CODE>true</CODE> if the first value is less than or equal
+	 * 			to the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean lessOrEqual (final DateTime lhs, final DateTime rhs)
+	{
+		return (lhs.compareTo (rhs) <= 0);
+	}
+	
+	/**
+	 * Compares two <CODE>Time</CODE> instances to determine if the
+	 * first is equal to or smaller than the second.
+	 *
+	 * @param 	lhs				The first <CODE>Time</CODE>.
+	 * @param 	rhs				The second <CODE>Time</CODE>.
+	 * @return	<CODE>true</CODE> if the first value is less than or equal
+	 * 			to the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean lessOrEqual (final Time lhs, final Time rhs)
 	{
 		return (lhs.compareTo (rhs) <= 0);
 	}
@@ -506,13 +738,14 @@ public abstract class Logic extends Types
 	 * 
 	 * @param 	lhs				The first node.
 	 * @param 	rhs				The second node.
-	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @return	<CODE>true</CODE> if the first value is greater than or
+	 * 			equal to the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean greaterOrEqual (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (greaterOrEqual (string (lhs), string (rhs)));
+			return (greaterOrEqual (toString (lhs), toString (rhs)));
 		return (false);
 	}
 
@@ -522,7 +755,8 @@ public abstract class Logic extends Types
 	 *
 	 * @param 	lhs				The first string.
 	 * @param	rhs				The second string.
-	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @return	<CODE>true</CODE> if the first value is greater than or
+	 * 			equal to the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean greaterOrEqual (final String lhs, final String rhs)
@@ -536,13 +770,14 @@ public abstract class Logic extends Types
 	 * 
 	 * @param	lhs				The node holding the value.
 	 * @param 	rhs				The value to compare against.
-	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @return	<CODE>true</CODE> if the first value is greater than or
+	 * 			equal to the second.
 	 * @since	TFP 1.0
 	 */
 	public static boolean greaterOrEqual (final Node lhs, double rhs)
 	{
 		try {
-			return (Double.parseDouble(string (lhs)) >= rhs);
+			return (toDouble (lhs) >= rhs);
 		}
 		catch (Exception error) {
 			return (false);
@@ -550,15 +785,61 @@ public abstract class Logic extends Types
 	}
 
 	/**
-	 * Compares two <see cref="decimal"/> instances to determine if the
+	 * Compares two <CODE>BigDecimal</CODE> instances to determine if the
 	 * first is equal to or larger than the second.
 	 *
-	 * @param 	lhs				The first decimal.
-	 * @param 	rhs				The second decimal.
-	 * @return	<CODE>true</CODE> if the first value is greater than the second.
+	 * @param 	lhs				The first <CODE>BigDecimal</CODE>.
+	 * @param 	rhs				The second <CODE>BigDecimal</CODE>.
+	 * @return	<CODE>true</CODE> if the first value is greater than or
+	 * 			equal to the second.
 	 * @since	TFP 1.1
 	 */
 	public static boolean greaterOrEqual (final BigDecimal lhs, final BigDecimal rhs)
+	{
+		return (lhs.compareTo (rhs) >= 0);
+	}
+	
+	/**
+	 * Compares two <CODE>Date</CODE> instances to determine if the
+	 * first is equal to or larger than the second.
+	 *
+	 * @param 	lhs				The first <CODE>Date</CODE>.
+	 * @param 	rhs				The second <CODE>Date</CODE>.
+	 * @return	<CODE>true</CODE> if the first value is greater than or
+	 * 			equal to the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean greaterOrEqual (final Date lhs, final Date rhs)
+	{
+		return (lhs.compareTo (rhs) >= 0);
+	}
+	
+	/**
+	 * Compares two <CODE>DateTime</CODE> instances to determine if the
+	 * first is equal to or larger than the second.
+	 *
+	 * @param 	lhs				The first <CODE>DateTime</CODE>.
+	 * @param 	rhs				The second <CODE>DateTime</CODE>.
+	 * @return	<CODE>true</CODE> if the first value is greater than or
+	 * 			equal to the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean greaterOrEqual (final DateTime lhs, final DateTime rhs)
+	{
+		return (lhs.compareTo (rhs) >= 0);
+	}
+	
+	/**
+	 * Compares two <CODE>Time</CODE> instances to determine if the
+	 * first is equal to or larger than the second.
+	 *
+	 * @param 	lhs				The first <CODE>Time</CODE>.
+	 * @param 	rhs				The second <CODE>Time</CODE>.
+	 * @return	<CODE>true</CODE> if the first value is greater than or
+	 * 			equal to the second.
+	 * @since	TFP 1.1
+	 */
+	public static boolean greaterOrEqual (final Time lhs, final Time rhs)
 	{
 		return (lhs.compareTo (rhs) >= 0);
 	}

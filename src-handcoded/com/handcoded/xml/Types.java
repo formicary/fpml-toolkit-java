@@ -30,7 +30,7 @@ import com.handcoded.finance.Time;
  * 
  * @author 	BitWise
  * @version	$Id$
- * @since	TFP 1.2
+ * @since	TFP 1.1
  */
 public abstract class Types
 {
@@ -41,7 +41,7 @@ public abstract class Types
 	 * @return	The value of the node as a Java datatype.
 	 * @since	TFP 1.0
 	 */
-	public static String string (final Node node)
+	public static String toString (final Node node)
 	{
 		return (DOM.getInnerText ((Element) node).trim ());
 	}
@@ -53,10 +53,10 @@ public abstract class Types
 	 * @return	The value of the node as a Java datatype.
 	 * @since	TFP 1.0
 	 */
-	public static boolean bool (final Node node)
+	public static boolean toBool (final Node node)
 	{
 		try {
-			return (Boolean.parseBoolean (string (node)));
+			return (Boolean.parseBoolean (toString (node)));
 		}
 		catch (Exception error) {
 			;
@@ -71,15 +71,33 @@ public abstract class Types
 	 * @return	The value of the node as a Java datatype.
 	 * @since	TFP 1.0
 	 */
-	public static int integer (final Node node)
+	public static int toInteger (final Node node)
 	{
 		try {
-			return (Integer.parseInt (string (node)));
+			return (Integer.parseInt (toString (node)));
 		}
 		catch (Exception error) {
 			;
 		}
 		return (0);
+	}
+
+	/**
+	 * Returns the value of the given <CODE>Node</CODE> as an double.
+	 * 
+	 * @param 	node			The <CODE>Node</CODE> containing the value.
+	 * @return	The value of the node as a Java datatype.
+	 * @since	TFP 1.0
+	 */
+	public static double toDouble (final Node node)
+	{
+		try {
+			return (Double.parseDouble (toString (node)));
+		}
+		catch (Exception error) {
+			;
+		}
+		return (0.0);
 	}
 
 	/**
@@ -89,10 +107,10 @@ public abstract class Types
 	 * @return	The value of the node as a Java datatype.
 	 * @since	TFP 1.0
 	 */
-	public static BigDecimal decimal (final Node node)
+	public static BigDecimal toDecimal (final Node node)
 	{
 		try {
-            return (new BigDecimal (string (node)));
+            return (new BigDecimal (toString (node)));
 		}
 		catch (Exception error) {
 			;
@@ -101,34 +119,16 @@ public abstract class Types
 	}
 	
 	/**
-	 * Returns the value of the given <CODE>Node</CODE> as an <CODE>Time</CODE>.
-	 * 
-	 * @param 	node			The <CODE>Node</CODE> containing the value.
-	 * @return	The value of the node as a Java datatype.
-	 * @since	TFP 1.1
-	 */
-	public static Time time (final Node node)
-	{
-		try {
-			return (Time.parse (string (node)));
-		}
-		catch (Exception error) {
-			;
-		}
-		return (null);
-	}
-
-	/**
 	 * Returns the value of the given <CODE>Node</CODE> as an <CODE>Date</CODE>.
 	 * 
 	 * @param 	node			The <CODE>Node</CODE> containing the value.
 	 * @return	The value of the node as a Java datatype.
 	 * @since	TFP 1.1
 	 */
-	public static Date date (final Node node)
+	public static Date toDate (final Node node)
 	{
 		try {
-			return (Date.parse (string (node)));
+			return (Date.parse (toString (node)));
 		}
 		catch (Exception error) {
 			;
@@ -143,10 +143,28 @@ public abstract class Types
 	 * @return	The value of the node as a Java datatype.
 	 * @since	TFP 1.1
 	 */
-	public static DateTime dateTime (final Node node)
+	public static DateTime toDateTime (final Node node)
 	{
 		try {
-			return (DateTime.parse (string (node)));
+			return (DateTime.parse (toString (node)));
+		}
+		catch (Exception error) {
+			;
+		}
+		return (null);
+	}
+
+	/**
+	 * Returns the value of the given <CODE>Node</CODE> as an <CODE>Time</CODE>.
+	 * 
+	 * @param 	node			The <CODE>Node</CODE> containing the value.
+	 * @return	The value of the node as a Java datatype.
+	 * @since	TFP 1.1
+	 */
+	public static Time toTime (final Node node)
+	{
+		try {
+			return (Time.parse (toString (node)));
 		}
 		catch (Exception error) {
 			;
@@ -169,7 +187,7 @@ public abstract class Types
 
 	/**
 	 * Constructs a <CODE>Types</CODE> instance.
-	 * @since	TFP 1.2
+	 * @since	TFP 1.1
 	 */
 	protected Types ()
 	{ }

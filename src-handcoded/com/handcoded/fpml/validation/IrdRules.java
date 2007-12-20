@@ -21,12 +21,13 @@ import org.w3c.dom.NodeList;
 import com.handcoded.finance.Date;
 import com.handcoded.finance.Interval;
 import com.handcoded.finance.Period;
-import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
+import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.xml.DOM;
 import com.handcoded.xml.Logic;
 import com.handcoded.xml.NodeIndex;
+import com.handcoded.xml.Types;
 import com.handcoded.xml.XPath;
 
 /**
@@ -117,15 +118,15 @@ public final class IrdRules extends Logic
 
 					if ((paymentFreq == null) || (calcFreq == null)) continue;
 
-					Interval payment = interval (paymentFreq);
-					Interval calc    = interval (calcFreq);
+					Interval payment = toInterval (paymentFreq);
+					Interval calc    = toInterval (calcFreq);
 
 					if ((payment == null) || (calc == null) || payment.isMultipleOf (calc)) continue;
 
 					errorHandler.error ("305", context,
-						"Payment frequency '" + interval (paymentFreq) +
+						"Payment frequency '" + toInterval (paymentFreq) +
 						"' is not an integer multiple of calculation frequency '" +
-						interval (calcFreq) + "'",
+						toInterval (calcFreq) + "'",
 						getName (), null);
 
 					result = false;				
@@ -172,17 +173,15 @@ public final class IrdRules extends Logic
 					if (!exists (startDate))
 						startDate = XPath.path (context, "calculationPeriodDates", "terminationDate", "unadjustedDate");
 					
-					Interval interval	= interval (XPath.path (context, "calculationPeriodDate", "calculationPeriodFrequency"));
+					Interval interval	= toInterval (XPath.path (context, "calculationPeriodDate", "calculationPeriodFrequency"));
 					
 					if ((paymentDate == null) || (startDate == null) || (endDate == null) || (interval == null) ||
 							isUnadjustedCalculationPeriodDate (
-									Date.parse (string (paymentDate)),
-									Date.parse (string (startDate)),
-									Date.parse (string (endDate)),
+									toDate (paymentDate), toDate (startDate), toDate (endDate),
 									interval)) continue;
 				
 					errorHandler.error ("305", context,
-						"The first payment date '" + string (paymentDate) + "' does not " +
+						"The first payment date '" + Types.toString (paymentDate) + "' does not " +
 						"fall on one of the unadjusted calculation period dates.",
 						getName (), null);
 					
@@ -230,17 +229,15 @@ public final class IrdRules extends Logic
 					if (!exists (startDate))
 						startDate = XPath.path (context, "calculationPeriodDates", "terminationDate", "unadjustedDate");
 					
-					Interval interval	= interval (XPath.path (context, "calculationPeriodDate", "calculationPeriodFrequency"));
+					Interval interval	= toInterval (XPath.path (context, "calculationPeriodDate", "calculationPeriodFrequency"));
 					
 					if ((paymentDate == null) || (startDate == null) || (endDate == null) || (interval == null) ||
 							isUnadjustedCalculationPeriodDate (
-									Date.parse (string (paymentDate)),
-									Date.parse (string (startDate)),
-									Date.parse (string (endDate)),
+									toDate (paymentDate), toDate (startDate), toDate (endDate),
 									interval)) continue;
 				
 					errorHandler.error ("305", context,
-						"The first payment date '" + string (paymentDate) + "' does not " +
+						"The first payment date '" + Types.toString (paymentDate) + "' does not " +
 						"fall on one of the unadjusted calculation period dates.",
 						getName (), null);
 					
@@ -283,16 +280,16 @@ public final class IrdRules extends Logic
 
 					if ((calcFreq == null) || (resetFreq == null)) continue;
 					
-					Interval calc  = interval (calcFreq);
-					Interval reset = interval (resetFreq);
+					Interval calc  = toInterval (calcFreq);
+					Interval reset = toInterval (resetFreq);
 					
 					if ((calc == null) || (reset == null) || calc.isMultipleOf (reset))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Calculation frequency '" + interval (calcFreq) +
+						"Calculation frequency '" + toInterval (calcFreq) +
 						"' is not an integer multiple of reset frequency '" +
-						interval (resetFreq) + "'",
+						toInterval (resetFreq) + "'",
 						getName (), null);
 
 					result = false;				
@@ -336,8 +333,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"The first payment date " + string (payment) + " must be after " +
-						"the unadjusted effective date " + string (effective),
+						"The first payment date " + Types.toString (payment) + " must be after " +
+						"the unadjusted effective date " + Types.toString (effective),
 						getName (), null);
 				
 					result = false;
@@ -381,8 +378,8 @@ public final class IrdRules extends Logic
 
 					if ((paymentFreq == null) || (calcFreq == null)) continue;
 
-					Interval payment = interval (paymentFreq);
-					Interval calc    = interval (calcFreq);
+					Interval payment = toInterval (paymentFreq);
+					Interval calc    = toInterval (calcFreq);
 
 					if ((payment == null) || (calc == null)) continue;
 
@@ -393,8 +390,8 @@ public final class IrdRules extends Logic
 
 					errorHandler.error ("305", context,
 						"Compounding method must only be present when the payment frequency '" +
-						interval (paymentFreq) + "' is different from the calculation " +
-						"frequency '" + interval (calcFreq) + "'",
+						toInterval (paymentFreq) + "' is different from the calculation " +
+						"frequency '" + toInterval (calcFreq) + "'",
 						getName (), null);
 
 					result = false;
@@ -507,14 +504,14 @@ public final class IrdRules extends Logic
 					Element	context = (Element) list.item (index);
 					Element rollConvention	= XPath.path (context, "calculationPeriodFrequency", "rollConvention");
 					
-					if (!isNumber (string (rollConvention))) continue;
+					if (!isNumber (Types.toString (rollConvention))) continue;
 					
 					Element	startDate = XPath.path (context, "firstRegularPeriodStartDate");
 					if (!exists (startDate))
 						startDate = XPath.path (context, "effectiveDate", "unadjustedDate");
 					
-					int		rollDate = integer (rollConvention);
-					Date	start	 = Date.parse (string (startDate));
+					int		rollDate = toInteger (rollConvention);
+					Date	start	 = toDate (startDate);
 					
 					if (rollDate < start.lastDayOfMonth ()) {
 						if (rollDate == start.dayOfMonth ()) continue;
@@ -524,7 +521,7 @@ public final class IrdRules extends Logic
 					
 					errorHandler.error ("305", context,
 						"The start date of the calculation period,  '" + start + "' is not " +
-						"consistent with the roll convention " + string (rollConvention),
+						"consistent with the roll convention " + Types.toString (rollConvention),
 						getName (), null);
 					
 					result = false;
@@ -555,14 +552,14 @@ public final class IrdRules extends Logic
 					Element	context = (Element) list.item (index);
 					Element rollConvention	= XPath.path (context, "calculationPeriodFrequency", "rollConvention");
 					
-					if (!isNumber (string (rollConvention))) continue;
+					if (!isNumber (Types.toString (rollConvention))) continue;
 					
 					Element	endDate = XPath.path (context, "firstRegularPeriodEndDate");
 					if (!exists (endDate))
 						endDate = XPath.path (context, "terminationDate", "unadjustedDate");
 					
-					int		rollDate = integer (rollConvention);
-					Date	end	 = Date.parse (string (endDate));
+					int		rollDate = toInteger (rollConvention);
+					Date	end	 = Date.parse (Types.toString (endDate));
 					
 					if (rollDate < end.lastDayOfMonth ()) {
 						if (rollDate == end.dayOfMonth ()) continue;
@@ -572,7 +569,7 @@ public final class IrdRules extends Logic
 					
 					errorHandler.error ("305", context,
 						"The end date of the calculation period,  '" + end + "' is not " +
-						"consistent with the roll convention " + string (rollConvention),
+						"consistent with the roll convention " + Types.toString (rollConvention),
 						getName (), null);
 					
 					result = false;
@@ -609,9 +606,9 @@ public final class IrdRules extends Logic
 					if (end   == null) end   = XPath.path (context, "terminationDate", "unadjustedDate");
 
 					if ((start != null) && (end != null) && (period != null)) {
-						Date		startDate = Date.parse (string (start));
-						Date		endDate	  = Date.parse (string (end));
-						Interval	interval  = interval (period);
+						Date		startDate = toDate (start);
+						Date		endDate	  = toDate (end);
+						Interval	interval  = toInterval (period);
 
 						if ((startDate == null) || (endDate == null) || (interval == null)) continue;
 
@@ -658,8 +655,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted termination date '" + string (termination) + "' should " +
-						"be after unadjusted effective date '" + string (effective) + "'",
+						"Unadjusted termination date '" + Types.toString (termination) + "' should " +
+						"be after unadjusted effective date '" + Types.toString (effective) + "'",
 						getName (), null);
 
 					result = false;
@@ -694,8 +691,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted termination date '" + string (termination) + "' should " +
-						"be after unadjusted first period start date '" + string (periodStart) + "'",
+						"Unadjusted termination date '" + Types.toString (termination) + "' should " +
+						"be after unadjusted first period start date '" + Types.toString (periodStart) + "'",
 						getName (), null);
 
 					result = false;
@@ -730,8 +727,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted termination date '" + string (termination) + "' should " +
-						"be after unadjusted first regular period start date '" + string (periodStart) + "'",
+						"Unadjusted termination date '" + Types.toString (termination) + "' should " +
+						"be after unadjusted first regular period start date '" + Types.toString (periodStart) + "'",
 						getName (), null);
 
 					result = false;
@@ -766,8 +763,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted termination date '" + string (termination) + "' should " +
-						"be after unadjusted last regular period end date '" + string (periodEnd) + "'",
+						"Unadjusted termination date '" + Types.toString (termination) + "' should " +
+						"be after unadjusted last regular period end date '" + Types.toString (periodEnd) + "'",
 						getName (), null);
 
 					result = false;
@@ -802,8 +799,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted last regular period end date '" + string (periodEnd) + "' should " +
-						"be after unadjusted first regular period start date '" + string (periodStart) + "'",
+						"Unadjusted last regular period end date '" + Types.toString (periodEnd) + "' should " +
+						"be after unadjusted first regular period start date '" + Types.toString (periodStart) + "'",
 						getName (), null);
 
 					result = false;
@@ -838,8 +835,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted last regular period end date '" + string (periodEnd) + "' should " +
-						"be after unadjusted first period start date '" + string (periodStart) + "'",
+						"Unadjusted last regular period end date '" + Types.toString (periodEnd) + "' should " +
+						"be after unadjusted first period start date '" + Types.toString (periodStart) + "'",
 						getName (), null);
 
 					result = false;
@@ -874,8 +871,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted last regular period end date " + string (last) +
-						" must be after unadjusted effective date " + string (effective),
+						"Unadjusted last regular period end date " + Types.toString (last) +
+						" must be after unadjusted effective date " + Types.toString (effective),
 						getName (), null);
 
 					result = false;
@@ -903,15 +900,19 @@ public final class IrdRules extends Logic
 				
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
+					Element stream		= DOM.getParent (context);
+					
+					if (!isParametric (stream)) continue;
+					
 					Element	first	  	= XPath.path (context, "firstPeriodStartDate", "unadjustedDate");
 					Element	effective 	= XPath.path (context, "effectiveDate", "unadjustedDate");
 
-					if ((first == null) || (effective == null) || less (first, effective))
+					if ((first == null) || (effective == null) || less (toDate (first), toDate (effective)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted first period start date " + string (first) +
-						" must be before unadjusted effective date " + string (effective),
+						"Unadjusted first period start date " + Types.toString (first) +
+						" must be before unadjusted effective date " + Types.toString (effective),
 						getName (), null);
 
 					result = false;
@@ -946,8 +947,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted first period start date " + string (first) +
-						" must be before first regular period start date " + string (regular),
+						"Unadjusted first period start date " + Types.toString (first) +
+						" must be before first regular period start date " + Types.toString (regular),
 						getName (), null);
 
 					result = false;
@@ -1474,8 +1475,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Adjusted termination date '" + string (termination) + "' must be " +
-						"after adjusted effective date '" + string (effective) + "'",
+						"Adjusted termination date '" + Types.toString (termination) + "' must be " +
+						"after adjusted effective date '" + Types.toString (effective) + "'",
 						getName (), null);
 
 					result = false;
@@ -1555,8 +1556,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"The first payment date '" + string (firstDate) + "' should be " +
-						"before the last payment date '" + string (lastDate) + "'",
+						"The first payment date '" + Types.toString (firstDate) + "' should be " +
+						"before the last payment date '" + Types.toString (lastDate) + "'",
 						getName (), null);
 
 					result = false;
@@ -1594,9 +1595,9 @@ public final class IrdRules extends Logic
 					Element	period	= XPath.path (context, "paymentFrequency");
 
 					if ((first != null) && (last != null)) {
-						Date		firstDate	= Date.parse (string (first));
-						Date		lastDate	= Date.parse (string (last));
-						Interval	frequency	= interval (period);
+						Date		firstDate	= toDate (first);
+						Date		lastDate	= toDate (last);
+						Interval	frequency	= toInterval (period);
 
 						if (frequency.dividesDates (firstDate, lastDate)) continue;
 
@@ -1683,8 +1684,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"The adjusted exercise date '" + string (exercise) + "' should be " +
-						"on or before the adjusted early termination date '" + string (termination) + "'",
+						"The adjusted exercise date '" + Types.toString (exercise) + "' should be " +
+						"on or before the adjusted early termination date '" + Types.toString (termination) + "'",
 						getName (), null);
 
 					result = false;
@@ -1723,9 +1724,9 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"The adjusted exercise date '" + string (exercise) + "' should be " +
+						"The adjusted exercise date '" + Types.toString (exercise) + "' should be " +
 						"on or before the adjusted cash settlement date '" + 
-						string (valuation) + "'",
+						Types.toString (valuation) + "'",
 						getName (), null);
 
 					result = false;
@@ -1765,9 +1766,9 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"The adjusted case settlement valuation date '" + string (valuation) +
+						"The adjusted case settlement valuation date '" + Types.toString (valuation) +
 						"' should be on or before the adjusted cash settlement payment date '" + 
-						string (payment) + "'",
+						Types.toString (payment) + "'",
 						getName (), null);
 
 					result = false;
@@ -1806,8 +1807,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"The adjusted exercise date '" + string (exercise) + "' should be " +
-						"on or before the adjusted extended termination date '" + string (termination) + "'",
+						"The adjusted exercise date '" + Types.toString (exercise) + "' should be " +
+						"on or before the adjusted extended termination date '" + Types.toString (termination) + "'",
 						getName (), null);
 
 					result = false;
@@ -1886,9 +1887,9 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"The adjusted mandatory early termination date '" + string (termination) + "', " +
-						"cash settlement valuation date '" + string (valuation) + "' and " +
-						"cash settlement payment date '" + string (payment) + "' " +
+						"The adjusted mandatory early termination date '" + Types.toString (termination) + "', " +
+						"cash settlement valuation date '" + Types.toString (valuation) + "' and " +
+						"cash settlement payment date '" + Types.toString (payment) + "' " +
 						"are not in order",
 						getName (), null);
 
@@ -2174,18 +2175,18 @@ public final class IrdRules extends Logic
 						lastDate  = XPath.path (calculation, "terminationDate", "unadjustedDate");
 
 					Element	period			= XPath.path (calculation, "calculationPeriodFrequency");
-					Interval interval		= interval (period);
+					Interval interval		= toInterval (period);
 
 					if ((firstDate == null) || (lastDate == null) || (interval == null)) continue;
 
-					Date		first	= Date.parse (string (firstDate));
-					Date		last	= Date.parse (string (lastDate));
+					Date		first	= toDate (firstDate);
+					Date		last	= toDate (lastDate);
 
 					if ((first == null) || (last == null)) continue;
 
 					for (int count = 0; count < dates.getLength (); ++count) {
 						Element		date 	= (Element) dates.item (count);
-						Date		payment = Date.parse (string (date));
+						Date		payment = toDate (date);
 
 						if (isUnadjustedCalculationPeriodDate (payment, first, last, interval)) continue;
 							
@@ -2193,7 +2194,7 @@ public final class IrdRules extends Logic
 							"The notional step schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
 							last + "'",
-							getName (), string (date));
+							getName (), Types.toString (date));
 
 						result = false;
 					}
@@ -2235,18 +2236,18 @@ public final class IrdRules extends Logic
 						lastDate  = XPath.path (calculation, "terminationDate", "unadjustedDate");
 
 					Element	period		= XPath.path (calculation, "calculationPeriodFrequency");
-					Interval interval	= interval (period);
+					Interval interval	= toInterval (period);
 
 					if ((firstDate == null) || (lastDate == null) || (interval == null)) continue;
 
-					Date first	= Date.parse (string (firstDate));
-					Date last	= Date.parse (string (lastDate));
+					Date first	= toDate (firstDate);
+					Date last	= toDate (lastDate);
 
 					if ((first == null) || (last == null)) continue;
 
 					for (int count = 0; count < dates.getLength (); ++count) {
 						Element		date	= (Element) dates.item (count);
-						Date		payment = Date.parse (string (date));
+						Date		payment = toDate (date);
 
 						if (isUnadjustedCalculationPeriodDate (payment, first, last, interval)) continue;
 							
@@ -2254,7 +2255,7 @@ public final class IrdRules extends Logic
 							"The fixed rate schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
 							last + "'",
-							getName (), string (date));
+							getName (), Types.toString (date));
 
 						result = false;
 					}
@@ -2295,18 +2296,18 @@ public final class IrdRules extends Logic
 						lastDate  = XPath.path (calculation, "terminationDate", "unadjustedDate");
 
 					Element	period		= XPath.path (calculation, "calculationPeriodFrequency");
-					Interval interval	= interval (period);
+					Interval interval	= toInterval (period);
 
 					if ((firstDate == null) || (lastDate == null) || (interval == null)) continue;
 
-					Date		first	= Date.parse (string (firstDate));
-					Date		last	= Date.parse (string (lastDate));
+					Date		first	= toDate (firstDate);
+					Date		last	= toDate (lastDate);
 
 					if ((first == null) || (last == null)) continue;
 
 					for (int count = 0; count < dates.getLength (); ++count) {
 						Element		date	= (Element) dates.item (count);
-						Date		payment = Date.parse (string (date));
+						Date		payment = toDate (date);
 
 						if (isUnadjustedCalculationPeriodDate (payment, first, last, interval)) continue;
 							
@@ -2314,7 +2315,7 @@ public final class IrdRules extends Logic
 							"The cap rate schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
 							last + "'",
-							getName (), string (date));
+							getName (), Types.toString (date));
 
 						result = false;
 					}
@@ -2355,18 +2356,18 @@ public final class IrdRules extends Logic
 						lastDate  = XPath.path (calculation, "terminationDate", "unadjustedDate");
 
 					Element	period		= XPath.path (calculation, "calculationPeriodFrequency");
-					Interval interval	= interval (period);
+					Interval interval	= toInterval (period);
 
 					if ((firstDate == null) || (lastDate == null) || (interval == null)) continue;
 
-					Date		first	= Date.parse (string (firstDate));
-					Date		last	= Date.parse (string (lastDate));
+					Date		first	= toDate (firstDate);
+					Date		last	= toDate (lastDate);
 
 					if ((first == null) || (last == null)) continue;
 
 					for (int count = 0; count < dates.getLength (); ++count) {
 						Element	date		= (Element) dates.item (count);
-						Date	payment 	= Date.parse (string (date));
+						Date	payment 	= toDate (date);
 
 						if (isUnadjustedCalculationPeriodDate (payment, first, last, interval)) continue;
 							
@@ -2374,7 +2375,7 @@ public final class IrdRules extends Logic
 							"The floor rate schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
 							last + "'",
-							getName (), string (date));
+							getName (), Types.toString (date));
 
 						result = false;
 					}
@@ -2415,18 +2416,18 @@ public final class IrdRules extends Logic
 						lastDate  = XPath.path (calculation, "terminationDate", "unadjustedDate");
 
 					Element	period		= XPath.path (calculation, "calculationPeriodFrequency");
-					Interval interval	= interval (period);
+					Interval interval	= toInterval (period);
 
 					if ((firstDate == null) || (lastDate == null) || (interval == null)) continue;
 
-					Date		first	= Date.parse (string (firstDate));
-					Date		last	= Date.parse (string (lastDate));
+					Date		first	= toDate (firstDate);
+					Date		last	= toDate (lastDate);
 
 					if ((first == null) || (last == null)) continue;
 
 					for (int count = 0; count < dates.getLength(); ++count) {
 						Element		date	= (Element) dates.item (count);
-						Date		payment = Date.parse (string (date));
+						Date		payment = toDate (date);
 
 						if (isUnadjustedCalculationPeriodDate (payment, first, last, interval)) continue;
 							
@@ -2434,7 +2435,7 @@ public final class IrdRules extends Logic
 							"The known amount schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
 							last + "'",
-							getName (), string (date));
+							getName (), Types.toString (date));
 
 						result = false;
 					}
@@ -2557,7 +2558,7 @@ public final class IrdRules extends Logic
 						implies (
 							not (
 								or (
-									isWeekDayName (string (convention)),
+									isWeekDayName (Types.toString (convention)),
 									or (
 										equal (convention, "NONE"),
 										equal (convention, "SFE")))),
@@ -2567,8 +2568,8 @@ public final class IrdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Calculation period frequency roll convention '" + string (convention) +
-						"' is inconsistent with the calculation period '" + string (period) + "'",
+						"Calculation period frequency roll convention '" + Types.toString (convention) +
+						"' is inconsistent with the calculation period '" + Types.toString (period) + "'",
 						getName (), null);
 					
 					result = false;	
@@ -2601,13 +2602,13 @@ public final class IrdRules extends Logic
 
 					if ((convention == null) || (period == null) ||
 						implies (
-							isWeekDayName (string (convention)),
+							isWeekDayName (Types.toString (convention)),
 							equal (period, "W")))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Calculation period frequency roll convention '" + string (convention) +
-						"' is inconsistent with the calculation period '" + string (period) + "'",
+						"Calculation period frequency roll convention '" + Types.toString (convention) +
+						"' is inconsistent with the calculation period '" + Types.toString (period) + "'",
 						getName (), null);
 					
 					result = false;
@@ -2674,7 +2675,7 @@ public final class IrdRules extends Logic
 		Element 	cashflows;
 		
 		if (exists (cashflows = XPath.path (stream, "cashflows")))
-			return (bool (XPath.path (cashflows, "cashflowsMatchParameters")));
+			return (toBool (XPath.path (cashflows, "cashflowsMatchParameters")));
 		
 		return (true);
 	}
@@ -2783,16 +2784,19 @@ public final class IrdRules extends Logic
 	 * @return	An <CODE>Interval</CODE> constructed from the stored data.
 	 * @since	TFP 1.0
 	 */
-	private static Interval interval (Element context)
+	private static Interval toInterval (Element context)
 	{
-		try {
-			return (new Interval (
-				Integer.parseInt (string (XPath.path (context, "periodMultiplier"))),
-				Period.forCode (string (XPath.path (context, "period")))));
+		if (context != null) {
+			try {
+				return (new Interval (
+					toInteger (XPath.path (context, "periodMultiplier")),
+					Period.forCode (toString (XPath.path (context, "period")))));
+			}
+			catch (Exception error) {
+				return (null);
+			}
 		}
-		catch (Exception error) {
-			return (null);
-		}
+		return (null);
 	}
 	
 	/**
@@ -2809,7 +2813,7 @@ public final class IrdRules extends Logic
 		rules.add (RULE05);
 		rules.add (RULE06);
 		rules.add (RULE07);
-		rules.add (RULE08);
+		//rules.add (RULE08);
 		rules.add (RULE09);
 		rules.add (RULE10);
 		rules.add (RULE11);
