@@ -47,8 +47,16 @@ public final class FpMLSchemaRecogniser extends DefaultSchemaRecogniser
 	public boolean recognises (SchemaRelease release, Document document)
 	{
 		if (super.recognises (release, document)) {
-			if (document.getDocumentElement ().getAttribute ("version").equals (release.getVersion ()))
-				return (true);
+			int majorVersion = Integer.parseInt (release.getVersion().split("-")[0]);
+
+			if (majorVersion <= 4) {
+				if (document.getDocumentElement ().getAttribute ("version").equals (release.getVersion ()))
+					return (true);
+			}
+			else {
+				if (document.getDocumentElement ().getAttribute ("fpmlVersion").equals (release.getVersion ()))
+					return (true);
+			}
 		}
 		return (false);
 	}

@@ -48,6 +48,12 @@ public final class FpMLInstanceInitialiser extends DefaultInstanceInitialiser
 	public void initialise (SchemaRelease release, Element root, boolean isDefaultNamespace)
 	{
 		super.initialise (release, root, isDefaultNamespace);
-		root.setAttribute ("version", release.getVersion ());
+
+		int majorVersion = Integer.parseInt (release.getVersion().split("-")[0]);
+		
+		if (majorVersion <= 4)
+			root.setAttribute ("version", release.getVersion ());
+		else
+			root.setAttribute("fpmlVersion", release.getVersion ());
 	}
 }

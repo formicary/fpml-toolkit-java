@@ -853,6 +853,234 @@ public final class Releases
 						parseSchemes ("schemes4-4.xml"));
 
 	/**
+	 * A <CODE>SchemaRelease</CODE> instance containing the details for
+	 * FpML 5-0 confirmation view working draft.
+	 * @since	TFP 1.0
+	 */
+	public static SchemaRelease	R5_0_CONFIRMATION
+		= new SchemaRelease (FPML, "5-0",
+				"http://www.fpml.org/FpML-5-0/confirmation", "fpml-main-5-0.xsd",
+				"fpml", "fpml5-0", initialiser, recogniser,
+				new String [] {
+					// In all views
+				  	"messageRejected",
+				  	"requestTradeStatus",
+				  	"tradeNotFound",
+				  	"tradeStatus",
+				  	"tradeAlreadyCancelled",
+				 	"tradeAlreadySubmitted",
+				 	"tradeAlreadyTerminated",
+				 	// View specific
+				  	"cancelTradeConfirmation",
+				  	"confirmationCancelled",
+				  	"confirmTrade",
+				  	"modifyTradeConfirmation",
+				  	"requestTradeConfirmation",
+				 	"tradeAffirmation",
+				 	"tradeAffirmed",
+				  	"tradeAlreadyAffirmed",
+				  	"tradeAlreadyConfirmed",
+				 	"tradeConfirmed"
+				},
+				new SchemeDefaults (
+						new String [][] {
+							{	"additionalTermScheme",
+								"http://www.fpml.org/spec/2003/additional-term-1-0" },
+							{	"businessCenterScheme",
+								"http://www.fpml.org/spec/2000/business-center-1-0" },
+							{	"clearanceSystemIdScheme",
+								"http://www.fpml.org/spec/2002/clearance-system-1-0" },
+							{	"contractualDefinitionsScheme",
+								"http://www.fpml.org/spec/2003/contractual-definitions-2-0" },
+							{	"contractualSupplementScheme",
+								"http://www.fpml.org/spec/2003/contractual-supplement-1-0" },
+							{	"countryScheme",
+								"http://www.fpml.org/ext/iso3166" },
+							{	"currencyScheme",
+								"http://www.fpml.org/ext/iso4217-2001-08-15" },
+							{	"cutNameScheme",
+								"http://www.fpml.org/spec/2002/cut-name-1-0" },
+							{	"exchangeIdScheme",
+								"http://www.fpml.org/spec/2002/exchange-id-MIC-1-0" },
+							{	"floatingRateIndexScheme",
+								"http://www.fpml.org/ext/isda-2000-definitions" },
+							{	"fxFeatureTypeScheme",
+								"http://www.fpml.org/spec/2003/fxFeatureType-1-0" },
+							{	"governingLawScheme",
+								"http://www.fpml.org/spec/2002/governing-law-1-0" },
+							{	"informationProviderScheme",
+								"http://www.fpml.org/spec/2003/information-provider-2-0" },
+							{	"marketDisruptionScheme",
+								"http://www.fpml.org/spec/2003/marketDisruption-1-0" },
+							{	"masterAgreementTypeScheme",
+								"http://www.fpml.org/spec/2002/master-agreement-type-1-0" },
+							{	"masterConfirmationTypeScheme",
+								"http://www.fpml.org/spec/2003/master-confirmation-type-1-0" },
+							{	"partyIdScheme",
+								"http://www.fpml.org/ext/iso9362" },
+							{	"restructuringScheme",
+								"http://www.fpml.org/spec/2003/restructuring-1-0" },
+							{ 	"routingIdScheme",
+								"http://www.fpml.org/spec/2002/routing-id-code-1-0" },
+							{ 	"settlementMethodScheme",
+								"http://www.fpml.org/spec/2002/settlement-method-1-0" },
+							{ 	"settlementPriceSourceScheme",
+								"http://www.fpml.org/spec/2002/settlement-price-source-1-0" }
+						}),
+						parseSchemes ("schemes4-3.xml"));
+	
+	/**
+	 * A <CODE>SchemaRelease</CODE> instance containing the details for
+	 * FpML 5-0 pretrade view working draft.
+	 * @since	TFP 1.0
+	 */
+	public static SchemaRelease	R5_0_PRETRADE
+		= new SchemaRelease (FPML, "5-0",
+				"http://www.fpml.org/FpML-5-0/pretrade", "fpml-main-5-0.xsd",
+				"fpml", "fpml5-0", initialiser, recogniser,
+				new String [] {
+					// In all views
+				  	"messageRejected",
+				  	"requestTradeStatus",
+				  	"tradeNotFound",
+				  	"tradeStatus",
+				  	"tradeAlreadyCancelled",
+				 	"tradeAlreadySubmitted",
+				 	"tradeAlreadyTerminated",
+				 	// View specific
+				 	"acceptQuote",
+				    "quoteAcceptanceConfirmed",
+				    "quoteAlreadyExpired",
+				    "quoteUpdated",
+				    "requestQuote",
+				    "requestQuoteResponse",
+				},
+				new SchemeDefaults (
+						new String [][] {
+							{	"additionalTermScheme",
+								"http://www.fpml.org/spec/2003/additional-term-1-0" },
+							{	"businessCenterScheme",
+								"http://www.fpml.org/spec/2000/business-center-1-0" },
+							{	"clearanceSystemIdScheme",
+								"http://www.fpml.org/spec/2002/clearance-system-1-0" },
+							{	"contractualDefinitionsScheme",
+								"http://www.fpml.org/spec/2003/contractual-definitions-2-0" },
+							{	"contractualSupplementScheme",
+								"http://www.fpml.org/spec/2003/contractual-supplement-1-0" },
+							{	"countryScheme",
+								"http://www.fpml.org/ext/iso3166" },
+							{	"currencyScheme",
+								"http://www.fpml.org/ext/iso4217-2001-08-15" },
+							{	"cutNameScheme",
+								"http://www.fpml.org/spec/2002/cut-name-1-0" },
+							{	"exchangeIdScheme",
+								"http://www.fpml.org/spec/2002/exchange-id-MIC-1-0" },
+							{	"floatingRateIndexScheme",
+								"http://www.fpml.org/ext/isda-2000-definitions" },
+							{	"fxFeatureTypeScheme",
+								"http://www.fpml.org/spec/2003/fxFeatureType-1-0" },
+							{	"governingLawScheme",
+								"http://www.fpml.org/spec/2002/governing-law-1-0" },
+							{	"informationProviderScheme",
+								"http://www.fpml.org/spec/2003/information-provider-2-0" },
+							{	"marketDisruptionScheme",
+								"http://www.fpml.org/spec/2003/marketDisruption-1-0" },
+							{	"masterAgreementTypeScheme",
+								"http://www.fpml.org/spec/2002/master-agreement-type-1-0" },
+							{	"masterConfirmationTypeScheme",
+								"http://www.fpml.org/spec/2003/master-confirmation-type-1-0" },
+							{	"partyIdScheme",
+								"http://www.fpml.org/ext/iso9362" },
+							{	"restructuringScheme",
+								"http://www.fpml.org/spec/2003/restructuring-1-0" },
+							{ 	"routingIdScheme",
+								"http://www.fpml.org/spec/2002/routing-id-code-1-0" },
+							{ 	"settlementMethodScheme",
+								"http://www.fpml.org/spec/2002/settlement-method-1-0" },
+							{ 	"settlementPriceSourceScheme",
+								"http://www.fpml.org/spec/2002/settlement-price-source-1-0" }
+						}),
+						parseSchemes ("schemes5-0.xml"));
+	
+	/**
+	 * A <CODE>SchemaRelease</CODE> instance containing the details for
+	 * FpML 5-0 reporting view working draft.
+	 * @since	TFP 1.0
+	 */
+	public static SchemaRelease	R5_0_REPORTING
+		= new SchemaRelease (FPML, "5-0",
+				"http://www.fpml.org/FpML-5-0/reporting", "fpml-main-5-0.xsd",
+				"fpml", "fpml5-0", initialiser, recogniser,
+				new String [] {
+					// In all views
+				  	"messageRejected",
+				  	"requestTradeStatus",
+				  	"tradeNotFound",
+				  	"tradeStatus",
+				  	"tradeAlreadyCancelled",
+				 	"tradeAlreadySubmitted",
+				 	"tradeAlreadyTerminated",
+				 	// View specific
+				 	"positionReport",
+				 	"requestPositionReport",
+				 	"requestValuationReport",
+				 	"valuationReport",
+				 	"cancelTradeCashflows",
+				    "tradeCashflowsAsserted",
+				    "tradeCashflowsMatchResult",
+				    "positionsAcknowledged",
+				    "positionsAsserted",
+				    "positionsMatchResults",
+				    "requestPortfolio"
+				},
+				new SchemeDefaults (
+						new String [][] {
+							{	"additionalTermScheme",
+								"http://www.fpml.org/spec/2003/additional-term-1-0" },
+							{	"businessCenterScheme",
+								"http://www.fpml.org/spec/2000/business-center-1-0" },
+							{	"clearanceSystemIdScheme",
+								"http://www.fpml.org/spec/2002/clearance-system-1-0" },
+							{	"contractualDefinitionsScheme",
+								"http://www.fpml.org/spec/2003/contractual-definitions-2-0" },
+							{	"contractualSupplementScheme",
+								"http://www.fpml.org/spec/2003/contractual-supplement-1-0" },
+							{	"countryScheme",
+								"http://www.fpml.org/ext/iso3166" },
+							{	"currencyScheme",
+								"http://www.fpml.org/ext/iso4217-2001-08-15" },
+							{	"cutNameScheme",
+								"http://www.fpml.org/spec/2002/cut-name-1-0" },
+							{	"exchangeIdScheme",
+								"http://www.fpml.org/spec/2002/exchange-id-MIC-1-0" },
+							{	"floatingRateIndexScheme",
+								"http://www.fpml.org/ext/isda-2000-definitions" },
+							{	"fxFeatureTypeScheme",
+								"http://www.fpml.org/spec/2003/fxFeatureType-1-0" },
+							{	"governingLawScheme",
+								"http://www.fpml.org/spec/2002/governing-law-1-0" },
+							{	"informationProviderScheme",
+								"http://www.fpml.org/spec/2003/information-provider-2-0" },
+							{	"marketDisruptionScheme",
+								"http://www.fpml.org/spec/2003/marketDisruption-1-0" },
+							{	"masterAgreementTypeScheme",
+								"http://www.fpml.org/spec/2002/master-agreement-type-1-0" },
+							{	"masterConfirmationTypeScheme",
+								"http://www.fpml.org/spec/2003/master-confirmation-type-1-0" },
+							{	"partyIdScheme",
+								"http://www.fpml.org/ext/iso9362" },
+							{	"restructuringScheme",
+								"http://www.fpml.org/spec/2003/restructuring-1-0" },
+							{ 	"routingIdScheme",
+								"http://www.fpml.org/spec/2002/routing-id-code-1-0" },
+							{ 	"settlementMethodScheme",
+								"http://www.fpml.org/spec/2002/settlement-method-1-0" },
+							{ 	"settlementPriceSourceScheme",
+								"http://www.fpml.org/spec/2002/settlement-price-source-1-0" }
+						}),
+						parseSchemes ("schemes5-0.xml"));
+	
+	/**
 	 * A <CODE>Conversion</CODE> instance configured for FpML 1-0 to 2-0
 	 * transformation. The specific changes needed (other than basic DOCTYPE
 	 * changes) are:
@@ -966,11 +1194,18 @@ public final class Releases
 		return (schemes);
 	}
 	
+	/**
+	 * Ensures that schema releases are linked to the DSIG schema.
+	 */
 	static {
 		R4_0.addImport (com.handcoded.dsig.Releases.R1_0);
 		R4_1.addImport (com.handcoded.dsig.Releases.R1_0);
 		R4_2.addImport (com.handcoded.dsig.Releases.R1_0);
 		R4_3.addImport (com.handcoded.dsig.Releases.R1_0);
 		R4_4.addImport (com.handcoded.dsig.Releases.R1_0);
+
+		R5_0_CONFIRMATION.addImport (com.handcoded.dsig.Releases.R1_0);
+		R5_0_PRETRADE.addImport (com.handcoded.dsig.Releases.R1_0);
+		R5_0_REPORTING.addImport (com.handcoded.dsig.Releases.R1_0);
 	}
 }
