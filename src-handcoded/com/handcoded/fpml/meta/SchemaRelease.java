@@ -68,6 +68,34 @@ public final class SchemaRelease extends com.handcoded.meta.SchemaRelease implem
 	 * @param 	schemaLocation	The default schema location.
 	 * @param 	preferredPrefix	The preferred prefix for the namespace.
 	 * @param 	alternatePrefix	The alternate prefix for the namespace.
+	 * @param 	rootElements	The possible root elements.
+	 * @param	schemeDefaults	The scheme defaults for the release.
+	 * @param	schemeCollection The scheme collection for the release.
+	 * @since	TFP 1.1
+	 */
+	public SchemaRelease (Specification specification, final String version,
+			final String namespaceUri, final String schemaLocation,
+			final String preferredPrefix, final String alternatePrefix,
+			final String [] rootElements, SchemeDefaults schemeDefaults,
+			SchemeCollection schemeCollection)
+	{
+		super (specification, version, namespaceUri, schemaLocation,
+				preferredPrefix, alternatePrefix, rootElements);
+		
+		this.schemeDefaults   = schemeDefaults;
+		this.schemeCollection = schemeCollection;
+	}
+
+	/**
+	 * Constructs a <CODE>SchemaRelease</CODE> instance describing a schema
+	 * based release of a particular <CODE>Specification</CODE>.
+	 * 
+	 * @param 	specification	A reference to the owning specification.
+	 * @param 	version			The version identifier for this release.
+	 * @param 	namespaceUri	The namespace used to identify the schema.
+	 * @param 	schemaLocation	The default schema location.
+	 * @param 	preferredPrefix	The preferred prefix for the namespace.
+	 * @param 	alternatePrefix	The alternate prefix for the namespace.
 	 * @param	initialiser		The <CODE>InstanceInitialise</CODE> or <CODE>null</CODE>.
 	 * @param	recogniser		The <CODE>SchemaRecogniser</CODE> or <CODE>null</CODE>.
 	 * @param 	rootElement		The normal root element.
@@ -85,6 +113,38 @@ public final class SchemaRelease extends com.handcoded.meta.SchemaRelease implem
 		super (specification, version, namespaceUri, schemaLocation,
 				preferredPrefix, alternatePrefix,
 				initialiser, recogniser, rootElement);
+		
+		this.schemeDefaults   = schemeDefaults;
+		this.schemeCollection = schemeCollection;
+	}
+	
+	/**
+	 * Constructs a <CODE>SchemaRelease</CODE> instance describing a schema
+	 * based release of a particular <CODE>Specification</CODE>.
+	 * 
+	 * @param 	specification	A reference to the owning specification.
+	 * @param 	version			The version identifier for this release.
+	 * @param 	namespaceUri	The namespace used to identify the schema.
+	 * @param 	schemaLocation	The default schema location.
+	 * @param 	preferredPrefix	The preferred prefix for the namespace.
+	 * @param 	alternatePrefix	The alternate prefix for the namespace.
+	 * @param	initialiser		The <CODE>InstanceInitialise</CODE> or <CODE>null</CODE>.
+	 * @param	recogniser		The <CODE>SchemaRecogniser</CODE> or <CODE>null</CODE>.
+	 * @param 	rootElements	The possible root elements.
+	 * @param	schemeDefaults	The scheme defaults for the release.
+	 * @param	schemeCollection The scheme collection for the release.
+	 * @since	TFP 1.1
+	 */
+	public SchemaRelease (Specification specification, final String version,
+			final String namespaceUri, final String schemaLocation,
+			final String preferredPrefix, final String alternatePrefix,
+			final InstanceInitialiser initialiser, final SchemaRecogniser recogniser,
+			final String [] rootElements, SchemeDefaults schemeDefaults,
+			SchemeCollection schemeCollection)
+	{
+		super (specification, version, namespaceUri, schemaLocation,
+				preferredPrefix, alternatePrefix,
+				initialiser, recogniser, rootElements);
 		
 		this.schemeDefaults   = schemeDefaults;
 		this.schemeCollection = schemeCollection;
