@@ -71,7 +71,7 @@ public abstract class Release implements Grammar
 	}
 	
 	/**
-	 * Determines if the indicate root element name is one accepted by this
+	 * Determines if the indicated root element name is one accepted by this
 	 * <CODE>Release</CODE>.
 	 * 
 	 * @param 	rootElement		The root element name to test.
