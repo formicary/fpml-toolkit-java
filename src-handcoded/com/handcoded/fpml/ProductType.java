@@ -38,12 +38,26 @@ import com.handcoded.xml.XPath;
 public final class ProductType
 {
 	/**
+	 * A <CODE>Category</CODE> representing all short form documents.
+	 * @since	TFP 1.0
+	 */
+	public static final Category	SHORT_FORM
+		= new AbstractCategory ("(SHORT FORM)");
+
+	/**
 	 * A <CODE>Category</CODE> representing all product types.
 	 * @since	TFP 1.0
 	 */
 	public static final Category	PRODUCT_TYPE
-		= new AbstractCategory ("(PRODUCT_TYPE)");
+		= new AbstractCategory ("(PRODUCT TYPE)");
 	
+	/**
+	 * A <CODE>Category</CODE> representing all structured products.
+	 * @since	TFP 1.0
+	 */
+	public static final Category	STRUCTURED_PRODUCT
+		= new AbstractCategory ("(STRUCTURED PRODUCT)", PRODUCT_TYPE);
+
 	/**
 	 * A <CODE>Category</CODE> representing all swaps.
 	 * @since	TFP 1.0
@@ -439,7 +453,7 @@ public final class ProductType
 	 * @since	TFP 1.0
 	 */
 	public static final Category	EQUITY_OPTION_TRANSACTION_SUPPLEMENT
-		= new RefinableCategory ("EQUITY OPTION OPTION TRANSACTION SUPPLEMENT", 
+		= new RefinableCategory ("EQUITY OPTION TRANSACTION SUPPLEMENT", 
 				new Category [] { EQUITY_DERIVATIVE, OPTION })
 		{
 			/**
