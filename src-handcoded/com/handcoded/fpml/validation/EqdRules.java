@@ -835,6 +835,7 @@ public final class EqdRules extends Logic
 	 * <P>
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
+	 * @deprecated
 	 */
 	public static final Rule	RULE21	= new Rule (Preconditions.R4_0__LATER, "eqd-21")
 		{
@@ -1106,7 +1107,7 @@ public final class EqdRules extends Logic
 		rules.add (RULE18);
 		rules.add (RULE19);
 		rules.add (RULE20);
-		rules.add (RULE21);
+		// rules.add (RULE21);
 		rules.add (RULE22);
 		rules.add (RULE23);
 		rules.add (RULE24);
