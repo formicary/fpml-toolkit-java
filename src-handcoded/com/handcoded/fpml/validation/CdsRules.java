@@ -59,19 +59,19 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					Element		creditDefaultSwap
 						= DOM.getElementByLocalName (context, "creditDefaultSwap");
-						
+
 					if ((creditDefaultSwap == null) || !isSingleName (creditDefaultSwap)) continue;
-					
+
 					try {
 						Date tradeDate		= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (context, "tradeHeader", "tradeDate")));
 						Date effectiveDate	= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (creditDefaultSwap, "generalTerms", "effectiveDate", "unadjustedDate")));
-					
+
 						if (tradeDate.compareTo (effectiveDate) < 0) continue;
 
 						errorHandler.error ("305", context,
@@ -86,7 +86,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 		/**
 		 * A <CODE>Rule</CODE> that ensures <CODE>tradeHeader/tradeDate</CODE> is before
 		 * <CODE>creditDefaultSwap/generalTerms/effectiveDate/unadjustedDate</CODE>.
@@ -104,19 +104,19 @@ public final class CdsRules extends Logic
 				{
 					boolean		result 	= true;
 					NodeList	list 	= nodeIndex.getElementsByName ("trade");
-					
+
 					for (int index = 0; index < list.getLength (); ++index) {
 						Element		context = (Element) list.item (index);
-						
+
 						Element		creditDefaultSwap
 							= DOM.getElementByLocalName (context, "creditDefaultSwap");
-							
+
 						if ((creditDefaultSwap == null) || !isCreditIndex (creditDefaultSwap)) continue;
-						
+
 						try {
 							Date tradeDate		= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (context, "tradeHeader", "tradeDate")));
 							Date effectiveDate	= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (creditDefaultSwap, "generalTerms", "effectiveDate", "unadjustedDate")));
-						
+
 							if (tradeDate.compareTo (effectiveDate) >= 0) continue;
 
 							errorHandler.error ("305", context,
@@ -131,7 +131,7 @@ public final class CdsRules extends Logic
 					return (result);
 				}
 			};
-			
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>calculationAgent</CODE> is present,
 	 * it may contain only <CODE>calculationAgentPartyReference</CODE> elements.
@@ -139,7 +139,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE02 
+	public static final Rule	RULE02
 		= new Rule (Preconditions.R4_0__LATER, "cd-2")
 		{
 			/**
@@ -149,34 +149,34 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					Element		creditDefaultSwap
 						= DOM.getElementByLocalName (context, "creditDefaultSwap");
-						
+
 					if (creditDefaultSwap == null) continue;
-					
+
 					Element		calculationAgent
 						= DOM.getElementByLocalName (context, "calculationAgent");
-						
+
 					if (calculationAgent != null) {
 						boolean		failed = false;
-						
+
 						for (Node node = calculationAgent.getFirstChild (); node != null; node = node.getNextSibling ()) {
 							if (node.getNodeType () == Node.ELEMENT_NODE) {
 								if (node.getLocalName ().equals ("calculationAgentPartyReference"))
 									continue;
-								
+
 								if (node.getLocalName ().equals ("calculationAgentParty") &&
 									DOM.getInnerText ((Element) node).trim ().equals ("AsSpecifiedInMasterAgreement"))
 									continue;
-							
+
 								failed = true;
 							}
 						}
-						
+
 						if (failed) {
 							errorHandler.error ("305", context,
 									"The calculationAgent element may only contain calculationAgentPartyReferences " +
@@ -189,7 +189,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures contracts referencing ISDA 1999 definitions
 	 * do not use ISDA 2003 supplements.
@@ -207,32 +207,32 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					Element		creditDefaultSwap
 						= DOM.getElementByLocalName (context, "creditDefaultSwap");
-						
+
 					if (creditDefaultSwap == null) continue;
-					
+
 					if (!isIsda1999 (context)) continue;
-					
+
 					Element		supplement
 						= DOM.getElementByLocalName (context, "documentation", "contractualSupplement");
-	
+
 					if (supplement != null)
 						if (DOM.getInnerText (supplement).startsWith ("ISDA2003Credit")) {
 							errorHandler.error ("305", context,
 								"The contractualSupplement name may not begin with ISDA2003Credit",
 								getName (), DOM.getInnerText (supplement));
 							result = false;
-						}			
+						}
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures contracts referencing ISDA 2003 definitions
 	 * do not use ISDA 1999 supplements.
@@ -250,32 +250,32 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					Element		creditDefaultSwap
 						= DOM.getElementByLocalName (context, "creditDefaultSwap");
-						
+
 					if (creditDefaultSwap == null) continue;
-					
+
 					if (!isIsda2003 (context)) continue;
-					
+
 					Element		supplement
 						= DOM.getElementByLocalName (context, "documentation", "contractualSupplement");
-	
+
 					if (supplement != null)
 						if (DOM.getInnerText (supplement).startsWith ("ISDA1999Credit")) {
 							errorHandler.error ("305", context,
 								"The contractualSupplement name may not begin with ISDA1999Credit",
 								getName (), DOM.getInnerText (supplement));
 							result = false;
-						}			
+						}
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>scheduledTerminationDate/adjustableDate</CODE>
 	 * exists, then <CODE>effectiveDate/unadjustedDate</CODE> &lt;
@@ -284,7 +284,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE05 
+	public static final Rule	RULE05
 		= new Rule (Preconditions.R4_0__LATER, "cd-5")
 		{
 			/**
@@ -294,18 +294,18 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("generalTerms");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					Element		termination
 						= DOM.getElementByLocalName (context, "scheduledTerminationDate", "adjustableDate");
-						
+
 					if (termination != null) {
 						try {
 							Date effective	= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (context, "effectiveDate", "unadjustedDate")));
 							Date adjustable	= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (termination, "unadjustedDate")));
-								
+
 							if (effective.compareTo (adjustable) >= 0) {
 								errorHandler.error ("305", context,
 										"The scheduled termination date must be later than the effective date",
@@ -316,12 +316,12 @@ public final class CdsRules extends Logic
 						catch (IllegalArgumentException error) {
 							// Syntax errors handled elsewhere.
 						}
-					}	
+					}
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures <CODE>buyerPartyReference/@href</CODE> and
 	 * <CODE>sellerPartyReference/@href</CODE> are different.
@@ -339,28 +339,28 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("generalTerms");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					Element		buyer
 						= DOM.getElementByLocalName (context, "buyerPartyReference");
-					
+
 					Element		seller
 						= DOM.getElementByLocalName (context, "sellerPartyReference");
-						
+
 					if (buyer.getAttribute ("href").equals (seller.getAttribute ("href"))) {
 						errorHandler.error ("305", context,
 							"The buyer and seller party references must be different",
 							getName (), null);
 						result = false;
 					}
-					
+
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures long form contracts contain effective
 	 * date adjustments.
@@ -378,31 +378,31 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("generalTerms");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					if (!isLongForm (DOM.getGrandParent (context)))
 						continue;
-						
+
 					Element		effective
 						= DOM.getElementByLocalName (context, "effectiveDate");
 					Element		def
 						= DOM.getElementByLocalName (effective, "dateAdjustments");
 					Element		ref
 						= DOM.getElementByLocalName (effective, "dateAdjustmentsReference");
-						
+
 					if (((def == null) && (ref == null)) || ((def != null) && (ref != null))) {
 						errorHandler.error ("305", context,
 							"A date adjustment for the effective date must either be specified or referenced",
 							getName (), null);
 						result = false;
-					}				
+					}
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures long form contracts contain termination
 	 * date adjustments.
@@ -410,7 +410,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE08 
+	public static final Rule	RULE08
 		= new Rule (Preconditions.R4_0__LATER, "cd-8")
 		{
 			/**
@@ -420,31 +420,31 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("generalTerms");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					if (!isLongForm (DOM.getGrandParent (context)))
 						continue;
-						
+
 					Element		adjustable
 						= DOM.getElementByLocalName (context, "scheduledTerminationDate", "adjustableDate");
 					Element		def
 						= DOM.getElementByLocalName (adjustable, "dateAdjustments");
 					Element		ref
 						= DOM.getElementByLocalName (adjustable, "dateAdjustmentsReference");
-						
+
 					if (((def == null) && (ref == null)) || ((def != null) && (ref != null))) {
 						errorHandler.error ("305", context,
 							"A date adjustment for the scheduled termination date must either be specified or referenced",
 							getName (), null);
 						result = false;
-					}					
+					}
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>referenceObligation/primaryObligorReference</CODE>
 	 * exists, then it must reference the <CODE>referenceEntity</CODE>.
@@ -462,18 +462,18 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("referenceInformation");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					NodeList obligations = context.getElementsByTagName ("referenceObligation");
 					for (int count = 0; count < obligations.getLength (); ++count) {
 						Element		temp = (Element) obligations.item (count);
 						Element		ref  = DOM.getElementByLocalName (temp, "primaryObligorReference");
-						
+
 						if (ref != null) {
 							Element		entity = DOM.getElementByLocalName (context, "referenceEntity");
-							
+
 							if (!ref.getAttribute ("href").equals (entity.getAttribute ("id"))) {
 								errorHandler.error ("305", context,
 									"The primaryObligorReference must refer to the referenceEntity",
@@ -486,7 +486,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>referenceObligation/guarantorReference</CODE>
 	 * exists, then it must reference the <CODE>referenceEntity</CODE>.
@@ -494,7 +494,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE10 
+	public static final Rule	RULE10
 		= new Rule (Preconditions.R4_0__LATER, "cd-10")
 		{
 			/**
@@ -504,18 +504,18 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("referenceInformation");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					NodeList obligations = context.getElementsByTagName ("referenceObligation");
 					for (int count = 0; count < obligations.getLength (); ++count) {
 						Element		temp = (Element) obligations.item (count);
 						Element		ref  = DOM.getElementByLocalName (temp, "guarantorReference");
-						
+
 						if (ref != null) {
 							Element		entity = DOM.getElementByLocalName (context, "referenceEntity");
-							
+
 							if (!ref.getAttribute ("href").equals (entity.getAttribute ("id"))) {
 								errorHandler.error ("305", context,
 									"The primaryObligorReference must refer to the referenceEntity",
@@ -523,12 +523,12 @@ public final class CdsRules extends Logic
 								result = false;
 							}
 						}
-					}					
+					}
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures ISDA 2003 long form contracts contain
 	 * <CODE>allGuarantees</CODE>.
@@ -536,7 +536,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE11 
+	public static final Rule	RULE11
 		= new Rule (Preconditions.R4_0__LATER, "cd-11")
 		{
 			/**
@@ -546,27 +546,27 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("referenceInformation");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					Element		trade 	= DOM.getGreatGrandParent (context);
-					
+
 					if (!isLongForm (trade) || !isIsda2003 (trade))
 						continue;
-						
+
 					Element 	guarantees = DOM.getElementByLocalName (context, "allGuarantees");
-					
+
 					if (guarantees == null) {
 						errorHandler.error ("305", context,
 							"The allGuarantees element must be present",
 							getName (), null);
 						result = false;
-					}	
+					}
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>referencePrice</CODE> is present
 	 * then its is not negative.
@@ -574,7 +574,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE12 
+	public static final Rule	RULE12
 		= new Rule (Preconditions.R4_0__LATER, "cd-12")
 		{
 			/**
@@ -584,15 +584,15 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("referenceInformation");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					Element		price = DOM.getElementByLocalName (context, "referencePrice");
-					
+
 					if (price != null) {
 						String		priceValue = DOM.getInnerText (price);
-						
+
 						if (Double.parseDouble (priceValue) < 0.0) {
 							errorHandler.error ("305", context,
 								"The reference price must be greater than or equal to zero",
@@ -604,7 +604,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>protectionTerms/creditEvents/creditEventNotice/notifyingParty/buyerPartyReference</CODE>
 	 * is present, its @href attribute must match that of <CODE>generalTerms/buyerPartyReference</CODE>.
@@ -612,7 +612,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE13 
+	public static final Rule	RULE13
 		= new Rule (Preconditions.R4_0__LATER, "cd-13")
 		{
 			/**
@@ -622,7 +622,7 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					NodeList	buyers	= XPath.paths (context, "protectionTerms", "creditEvents", "creditEventNotice", "notifyingParty", "buyerPartyReference");
@@ -630,12 +630,12 @@ public final class CdsRules extends Logic
 						Element		buyer = (Element) buyers.item (count);
 						String		buyerName;
 						String		referenceName;
-						
+
 						if (equal (
 								buyerName = buyer.getAttribute ("href"),
 								referenceName = XPath.path (context, "generalTerms", "buyerPartyReference").getAttribute ("href")))
 							continue;
-						
+
 						errorHandler.error ("305", context,
 							"Credit event notice references buyer party reference " + buyerName +
 							" but general terms references " + referenceName,
@@ -647,7 +647,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>protectionTerms/creditEvents/creditEventNotice/notifyingParty/sellerPartyReference</CODE>
 	 * is present, its @href attribute must match that of <CODE>generalTerms/sellerPartyReference</CODE>.
@@ -655,7 +655,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE14 
+	public static final Rule	RULE14
 		= new Rule (Preconditions.R4_0__LATER, "cd-14")
 		{
 			/**
@@ -665,13 +665,13 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					NodeList	sellers =  XPath.paths (context, "protectionTerms", "creditEvents", "creditEventNotice", "notifyingParty", "sellerPartyReference");
 					for (int count = 0; count < sellers.getLength (); ++count) {
 						Element		seller = (Element) sellers.item (count);
-						if (equal (seller.getAttribute ("href"), 
+						if (equal (seller.getAttribute ("href"),
 								XPath.path (context, "generalTerms", "sellerPartyReference").getAttribute ("href")))
 							continue;
 
@@ -682,11 +682,11 @@ public final class CdsRules extends Logic
 
 						result = false;
 					}
-				}			
+				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the valuation method is valid when
 	 * there is one obligation and one valuation date.
@@ -694,7 +694,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE15 
+	public static final Rule	RULE15
 		= new Rule (Preconditions.R4_0__LATER, "cd-15")
 		{
 			/**
@@ -704,10 +704,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					if (implies (
 							and (
 								equal (
@@ -734,7 +734,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the valuation method is valid when
 	 * there is one obligation and multiple valuation dates.
@@ -742,7 +742,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE16 
+	public static final Rule	RULE16
 		= new Rule (Preconditions.R4_0__LATER, "cd-16")
 		{
 			/**
@@ -752,10 +752,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					if (implies (
 							and (
 								equal (
@@ -786,7 +786,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the valuation method is valid when
 	 * there are multiple obligations and one valuation date.
@@ -794,7 +794,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE17 
+	public static final Rule	RULE17
 		= new Rule (Preconditions.R4_0__LATER, "cd-17")
 		{
 			/**
@@ -804,10 +804,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					if (implies (
 							and (
 								greater (
@@ -834,7 +834,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the valuation method is valid when
 	 * there are multiple obligations and multiple valuation dates.
@@ -842,7 +842,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE18 
+	public static final Rule	RULE18
 		= new Rule (Preconditions.R4_0__LATER, "cd-18")
 		{
 			/**
@@ -852,10 +852,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					if (implies (
 							and (
 								greater (
@@ -877,12 +877,12 @@ public final class CdsRules extends Logic
 						"AverageBlendedMarket or AverageBlendedHighest",
 						getName (), DOM.getInnerText (XPath.path (context, "cashSettlementTerms", "valuationMethod")));
 
-					result = false;	
-				}				
+					result = false;
+				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures elements related to ISDA 2003 contracts
 	 * are not present in ISDA 1999 contracts.
@@ -890,7 +890,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE19 
+	public static final Rule	RULE19
 		= new Rule (Preconditions.R4_0__LATER, "cd-19")
 		{
 			/**
@@ -900,13 +900,13 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
-					
+
 					if (isIsda1999 (trade)) {
 						Element	context = XPath.path (trade, "creditDefaultSwap");
-						
+
 						result &=
 							  validate (context, XPath.path (context, "protectionTerms", "creditEvents", "creditEventNotice", "businessCenter"), errorHandler)
 							& validate (context, XPath.path (context, "protectionTerms", "creditEvents", "restructuring", "multipleHolderObligation"), errorHandler)
@@ -919,7 +919,7 @@ public final class CdsRules extends Logic
 				}
 				return (result);
 			}
-			
+
 			private boolean validate (final Element context, final Element illegal, ValidationErrorHandler errorHandler)
 			{
 				if (illegal != null) {
@@ -932,7 +932,7 @@ public final class CdsRules extends Logic
 				return (true);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures elements related to ISDA 1999 contracts
 	 * are not present in ISDA 2003 contracts.
@@ -940,7 +940,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE20 
+	public static final Rule	RULE20
 		= new Rule (Preconditions.R4_0__LATER, "cd-20")
 		{
 			/**
@@ -950,13 +950,13 @@ public final class CdsRules extends Logic
 			{
 					boolean		result 	= true;
 					NodeList	list 	= nodeIndex.getElementsByName ("trade");
-					
+
 					for (int index = 0; index < list.getLength (); ++index) {
 						Element		trade = (Element) list.item (index);
-						
+
 						if (isIsda2003 (trade)) {
 							Element	context = XPath.path (trade, "creditDefaultSwap");
-							
+
 							if (!exists (XPath.path (context, "protectionTerms", "obligations", "notContingent")))
 								continue;
 
@@ -970,7 +970,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures a short form contract does not
 	 * contain invalid elements.
@@ -978,7 +978,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE21 
+	public static final Rule	RULE21
 		= new Rule (Preconditions.R4_0__LATER, "cd-21")
 		{
 			/**
@@ -988,15 +988,15 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
-					
+
 					if (isShortForm (trade)) {
 						Element context = XPath.path (trade, "creditDefaultSwap");
-						
+
 						if (!isSingleName (context)) continue;
-						
+
 						result &=
 							  validate (context, XPath.path (context, "cashSettlementTerms"), errorHandler)
 							& validate (context, XPath.path (context, "physicalSettlementTerms"), errorHandler)
@@ -1009,12 +1009,12 @@ public final class CdsRules extends Logic
 							& validate (context, XPath.path (context, "generalTerms", "effectiveDate", "dateAdjustmentsReference"), errorHandler)
 							& validate (context, XPath.path (context, "generalTerms", "scheduledTerminationDate", "adjustableDate", "dateAdjustments"), errorHandler)
 							& validate (context, XPath.path (context, "generalTerms", "scheduledTerminationDate", "adjustableDate", "dateAdjustmentsReference"), errorHandler)
-							& validate (context, XPath.path (context, "generalTerms", "dateAdjustments"), errorHandler);	
+							& validate (context, XPath.path (context, "generalTerms", "dateAdjustments"), errorHandler);
 					}
 				}
 				return (result);
 			}
-			
+
 			private boolean validate (final Element context, final Element illegal, ValidationErrorHandler errorHandler)
 			{
 				if (illegal != null) {
@@ -1025,9 +1025,9 @@ public final class CdsRules extends Logic
 					return (false);
 				}
 				return (true);
-			}			
+			}
 		};
-		
+
 		/**
 		 * A <CODE>Rule</CODE> that ensures a short form contract does not
 		 * contain invalid elements.
@@ -1035,7 +1035,7 @@ public final class CdsRules extends Logic
 		 * Applies to FpML 4.0 and later.
 		 * @since	TFP 1.0
 		 */
-		public static final Rule	RULE21B 
+		public static final Rule	RULE21B
 			= new Rule (Preconditions.R4_0__LATER, "cd-21b")
 			{
 				/**
@@ -1045,15 +1045,15 @@ public final class CdsRules extends Logic
 				{
 					boolean		result 	= true;
 					NodeList	list 	= nodeIndex.getElementsByName ("trade");
-					
+
 					for (int index = 0; index < list.getLength (); ++index) {
 						Element		trade = (Element) list.item (index);
-						
+
 						if (isShortForm (trade)) {
 							Element context = XPath.path (trade, "creditDefaultSwap");
-							
+
 							if (!isCreditIndex (context)) continue;
-							
+
 							result &=
 								  validate (context, XPath.path (context, "cashSettlementTerms"), errorHandler)
 								& validate (context, XPath.path (context, "physicalSettlementTerms"), errorHandler)
@@ -1065,12 +1065,12 @@ public final class CdsRules extends Logic
 								& validate (context, XPath.path (context, "generalTerms", "effectiveDate", "dateAdjustmentsReference"), errorHandler)
 								& validate (context, XPath.path (context, "generalTerms", "scheduledTerminationDate", "adjustableDate", "dateAdjustments"), errorHandler)
 								& validate (context, XPath.path (context, "generalTerms", "scheduledTerminationDate", "adjustableDate", "dateAdjustmentsReference"), errorHandler)
-								& validate (context, XPath.path (context, "generalTerms", "dateAdjustments"), errorHandler);	
+								& validate (context, XPath.path (context, "generalTerms", "dateAdjustments"), errorHandler);
 						}
 					}
 					return (result);
 				}
-				
+
 				private boolean validate (final Element context, final Element illegal, ValidationErrorHandler errorHandler)
 				{
 					if (illegal != null) {
@@ -1081,9 +1081,9 @@ public final class CdsRules extends Logic
 						return (false);
 					}
 					return (true);
-				}			
+				}
 			};
-			
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures short form contracts can only contain
 	 * restructuring events.
@@ -1091,7 +1091,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE22 
+	public static final Rule	RULE22
 		= new Rule (Preconditions.R4_0__LATER, "cd-22")
 		{
 			/**
@@ -1101,21 +1101,21 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
-					
+
 					if (isShortForm (trade)) {
 						Element	context = XPath.path (trade, "creditDefaultSwap");
 						Element	events	= XPath.path (context, "protectionTerms", "creditEvents");
-						
+
 						if (events != null) {
 							NodeList	children = events.getChildNodes ();
 							for (int count = 0; count < children.getLength (); ++count) {
 								Node	node = children.item (count);
 								if (node instanceof Element) {
 									String name = node.getLocalName();
-									
+
 									if (name.equals ("bankrupcy") ||
 										name.equals ("failureToPay") ||
 										name.equals ("repudiationMoratorium") ||
@@ -1126,7 +1126,7 @@ public final class CdsRules extends Logic
 											getName (), XPath.forNode (node));
 
 											result = false;
-									}										
+									}
 								}
 							}
 						}
@@ -1135,7 +1135,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures long form contracts specify the
 	 * settlement terms.
@@ -1143,7 +1143,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE23 
+	public static final Rule	RULE23
 		= new Rule (Preconditions.R4_0__LATER, "cd-23")
 		{
 			/**
@@ -1153,10 +1153,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
-					
+
 					if (isLongForm (trade)) {
 						Element	context = XPath.path (trade, "creditDefaultSwap");
 
@@ -1175,7 +1175,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures long form contracts contain mandatory
 	 * data values.
@@ -1183,7 +1183,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE24 
+	public static final Rule	RULE24
 		= new Rule (Preconditions.R4_0__LATER, "cd-24")
 		{
 			/**
@@ -1193,10 +1193,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
-					
+
 					if (isLongForm (trade)) {
 						Element	context = XPath.path (trade, "creditDefaultSwap");
 
@@ -1224,11 +1224,11 @@ public final class CdsRules extends Logic
 							result = false;
 						}
 					}
-				}			
+				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures long form contracts with physical
 	 * settlement contain the necessary data.
@@ -1236,7 +1236,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE25 
+	public static final Rule	RULE25
 		= new Rule (Preconditions.R4_0__LATER, "cd-25")
 		{
 			/**
@@ -1246,10 +1246,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
-					
+
 					if (isLongForm (trade)) {
 						Element	context = XPath.path (trade, "creditDefaultSwap");
 
@@ -1287,11 +1287,11 @@ public final class CdsRules extends Logic
 							}
 						}
 					}
-				}	
+				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>feeLeg/singlePayment/adjustablePaymentDate</CODE>
 	 * is present then <CODE>feeLeg/singlePayment/adjustablePaymentDate</CODE> &gt;
@@ -1300,7 +1300,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE26 
+	public static final Rule	RULE26
 		= new Rule (Preconditions.R4_0__LATER, "cd-26")
 		{
 			/**
@@ -1310,7 +1310,7 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					Element		paymentDate;
@@ -1329,11 +1329,11 @@ public final class CdsRules extends Logic
 						getName (), null);
 
 					result = false;
-				}				
+				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if a payment date is defined it falls
 	 * before the termination date.
@@ -1341,7 +1341,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE27 
+	public static final Rule	RULE27
 		= new Rule (Preconditions.R4_0__LATER, "cd-27")
 		{
 			/**
@@ -1351,7 +1351,7 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					Element		feeDate;
@@ -1359,7 +1359,7 @@ public final class CdsRules extends Logic
 
 					if (and (
 						exists (feeDate = XPath.path (context, "feeLeg", "singlePayment", "adjustablePaymentDate")),
-						exists (termDate = XPath.path (context, "generalTerms", "scheduledTerminationDate", "adjustableDate")))) {
+						exists (termDate = XPath.path (context, "generalTerms", "scheduledTerminationDate", "adjustableDate", "unadjustedDate")))) {
 						if (less (feeDate, termDate)) continue;
 
 						errorHandler.error ("305", context,
@@ -1368,12 +1368,12 @@ public final class CdsRules extends Logic
 							getName (), null);
 
 						result = false;
-					}		
-				}	
+					}
+				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if a first payment date is present it
 	 * falls after the effective date.
@@ -1381,7 +1381,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE28 
+	public static final Rule	RULE28
 		= new Rule (Preconditions.R4_0__LATER, "cd-28")
 		{
 			/**
@@ -1391,9 +1391,9 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
-					Element		context = (Element) list.item (index);	
+					Element		context = (Element) list.item (index);
 					Element		paymentDate;
 					Element		effectiveDate;
 
@@ -1411,11 +1411,11 @@ public final class CdsRules extends Logic
 
 					result = false;
 				}
-				
+
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if a first payment date is present it
 	 * falls before the termination date.
@@ -1423,7 +1423,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE29 
+	public static final Rule	RULE29
 		= new Rule (Preconditions.R4_0__LATER, "cd-29")
 		{
 			/**
@@ -1433,7 +1433,7 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					Element		paymentDate;
@@ -1448,14 +1448,14 @@ public final class CdsRules extends Logic
 							"First periodic payment date '" + DOM.getInnerText (paymentDate) + "' " +
 							"must be before the termination date '" + DOM.getInnerText (terminationDate) + "'",
 							getName (), null);
-	
+
 						result = false;
 					}
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if a last regular payment date is present
 	 * it falls before the termination date.
@@ -1463,7 +1463,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE30 
+	public static final Rule	RULE30
 		= new Rule (Preconditions.R4_0__LATER, "cd-30")
 		{
 			/**
@@ -1473,7 +1473,7 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					Element		paymentDate;
@@ -1495,7 +1495,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the first payment date falls before the
 	 * last regular payment date.
@@ -1503,7 +1503,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE31 
+	public static final Rule	RULE31
 		= new Rule (Preconditions.R4_0__LATER, "cd-31")
 		{
 			/**
@@ -1513,7 +1513,7 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("periodicPayment");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					Element		firstDate;
@@ -1536,7 +1536,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if a long form contracts defines a feeLeg
 	 * then it must contain a calculationAmount and dayCountFraction.
@@ -1544,7 +1544,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE32 
+	public static final Rule	RULE32
 		= new Rule (Preconditions.R4_0__LATER, "cd-32")
 		{
 			/**
@@ -1554,10 +1554,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("trade");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
-					
+
 					if (isLongForm (trade)) {
 						Element	context = XPath.path (trade, "creditDefaultSwap", "feeLeg", "periodicPayment");
 
@@ -1581,11 +1581,11 @@ public final class CdsRules extends Logic
 							result = false;
 						}
 					}
-				}				
+				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the interval between the first and last payment
 	 * dates is a multiple of the paymentFrequency.
@@ -1593,7 +1593,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE33 
+	public static final Rule	RULE33
 		= new Rule (Preconditions.R4_0__LATER, "cd-33")
 		{
 			/**
@@ -1603,7 +1603,7 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("periodicPayment");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					Element		firstDate	= XPath.path (context, "firstPaymentDate");
@@ -1624,11 +1624,11 @@ public final class CdsRules extends Logic
 
 					result = false;
 				}
-				
+
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the only the allowed reference obligations
 	 * are defined.
@@ -1636,7 +1636,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE34 
+	public static final Rule	RULE34
 		= new Rule (Preconditions.R4_0__LATER, "cd-34")
 		{
 			/**
@@ -1646,10 +1646,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("deliverableObligations");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					if (equal (XPath.path (context, "category"), "ReferenceObligationsOnly")) {
 						NodeList	children = context.getChildNodes ();
 						for (int count = 0; count < children.getLength(); ++count) {
@@ -1669,7 +1669,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures at least on credit event type is defined.
 	 * <P>
@@ -1686,10 +1686,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("creditEvents");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					if (DOM.getFirstChild (context) == null) {
 						errorHandler.error ("305", context,
 							"No elements where found in creditEvents. The structure must " +
@@ -1702,7 +1702,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the correct number of information sources
 	 * are defined.
@@ -1710,7 +1710,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE36 
+	public static final Rule	RULE36
 		= new Rule (Preconditions.R4_0__LATER, "cd-36")
 		{
 			/**
@@ -1720,10 +1720,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= XPath.paths (nodeIndex.getElementsByName ("creditEvents"), "creditEventNotice", "publiclyAvailableInformation");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					if (or (
 							exists (XPath.path (context, "standardPublicSources")),
 							exists (XPath.path (context, "publicSource"))))
@@ -1739,7 +1739,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the quotation amount is no smaller than
 	 * the minimum quotation amount.
@@ -1747,7 +1747,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE37 
+	public static final Rule	RULE37
 		= new Rule (Preconditions.R4_0__LATER, "cd-37")
 		{
 			/**
@@ -1757,10 +1757,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("cashSettlementTerms");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					Element	ccy1	= XPath.path (context, "quotationAmount", "currency");
 					Element	amount	= XPath.path (context, "quotationAmount", "amount");
 					Element	ccy2 	= XPath.path (context, "minimumQuotationAmount", "currency");
@@ -1781,7 +1781,7 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the if any
 	 * <CODE>referencePoolItem/constituentWeight/basketPercentage<CODE> values
@@ -1790,7 +1790,7 @@ public final class CdsRules extends Logic
 	 * Applies to FpML 4.2 and later.
 	 * @since	TFP 1.1
 	 */
-	public static final Rule	RULE38 
+	public static final Rule	RULE38
 		= new Rule (Preconditions.R4_2__LATER, "cd-38")
 		{
 			/**
@@ -1800,24 +1800,24 @@ public final class CdsRules extends Logic
 			{
 				return (validate (nodeIndex.getElementsByName ("creditDefaultSwap"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					Element 	pool	= XPath.path (context, "generalTerm", "basketReferenceInformation",	"referencePool");
 					NodeList	items	= XPath.paths (pool, "referencePoolItem", "constituentWeight", "basketPercentage");
-					
+
 					if (items.getLength() == 0) continue;
-					
+
 					BigDecimal total = BigDecimal.ZERO;
 					for (int count = 0; count < items.getLength (); ++count)
 						total = total.add (toDecimal (items.item (count)));
-					
+
 					if (total.equals(BigDecimal.ONE)) continue;
-					
+
 					errorHandler.error ("305", pool,
 							"The sum of referencePoolItem/constituentWeight/basketPercentage should be equal to 1",
 							getName (), total.toString ());
@@ -1827,16 +1827,16 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-	
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>nthToDefault</CODE> is present
 	 * and <CODE>mthToDefault</CODE> is present then <CODE>nthToDefault</CODE>
-	 * must be less than <CODE>mthToDefaultM</CODE>. 
+	 * must be less than <CODE>mthToDefaultM</CODE>.
 	 * <P>
 	 * Applies to FpML 4.2 and later.
 	 * @since	TFP 1.1
 	 */
-	public static final Rule	RULE39 
+	public static final Rule	RULE39
 		= new Rule (Preconditions.R4_2__LATER, "cd-39")
 		{
 			/**
@@ -1846,19 +1846,19 @@ public final class CdsRules extends Logic
 			{
 				return (validate (nodeIndex.getElementsByName ("creditDefaultSwap"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 					Element		info	= XPath.path (context, "generalTerm", "basketReferenceInformation");
 					Element		nth		= XPath.path (context, "nthToDefault");
 					Element		mth		= XPath.path (context, "mthToDefault");
-					
+
 					if ((nth == null) || (mth == null) || (toInteger (nth) < toInteger (mth))) continue;
-					
+
 					errorHandler.error ("305", info,
 							"If nthToDefault is present and mthToDefault is present then nthToDefault must be less than mthToDefault.",
 							getName (), null);
@@ -1868,15 +1868,15 @@ public final class CdsRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures <CODE>attachmentPoint</CODE> must be
-	 * less than or equal to <CODE>exhaustionPoint</CODE>. 
+	 * less than or equal to <CODE>exhaustionPoint</CODE>.
 	 * <P>
 	 * Applies to FpML 4.2 and later.
 	 * @since	TFP 1.1
 	 */
-	public static final Rule	RULE40 
+	public static final Rule	RULE40
 		= new Rule (Preconditions.R4_2__LATER, "cd-40")
 		{
 		/**
@@ -1886,20 +1886,20 @@ public final class CdsRules extends Logic
 		{
 			return (validate (nodeIndex.getElementsByName ("creditDefaultSwap"), errorHandler));
 		}
-		
+
 		private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 		{
 			boolean		result = true;
-			
+
 			for (int index = 0; index < list.getLength (); ++index) {
 				Element		context = (Element) list.item (index);
 				Element		tranche	= XPath.path (context, "generalTerm", "basketReferenceInformation", "tranche");
 				Element		attach	= XPath.path (context, "attachmentPoint");
 				Element		exhaust	= XPath.path (context, "exhaustionPoint");
-				
+
 				if ((attach == null) || (exhaust == null) ||
 						(toDecimal (attach).compareTo (toDecimal (exhaust)) <= 0)) continue;
-				
+
 				errorHandler.error ("305", tranche,
 						"attachmentPoint must be less than or equal to exhaustionPoint.",
 						getName (), null);
@@ -1909,15 +1909,15 @@ public final class CdsRules extends Logic
 			return (result);
 		}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>indexReferenceInformation/tranche<CODE>
 	 * is not present then <CODE>modifiedEquityDelivery<CODE> must not be present.
-	 * <P> 
+	 * <P>
 	 * Applies to FpML 4.3 and later.
 	 * @since	TFP 1.1
 	 */
-	public static final Rule	RULE41 
+	public static final Rule	RULE41
 		= new Rule (Preconditions.R4_3__LATER, "cd-41")
 		{
 			/**
@@ -1927,27 +1927,27 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("generalTerms");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					Element		tranche
 						= XPath.path (context, "indexReferenceInformation", "tranche");
 					Element		delivery
 						= XPath.path (context, "modifiedEquityDelivery");
 
-					if ((tranche == null) && (delivery != null)) {			
+					if ((tranche == null) && (delivery != null)) {
 						errorHandler.error ("305", context,
 							"If indexReferenceInformation/tranche is not present then modifiedEquityDelivery must not be present.",
 							getName (), null);
-						
+
 						result = false;
 					}
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * If <CODE>basketReferenceInformation<CODE> is not present then
 	 * <CODE>substitution<CODE> must not be present.
@@ -1965,10 +1965,10 @@ public final class CdsRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("generalTerms");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					
+
 					Element		basket
 						= XPath.path (context, "basketReferenceInformation");
 					Element		substitution
@@ -1978,14 +1978,14 @@ public final class CdsRules extends Logic
 						errorHandler.error ("305", context,
 							"If basketReferenceInformation is not present then substitution must not be present.",
 							getName (), null);
-						
+
 						result = false;
 					}
 				}
 				return (result);
 			}
 		};
-		
+
 		/**
 		 * A <CODE>Rule</CODE> that ensures if the trade has an initial payment
 		 * then it is paid by the protection buyer to the protection seller.
@@ -1993,7 +1993,7 @@ public final class CdsRules extends Logic
 		 * Applies to FpML 4.3 and later.
 		 * @since	TFP 1.1
 		 */
-		public static final Rule	RULE43 
+		public static final Rule	RULE43
 			= new Rule (Preconditions.R4_3__LATER, "cd-43")
 			{
 				/**
@@ -2003,14 +2003,14 @@ public final class CdsRules extends Logic
 				{
 					boolean		result 	= true;
 					NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
-					
+
 					for (int index = 0; index < list.getLength (); ++index) {
 						Element		context = (Element) list.item (index);
-						
+
 						if (!isSingleName (context)) continue;
-						
+
 						if (!exists (XPath.path(context, "feeLeg", "initialPayment"))) continue;
-						
+
 						Element		payer		= XPath.path (context, "feeLeg", "initialPayment", "payerPartyReference");
 						Element		receiver 	= XPath.path (context, "feeLeg", "initialPayment", "receiverPartyReference");
 						Element		seller		= XPath.path (context, "generalTerms", "sellerPartyReference");
@@ -2021,7 +2021,7 @@ public final class CdsRules extends Logic
 								DOM.getAttribute (receiver, "href").equals(DOM.getAttribute (seller, "href")))
 								continue;
 						}
-						
+
 						errorHandler.error ("305", context,
 							"The initial payment should be paid by the protection buyer to the protection seller",
 							getName (), null);
@@ -2031,7 +2031,7 @@ public final class CdsRules extends Logic
 					return (result);
 				}
 			};
-			
+
 		/**
 		 * A <CODE>Rule</CODE> that ensures either every <CODE>referencePoolItem</CODE>
 		 * has a <CODE>basketPercentage</CODE> or that none of them have.
@@ -2039,7 +2039,7 @@ public final class CdsRules extends Logic
 		 * Applies to FpML 4.2 and later.
 		 * @since	TFP 1.1
 		 */
-		public static final Rule	RULE44 
+		public static final Rule	RULE44
 			= new Rule (Preconditions.R4_2__LATER, "cd-44")
 			{
 				/**
@@ -2049,19 +2049,19 @@ public final class CdsRules extends Logic
 				{
 					return (validate (nodeIndex.getElementsByName ("creditDefaultSwap"), errorHandler));
 				}
-				
+
 				private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 				{
 					boolean		result = true;
-					
+
 					for (int index = 0; index < list.getLength (); ++index) {
 						Element		context = (Element) list.item (index);
 						Element		pool	= XPath.path (context, "generalTerm", "basketReferenceInformation", "referencePool");
 						NodeList	items  	= XPath.paths (pool, "referencePoolItem");
 						NodeList	weights	= XPath.paths (pool, "referencePoolItem", "constituentWeight", "basketPercentage");
-						
+
 						if ((weights.getLength () == 0) || (weights.getLength () == items.getLength ())) continue;
-						
+
 						errorHandler.error ("305", pool,
 								"Either every referencePoolItem should have a basketPercentage or none should have one",
 								getName (), null);
@@ -2071,10 +2071,10 @@ public final class CdsRules extends Logic
 					return (result);
 				}
 				};
-				
+
 	/**
 	 * Provides access to the CDS validation rule set.
-	 * 
+	 *
 	 * @return	The CDS validation rule set.
 	 * @since	TFP 1.0
 	 */
@@ -2082,10 +2082,10 @@ public final class CdsRules extends Logic
 	{
 		return (rules);
 	}
-	
+
 	/**
 	 * Determines the trade under test references ISDA 1999 definitions.
-	 * 
+	 *
 	 * @param	context			The trade element.
 	 * @return	<CODE>true</CODE> if the trade uses 1999 definitions.
 	 * @since	TFP 1.0
@@ -2097,16 +2097,16 @@ public final class CdsRules extends Logic
 		if (documentation != null) {
 			Element 	definitions = DOM.getElementByLocalName (documentation, "contractualDefinitions");
 			Element 	confirmType = DOM.getElementByLocalName (documentation, "masterConfirmation", "masterConfirmationType");
-			
+
 			return (DOM.getInnerText (definitions).equals ("ISDA1999Credit")
 				 || DOM.getInnerText (confirmType).equals ("ISDA1999Credit"));
 		}
 		return (false);
 	}
-		
+
 	/**
 	 * Determines the trade under test references ISDA 2003 definitions.
-	 * 
+	 *
 	 * @param	trade		The trade element.
 	 * @return	<CODE>true</CODE> if the trade uses 2003 definitions.
 	 * @since	TFP 1.0
@@ -2119,21 +2119,21 @@ public final class CdsRules extends Logic
 			if ((target = XPath.path (trade, "documentation", "contractualDefinitions")) != null)
 				if (DOM.getInnerText (target).trim ().startsWith ("ISDA2003Credit"))
 					return (true);
-			
+
 			if ((target = XPath.path (trade, "documentation", "masterConfirmation", "masterConfirmationType")) != null) {
 				String value = DOM.getInnerText (trade).trim ();
-	
+
 				if (value.startsWith ("ISDA2003Credit") ||
 					value.startsWith ("ISDA2004Credit"))
 					return (true);
 			}
-		}		
+		}
 		return (false);
 	}
-	
+
 	/**
 	 * Determines if the trade under tests contains a short form contract.
-	 * 
+	 *
 	 * @param	trade		The trade element.
 	 * @return	<CODE>true</CODE> if the trade is short form.
 	 * @since	TFP 1.0
@@ -2141,7 +2141,7 @@ public final class CdsRules extends Logic
 	protected static boolean isShortForm (Element trade)
 	{
 		Element	target;
-		
+
 		if (exists (XPath.path (trade, "creditDefaultSwap"))) {
 			if (exists (XPath.path (trade, "documentation", "masterConfirmation")))
 				return (true);
@@ -2157,10 +2157,10 @@ public final class CdsRules extends Logic
 		}
 		return (false);
 	}
-	
+
 	/**
 	 * Determines if the trade under tests contains a long form contract.
-	 * 
+	 *
 	 * @param	trade		The trade element.
 	 * @return	<CODE>true</CODE> if the trade is long form.
 	 * @since	TFP 1.0
@@ -2179,10 +2179,10 @@ public final class CdsRules extends Logic
 		}
 		return (false);
 	}
-	
+
 	/**
 	 * Determines if a credit default swap is on a single name.
-	 * 
+	 *
 	 * @param 	cds			The credit default swap product.
 	 * @return	<CODE>true</CODE> if the product is single name.
 	 * @since	TFP 1.0
@@ -2199,7 +2199,7 @@ public final class CdsRules extends Logic
 
 	/**
 	 * Determines if a credit default swap is on an index.
-	 * 
+	 *
 	 * @param 	cds			The credit default swap product.
 	 * @return	<CODE>true</CODE> if the product is an index.
 	 * @since	TFP 1.0
@@ -2219,14 +2219,14 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	private static final RuleSet	rules = new RuleSet ();
-	
+
 	/**
 	 * Ensures no instances can be created.
 	 * @since	TFP 1.0
 	 */
 	private CdsRules ()
 	{ }
-	
+
 	/**
 	 * Extracts an <CODE>Interval</CODE> from the data stored below the
 	 * given context node.
@@ -2249,7 +2249,7 @@ public final class CdsRules extends Logic
 
 	/**
 	 * Initialises the <CODE>RuleSet</CODe> by adding the individually defined
-	 * validation rules. 
+	 * validation rules.
 	 * @since	TFP 1.0
 	 */
 	static {
