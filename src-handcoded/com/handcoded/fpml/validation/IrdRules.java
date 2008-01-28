@@ -58,8 +58,8 @@ public final class IrdRules extends Logic
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
 			}
-						
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)			
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean result	= true;
 
@@ -84,7 +84,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures payment frequency is a multiple
 	 * of the calculation frequency.
@@ -103,16 +103,16 @@ public final class IrdRules extends Logic
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
 			}
-						
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)			
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context	= (Element) list.item (index);
-					
+
 					if (!isParametric (context)) continue;
-					
+
 					Element	paymentFreq	= XPath.path (context, "paymentDates", "paymentFrequency");
 					Element	calcFreq	= XPath.path (context, "calculationPeriodDates", "calculationPeriodFrequency");
 
@@ -129,12 +129,12 @@ public final class IrdRules extends Logic
 						toInterval (calcFreq) + "'",
 						getName (), null);
 
-					result = false;				
+					result = false;
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the first payment date matches
 	 * a calculation date.
@@ -153,44 +153,44 @@ public final class IrdRules extends Logic
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
 			}
-						
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)			
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
 
 				for (int index = 0; index < list.getLength (); ++index){
 					Element	context		= (Element) list.item (index);
-					
+
 					if (!isParametric (context)) continue;
-					
+
 					Element paymentDate = XPath.path (context, "paymentDates", "firstPaymentDate");
-					
+
 					Element	startDate	= XPath.path (context, "calculationPeriodDates", "firstRegularPeriodStartDate");
 					if (!exists (startDate))
 						startDate = XPath.path (context, "calculationPeriodDates", "effectiveDate", "unadjustedDate");
-					
+
 					Element	endDate		= XPath.path (context, "calculationPeriodDates", "lastRegularPeriodEndDate");
 					if (!exists (startDate))
 						startDate = XPath.path (context, "calculationPeriodDates", "terminationDate", "unadjustedDate");
-					
+
 					Interval interval	= toInterval (XPath.path (context, "calculationPeriodDate", "calculationPeriodFrequency"));
-					
+
 					if ((paymentDate == null) || (startDate == null) || (endDate == null) || (interval == null) ||
 							isUnadjustedCalculationPeriodDate (
 									toDate (paymentDate), toDate (startDate), toDate (endDate),
 									interval)) continue;
-				
+
 					errorHandler.error ("305", context,
 						"The first payment date '" + Types.toString (paymentDate) + "' does not " +
 						"fall on one of the unadjusted calculation period dates.",
 						getName (), null);
-					
+
 					result = false;
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the last regular payment date
 	 * matches a calculation date.
@@ -209,44 +209,44 @@ public final class IrdRules extends Logic
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
 			}
-						
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)			
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
 
 				for (int index = 0; index < list.getLength (); ++index){
 					Element	context		= (Element) list.item (index);
-					
+
 					if (!isParametric (context)) continue;
-					
+
 					Element paymentDate = XPath.path (context, "paymentDates", "lastRegularPaymentDate");
-					
+
 					Element	startDate	= XPath.path (context, "calculationPeriodDates", "firstRegularPeriodStartDate", "unadjustedDate");
 					if (!exists (startDate))
 						startDate = XPath.path (context, "calculationPeriodDates", "effectiveDate", "unadjustedDate");
-					
+
 					Element	endDate		= XPath.path (context, "calculationPeriodDates", "lastRegularPeriodStartDate", "unadjustedDate");
 					if (!exists (startDate))
 						startDate = XPath.path (context, "calculationPeriodDates", "terminationDate", "unadjustedDate");
-					
+
 					Interval interval	= toInterval (XPath.path (context, "calculationPeriodDate", "calculationPeriodFrequency"));
-					
+
 					if ((paymentDate == null) || (startDate == null) || (endDate == null) || (interval == null) ||
 							isUnadjustedCalculationPeriodDate (
 									toDate (paymentDate), toDate (startDate), toDate (endDate),
 									interval)) continue;
-				
+
 					errorHandler.error ("305", context,
 						"The first payment date '" + Types.toString (paymentDate) + "' does not " +
 						"fall on one of the unadjusted calculation period dates.",
 						getName (), null);
-					
+
 					result = false;
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures calculation frequency is a
 	 * multiple of the reset frequency.
@@ -265,24 +265,24 @@ public final class IrdRules extends Logic
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
 			}
-						
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)			
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context	= (Element) list.item (index);
-					
+
 					if (!isParametric (context)) continue;
-					
+
 					Element	calcFreq	= XPath.path (context, "calculationPeriodDates", "calculationPeriodFrequency");
 					Element	resetFreq	= XPath.path (context, "resetDates", "resetFrequency");
 
 					if ((calcFreq == null) || (resetFreq == null)) continue;
-					
+
 					Interval calc  = toInterval (calcFreq);
 					Interval reset = toInterval (resetFreq);
-					
+
 					if ((calc == null) || (reset == null) || calc.isMultipleOf (reset))
 						continue;
 
@@ -292,12 +292,12 @@ public final class IrdRules extends Logic
 						toInterval (resetFreq) + "'",
 						getName (), null);
 
-					result = false;				
+					result = false;
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the first payment date is
 	 * after the effective date.
@@ -316,16 +316,16 @@ public final class IrdRules extends Logic
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
 			}
-						
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)			
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context	= (Element) list.item (index);
-					
+
 					if (!isParametric (context)) continue;
-					
+
 					Element	payment	  = XPath.path (context, "paymentDates", "firstPaymentDate");
 					Element	effective = XPath.path (context, "calculationPeriodDates", "effectiveDate", "unadjustedDate");
 
@@ -336,13 +336,13 @@ public final class IrdRules extends Logic
 						"The first payment date " + Types.toString (payment) + " must be after " +
 						"the unadjusted effective date " + Types.toString (effective),
 						getName (), null);
-				
+
 					result = false;
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures compounding method is present
 	 * when the payment frequency is less often than the calculation
@@ -362,21 +362,21 @@ public final class IrdRules extends Logic
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
 			}
-						
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)			
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context	= (Element) list.item (index);
-					
+
 					if (!isParametric (context)) continue;
-					
+
 					Element	compounding	= XPath.path (context, "calculationPeriodAmount", "calculation", "compoundingMethod");
 					Element	paymentFreq	= XPath.path (context, "paymentDates", "paymentFrequency");
 					Element	calcFreq	= XPath.path (context, "calculationPeriodDates", "calculationPeriodFrequency");
 
-					if ((paymentFreq == null) || (calcFreq == null)) continue;
+					if ((paymentFreq == null) || (calcFreq == null) || (compounding == null)) continue;
 
 					Interval payment = toInterval (paymentFreq);
 					Interval calc    = toInterval (calcFreq);
@@ -399,7 +399,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the payer and receiver are not
 	 * the same party.
@@ -419,8 +419,8 @@ public final class IrdRules extends Logic
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
 			}
-						
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)			
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
 
@@ -428,7 +428,7 @@ public final class IrdRules extends Logic
 					Element context = (Element) list.item (index);
 					Element payer	 = DOM.getElementByLocalName (context, "payerPartyReference");
 					Element receiver = DOM.getElementByLocalName (context, "receiverPartyReference");
-					
+
 					if (payer.getAttribute ("href").equals (receiver.getAttribute ("href"))) {
 						errorHandler.error ("305", context,
 							"The payer and receiver references must not be the same",
@@ -440,7 +440,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures compounding method is present
 	 * only when reset dates are defined.
@@ -459,14 +459,14 @@ public final class IrdRules extends Logic
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
 			}
-						
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)			
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context = (Element) list.item (index);
-					
+
 					if (implies (
 							exists (XPath.path (context, "calculationPeriodAmount/calculation/compoundingMethod")),
 							exists (XPath.path (context, "resetDates"))))
@@ -482,7 +482,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the calculation period start date is
 	 * consistent with the roll convention.
@@ -499,38 +499,38 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context = (Element) list.item (index);
 					Element rollConvention	= XPath.path (context, "calculationPeriodFrequency", "rollConvention");
-					
+
 					if (!isNumber (Types.toString (rollConvention))) continue;
-					
+
 					Element	startDate = XPath.path (context, "firstRegularPeriodStartDate");
 					if (!exists (startDate))
 						startDate = XPath.path (context, "effectiveDate", "unadjustedDate");
-					
+
 					int		rollDate = toInteger (rollConvention);
 					Date	start	 = toDate (startDate);
-					
+
 					if (rollDate < start.lastDayOfMonth ()) {
 						if (rollDate == start.dayOfMonth ()) continue;
 					}
 					else
 						if (start.isEndOfMonth()) continue;
-					
+
 					errorHandler.error ("305", context,
 						"The start date of the calculation period,  '" + start + "' is not " +
 						"consistent with the roll convention " + Types.toString (rollConvention),
 						getName (), null);
-					
+
 					result = false;
 				}
 
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the calculation period end date is
 	 * consistent with the roll convention.
@@ -547,38 +547,38 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context = (Element) list.item (index);
 					Element rollConvention	= XPath.path (context, "calculationPeriodFrequency", "rollConvention");
-					
+
 					if (!isNumber (Types.toString (rollConvention))) continue;
-					
+
 					Element	endDate = XPath.path (context, "firstRegularPeriodEndDate");
 					if (!exists (endDate))
 						endDate = XPath.path (context, "terminationDate", "unadjustedDate");
-					
+
 					int		rollDate = toInteger (rollConvention);
 					Date	end	 = Date.parse (Types.toString (endDate));
-					
+
 					if (rollDate < end.lastDayOfMonth ()) {
 						if (rollDate == end.dayOfMonth ()) continue;
 					}
 					else
 						if (end.isEndOfMonth()) continue;
-					
+
 					errorHandler.error ("305", context,
 						"The end date of the calculation period,  '" + end + "' is not " +
 						"consistent with the roll convention " + Types.toString (rollConvention),
 						getName (), null);
-					
+
 					result = false;
 				}
 
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the calculation period divides
 	 * the regular period precisely.
@@ -595,7 +595,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context	= (Element) list.item (index);
 					Element		start	= XPath.path (context, "firstRegularPeriodStartDate");
@@ -628,7 +628,7 @@ public final class IrdRules extends Logic
 		};
 
 	// Rule 13 was unlucky for some.
-			
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the unadjusted termination date
 	 * is after the unadjusted effective date.
@@ -645,7 +645,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	termination	= XPath.path (context, "terminationDate", "unadjustedDate");
@@ -664,7 +664,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the unadjusted termination date
 	 * is after the unadjusted first period date.
@@ -681,7 +681,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context		= (Element) list.item (index);
 					Element	termination	= XPath.path (context, "terminationDate", "unadjustedDate");
@@ -700,7 +700,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the unadjusted termination date
 	 * is after the unadjusted first regular period start date.
@@ -717,7 +717,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	termination	= XPath.path (context, "terminationDate", "unadjustedDate");
@@ -736,7 +736,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the unadjusted termination date
 	 * is after the unadjusted last regular period end date.
@@ -753,7 +753,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	termination	= XPath.path (context, "terminationDate", "unadjustedDate");
@@ -772,7 +772,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the unadjusted last regular period
 	 * end date is after the unadjusted first regular period start date.
@@ -789,7 +789,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	periodEnd	= XPath.path (context, "lastRegularPeriodEndDate");
@@ -808,7 +808,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the unadjusted last regular period
 	 * end date is after the unadjusted first period start date.
@@ -825,7 +825,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	periodEnd	= XPath.path (context, "lastRegularPeriodEndDate");
@@ -844,7 +844,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the unadjusted last regular period
 	 * end date is after the unadjusted effective date.
@@ -861,7 +861,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	last	  	= XPath.path (context, "lastRegularPeriodEndDate");
@@ -880,7 +880,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the unadjusted first period state
 	 * date is before the unadjusted effective date.
@@ -897,13 +897,13 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element stream		= DOM.getParent (context);
-					
+
 					if (!isParametric (stream)) continue;
-					
+
 					Element	first	  	= XPath.path (context, "firstPeriodStartDate", "unadjustedDate");
 					Element	effective 	= XPath.path (context, "effectiveDate", "unadjustedDate");
 
@@ -920,7 +920,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the unadjusted first period start
 	 * date is before the unadjusted first regular period start date.
@@ -937,7 +937,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	first		= XPath.path (context, "firstPeriodStartDate", "unadjustedDate");
@@ -956,7 +956,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the initial stub is only present
 	 * under the right conditions.
@@ -973,7 +973,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("stubCalculationPeriodAmount");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context		= (Element) list.item (index);
 					Element		datesRef	= XPath.path (context, "calculationPeriodDatesReference");
@@ -985,7 +985,7 @@ public final class IrdRules extends Logic
 					// Remove leading # from XPointer type references
 					if ((href != null) && (href.length () > 0) && (href.charAt (0) == '#'))
 						href = href.substring (1);
-					
+
 					Element		periodDates	= nodeIndex.getElementById (href);
 
 					if (periodDates == null) continue;
@@ -1007,7 +1007,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the final stub is only present
 	 * under the right conditions.
@@ -1024,7 +1024,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("stubCalculationPeriodAmount");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context		= (Element) list.item (index);
 					Element		datesRef	= XPath.path (context, "calculationPeriodDatesReference");
@@ -1056,7 +1056,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures that if not steps are present
 	 * the initial value is non-zero.
@@ -1080,16 +1080,16 @@ public final class IrdRules extends Logic
 					& validate (nodeIndex.getElementsByName ("floorRateSchedule"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("knownAmountSchedule"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("notionalStepSchedule"), errorHandler)
-					& validate (nodeIndex.getElementsByName ("feeAmountSchedule"), errorHandler));	
+					& validate (nodeIndex.getElementsByName ("feeAmountSchedule"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context		= (Element) list.item (index);
-					
+
 					if (implies (
 							not (exists (XPath.path (context, "step"))),
 							notEqual (
@@ -1106,7 +1106,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the business centers reference
 	 * locates a set of business centers in the document.
@@ -1123,7 +1123,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result = true;
 				NodeList	list = nodeIndex.getElementsByName ("businessCentersReference");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context		= (Element) list.item (index);
 					String	href		= context.getAttribute ("href");
@@ -1146,7 +1146,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the cash settlement payment date
 	 * is not present.
@@ -1163,7 +1163,7 @@ public final class IrdRules extends Logic
 			{
 				return (validate (nodeIndex.getElementsByName ("mandatoryEarlyTermination"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
@@ -1184,7 +1184,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the cash settlement payment date
 	 * references the early termination date.
@@ -1201,7 +1201,7 @@ public final class IrdRules extends Logic
 			{
 				return (validate (nodeIndex.getElementsByName ("mandatoryEarlyTermination"), errorHandler));
 			}
-	
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
@@ -1232,7 +1232,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 		/**
 		 * A <CODE>Rule</CODE> that ensures the cash settlement payment date
 		 * references the early termination date.
@@ -1249,7 +1249,7 @@ public final class IrdRules extends Logic
 				{
 					return (validate (nodeIndex.getElementsByName ("mandatoryEarlyTermination"), errorHandler));
 				}
-		
+
 				private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 				{
 					boolean		result = true;
@@ -1276,7 +1276,7 @@ public final class IrdRules extends Logic
 					return (result);
 				}
 			};
-			
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures that floating rate calculations
 	 * are present if there is compounding.
@@ -1293,7 +1293,7 @@ public final class IrdRules extends Logic
 			{
 				return (validate (nodeIndex.getElementsByName ("calculation"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
@@ -1321,7 +1321,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures that a start date is specified.
 	 * <P>
@@ -1362,7 +1362,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures that an end date is specified.
 	 * <P>
@@ -1378,32 +1378,32 @@ public final class IrdRules extends Logic
 			{
 				return (validate (nodeIndex.getElementsByName ("calculationPeriod"), errorHandler));
 			}
-	
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result = true;
-	
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	unadjusted	= XPath.path (context, "unadjustedEndDate");
 					Element	adjusted	= XPath.path (context, "adjustedEndDate");
-	
+
 					if (or (
 							exists (unadjusted),
 							exists (adjusted)))
 						continue;
-	
+
 					errorHandler.error ("305", context,
 						"Calculation period contains neither an adjusted nor unadjusted " +
 						"end date",
 						getName (), null);
-	
+
 					result = false;
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures that discount rate day count
 	 * fraction is only present if there is a discont rate.
@@ -1444,7 +1444,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures that the adjusted termination
 	 * date is after the adjusted effective date.
@@ -1484,7 +1484,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures that a payment date is specified.
 	 * <P>
@@ -1525,7 +1525,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the first payment date is before
 	 * the last regular payment date.
@@ -1565,7 +1565,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the interval between the first
 	 * payment date and the last regular payment date is a multiple of
@@ -1583,7 +1583,7 @@ public final class IrdRules extends Logic
 			{
 				return (validate (nodeIndex.getElementsByName ("paymentDates"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
@@ -1611,7 +1611,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-				
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures one of an initial or final
 	 * stud is present.
@@ -1653,7 +1653,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the adjusted exercise date is
 	 * not after the adjusted termination date.
@@ -1693,7 +1693,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the adjusted exercise date is
 	 * not after the adjusted cash settlement valuation date.
@@ -1725,7 +1725,7 @@ public final class IrdRules extends Logic
 
 					errorHandler.error ("305", context,
 						"The adjusted exercise date '" + Types.toString (exercise) + "' should be " +
-						"on or before the adjusted cash settlement date '" + 
+						"on or before the adjusted cash settlement date '" +
 						Types.toString (valuation) + "'",
 						getName (), null);
 
@@ -1734,7 +1734,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the adjusted cash settlement
 	 * valuation date is not after the adjusted cash settlement payment
@@ -1767,7 +1767,7 @@ public final class IrdRules extends Logic
 
 					errorHandler.error ("305", context,
 						"The adjusted case settlement valuation date '" + Types.toString (valuation) +
-						"' should be on or before the adjusted cash settlement payment date '" + 
+						"' should be on or before the adjusted cash settlement payment date '" +
 						Types.toString (payment) + "'",
 						getName (), null);
 
@@ -1776,7 +1776,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the adjusted exercise date is
 	 * before the adjusted extended termination date.
@@ -1793,7 +1793,7 @@ public final class IrdRules extends Logic
 			{
 				return (validate (nodeIndex.getElementsByName ("extensionEvent"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
@@ -1816,7 +1816,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures that atleast one child element is
 	 * present.
@@ -1840,7 +1840,7 @@ public final class IrdRules extends Logic
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
-					
+
 					if (exists (DOM.getFirstChild (context))) continue;
 
 					errorHandler.error ("305", context,
@@ -1852,7 +1852,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the adjusted early termination
 	 * date is not after the adjusted cash settlement date.
@@ -1898,10 +1898,10 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the cash settlement valuation
-	 * date is relative to the cash settlement payment date. 
+	 * date is relative to the cash settlement payment date.
 	 * <P>
 	 * Applies to FpML 1.0, 2.0 and 3.0.
 	 * @since	TFP 1.0
@@ -1947,10 +1947,10 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the cash settlement valuation
-	 * date is relative to the cash settlement payment date. 
+	 * date is relative to the cash settlement payment date.
 	 * <P>
 	 * Applies to all FpML 4.0 and later.
 	 * @since	TFP 1.0
@@ -1992,9 +1992,9 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-			
+
 	/**
-	 * A <CODE>Rule</CODE> that ensures the cash settlement payment 
+	 * A <CODE>Rule</CODE> that ensures the cash settlement payment
 	 * date for an early termination is relative to an exercise definition.
 	 * <P>
 	 * Applies to all FpML releases.
@@ -2047,9 +2047,9 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
-	 * A <CODE>Rule</CODE> that ensures the cash settlement payment 
+	 * A <CODE>Rule</CODE> that ensures the cash settlement payment
 	 * date for a swaption is relative to an exercise definition.
 	 * <P>
 	 * Applies to all FpML releases.
@@ -2097,12 +2097,12 @@ public final class IrdRules extends Logic
 						"be relative to the exercise structure",
 						getName (), href);
 
-					result = false;				
+					result = false;
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the weekly roll convention is
 	 * specified for a weekly period.
@@ -2142,7 +2142,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the step dates are valid
 	 * for a notional step schedule.
@@ -2159,7 +2159,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list	= nodeIndex.getElementsByName ("notionalStepSchedule");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context 	= (Element) list.item (index);
 					NodeList dates		= XPath.paths (context, "step", "stepDate");
@@ -2189,7 +2189,7 @@ public final class IrdRules extends Logic
 						Date		payment = toDate (date);
 
 						if (isUnadjustedCalculationPeriodDate (payment, first, last, interval)) continue;
-							
+
 						errorHandler.error ("305", context,
 							"The notional step schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
@@ -2202,7 +2202,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the step dates are valid
 	 * for a fixed rate schedule.
@@ -2219,7 +2219,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list 	= nodeIndex.getElementsByName ("fixedRateSchedule");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context		= (Element) list.item (index);
 					NodeList dates		= XPath.paths (context, "step", "stepDate");
@@ -2250,7 +2250,7 @@ public final class IrdRules extends Logic
 						Date		payment = toDate (date);
 
 						if (isUnadjustedCalculationPeriodDate (payment, first, last, interval)) continue;
-							
+
 						errorHandler.error ("305", context,
 							"The fixed rate schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
@@ -2263,7 +2263,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the step dates are valid
 	 * for a cap rate schedule.
@@ -2280,7 +2280,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result  = true;
 				NodeList	list	= nodeIndex.getElementsByName ("capRateSchedule");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context		= (Element) list.item (index);
 					NodeList dates		= XPath.paths (context, "step", "stepDate");
@@ -2310,7 +2310,7 @@ public final class IrdRules extends Logic
 						Date		payment = toDate (date);
 
 						if (isUnadjustedCalculationPeriodDate (payment, first, last, interval)) continue;
-							
+
 						errorHandler.error ("305", context,
 							"The cap rate schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
@@ -2340,7 +2340,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result 	= true;
 				NodeList	list	= nodeIndex.getElementsByName ("floorRateSchedule");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context		= (Element) list.item (index);
 					NodeList	dates	= XPath.paths (context, "step", "stepDate");
@@ -2370,7 +2370,7 @@ public final class IrdRules extends Logic
 						Date	payment 	= toDate (date);
 
 						if (isUnadjustedCalculationPeriodDate (payment, first, last, interval)) continue;
-							
+
 						errorHandler.error ("305", context,
 							"The floor rate schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
@@ -2383,7 +2383,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the step dates are valid
 	 * for a known amount schedule.
@@ -2430,7 +2430,7 @@ public final class IrdRules extends Logic
 						Date		payment = toDate (date);
 
 						if (isUnadjustedCalculationPeriodDate (payment, first, last, interval)) continue;
-							
+
 						errorHandler.error ("305", context,
 							"The known amount schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
@@ -2443,7 +2443,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the calculation period dates
 	 * reference matches a calculation period dates in same interest
@@ -2461,7 +2461,7 @@ public final class IrdRules extends Logic
 			{
 				boolean		result  = true;
 				NodeList	list	= nodeIndex.getElementsByName ("paymentDates");
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context		= (Element) list.item (index);
 					Element	reference	= XPath.path (context, "calculationPeriodDatesReference");
@@ -2487,7 +2487,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the reset dates reference
 	 * matches a reset dates definition in the same interest rate
@@ -2531,7 +2531,7 @@ public final class IrdRules extends Logic
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the calculation period is consistent
 	 * with the period when it is neither 'M' or 'Y'.
@@ -2571,13 +2571,13 @@ public final class IrdRules extends Logic
 						"Calculation period frequency roll convention '" + Types.toString (convention) +
 						"' is inconsistent with the calculation period '" + Types.toString (period) + "'",
 						getName (), null);
-					
-					result = false;	
+
+					result = false;
 				}
 				return (result);
 			}
 		};
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the calculation period is weekly when
 	 * the roll convention is a weekday.
@@ -2610,13 +2610,13 @@ public final class IrdRules extends Logic
 						"Calculation period frequency roll convention '" + Types.toString (convention) +
 						"' is inconsistent with the calculation period '" + Types.toString (period) + "'",
 						getName (), null);
-					
+
 					result = false;
 				}
 				return (result);
 			}
 		};
-		
+
 		/**
 		 * A <CODE>Rule</CODE> that ensures the calculation period dates
 		 * reference matches a calculation period dates in same interest
@@ -2634,7 +2634,7 @@ public final class IrdRules extends Logic
 				{
 					boolean		result  = true;
 					NodeList	list	= nodeIndex.getElementsByName ("resetDates");
-					
+
 					for (int index = 0; index < list.getLength (); ++index) {
 						Element	context		= (Element) list.item (index);
 						Element	reference	= XPath.path (context, "calculationPeriodDatesReference");
@@ -2660,12 +2660,12 @@ public final class IrdRules extends Logic
 					return (result);
 				}
 			};
-			
+
 	/**
 	 * Determines if an element of type <CODE>InterestRateStream</CODE>
 	 * contains no <CODE>cashflows</CODE> element, or
 	 * <CODE>cashflows/cashflowsMatchParameters</CODE> contains <CODE>true</CODE>.
-	 * 
+	 *
 	 * @param	stream	The stream <CODE>Element</CODE>.
 	 * @return	<CODE>true</CODE> if the swap is parametric.
 	 * @since	TFP 1.0
@@ -2673,16 +2673,16 @@ public final class IrdRules extends Logic
 	protected static boolean isParametric (Element stream)
 	{
 		Element 	cashflows;
-		
+
 		if (exists (cashflows = XPath.path (stream, "cashflows")))
 			return (toBool (XPath.path (cashflows, "cashflowsMatchParameters")));
-		
+
 		return (true);
 	}
-		
+
 	/**
 	 * Provides access to the IRD validation rule set.
-	 * 
+	 *
 	 * @return	The data type validation rule set.
 	 * @since	TFP 1.0
 	 */
@@ -2690,29 +2690,29 @@ public final class IrdRules extends Logic
 	{
 		return (rules);
 	}
-	
+
 	/**
 	 * A <CODE>BigDecimal</CODE> constant with the value zero. The code
 	 * used to reference the constant in <CODE>BigDecimal</CODE> class
 	 * but <B>javadoc</B> kept complaining about it.
-	 * @since	TFP 1.0 
+	 * @since	TFP 1.0
 	 */
 	private static final BigDecimal	ZERO  = new BigDecimal (0);
-	
+
 	/**
 	 * A <CODE>RuleSet</CODE> containing all the standard FpML defined
 	 * validation rules for interest rate products.
 	 * @since	TFP 1.0
 	 */
 	private static final RuleSet	rules = new RuleSet ();
-	
+
 	/**
 	 * Ensures no instances can be created.
 	 * @since	TFP 1.0
 	 */
 	private IrdRules ()
 	{ }
-	
+
 	/**
 	 * Determines if a string contains a number.
 	 *
@@ -2729,7 +2729,7 @@ public final class IrdRules extends Logic
 		}
 		return (value.length () > 0);
 	}
-	
+
 	/**
 	 * Determines if a string value contains an abbreviated English weekday
 	 * name.
@@ -2751,10 +2751,10 @@ public final class IrdRules extends Logic
 
 		return (false);
 	}
-	
+
 	/**
 	 * Tests if the payment date falls on a calculated date.
-	 * 
+	 *
 	 * @param 	paymentDate		The payment date.
 	 * @param 	startDate		The calculation period start date.
 	 * @param 	endDate			The calculation perion end date.
@@ -2771,11 +2771,11 @@ public final class IrdRules extends Logic
 
 			if (targetDate.compareTo (endDate) > 0) return (false);
 			if (targetDate.equals (paymentDate)) return (true);
-			
+
 			step = step.plus (freq);
 		}
 	}
-	
+
 	/**
 	 * Extracts an <CODE>Interval</CODE> from the data stored below the
 	 * given context node.
@@ -2798,11 +2798,11 @@ public final class IrdRules extends Logic
 		}
 		return (null);
 	}
-	
+
 	/**
 	 * Initialises the <CODE>RuleSet</CODe> by adding the individually defined
 	 * validation rules.
-	 * 
+	 *
 	 * @since	TFP 1.0
 	 */
 	static {
@@ -2863,7 +2863,7 @@ public final class IrdRules extends Logic
 		rules.add (RULE55);
 		rules.add (RULE56);
 		rules.add (RULE57);
-		rules.add (RULE58);		
-		rules.add (RULE59);	
+		rules.add (RULE58);
+		rules.add (RULE59);
 	}
 }
