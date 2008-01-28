@@ -1,4 +1,4 @@
-// Copyright (C),2007 HandCoded Software Ltd.
+// Copyright (C),2007-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -31,9 +31,9 @@ import com.handcoded.meta.SchemaRelease;
 import com.handcoded.xml.resolver.Catalog;
 
 /**
- * The <CODE>SchemaSet</CODE> class hold a collection of <CODE>StreamSource</CODE>
- * instance that reference schemas known to the application. The collection can
- * be compiled into a <CODE>Schema</CODE> instance for use in the JAXP validation
+ * The <CODE>SchemaSet</CODE> class hold a collection of resolved file paths
+ * that reference schemas known to the application. The collection can be
+ * compiled into a <CODE>Schema</CODE> instance for use in the JAXP validation
  * framework.
  * 
  * @author 	BitWise
@@ -79,12 +79,12 @@ public final class SchemaSet
 			SchemaRelease schema = (SchemaRelease) cursor.next ();
 
 			try {
-				StreamSource source = catalog.resolveUri (schema.getNamespaceUri());
+				String source = catalog.resolve (schema.getNamespaceUri());
 				
 				if (!schemas.contains (schema)) {
 					if (source == null) {
 						logger.severe ("Failed to resolve schema URI '" + schema.getNamespaceUri() + "'");
-						source = new StreamSource (schema.getSchemaLocation ());
+						source = schema.getSchemaLocation ();
 					}
 					sources.add (source);
 					schemas.add (schema);
@@ -109,8 +109,10 @@ public final class SchemaSet
 	public Schema getSchema ()
 	{
 		if (schema == null) {
-			Source [] sourceArray = new Source [sources.size()];
-			sources.copyInto (sourceArray);
+			Source [] sourceArray = new StreamSource [sources.size()];
+			
+			for (int index = 0; index < sources.size (); ++index)
+				sourceArray [index] =  new StreamSource ((String) sources.elementAt (index));
 
 			try {
 				schema = SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema (sourceArray);
@@ -136,7 +138,7 @@ public final class SchemaSet
 	private HashSet			schemas		= new HashSet ();
 	
 	/**
-	 * The set of <CODE>StreamSource</CODE> instances for the schemas.
+	 * The set of <CODE>String</CODE> instances for the schemas paths.
 	 * @since	TFP 1.0
 	 */
 	private Vector			sources		= new Vector ();
