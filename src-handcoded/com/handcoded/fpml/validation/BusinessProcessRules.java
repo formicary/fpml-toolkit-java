@@ -69,7 +69,7 @@ public final class BusinessProcessRules extends Logic
 	/**
 	 * Provides access to the business process validation rule set.
 	 * 
-	 * @return	The busines process validation rule set.
+	 * @return	The business process validation rule set.
 	 * @since	TFP 1.1
 	 */
 	public static RuleSet getRules ()
