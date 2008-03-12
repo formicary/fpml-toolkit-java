@@ -57,8 +57,7 @@
                </referenceObligation>
                <allGuarantees>true</allGuarantees>
                <referencePrice>1</referencePrice>
-            </referenceInformation><!-- C24 (http://www.c24.biz) Simon Heinrich: Removed additionalTermScheme attribute from additionalTerm -->
-            <additionalTerm>ISDA2003Credit60BusinessDaySettlementCap</additionalTerm>
+            </referenceInformation>
          </generalTerms>
          <feeLeg>
             <periodicPayment>
@@ -136,6 +135,7 @@
                <notBearer/>
             </deliverableObligations>
             <escrow>true</escrow>
+            <sixtyBusinessDaySettlementCap>true</sixtyBusinessDaySettlementCap>
          </physicalSettlementTerms>
       </creditDefaultSwap>
       <calculationAgent>

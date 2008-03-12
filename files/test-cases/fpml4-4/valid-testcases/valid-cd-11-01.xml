@@ -55,10 +55,8 @@
                   </bond>
                   <primaryObligorReference href="referenceEntity"/>
                </referenceObligation>
-               <allGuarantees>true</allGuarantees>
                <referencePrice>1</referencePrice>
             </referenceInformation>
-            <additionalTerm>ISDA2003Credit60BusinessDaySettlementCap</additionalTerm>
          </generalTerms>
          <feeLeg>
             <periodicPayment>
@@ -93,7 +91,6 @@
                </failureToPay>
                <restructuring>
                   <restructuringType>ModModR</restructuringType>
-                  <multipleHolderObligation/>
                   <multipleCreditEventNotices/>
                </restructuring>
                <defaultRequirement>
@@ -136,6 +133,7 @@
                <notBearer/>
             </deliverableObligations>
             <escrow>true</escrow>
+            <sixtyBusinessDaySettlementCap>true</sixtyBusinessDaySettlementCap>
          </physicalSettlementTerms>
       </creditDefaultSwap>
       <calculationAgent>
@@ -146,8 +144,13 @@
          <masterAgreement>
             <masterAgreementType>ISDA1992</masterAgreementType>
          </masterAgreement>
-         <contractualDefinitions>ISDA2003Credit</contractualDefinitions>
-         <contractualSupplement>ISDA2003CreditMay2003</contractualSupplement>
+         <contractualDefinitions>ISDA1999Credit</contractualDefinitions>
+         <contractualTermsSupplement>
+            <type>ISDA1999CreditSuccessorAndCreditEvents</type>
+         </contractualTermsSupplement>
+         <contractualTermsSupplement>
+            <type>ISDA1999CreditConvertibleExchangeableAccretingObligations</type>
+         </contractualTermsSupplement>
       </documentation>
    </trade>
    <party id="party1">

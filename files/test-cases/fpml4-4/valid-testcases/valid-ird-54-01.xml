@@ -22,7 +22,7 @@
          </partyTradeIdentifier>
          <tradeDate>1994-12-12Z</tradeDate>
       </tradeHeader>
-      <swap><!-- Chase pays the floating rate every 6 months, based on 6M DEM-LIBOR-BBA,
+      <swap><!-- Chase pays the floating rate every 6 months, based on 6M EUR-LIBOR-BBA,
             on ACT/360 basis -->
          <swapStream>
             <payerPartyReference href="party1"/>
@@ -80,14 +80,14 @@
                <calculationPeriodDatesReference href="floatingCalcPeriodDates"/>
                <initialStub>
                   <floatingRate>
-                     <floatingRateIndex>DEM-LIBOR-BBA</floatingRateIndex>
+                     <floatingRateIndex>EUR-LIBOR-BBA</floatingRateIndex>
                      <indexTenor>
                         <periodMultiplier>4</periodMultiplier>
                         <period>M</period>
                      </indexTenor>
                   </floatingRate>
                   <floatingRate>
-                     <floatingRateIndex>DEM-LIBOR-BBA</floatingRateIndex>
+                     <floatingRateIndex>EUR-LIBOR-BBA</floatingRateIndex>
                      <indexTenor>
                         <periodMultiplier>5</periodMultiplier>
                         <period>M</period>
