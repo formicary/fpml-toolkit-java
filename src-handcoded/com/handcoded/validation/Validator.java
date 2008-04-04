@@ -13,9 +13,9 @@
 
 package com.handcoded.validation;
 
-import com.handcoded.xml.NodeIndex;
-
 import org.w3c.dom.Document;
+
+import com.handcoded.xml.NodeIndex;
 
 /**
  * The <CODE>Validator</CODE> class defines a standard API for requesting
