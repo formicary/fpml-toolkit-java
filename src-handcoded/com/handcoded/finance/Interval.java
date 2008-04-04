@@ -115,6 +115,9 @@ public final class Interval implements Serializable
 	{
 		int				multiplier	= this.multiplier;
 		Period			period		= this.period;
+		
+		if (period == Period.TERM)
+			return (multiplier == 1);
 
 		if (period == Period.WEEK) {
 			period = Period.DAY;
