@@ -152,7 +152,7 @@ public class BrokenSchemeRule extends Rule
 				}
 				
 				Scheme scheme = schemes.findSchemeForUri (uri);
-				if (scheme != null) {
+				if (scheme == null) {
 					errorHandler.error ("305", context,
 						"An unrecognized scheme URI has been used as a qualifier",
 						getName (), uri);
