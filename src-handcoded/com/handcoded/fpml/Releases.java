@@ -323,7 +323,7 @@ public final class Releases
 								"http://www.fpml.org/spec/2000/day-count-fraction-1-0" },
 							{ 	"dayTypeSchemeDefault",
 								"http://www.fpml.org/spec/2000/day-type-1-0" },
-							{ 	"definitionsToSchemeDefault",
+							{ 	"definitionsSchemeDefault",
 								"http://www.fpml.org/spec/2002/contractual-definitions-scheme-1-0" },
 							{ 	"discountingSchemeDefault",
 								"http://www.fpml.org/spec/2000/discounting-type-1-0" },
@@ -411,6 +411,8 @@ public final class Releases
 								"clearanceSystemSchemeDefault" },
 							{ 	"compoundingMethodScheme",
 								"compoundingMethodSchemeDefault" },
+							{	"contractualDefinitionsScheme",
+								"definitionsSchemeDefault" },
 							{ 	"countryScheme",
 								"countrySchemeDefault" },
 							{ 	"currencyScheme",
@@ -439,6 +441,8 @@ public final class Releases
 								"informationProviderSchemeDefault" },
 							{ 	"linkIdScheme",
 								"linkIdSchemeDefault" },
+							{	"masterAgreementTypeScheme",
+								"masterAgreementSchemeDefault" },
 							{ 	"methodOfAdjustmentScheme",
 								"methodOfAdjustmentSchemeDefault" },
 							{ 	"nationalisationOrInsolvencyOrDelistingScheme",
@@ -482,7 +486,7 @@ public final class Releases
 							{ 	"roundingDirectionScheme",
 								"roundingDirectionSchemeDefault" },
 							{ 	"routingIdScheme",
-								"routingIdSchemeDefault" },
+								"routingIdTypeSchemeDefault" },
 							{ 	"settlementMethodScheme",
 								"settlementMethodSchemeDefault" },
 							{ 	"settlementPriceSourceScheme",
@@ -927,7 +931,7 @@ public final class Releases
 							{ 	"settlementPriceSourceScheme",
 								"http://www.fpml.org/spec/2002/settlement-price-source-1-0" }
 						}),
-						parseSchemes ("schemes4-3.xml"));
+						parseSchemes ("schemes5-0.xml"));
 	
 	/**
 	 * A <CODE>SchemaRelease</CODE> instance containing the details for
