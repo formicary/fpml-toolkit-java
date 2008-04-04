@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -180,11 +180,92 @@ public abstract class Types
 	 * @return	The rounded value.
 	 * @since	TFP 1.0
 	 */
-	public static BigDecimal round (BigDecimal value, int places)
+	public static BigDecimal round (final BigDecimal value, int places)
 	{
 		return (new BigDecimal (value.movePointRight (places).toBigInteger ()).movePointLeft (places));
 	}
-
+	
+	/**
+	 * Converts the value of the indicated <CODE>Node</CODE> into a <CODE>BigDecimal
+	 * </CODE> value and then determines if it is positive.
+	 * 
+	 * @param 	node			The <CODE>Node</CODE> to be tested.
+	 * @return	<CODE>true</CODE> if the value is positive, <CODE>false</CODE>
+	 * 			otherwise.
+	 * @since	TFP 1.2
+	 */
+	public static boolean isPositive (final Node node)
+	{
+		return (isPositive (toDecimal (node)));
+	}
+	
+	/**
+	 * Determines if the supplied <CODE>BigDecimal</CODE> value is positive.
+	 * 
+	 * @param	value		The <CODE>BigDecimal</CODE> to test.
+	 * @return	<CODE>true</CODE> if the value is positive, <CODE>false</CODE>
+	 * 			otherwise
+	 * @since	TFP 1.2
+	 */
+	public static boolean isPositive (final BigDecimal value)
+	{
+		return (value.compareTo (BigDecimal.ZERO) > 0);
+	}
+	
+	/**
+	 * Converts the value of the indicated <CODE>Node</CODE> into a <CODE>BigDecimal
+	 * </CODE> value and then determines if it is negative.
+	 * 
+	 * @param 	node			The <CODE>Node</CODE> to be tested.
+	 * @return	<CODE>true</CODE> if the value is negative, <CODE>false</CODE>
+	 * 			otherwise.
+	 * @since	TFP 1.2
+	 */
+	public static boolean isNegative (final Node node)
+	{
+		return (isNegative (toDecimal (node)));
+	}
+	
+	/**
+	 * Determines if the supplied <CODE>BigDecimal</CODE> value is negative.
+	 * 
+	 * @param	value		The <CODE>BigDecimal</CODE> to test.
+	 * @return	<CODE>true</CODE> if the value is negative, <CODE>false</CODE>
+	 * 			otherwise
+	 * @since	TFP 1.2
+	 */
+	public static boolean isNegative (final BigDecimal value)
+	{
+		return (value.compareTo (BigDecimal.ZERO) < 0);
+	}
+	
+	/**
+	 * Converts the value of the indicated <CODE>Node</CODE> into a <CODE>BigDecimal
+	 * </CODE> value and then determines if it is non-negative.
+	 * 
+	 * @param 	node			The <CODE>Node</CODE> to be tested.
+	 * @return	<CODE>true</CODE> if the value is non-negative, <CODE>false</CODE>
+	 * 			otherwise.
+	 * @since	TFP 1.2
+	 */
+	public static boolean isNonNegative (final Node node)
+	{
+		return (isNonNegative (toDecimal (node)));
+	}
+	
+	/**
+	 * Determines if the supplied <CODE>BigDecimal</CODE> value is non-negative.
+	 * 
+	 * @param	value		The <CODE>BigDecimal</CODE> to test.
+	 * @return	<CODE>true</CODE> if the value is non-negative, <CODE>false</CODE>
+	 * 			otherwise
+	 * @since	TFP 1.2
+	 */
+	public static boolean isNonNegative (final BigDecimal value)
+	{
+		return (value.compareTo (BigDecimal.ZERO) >= 0);
+	}
+	
 	/**
 	 * Constructs a <CODE>Types</CODE> instance.
 	 * @since	TFP 1.1
