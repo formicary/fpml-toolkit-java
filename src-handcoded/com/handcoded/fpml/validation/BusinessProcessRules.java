@@ -97,6 +97,6 @@ public final class BusinessProcessRules extends Logic
 	 * @since	TFP 1.1
 	 */
 	static {
-		rules.add (RULE01);
+		// rules.add (RULE01);
 	}
 }
