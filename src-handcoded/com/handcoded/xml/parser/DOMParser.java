@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -47,24 +47,34 @@ public final class DOMParser
 	 *
 	 * @param	validating			Determines if validation is required. 
 	 * @param	namespaceAware		Determines if namespace processing required.
+	 * @param	schemaAware			Determines if schema processing required. 
 	 * @param	schema				<CODE>Schema</CODE> used for validation.
 	 * @param	entityResolver		<CODE>EntityResolver</CODE> instance or <CODE>null</CODE>.
 	 * @param	errorHandler		<CODE>ErrorHandler</CODE> instance or <CODE>null</CODE>.
 	 * @throws	ParserConfigurationException If JAXP cannot provide a suitable parser.	
 	 * @since	TFP 1.0	
 	 */
-	public DOMParser (final boolean	validating, final boolean namespaceAware, Schema schema,
+	public DOMParser (final boolean	validating, final boolean namespaceAware,
+			final boolean schemaAware, Schema schema,
 			EntityResolver entityResolver, ErrorHandler	errorHandler)
 		throws ParserConfigurationException
 	{
-		synchronized (factory) {
-			factory.setValidating (validating & (schema == null));
-			factory.setNamespaceAware (namespaceAware);
-			
-			if (schema != null)	factory.setSchema (schema);
-			
-			builder = factory.newDocumentBuilder ();
+		DocumentBuilderFactory		factory	= DocumentBuilderFactory.newInstance ();
+		
+		factory.setAttribute("http://apache.org/xml/features/validation/schema", 
+			    (schemaAware || (schema != null) ? Boolean.TRUE : Boolean.FALSE));
+		factory.setValidating (validating && (schema == null));	
+		factory.setNamespaceAware (namespaceAware || schemaAware || (schema != null));
+		factory.setSchema (schema);
+		
+		try {
+			factory.setFeature(Feature.DEFER_NODE_EXPANSION_FEATURE_ID, false);
 		}
+		catch (ParserConfigurationException error) {
+			logger.info ("Installed XML Parser does not support deferred node expansion feature.");
+		}
+
+		builder = factory.newDocumentBuilder ();
 
 		if (entityResolver != null)
 			builder.setEntityResolver (entityResolver);
@@ -79,39 +89,17 @@ public final class DOMParser
 	 *
 	 * @param	validating			Determines if validation is required. 
 	 * @param	namespaceAware		Determines if namespace processing required.
+	 * @param	schemaAware			Determines if schema processing required. 
 	 * @param	entityResolver		<CODE>EntityResolver</CODE> instance or <CODE>null</CODE>.
 	 * @param	errorHandler		<CODE>ErrorHandler</CODE> instance or <CODE>null</CODE>.
 	 * @throws	ParserConfigurationException If JAXP cannot provide a suitable parser.	
 	 * @since	TFP 1.0	
 	 */
-	public DOMParser (final boolean	validating, final boolean namespaceAware, EntityResolver entityResolver, ErrorHandler	errorHandler)
+	public DOMParser (final boolean	validating, final boolean namespaceAware,
+			final boolean schemaAware, EntityResolver entityResolver, ErrorHandler	errorHandler)
 		throws ParserConfigurationException
 	{
-		this (validating, namespaceAware, null, entityResolver, errorHandler);
-	}
-	
-	/**
-	 * Allows attributes to be set on the <CODE>BuilderFactory</CODE> used to
-	 * create DOM parsers.
-	 *  
-	 * @param 	url				The URL of the property to be set.
-	 * @param 	value			The value to assign to the property.
-	 * @return	<CODE>true</CODE> if the attribute value could be set,
-	 * 			<CODE>false</CODE> otherwise.
-	 * @since	TFP 1.0
-	 */
-	public static boolean setAttribute (final String url, final String value)
-	{
-		try {
-			factory.setAttribute (url, value);
-			return (true);
-		}
-		catch (IllegalArgumentException error) {
-			logger.log (Level.SEVERE,
-					"JAXP implementation does not support this property",
-					new Object [] { url, value});
-			return (false);
-		}
+		this (validating, namespaceAware, schemaAware, null, entityResolver, errorHandler);
 	}
 	
 	/**
@@ -131,7 +119,6 @@ public final class DOMParser
 			return (builder.parse (source));
 		}
 		catch (SAXParseException error) {
-//			logger.log (Level.WARNING, "Unhandled SAX Exception", error);
 			return (null);
 		}
 		catch (SAXException error) {
@@ -157,7 +144,6 @@ public final class DOMParser
 			return (builder.parse (file));
 		}
 		catch (SAXParseException error) {
-//			logger.log (Level.WARNING, "Unhandled SAX Exception", error);
 			return (null);
 		}
 		catch (SAXException error) {
@@ -201,13 +187,6 @@ public final class DOMParser
 		= Logger.getLogger ("com.handcoded.xml.parser.DOMParser");
 	
 	/**
-	 * The <CODE>DocumentBuilderFactory</CODE> used to build parsers.
-	 * @since	TFP 1.0	
-	 */
-	private static DocumentBuilderFactory	factory
-		= DocumentBuilderFactory.newInstance ();
-
-	/**
 	 * The <CODE>DocumentBuilder</CODE> associated with this instance.
 	 * @since	TFP 1.0	
 	 */
@@ -220,12 +199,5 @@ public final class DOMParser
 		 System.setProperty (
 				"org.apache.xerces.xni.parser.XMLParserConfiguration",
 		    	"org.apache.xerces.parsers.XMLGrammarCachingConfiguration");
-		 
-		 try {
-			 factory.setFeature(Feature.DEFER_NODE_EXPANSION_FEATURE_ID, false);
-		 }
-		 catch (ParserConfigurationException error) {
-			 logger.info ("Installed XML Parser does not support deferred node expansion feature.");
-		 }
 	}
 }

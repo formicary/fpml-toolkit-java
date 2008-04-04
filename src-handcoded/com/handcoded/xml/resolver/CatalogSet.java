@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,11 +13,12 @@
 
 package com.handcoded.xml.resolver;
 
+import java.io.IOException;
 import java.util.Vector;
 
-import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.ext.EntityResolver2;
 
 /**
  * A <CODE>CatalogSet</CODE> instance contains a collection of <CODE>
@@ -28,9 +29,9 @@ import org.xml.sax.SAXException;
  *
  * @author	BitWise
  * @version	$Id$
- * @since	TFP 1.0
+ * @since	TFP 1.1
  */
-public final class CatalogSet implements EntityResolver
+public final class CatalogSet implements EntityResolver2
 {
 	/**
 	 * Constructs a <CODE>CatalogSet</CODE> containing an empty catalog
@@ -82,7 +83,7 @@ public final class CatalogSet implements EntityResolver
 	 *			InputSource</CODE>.
 	 * @since	TFP 1.0
 	 */
-    public final InputSource resolveEntity(final String publicId, final String systemId)
+    public final InputSource resolveEntity (final String publicId, final String systemId)
         throws SAXException
     {
         InputSource			inputSource = null;
@@ -94,6 +95,36 @@ public final class CatalogSet implements EntityResolver
         return (inputSource);
     }
     
+    /**
+     * @since	TFP 1.1
+     */
+	public InputSource resolveEntity (String name, String publicId, String baseUri, String systemId)
+	throws SAXException, IOException
+	{
+        InputSource			inputSource = null;
+        
+        for (int index = 0; index < catalogs.size(); ++index)
+        	if ((inputSource = ((Catalog) catalogs.elementAt (index)).resolveEntity (name, publicId, baseUri, systemId)) != null)
+        		break;
+        		
+        return (inputSource);
+	}
+	
+	/**
+	 * @since	TFP 1.1
+	 */
+	public InputSource getExternalSubset (String name, String baseUri)
+	throws SAXException, IOException
+	{
+        InputSource			inputSource = null;
+        
+        for (int index = 0; index < catalogs.size(); ++index)
+        	if ((inputSource = ((Catalog) catalogs.elementAt (index)).getExternalSubset (name, baseUri)) != null)
+        		break;
+        		
+        return (inputSource);
+	}
+
 	/**
 	 * Converts the instance data members to a <CODE>String</CODE> representation
 	 * that can be displayed for debugging purposes.

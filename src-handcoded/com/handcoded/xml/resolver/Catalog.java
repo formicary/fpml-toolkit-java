@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,14 +13,15 @@
 
 package com.handcoded.xml.resolver;
 
+import java.io.IOException;
 import java.util.Stack;
 import java.util.logging.Logger;
 
 import javax.xml.transform.stream.StreamSource;
 
-import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.ext.EntityResolver2;
 
 /**
  * The <CODE>Catalog</CODE> provides a configurable <CODE>EntityResolver
@@ -28,9 +29,9 @@ import org.xml.sax.SAXException;
  *
  * @author	BitWise
  * @version	$Id$
- * @since	TFP 1.0
+ * @since	TFP 1.1
  */
-public final class Catalog implements EntityResolver
+public final class Catalog implements EntityResolver2
 {
 	/**
 	 * Returns the URL associated with this catalog.
@@ -70,16 +71,54 @@ public final class Catalog implements EntityResolver
 
 		if (result != null) {
 			if (result.startsWith ("file:")) {
-				logger.info ("Opening " + result);
+//				logger.info ("Opening " + result);
 				return (new InputSource (result));
 			}
 			else {
-				logger.info ("Opening " + Catalog.class.getClassLoader().getResource (result).toExternalForm());
+//				logger.info ("Opening " + Catalog.class.getClassLoader().getResource (result).toExternalForm());
 				return (new InputSource (Catalog.class.getClassLoader().getResource (result).toExternalForm()));
 			}
 		}
 		
 		return (null);
+	}
+
+	/**
+	 * @since	TFP 1.1
+	 */
+	public InputSource resolveEntity (String name, String publicId, String baseUri, String systemId)
+	throws SAXException, IOException
+	{
+//		logger.info ("\nname = " + ((name != null) ? name : "null") +
+//				     "\npublicId = " + ((publicId != null) ? publicId : "null") +
+//				     "\nbaseUri = " + ((baseUri != null) ? baseUri : "null") +
+//				     "\nsystemId = " + ((systemId != null) ? systemId : "null"));
+
+		String				result = definition.applyRules (publicId, systemId, new Stack ());
+		
+//		logger.info ("\nresult   = " + ((result   != null) ? result   : "null"));
+
+		if (result != null) {
+			if (result.startsWith ("file:")) {
+//				logger.info ("Opening " + result);
+				return (new InputSource (result));
+			}
+			else {
+//				logger.info ("Opening " + Catalog.class.getClassLoader().getResource (result).toExternalForm());
+				return (new InputSource (Catalog.class.getClassLoader().getResource (result).toExternalForm()));
+			}
+		}
+
+		return (null);
+	}
+
+	/**
+	 * @since	TFP 1.1
+	 */
+	public InputSource getExternalSubset(String name, String baseUri)
+		throws SAXException, IOException
+	{
+		return null;
 	}
 
 	/**

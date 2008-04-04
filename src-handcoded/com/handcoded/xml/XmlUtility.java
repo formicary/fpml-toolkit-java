@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -95,6 +95,7 @@ public final class XmlUtility
 	}
 	
 	/**
+	 * Uses the supplied argument as the new default <CODE>Catalog</CODE>.
 	 * 
 	 * @param 	catalog
 	 * @since	TFP 1.1
@@ -140,10 +141,7 @@ public final class XmlUtility
 	 */
 	public static Document nonValidatingParse (final String xml, EntityResolver entityResolver)
 	{
-		Document	document	= null;
-		
-		try {
-			document = new DOMParser (false, true, null, entityResolver,
+		return (nonValidatingParse (xml, entityResolver, 
 				new ErrorHandler ()
 				{
 					public void fatalError (SAXParseException notUsed)
@@ -154,7 +152,16 @@ public final class XmlUtility
 					
 					public void warning (SAXParseException notUsed)
 					{  }
-				}).parse (xml);
+				}));
+	}
+	
+	public static Document nonValidatingParse (final String xml, EntityResolver entityResolver,
+			ErrorHandler errorHandler)
+	{
+		Document	document	= null;
+		
+		try {
+			document = new DOMParser (false, true, false, null, entityResolver, errorHandler).parse (xml);
 		}
 		catch (ParserConfigurationException error) {
 			logger.severe ("JAXP failed to provided a XML parser");
@@ -164,7 +171,7 @@ public final class XmlUtility
 		}
 		return (document);
 	}
-	
+
 	/**
 	 * Performs a non-validating parse of the indicated XML file discarding any
 	 * errors generated.
@@ -191,10 +198,7 @@ public final class XmlUtility
 	 */
 	public static Document nonValidatingParse (File file, EntityResolver entityResolver)
 	{
-		Document	document	= null;
-		
-		try {
-			document = new DOMParser (false, true, null, entityResolver,
+		return (nonValidatingParse (file, entityResolver,
 				new ErrorHandler ()
 				{
 					public void fatalError (SAXParseException notUsed)
@@ -205,7 +209,16 @@ public final class XmlUtility
 					
 					public void warning (SAXParseException notUsed)
 					{  }
-				}).parse (file);
+				}));
+	}
+	
+	public static Document nonValidatingParse (File file, EntityResolver entityResolver,
+			ErrorHandler errorHandler)
+	{
+		Document	document	= null;
+		
+		try {
+			document = new DOMParser (false, true, false, null, entityResolver, errorHandler).parse (file);
 		}
 		catch (ParserConfigurationException error) {
 			logger.severe ("JAXP failed to provided a XML parser");
@@ -215,6 +228,7 @@ public final class XmlUtility
 		}
 		return (document);
 	}
+
 	
 	/**
 	 * Performs a validating parse of the indicated XML <CODE>String</CODE> using the
@@ -236,45 +250,35 @@ public final class XmlUtility
 	{
 		Document	document	= null;
 		
-		if (grammar == SCHEMA_ONLY) {
-			try {
-				return (new DOMParser (false, true, schema, entityResolver, errorHandler).parse (xml));
+		if (grammar != DTD_ONLY) {
+			if ((document = nonValidatingParse (xml, entityResolver, errorHandler)) == null)
+				return (null);
+			
+			if (document.getDoctype () == null) {
+				try {
+					DOMResult		result	= new DOMResult ();
+					
+					Validator validator = schema.newValidator ();
+					validator.setErrorHandler (errorHandler);
+					validator.validate (new DOMSource (document), result);
+					
+					return ((Document) result.getNode ());
+				}
+				catch (SAXException error) {
+					logger.log (Level.SEVERE, "Unexpected SAX Exception", error);
+				}
+				catch (IOException error) {
+					logger.log (Level.SEVERE, "Unexpected I/O error", error);
+				}
 			}
-			catch (ParserConfigurationException error) {
-				logger.severe ("JAXP failed to provided a XML parser");
-			}
-			catch (IOException error) {
-				logger.log (Level.SEVERE, "Unexpected I/O error", error);
-			}
-			return (null);
 		}
 		
-		if (grammar == DTD_OR_SCHEMA) {
-			if ((document = nonValidatingParse (xml, entityResolver)) == null) return (null);
-			
-			grammar = (document.getDoctype() != null) ? DTD_ONLY : SCHEMA_ONLY;
-		}
-
+		// Handle DTD based documents
 		try {
-			if (grammar == DTD_ONLY) {
-				document = new DOMParser (true, true, null, entityResolver, errorHandler).parse (xml);
-			}
-			
-			if (grammar == SCHEMA_ONLY) {
-				DOMResult		result	= new DOMResult ();
-				
-				Validator validator = schema.newValidator ();
-				validator.setErrorHandler (errorHandler);
-				validator.validate (new DOMSource (document), result);
-				
-				document = (Document) result.getNode ();				
-			}
+			document = new DOMParser (true, true, false, null, entityResolver, errorHandler).parse (xml);
 		}
 		catch (ParserConfigurationException error) {
 			logger.severe ("JAXP failed to provided a XML parser");
-		}
-		catch (SAXException error) {
-			logger.log (Level.SEVERE, "Unexpected SAX Exception", error);
 		}
 		catch (IOException error) {
 			logger.log (Level.SEVERE, "Unexpected I/O error", error);
@@ -302,45 +306,35 @@ public final class XmlUtility
 	{
 		Document	document	= null;
 		
-		if (grammar == SCHEMA_ONLY) {
-			try {
-				return (new DOMParser (false, true, schema, entityResolver, errorHandler).parse (file));
+		if (grammar != DTD_ONLY) {
+			if ((document = nonValidatingParse (file, entityResolver, errorHandler)) == null)
+				return (null);
+			
+			if (document.getDoctype () == null) {
+				try {
+					DOMResult		result	= new DOMResult ();
+					
+					Validator validator = schema.newValidator ();
+					validator.setErrorHandler (errorHandler);
+					validator.validate (new DOMSource (document), result);
+					
+					return ((Document) result.getNode ());
+				}
+				catch (SAXException error) {
+					logger.log (Level.SEVERE, "Unexpected SAX Exception", error);
+				}
+				catch (IOException error) {
+					logger.log (Level.SEVERE, "Unexpected I/O error", error);
+				}
 			}
-			catch (ParserConfigurationException error) {
-				logger.severe ("JAXP failed to provided a XML parser");
-			}
-			catch (IOException error) {
-				logger.log (Level.SEVERE, "Unexpected I/O error", error);
-			}
-			return (null);
 		}
 		
-		if (grammar == DTD_OR_SCHEMA) {
-			if ((document = nonValidatingParse (file, entityResolver)) == null) return (null);
-			
-			grammar = (document.getDoctype() != null) ? DTD_ONLY : SCHEMA_ONLY;
-		}
-
+		// Handle DTD based documents
 		try {
-			if (grammar == DTD_ONLY) {
-				document = new DOMParser (true, true, null, entityResolver, errorHandler).parse (file);
-			}
-			
-			if (grammar == SCHEMA_ONLY) {
-				DOMResult		result	= new DOMResult ();
-				
-				Validator validator = schema.newValidator ();
-				validator.setErrorHandler (errorHandler);
-				validator.validate (new DOMSource (document), result);
-				
-				document = (Document) result.getNode ();				
-			}
+			document = new DOMParser (true, true, false, null, entityResolver, errorHandler).parse (file);
 		}
 		catch (ParserConfigurationException error) {
 			logger.severe ("JAXP failed to provided a XML parser");
-		}
-		catch (SAXException error) {
-			logger.log (Level.SEVERE, "Unexpected SAX Exception", error);
 		}
 		catch (IOException error) {
 			logger.log (Level.SEVERE, "Unexpected I/O error", error);
