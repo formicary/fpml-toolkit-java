@@ -53,6 +53,11 @@ public final class SharedRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) {
+					String ns = nodeIndex.getDocument ().getDocumentElement ().getNamespaceURI ();
+					return (validate (nodeIndex.getElementsByType (ns, "BusinessDayAdjustments"), errorHandler));					
+				}
+					
 				return (
 					  validate (nodeIndex.getElementsByName ("dateAdjustments"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("calculationPeriodDatesAdjustments"), errorHandler)
@@ -962,7 +967,7 @@ public final class SharedRules extends Logic
 	/**
 	 * Provides access to the shared components validation rule set.
 	 * 
-	 * @return	The data type validation rule set.
+	 * @return	The shared validation rule set.
 	 * @since	TFP 1.0
 	 */
 	public static RuleSet getRules ()

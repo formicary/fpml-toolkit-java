@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,13 +13,16 @@
 
 package com.handcoded.xml;
 
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Vector;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.TypeInfo;
 
 /**
  * The <CODE>NodeIndex</CODE> class builds an index of the elements that
@@ -32,6 +35,11 @@ import org.w3c.dom.NodeList;
  * <P>
  * The <CODE>NodeIndex</CODE> also indexes 'id' attributes as the DOM has been
  * found to be unreliable at indexing these during post parse schema validation.
+ * <P>
+ * Since TFP 1.2 the <CODE>NodeIndex</CODE> also attempts to capture schema
+ * type information for the DOM <CODE>Document</CODE> as it explores it.
+ * Derivation relationships between types are determined and cached as calls
+ * to <CODE>getElementsByType</CODE> are made.
  *
  * @author	BitWise
  * @version	$Id$
@@ -48,7 +56,7 @@ public final class NodeIndex
 	 */
 	public NodeIndex (Document document)
 	{
-		indexNodes (this.document = document);		
+		indexNodes (this.document = document);
 	}
 	
 	/**
@@ -64,6 +72,19 @@ public final class NodeIndex
 	}
 	
 	/**
+	 * Determines if the <CODE>NodeIndex</CODE> has managed to acquire
+	 * type information during the indexing process.
+	 * 
+	 * @return	<CODE>true</CODE> if type information is available,
+	 * 			<CODE>false</CODE> otherwise.
+	 * @since	TFP 1.1
+	 */
+	public boolean hasTypeInformation ()
+	{
+		return (!typesByName.isEmpty ());
+	}
+	
+	/**
 	 * Creates a (possibly empty) <CODE>NodeList</CODE> containing all the
 	 * element nodes identified by the given name string.
 	 *
@@ -73,16 +94,16 @@ public final class NodeIndex
 	 */
 	public NodeList getElementsByName (final String name)
 	{
-		NodeList list = (NodeList) elements.get (name);
+		NodeList list = (NodeList) elementsByName.get (name);
 		
-		return ((list != null) ? list : emptyList);
+		return ((list != null) ? list : EMPTY);
 	}
 	
 	/**
 	 * Creates a (possibly empty) <CODE>NodeList</CODE> containing all the
 	 * element nodes identified by the given name strings.
 	 *
-	 * @param	names			An array of name strings for elements
+	 * @param	names			An array of name strings for elements.
 	 * @return	A <CODE>NodeList</CODE> of corresponding nodes.
 	 * @since	TFP 1.0
 	 */
@@ -97,6 +118,64 @@ public final class NodeIndex
 	}
 
 	/**
+	 * Creates a (possibly empty) <CODE>NodeList</CODE> containing all the
+	 * element nodes of a given type (or a derived subtype).
+	 *
+	 * @param	name			The require type name.
+	 * @return	A <CODE>NodeList</CODE> of corresponding nodes.
+	 * @since	TFP 1.1
+	 */
+	public NodeList getElementsByType (final String ns, final String type)
+	{
+		Vector	matches = (Vector) compatibleTypes.get (type);
+		
+		if (matches == null) {
+			compatibleTypes.put (type, matches = new Vector ());
+			
+//			System.err.println ("%% Looking for " + ns + ":" + type);
+			
+			Enumeration cursor = typesByName.keys ();
+			while (cursor.hasMoreElements ()) {
+				String key  = (String) cursor.nextElement ();
+				Vector types = (Vector) typesByName.get (key);
+				
+				for (int index = 0; index < types.size (); ++index) {
+					TypeInfo info = (TypeInfo) types.elementAt (index);
+					
+					if (type.equals (info.getTypeName ()) || info.isDerivedFrom (ns, type,
+							TypeInfo.DERIVATION_EXTENSION | TypeInfo.DERIVATION_RESTRICTION)) {
+						matches.add (info);
+//						System.err.println ("%% Found: " + info.getTypeName ());
+					}
+				}
+			}
+		}
+		
+		MutableNodeList		result = new MutableNodeList ();
+		
+		for (int index = 0; index < matches.size (); ++index) {
+			TypeInfo info  = (TypeInfo) matches.elementAt (index);
+			NodeList nodes = (NodeList) elementsByType.get (info.getTypeName ());
+			
+//			System.err.println ("-- Matching elements of type: " + info.getTypeName ());
+			
+			for (int count = 0; count < nodes.getLength (); ++count) {
+				Element  element  = (Element) nodes.item (count);
+				TypeInfo typeInfo = element.getSchemaTypeInfo ();
+				
+				if (typeInfo.getTypeName().equals (info.getTypeName ()) &&
+					typeInfo.getTypeNamespace().equals (info.getTypeNamespace ())) {
+					result.add (element);
+					
+//					System.err.println ("-- Matched: " + element.getLocalName ());
+				}
+			}
+		}
+		
+		return (result);
+	}
+	
+	/**
 	 * Returns the <CODE>Element</CODE> in the indexed document that has
 	 * an id attribute with the given value.
 	 * 
@@ -107,7 +186,7 @@ public final class NodeIndex
 	 */
 	public Element getElementById (final String id)
 	{
-		return ((Element) ids.get(id));
+		return ((Element) elementsById.get(id));
 	}
 	
 	/**
@@ -115,7 +194,9 @@ public final class NodeIndex
 	 * not present.
 	 * @since	TFP 1.0
 	 */
-	private static final NodeList emptyList = new MutableNodeList ();
+	private static final NodeList EMPTY 	= new MutableNodeList ();
+	
+	private static final Object	NIL			= new Object ();
 	
 	/**
 	 * The DOM <CODE>Document</CODE> from which this index is derived.
@@ -128,14 +209,31 @@ public final class NodeIndex
 	 * instances indexed by element name.
 	 * @since	TFP 1.0
 	 */
-	private Hashtable		elements 	= new Hashtable ();
+	private Hashtable		elementsByName 	= new Hashtable ();
+	
+	/**
+	 * A <CODE>Hashtable</CODE> containing <CODE>MutableNodeList</CODE>
+	 * instances indexed by element type.
+	 * @since	TFP 1.1
+	 */
+	private Hashtable		elementsByType	= new Hashtable ();
 	
 	/**
 	 * A <CODE>Hashtable</CODE> containing <CODE>Element</CODE>
 	 * instances indexed by id value.
 	 * @since	TFP 1.0
 	 */
-	private Hashtable		ids			= new Hashtable ();
+	private Hashtable		elementsById	= new Hashtable ();
+	
+	/**
+	 * @since	TFP 1.2
+	 */
+	private Hashtable		typesByName		= new Hashtable ();
+	
+	/**
+	 * @since	TFP 1.2
+	 */
+	private Hashtable		compatibleTypes	= new Hashtable ();
 	
 	/**
 	 * Recursively walks a DOM tree creating an index of the elements by
@@ -153,17 +251,41 @@ public final class NodeIndex
 				
 		case Node.ELEMENT_NODE:
 			{
-				String name = node.getLocalName ();
-				MutableNodeList list = (MutableNodeList) elements.get (name);
+				String name = ((Element) node).getLocalName ();
+				
+				MutableNodeList list = (MutableNodeList) elementsByName.get (name);
 			
 				if (list == null)
-					elements.put (name, list = new MutableNodeList ());
+					elementsByName.put (name, list = new MutableNodeList ());
 					
 				list.add (node);
+								
+				TypeInfo typeInfo = ((Element) node).getSchemaTypeInfo ();
+				if ((typeInfo != null) && ((name = typeInfo.getTypeName ()) != null)) {
+					Vector 	types = (Vector) typesByName.get (name);
+					int		index;
+					
+					if (types == null)
+						typesByName.put(name, types = new Vector ());
+					
+					for (index = 0; index < types.size (); ++index) {
+						TypeInfo info = (TypeInfo) types.elementAt (index);
+						
+						if (typeInfo.getTypeNamespace ().equals (info.getTypeNamespace ())) break;
+					}
+					if (index == types.size ()) types.add (typeInfo);
+					
+					list = (MutableNodeList) elementsByType.get (name);
+					
+					if (list == null)
+						elementsByType.put (name, list = new MutableNodeList ());
+						
+					list.add (node);
+				}
 				
 				Attr id = ((Element) node).getAttributeNode ("id");
 				
-				if (id != null) ids.put (id.getValue (), node);
+				if (id != null) elementsById.put (id.getValue (), node);
 				
 				for (Node child = node.getFirstChild (); child != null;) {
 					if (child.getNodeType () == Node.ELEMENT_NODE)

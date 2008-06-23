@@ -429,6 +429,9 @@ public final class CdsRules extends Logic
 
 					Element		adjustable
 						= DOM.getElementByLocalName (context, "scheduledTerminationDate", "adjustableDate");
+					
+					if (adjustable == null) continue;
+					
 					Element		def
 						= DOM.getElementByLocalName (adjustable, "dateAdjustments");
 					Element		ref

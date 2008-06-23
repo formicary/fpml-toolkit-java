@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -90,6 +90,15 @@ public final class Interval implements Serializable
 	{
 		int				value = 0;
 		
+		// 1T is a positive integer multiple (>= 1) of any frequency
+		if ((multiplier == 1) && (period == Period.TERM) && (target.multiplier >= 1))
+			return (true);
+		
+		// Any period > 0 is a multiple of 1D
+		if ((multiplier > 0) && (target.multiplier == 1) && (target.period == Period.DAY))
+			return (true);
+		
+		// Handle 1W = 7D and 1Y = 12M or multiples thereof
 		if (period == target.period)
 			value = multiplier;
 		else if ((period == Period.WEEK) && (target.period == Period.DAY))

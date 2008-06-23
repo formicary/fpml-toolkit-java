@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -79,8 +79,8 @@ public class SchemaRelease extends Release implements Schema
 	 * @param 	schemaLocation	The default schema location.
 	 * @param 	preferredPrefix	The preferred prefix for the namespace.
 	 * @param 	alternatePrefix	The alternate prefix for the namespace.
-	 * @param	initialiser		The <CODE>InstanceInitialise</CODE> or <CODE>null</CODE>.
-	 * @param	recogniser		The <CODE>SchemaRecogniser</CODE> or <CODE>null</CODE>.
+	 * @param	initialiser		The <CODE>InstanceInitialise</CODE>.
+	 * @param	recogniser		The <CODE>SchemaRecogniser</CODE>.
 	 * @since	TFP 1.1
 	 */
 	public SchemaRelease (Specification specification, final String version,
@@ -151,7 +151,7 @@ public class SchemaRelease extends Release implements Schema
 	{
 		this (specification, version, namespaceUri, schemaLocation,
 				preferredPrefix, alternatePrefix, 
-				initialiser, recogniser, (rootElement != null) ? new String [] { rootElement } : null);
+				initialiser, recogniser, new String [] { rootElement });
 	}
 	
 	/**
@@ -179,7 +179,9 @@ public class SchemaRelease extends Release implements Schema
 			final String [] rootElements)
 	{
 		this (specification, version, namespaceUri, schemaLocation,
-				preferredPrefix, alternatePrefix, null, null, rootElements);
+				preferredPrefix, alternatePrefix,
+				new DefaultInstanceInitialiser (), new DefaultSchemaRecogniser (),
+				rootElements);
 	}
 
 	/**
@@ -217,8 +219,8 @@ public class SchemaRelease extends Release implements Schema
 		this.preferredPrefix = preferredPrefix;
 		this.alternatePrefix = alternatePrefix;
 		
-		this.recogniser		 = (recogniser  != null) ? recogniser  : new DefaultSchemaRecogniser ();
-		this.initialiser	 = (initialiser != null) ? initialiser : new DefaultInstanceInitialiser ();
+		this.recogniser		 = recogniser;
+		this.initialiser	 = initialiser;
 	}
 	
 	/**
@@ -353,7 +355,7 @@ public class SchemaRelease extends Release implements Schema
 	}
 	
 	/**
-	 * Java logging instance.
+	 * Java logging instance.11
 	 * @since 	TFP 1.0
 	 */
 	private static Logger		logger

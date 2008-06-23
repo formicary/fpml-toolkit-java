@@ -93,6 +93,8 @@ public final class Date extends TemporalDate
 	 */
 	public static Date parse (String text)
 	{
+		if (text != null) text = text.trim();
+		
 		int			limit = text.length ();
 		int			index = 0;
 		

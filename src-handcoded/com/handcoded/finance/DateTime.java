@@ -157,6 +157,8 @@ public final class DateTime extends TemporalDate
 	 */
 	public static DateTime parse (String text)
 	{
+		if (text != null) text = text.trim();
+		
 		int			limit = text.length ();
 		int			index = 0;
 		

@@ -1046,7 +1046,7 @@ public final class EqdRules extends Logic
 	/**
 	 * Provides access to the EQD validation rule set.
 	 * 
-	 * @return	The data type validation rule set.
+	 * @return	The EQD validation rule set.
 	 * @since	TFP 1.0
 	 */
 	public static RuleSet getRules ()

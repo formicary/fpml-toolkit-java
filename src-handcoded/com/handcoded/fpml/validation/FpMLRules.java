@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -57,6 +57,7 @@ public final class FpMLRules
 		rules.add (IrdRules.getRules ());
 		rules.add (CdsRules.getRules ());
 		rules.add (EqdRules.getRules ());
+		rules.add (FxRules.getRules ());
 		rules.add (BusinessProcessRules.getRules ());
 		rules.add (PricingAndRiskRules.getRules ());
 		rules.add (ReferenceRules.getRules ());

@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -109,6 +109,20 @@ public class SchemeRule extends Rule
 	
 	/**
 	 * Constructs a <CODE>SchemeRule</CODE> that applies to any document.
+	 * elements
+	 *
+	 * @param	name			The rule name.
+	 * @param	elementNames  	The local names of the <CODE>Element</CODE> instances to test.
+	 * @param	attributeName 	The name of attribute containing any overriding URI.
+	 * @since	TFP 1.0	
+	 */
+	public SchemeRule (final String name, final String [] elementNames, final String attributeName)
+	{
+		this (Precondition.ALWAYS, name, null, elementNames, attributeName);	 
+	}
+
+	/**
+	 * Constructs a <CODE>SchemeRule</CODE> that applies to any document.
 	 *
 	 * @param	name			The unique name for the rule.
 	 * @param	elementName		The local name of the <CODE>Element</CODE> to test.
@@ -132,20 +146,6 @@ public class SchemeRule extends Rule
 	public SchemeRule (final String name, final String parentName, final String elementName, final String attributeName)
 	{
 		this (Precondition.ALWAYS, name, new String [] { parentName }, new String [] { elementName }, attributeName);
-	}
-	
-	/**
-	 * Constructs a <CODE>SchemeRule</CODE> that applies to any document.
-	 * elements
-	 *
-	 * @param	name			The rule name.
-	 * @param	elementNames  	The local names of the <CODE>Element</CODE> instances to test.
-	 * @param	attributeName 	The name of attribute containing any overriding URI.
-	 * @since	TFP 1.0	
-	 */
-	public SchemeRule (final String name, final String [] elementNames, final String attributeName)
-	{
-		this (Precondition.ALWAYS, name, elementNames, attributeName);	 
 	}
 	
 	/**
@@ -193,10 +193,17 @@ public class SchemeRule extends Rule
 			String version	= null;
 			
 			// Find the FpML root node
-			while ((fpml != null) &&  !fpml.getLocalName().equals("FpML"))
+			while (fpml != null) {
+				if (fpml.getLocalName().equals("FpML")) {
+					version = fpml.getAttribute ("version");
+					break;
+				}
+				if (fpml.getAttributeNode("fpmlVersion") != null) {
+					version = fpml.getAttribute ("fpmlVersion");
+					break;
+				}
 				fpml = DOM.getParent (fpml);
-				
-			if (fpml != null) version = fpml.getAttribute ("version");
+			}
 			
 			SchemeCollection 	schemes =
 				((SchemeAccess) (Releases.FPML.getReleaseForVersion (version))).getSchemeCollection ();

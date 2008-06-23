@@ -26,7 +26,7 @@ import com.handcoded.fpml.Releases;
 /**
  * The <CODE>Application</CODE> contains some standard option handling
  * that is common to all FpML demonstration applications.
- * 
+ *
  * @author	BitWise
  * @version	$Id$
  * @since	TFP 1.0
@@ -39,7 +39,7 @@ public abstract class Application extends com.handcoded.framework.Application
 	 */
 	protected Application ()
 	{ }
-	
+
 	/**
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
@@ -47,10 +47,10 @@ public abstract class Application extends com.handcoded.framework.Application
 	protected void startUp ()
 	{
 		super.startUp();
-		
+
 		// Initialise the default catalog
 		String		catalogPath = "files/catalog.xml";
-		
+
 		if (catalogOption.isPresent ()) {
 			if (catalogOption.getValue() != null)
 				catalogPath = catalogOption.getValue ();
@@ -65,7 +65,7 @@ public abstract class Application extends com.handcoded.framework.Application
 			logger.severe ("Failed to parse XML catalog");
 			System.exit (1);
 		}
-		
+
 		// Activate the FpML Schemas
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_0);
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_1);
@@ -77,12 +77,12 @@ public abstract class Application extends com.handcoded.framework.Application
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_PRETRADE);
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_REPORTING);
 	}
-	
+
 	/**
 	 * Provides access to the <CODE>Catalog</CODE> instance to be used for
 	 * entity resolution. If the <CODE>-catalog</CODE> option was not specified
 	 * then the result will be <CODE>null</CODE>
-	 * 
+	 *
 	 * @return	The <CODE>Catalog</CODE> instance or <CODE>null</CODE>.
 	 * @since	TFP 1.0
 	 */
@@ -90,14 +90,14 @@ public abstract class Application extends com.handcoded.framework.Application
 	{
 		return (catalog);
 	}
-	
+
 	/**
 	 * Logging instance used for error reporting.
 	 * @since	TFP 1.0
 	 */
 	private static Logger		logger
 		= Logger.getLogger ("demo.com.handcoded.fpml");
-	
+
 	/**
 	 * A command line option that allows the default catalog to be overriden.
 	 * @since	TFP 1.0

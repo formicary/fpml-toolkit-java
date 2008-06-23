@@ -18,6 +18,7 @@ import org.w3c.dom.NodeList;
 
 import com.handcoded.validation.Precondition;
 import com.handcoded.xml.NodeIndex;
+import com.handcoded.meta.Release;
 
 /**
  * The <CODE>VersionPrecondition</CODE> class checks that the FpML root
@@ -33,12 +34,12 @@ public final class VersionPrecondition extends Precondition
 	 * Constructs a <CODE>VersionPrecondition</CODE> that detects a specific
 	 * version number.
 	 * 
-	 * @param 	version			The required version number.
-	 * @since	TFP 1.0
+	 * @param 	release			The required FpML release.
+	 * @since	TFP 1.1
 	 */
-	public VersionPrecondition (final String version)
+	public VersionPrecondition (final Release release)
 	{
-		this.version = version;
+		this.release = release;
 	}
 	
 	/**
@@ -47,12 +48,19 @@ public final class VersionPrecondition extends Precondition
 	 */
 	public boolean evaluate (NodeIndex nodeIndex)
 	{
-		NodeList list = nodeIndex.getElementsByName ("FpML");
+		String []		rootElements = release.getRootElements ();
 		
-		if (list.getLength() == 1) {
-			Element	fpml = (Element) list.item (0);
-		
-			return (fpml.getAttribute ("version").equals(version));
+		for (int index = 0; index < rootElements.length; ++index) {
+			NodeList list = nodeIndex.getElementsByName (rootElements [index]);
+			
+			if (list.getLength() == 1) {
+				Element	fpml = (Element) list.item (0);
+			
+				if (fpml.getLocalName().equals("FpML"))
+					return (fpml.getAttribute ("version").equals (release.getVersion ()));
+				else
+					return (fpml.getAttribute ("fpmlVersion").equals (release.getVersion ()));					
+			}
 		}
 		return (false);
 	}
@@ -63,11 +71,13 @@ public final class VersionPrecondition extends Precondition
 	 */
 	public String toString ()
 	{
-		return ("version==" + version);
+		return ("release==" + release);
 	}
 	
 	/**
-	 * The specific FpML version to match against.
+	 * The specific FpML release to match against.
+	 * @since	TFP 1.1
 	 */
-	private final String		version;
+	private final Release	release;
+
 }

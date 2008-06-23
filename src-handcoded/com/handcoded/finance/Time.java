@@ -153,8 +153,10 @@ public final class Time extends Temporal
 	 *			correct format. 
 	 * @since	TFP 1.0
 	 */
-	public static Time parse (final String text)
+	public static Time parse (String text)
 	{
+		if (text != null) text = text.trim();
+		
 		int			limit = text.length ();
 		int			index = 0;
 		

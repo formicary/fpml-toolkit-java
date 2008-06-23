@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -25,7 +25,6 @@ import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
 import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.xml.DOM;
-import com.handcoded.xml.Logic;
 import com.handcoded.xml.NodeIndex;
 import com.handcoded.xml.Types;
 import com.handcoded.xml.XPath;
@@ -38,7 +37,7 @@ import com.handcoded.xml.XPath;
  * @version	$Id$
  * @since	TFP 1.0
  */
-public final class IrdRules extends Logic
+public final class IrdRules extends FpMLRuleSet
 {
 	/**
 	 * A <CODE>Rule</CODE> that ensures reset dates are present for
@@ -54,6 +53,9 @@ public final class IrdRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "InterestRateStream"), errorHandler));					
+					
 				return (
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
@@ -99,6 +101,9 @@ public final class IrdRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "InterestRateStream"), errorHandler));					
+					
 				return (
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
@@ -149,6 +154,9 @@ public final class IrdRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "InterestRateStream"), errorHandler));					
+					
 				return (
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
@@ -205,6 +213,9 @@ public final class IrdRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "InterestRateStream"), errorHandler));					
+					
 				return (
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
@@ -261,6 +272,9 @@ public final class IrdRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "InterestRateStream"), errorHandler));					
+					
 				return (
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
@@ -312,6 +326,9 @@ public final class IrdRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "InterestRateStream"), errorHandler));					
+					
 				return (
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
@@ -358,6 +375,9 @@ public final class IrdRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "InterestRateStream"), errorHandler));					
+					
 				return (
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
@@ -415,6 +435,9 @@ public final class IrdRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "InterestRateStream"), errorHandler));					
+					
 				return (
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
@@ -455,6 +478,9 @@ public final class IrdRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "InterestRateStream"), errorHandler));					
+					
 				return (
 					  validate (nodeIndex.getElementsByName ("swapStream"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("capFloorStream"), errorHandler));
@@ -1550,14 +1576,14 @@ public final class IrdRules extends Logic
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	firstDate	= XPath.path (context, "firstPaymentDate");
-					Element	lastDate	= XPath.path (context, "lastPaymentDate");
+					Element	lastDate	= XPath.path (context, "lastRegularPaymentDate ");
 
 					if ((firstDate == null) || (lastDate == null) || less (firstDate, lastDate))
 						continue;
 
 					errorHandler.error ("305", context,
 						"The first payment date '" + Types.toString (firstDate) + "' should be " +
-						"before the last payment date '" + Types.toString (lastDate) + "'",
+						"before the last regular payment date '" + Types.toString (lastDate) + "'",
 						getName (), null);
 
 					result = false;
@@ -2683,7 +2709,7 @@ public final class IrdRules extends Logic
 	/**
 	 * Provides access to the IRD validation rule set.
 	 *
-	 * @return	The data type validation rule set.
+	 * @return	The IRD validation rule set.
 	 * @since	TFP 1.0
 	 */
 	public static RuleSet getRules ()
@@ -2774,29 +2800,6 @@ public final class IrdRules extends Logic
 
 			step = step.plus (freq);
 		}
-	}
-
-	/**
-	 * Extracts an <CODE>Interval</CODE> from the data stored below the
-	 * given context node.
-	 *
-	 * @param	context		The context <CODE>Element</CODE>.
-	 * @return	An <CODE>Interval</CODE> constructed from the stored data.
-	 * @since	TFP 1.0
-	 */
-	private static Interval toInterval (Element context)
-	{
-		if (context != null) {
-			try {
-				return (new Interval (
-					toInteger (XPath.path (context, "periodMultiplier")),
-					Period.forCode (toString (XPath.path (context, "period")))));
-			}
-			catch (Exception error) {
-				return (null);
-			}
-		}
-		return (null);
 	}
 
 	/**

@@ -376,15 +376,14 @@ public final class SchemeRules
 	
 	/**
 	 * Rule 33: The value of any <CODE>nationalisationOrInsolvency</CODE> element must be valid
-	 * within the domain defined by its <CODE>@nationalisationOrInsolvencyOrDelistingEventScheme</CODE> attribute.
+	 * within the domain defined by its <CODE>@nationalisationOrInsolvencyOrDelistingScheme</CODE> attribute.
 	 * <P>
 	 * Applies to FpML 3-0.
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE33
-		= new BrokenSchemeRule (Preconditions.R3_0, "scheme-33",
-				new String [] {
-					"nationalisationOrInsolvency", "delisting" },
+		= new SchemeRule (Preconditions.R3_0, "scheme-33",
+				new String [] { "nationalisationOrInsolvency", "delisting" },
 				"nationalisationOrInsolvencyOrDelistingScheme");
 	
 	/**
@@ -781,7 +780,7 @@ public final class SchemeRules
 	 * Rule 72: The value of any <CODE>matrixType</CODE> element must be valid
 	 * within the domain defined by its <CODE>matrixTypeScheme</CODE> attribute.
 	 * <P>
-	 * Applies to FpML 4.2
+	 * Applies to FpML 4.2.
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE72
@@ -790,18 +789,16 @@ public final class SchemeRules
 	// FpML 4.3 ------------------------------------------------------------
 
 	/**
-	 * Rule 10: The value of any <CODE>interestShortfall/rateSource</CODE> type element must
+	 * Rule 73: The value of any <CODE>interestShortfall/rateSource</CODE> type element must
 	 * be valid within the domain defined by its <CODE>@floatingRateIndexScheme</CODE> attribute.
 	 * <P>
-	 * Applies to all FpML releases.
+	 * Applies to FpML 4.3 and later.
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE73
-		= new SchemeRule ("scheme-73", "interestShortfall", "rateSource", "floatingRateIndexScheme");
-
+		= new SchemeRule (Preconditions.R4_3__LATER, "scheme-73", "interestShortfall", "rateSource", "floatingRateIndexScheme");
 
 	// FpML 4.4 ------------------------------------------------------------
-
 	
 	/**
 	 * Provides access to the scheme validation rule set.
