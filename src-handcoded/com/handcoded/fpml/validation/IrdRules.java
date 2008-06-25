@@ -2730,7 +2730,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * validation rules for interest rate products.
 	 * @since	TFP 1.0
 	 */
-	private static final RuleSet	rules = new RuleSet ();
+	private static final RuleSet	rules = RuleSet.forName ("IrdRules");
 
 	/**
 	 * Ensures no instances can be created.
@@ -2800,73 +2800,5 @@ public final class IrdRules extends FpMLRuleSet
 
 			step = step.plus (freq);
 		}
-	}
-
-	/**
-	 * Initialises the <CODE>RuleSet</CODe> by adding the individually defined
-	 * validation rules.
-	 *
-	 * @since	TFP 1.0
-	 */
-	static {
-		rules.add (RULE01);
-		rules.add (RULE02);
-		rules.add (RULE03);
-		rules.add (RULE04);
-		rules.add (RULE05);
-		rules.add (RULE06);
-		rules.add (RULE07);
-		//rules.add (RULE08);
-		rules.add (RULE09);
-		rules.add (RULE10);
-		rules.add (RULE11);
-		rules.add (RULE12);
-		rules.add (RULE14);
-		rules.add (RULE15);
-		rules.add (RULE16);
-		rules.add (RULE17);
-		rules.add (RULE18);
-		rules.add (RULE19);
-		rules.add (RULE20);
-		rules.add (RULE21);
-		rules.add (RULE22);
-		rules.add (RULE23);
-		rules.add (RULE24);
-		rules.add (RULE25);
-		rules.add (RULE26);
-		rules.add (RULE27);
-		rules.add (RULE28A);
-		rules.add (RULE28B);
-		rules.add (RULE29);
-		rules.add (RULE30);
-		rules.add (RULE31);
-		rules.add (RULE32);
-		rules.add (RULE33);
-		rules.add (RULE34);
-		rules.add (RULE35);
-		rules.add (RULE36);
-		rules.add (RULE38);
-		rules.add (RULE39);
-		rules.add (RULE40);
-		rules.add (RULE41);
-		rules.add (RULE42);
-		rules.add (RULE42);
-		rules.add (RULE43);
-		rules.add (RULE44);
-		rules.add (RULE46A);
-		rules.add (RULE46B);
-		rules.add (RULE47);
-		rules.add (RULE48);
-		rules.add (RULE49);
-		rules.add (RULE50);
-		rules.add (RULE51);
-		rules.add (RULE52);
-		rules.add (RULE53);
-		rules.add (RULE54);
-		rules.add (RULE55);
-		rules.add (RULE56);
-		rules.add (RULE57);
-		rules.add (RULE58);
-		rules.add (RULE59);
 	}
 }

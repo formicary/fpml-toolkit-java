@@ -121,7 +121,8 @@ public final class NodeIndex
 	 * Creates a (possibly empty) <CODE>NodeList</CODE> containing all the
 	 * element nodes of a given type (or a derived subtype).
 	 *
-	 * @param	name			The require type name.
+	 * @param	ns				The required namespace URI.
+	 * @param	name			The required type name.
 	 * @return	A <CODE>NodeList</CODE> of corresponding nodes.
 	 * @since	TFP 1.1
 	 */
@@ -226,11 +227,15 @@ public final class NodeIndex
 	private Hashtable		elementsById	= new Hashtable ();
 	
 	/**
+	 * A <CODE>Hashtable</CODE> containing <CODE>TypeInfo</CODE>
+	 * instances indexed by name.
 	 * @since	TFP 1.2
 	 */
 	private Hashtable		typesByName		= new Hashtable ();
 	
 	/**
+	 * For each explored type <CODE>compatibleType</CODE> contains a
+	 * <CODE>Vector</CODE> of types derived by extension or restriction.
 	 * @since	TFP 1.2
 	 */
 	private Hashtable		compatibleTypes	= new Hashtable ();

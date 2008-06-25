@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -82,7 +82,7 @@ public final class BusinessProcessRules extends Logic
 	 * validation rules for business process messages.
 	 * @since	TFP 1.1
 	 */
-	private static final RuleSet	rules = new RuleSet ();
+	private static final RuleSet	rules = RuleSet.forName ("BusinessProcessRules");
 	
 	/**
 	 * Ensures no instances can be created.

@@ -1136,7 +1136,7 @@ public final class Releases
 	 * A <CODE>Conversion</CODE> instance configured for FpML 4-0 to 4-1
 	 * transformation. The specific changes needed are:
 	 * <UL>
-	 * <LI>The FpML XMl schema namespace URI is updated.</LI>
+	 * <LI>The FpML XML schema namespace URI is updated.</LI>
 	 * </UL>
 	 * @since	TFP 1.0
 	 */
@@ -1144,15 +1144,37 @@ public final class Releases
 		= new Conversions.R4_0__R4_1 ();
 	
 	/**
-	 * A <CODE>Conversion</CODE> instance configured for FpML 4-0 to 4-1
+	 * A <CODE>Conversion</CODE> instance configured for FpML 4-1 to 4-2
 	 * transformation. The specific changes needed are:
 	 * <UL>
-	 * <LI>The FpML XMl schema namespace URI is updated.</LI>
+	 * <LI>The FpML XML schema namespace URI is updated.</LI>
 	 * </UL>
-	 * @since	TFP 1.0
+	 * @since	TFP 1.1
 	 */
 	public static final Conversion R4_1__R4_2
 		= new Conversions.R4_1__R4_2 ();
+	
+	/**
+	 * A <CODE>Conversion</CODE> instance configured for FpML 4-2 to 4-3
+	 * transformation. The specific changes needed are:
+	 * <UL>
+	 * <LI>The FpML XML schema namespace URI is updated.</LI>
+	 * </UL>
+	 * @since	TFP 1.2
+	 */
+	public static final Conversion R4_2__R4_3
+		= new Conversions.R4_2__R4_3 ();
+	
+	/**
+	 * A <CODE>Conversion</CODE> instance configured for FpML 4-3 to 4-4
+	 * transformation. The specific changes needed are:
+	 * <UL>
+	 * <LI>The FpML XML schema namespace URI is updated.</LI>
+	 * </UL>
+	 * @since	TFP 1.2
+	 */
+	public static final Conversion R4_3__R4_4
+		= new Conversions.R4_3__R4_4 ();
 	
 	/**
 	 * Examines the provided <CODE>Document</CODE> to determine the associated

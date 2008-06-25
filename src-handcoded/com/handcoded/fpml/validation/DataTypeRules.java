@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -612,21 +612,5 @@ public final class DataTypeRules
 	 * 
 	 * @since	TFP 1.0
 	 */
-	private static final RuleSet	rules = new RuleSet ();
-		
-	/**
-	 * Initialises the <CODE>RuleSet</CODe> by adding the individually defined
-	 * validation rules.
-	 * 
-	 * @since	TFP 1.0	
-	 */
-	static {
-		rules.add (RULE01);
-		rules.add (RULE02);
-		rules.add (RULE03);
-		rules.add (RULE04);
-		rules.add (RULE05);
-		rules.add (RULE06);
-		rules.add (RULE07);
-	}
+	private static final RuleSet	rules = RuleSet.forName ("DataTypeRules");
 }

@@ -40,26 +40,11 @@ public final class FpMLRules
 	 * A <CODE>RuleSet</CODE> containing all the standard FpML defined
 	 * validation rules.
 	 */
-	private static final RuleSet	rules = new RuleSet ();
+	private static final RuleSet	rules = RuleSet.forName ("FpMLRules");
 	
 	/**
 	 * Ensures no instances can be created.
 	 */
 	private FpMLRules ()
 	{ }
-	
-	/**
-	 * Initialises the <CODE>RuleSet</CODe> by copying the rule references from 
-	 * each product and infrastructure area.
-	 */
-	static {
-		rules.add (SharedRules.getRules ());
-		rules.add (IrdRules.getRules ());
-		rules.add (CdsRules.getRules ());
-		rules.add (EqdRules.getRules ());
-		rules.add (FxRules.getRules ());
-		rules.add (BusinessProcessRules.getRules ());
-		rules.add (PricingAndRiskRules.getRules ());
-		rules.add (ReferenceRules.getRules ());
-	}
 }

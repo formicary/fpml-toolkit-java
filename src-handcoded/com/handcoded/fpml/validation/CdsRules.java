@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -2221,7 +2221,7 @@ public final class CdsRules extends Logic
 	 * validation rules for credit derivative swaps products.
 	 * @since	TFP 1.0
 	 */
-	private static final RuleSet	rules = new RuleSet ();
+	private static final RuleSet	rules = RuleSet.forName ("CdsRules");
 
 	/**
 	 * Ensures no instances can be created.
@@ -2248,59 +2248,5 @@ public final class CdsRules extends Logic
 		catch (Exception error) {
 			return (null);
 		}
-	}
-
-	/**
-	 * Initialises the <CODE>RuleSet</CODe> by adding the individually defined
-	 * validation rules.
-	 * @since	TFP 1.0
-	 */
-	static {
-		rules.add (RULE01);
-		rules.add (RULE01B);
-		rules.add (RULE02);
-		rules.add (RULE03);
-		rules.add (RULE04);
-		rules.add (RULE05);
-		rules.add (RULE06);
-		rules.add (RULE07);
-		rules.add (RULE08);
-		rules.add (RULE09);
-		rules.add (RULE10);
-		rules.add (RULE11);
-		rules.add (RULE12);
-		rules.add (RULE13);
-		rules.add (RULE14);
-		rules.add (RULE15);
-		rules.add (RULE16);
-		rules.add (RULE17);
-		rules.add (RULE18);
-		rules.add (RULE19);
-		rules.add (RULE20);
-		rules.add (RULE21);
-		rules.add (RULE21B);
-		rules.add (RULE22);
-		rules.add (RULE23);
-		rules.add (RULE24);
-		rules.add (RULE25);
-		rules.add (RULE26);
-		rules.add (RULE27);
-		rules.add (RULE28);
-		rules.add (RULE29);
-		rules.add (RULE30);
-		rules.add (RULE31);
-		rules.add (RULE32);
-		rules.add (RULE33);
-		rules.add (RULE34);
-		rules.add (RULE35);
-		rules.add (RULE36);
-		rules.add (RULE37);
-		rules.add (RULE38);
-		rules.add (RULE39);
-		rules.add (RULE40);
-		rules.add (RULE41);
-		rules.add (RULE42);
-		rules.add (RULE43);
-		rules.add (RULE44);
 	}
 }

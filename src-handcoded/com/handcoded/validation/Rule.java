@@ -13,6 +13,8 @@
 
 package com.handcoded.validation;
 
+import java.util.Hashtable;
+
 import com.handcoded.xml.NodeIndex;
 
 /**
@@ -28,6 +30,18 @@ import com.handcoded.xml.NodeIndex;
  */
 public abstract class Rule extends Validator
 {
+	/**
+	 * Returns a reference to the named <CODE>Rule</CODE> instance if it exists.
+	 * 
+	 * @param 	name		The name of the required <CODE>Rule</CODE>.
+	 * @return	The corresponding <CODE>Rule</CODE> instance or <CODE>null</CODE>.
+	 * @since	TFP 1.2
+	 */
+	public static Rule forName (final String name)
+	{
+		return ((Rule) extent.get (name));
+	}
+	
 	/**
 	 * Provides access to the <CODE>Precondition</CODE>
 	 * 
@@ -99,6 +113,8 @@ public abstract class Rule extends Validator
 	{
 		this.precondition 	= precondition;
 		this.name			= name;
+		
+		extent.put (name, this);
 	}
 		
 	/**
@@ -111,6 +127,12 @@ public abstract class Rule extends Validator
 	{
 		return ("precondition=\"" + precondition + "\" name=\"" + name + "\"");
 	}
+	
+	/**
+	 * The set of all <CODE>Rule</CODE> instances indexed by name.
+	 * @since	TFP 1.2
+	 */
+	private static Hashtable	extent	= new Hashtable ();
 	
 	/**
 	 * The <CODE>Precondition</CODE> for this rule.

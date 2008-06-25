@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -48,16 +48,5 @@ public final class AllRules
 	 * validation rules.
 	 * @since	TFP 1.0
 	 */
-	private static final RuleSet	rules = new RuleSet ();
-	
-	/**
-	 * Initialises the <CODE>RuleSet</CODe> by copying the rule references from 
-	 * each the FpML, schemes and data types rules sets.
-	 * @since	TFP 1.0
-	 */
-	static {
-		rules.add (FpMLRules.getRules ());
-		rules.add (DataTypeRules.getRules ());
-		rules.add (SchemeRules.getRules ());
-	}
+	private static final RuleSet	rules = RuleSet.forName ("AllRules");
 }

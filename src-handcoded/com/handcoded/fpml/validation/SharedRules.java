@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -10,6 +10,7 @@
 // PARTICULAR PURPOSE, OR NON-INFRINGEMENT. HANDCODED SOFTWARE LTD SHALL NOT BE
 // LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
 // OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
+
 package com.handcoded.fpml.validation;
 
 import java.util.Vector;
@@ -282,7 +283,7 @@ public final class SharedRules extends Logic
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule 	RULE06
-		= new Rule (Preconditions.R3_0__LATER, "shared-06")
+		= new Rule (Preconditions.R3_0__LATER, "shared-6")
 		{
 			/**
 			 * {@inheritDoc}
@@ -327,7 +328,7 @@ public final class SharedRules extends Logic
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule 	RULE07 
-		= new Rule (Preconditions.R3_0__LATER, "shared-07")
+		= new Rule (Preconditions.R3_0__LATER, "shared-7")
 		{
 			/**
 			 * {@inheritDoc}
@@ -980,7 +981,7 @@ public final class SharedRules extends Logic
 	 * validation rules for interest rate products.
 	 * @since	TFP 1.0	
 	 */
-	private static final RuleSet	rules = new RuleSet ();
+	private static final RuleSet	rules = RuleSet.forName ("SharedRules");
 		
 	/**
 	 * Ensures no instances can be created.
@@ -988,32 +989,4 @@ public final class SharedRules extends Logic
 	 */
 	private SharedRules ()
 	{ }
-	
-	/**
-	 * Initialises the <CODE>RuleSet</CODe> by adding the individually defined
-	 * validation rules.
-	 * @since	TFP 1.0	
-	 */
-	static {
-		rules.add (RULE01);
-		rules.add (RULE02);
-		rules.add (RULE03);
-		rules.add (RULE04);
-		rules.add (RULE05);
-		rules.add (RULE06);
-		rules.add (RULE07);
-		rules.add (RULE08);
-		rules.add (RULE09);
-		rules.add (RULE10);
-		rules.add (RULE11);
-		rules.add (RULE12A);
-		rules.add (RULE12B);
-		rules.add (RULE13A);
-		rules.add (RULE13B);
-		rules.add (RULE14A);
-		rules.add (RULE14B);
-		rules.add (RULE15);
-		rules.add (RULE16);
-		rules.add (RULE17);
-	}
 }

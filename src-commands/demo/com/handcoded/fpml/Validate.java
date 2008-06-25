@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -88,6 +88,8 @@ public final class Validate extends Application
 		boolean					schemaOnly = schemaOnlyOption.isPresent();
 		int						count = 0;
 		
+		arguments = findFiles (arguments);
+		
 		try {
 			long start = System.currentTimeMillis();
 	
@@ -122,7 +124,7 @@ public final class Validate extends Application
 	 */
 	protected String describeArguments ()
 	{
-		return (" files ...");
+		return (" files or directories ...");
 	}
 	
 	/**

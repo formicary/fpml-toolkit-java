@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,7 +13,10 @@
 
 package demo.com.handcoded.fpml;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.util.logging.Logger;
+import java.util.Vector;
 
 import org.xml.sax.SAXException;
 
@@ -90,7 +93,27 @@ public abstract class Application extends com.handcoded.framework.Application
 	{
 		return (catalog);
 	}
-
+	
+	/**
+	 * Process the paths given on the command line trying to expand out
+	 * any that refer to directories.
+	 * 
+	 * @param 	arguments			File paths from the command line.
+	 * @return	An array of XML file paths.
+	 * @since	TFP 1.2
+	 */
+	protected String [] findFiles (String [] arguments)
+	{
+		Vector			result = new Vector ();
+		
+		for (int index = 0; index < arguments.length; ++index)
+			addFile (result, new File (arguments [index]));
+			
+		String [] paths = new String [result.size ()];
+		result.copyInto (paths);
+		return (paths);
+	}
+	
 	/**
 	 * Logging instance used for error reporting.
 	 * @since	TFP 1.0
@@ -110,4 +133,32 @@ public abstract class Application extends com.handcoded.framework.Application
 	 * @since	TFP 1.0
 	 */
 	private Catalog				catalog	= null;
+	
+	/**
+	 * If the <CODE>File</CODE> argument is a file then just add it to the list
+	 * of paths to be processed. If its a directory recursive look inside for
+	 * more XML files and directories.
+	 * 
+	 * @param 	paths			A <CODE>Vector</CODE> of paths found so far.
+	 * @param 	file			The <CODE>File</CODE> under consideration.
+	 * @since	TFP 1.2
+	 */
+	private void addFile (Vector paths, File file)
+	{
+		if (file.isDirectory ()) {
+			File [] files = file.listFiles (
+				new FileFilter ()
+				{
+					public boolean accept (File file)
+					{
+						return (file.isDirectory() || (file.isFile() && file.getName().endsWith(".xml")));
+					}
+				});
+			
+			for (int index = 0; index < files.length; ++index)
+				addFile (paths, files [index]);
+		}
+		else
+			paths.add (file.getPath ());
+	}
 }

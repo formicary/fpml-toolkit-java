@@ -79,35 +79,36 @@ public final class Interval implements Serializable
 	 * of another instance.
 	 * <P>
 	 * The calculation recognises that a week is seven days and that a year is
-	 * twelve months. 
+	 * twelve months. It also allows 1T to match any time period longer than a
+	 * day and for any time period to be a multiple of 1 day.
 	 *
-	 * @param	target			The <CODE>Interval</CODE> to compare with.
+	 * @param	other			The <CODE>Interval</CODE> to compare with.
 	 * @return	<CODE>true</CODE> is an integral multiple of target,
 	 *			<CODE>false</CODE> otherwise.
 	 * @since	TFP 1.0
 	 */
-	public boolean isMultipleOf (final Interval	target)
+	public boolean isMultipleOf (final Interval	other)
 	{
 		int				value = 0;
 		
 		// 1T is a positive integer multiple (>= 1) of any frequency
-		if ((multiplier == 1) && (period == Period.TERM) && (target.multiplier >= 1))
+		if ((multiplier == 1) && (period == Period.TERM) && (other.multiplier >= 1))
 			return (true);
 		
 		// Any period > 0 is a multiple of 1D
-		if ((multiplier > 0) && (target.multiplier == 1) && (target.period == Period.DAY))
+		if ((multiplier > 0) && (other.multiplier == 1) && (other.period == Period.DAY))
 			return (true);
 		
 		// Handle 1W = 7D and 1Y = 12M or multiples thereof
-		if (period == target.period)
+		if (period == other.period)
 			value = multiplier;
-		else if ((period == Period.WEEK) && (target.period == Period.DAY))
+		else if ((period == Period.WEEK) && (other.period == Period.DAY))
 			value =  7 * multiplier;
-		else if ((period == Period.YEAR) && (target.period == Period.MONTH))
+		else if ((period == Period.YEAR) && (other.period == Period.MONTH))
 			value = 12 * multiplier;
 			
-		return (((value / target.multiplier) >= 1) &&
-				((value % target.multiplier) == 0));			
+		return (((value / other.multiplier) >= 1) &&
+				((value % other.multiplier) == 0));			
 	}
 	
 	/**

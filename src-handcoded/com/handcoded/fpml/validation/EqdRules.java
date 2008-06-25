@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -1081,36 +1081,5 @@ public final class EqdRules extends Logic
 	{
 		return (equal (XPath.path (moneyA, "currency"),
 					   XPath.path (moneyB, "currency")));
-	}
-	
-	/**
-	 * Initialises the <CODE>RuleSet</CODe> by adding the individually defined
-	 * validation rules.
-	 * @since	TFP 1.0
-	 */
-	static {
-		rules.add (RULE01);
-		rules.add (RULE02);
-		rules.add (RULE03);
-		rules.add (RULE04);
-		rules.add (RULE05);
-		rules.add (RULE06);
-		rules.add (RULE08);
-		rules.add (RULE09);
-		rules.add (RULE10);
-		rules.add (RULE12);
-		rules.add (RULE13);
-		rules.add (RULE14);
-		rules.add (RULE15);
-		rules.add (RULE16);
-		rules.add (RULE17);
-		rules.add (RULE18);
-		rules.add (RULE19);
-		rules.add (RULE20);
-		// rules.add (RULE21);
-		rules.add (RULE22);
-		rules.add (RULE23);
-		rules.add (RULE24);
-		rules.add (RULE25);
 	}
 }
