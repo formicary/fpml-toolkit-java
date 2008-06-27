@@ -93,6 +93,8 @@ public final class Date extends TemporalDate
 	 */
 	public static Date parse (String text)
 	{
+		char		ch;
+		
 		if (text != null) text = text.trim();
 		
 		int			limit = text.length ();
@@ -100,28 +102,28 @@ public final class Date extends TemporalDate
 		
 		while (true) {
 			// Extract date components
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			int year = (text.charAt (index++) - '0') * 1000;
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			year += (text.charAt (index++) - '0') * 100;
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			year += (text.charAt (index++) - '0') *10;
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			year += text.charAt (index++) - '0';
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			int year = (ch - '0') * 1000; ++index;
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			year += (ch - '0') * 100; ++index;
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			year += (ch - '0') *10; ++index;
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			year += ch - '0'; ++index;
 			
 			if ((index >= limit) || (text.charAt (index++) != '-')) break;
 			
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			int month = (text.charAt (index++) - '0') * 10;
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			month += text.charAt (index++) - '0';
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			int month = (ch - '0') * 10; ++index;
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			month += ch - '0'; ++index;
 			
 			if ((index >= limit) || (text.charAt (index++) != '-')) break;
 			
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			int day = (text.charAt (index++) - '0') * 10;
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			day += text.charAt (index++) - '0';
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			int day = (ch - '0') * 10; ++index;
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			day += ch - '0'; ++index;
 		
 			// Detect UTC time zone
 			if ((index < limit)&& (text.charAt (index) == 'Z')) {
@@ -131,34 +133,34 @@ public final class Date extends TemporalDate
 			// Detect time offsets
 			if ((index < limit)&& (text.charAt (index) == '+')) {
 				++index;
-				if ((index >= limit) && !isDigit (text.charAt (index))) break; 
-				int offset = (text.charAt (index++) - '0') * 600;
-				if ((index >= limit) && !isDigit (text.charAt (index))) break;
-				offset += (text.charAt (index++) - '0') * 60;
+				if ((index >= limit) && !isDigit (ch = text.charAt (index))) break; 
+				int offset = (ch - '0') * 600; ++index;
+				if ((index >= limit) && !isDigit (ch = text.charAt (index))) break;
+				offset += (ch - '0') * 60; ++index;
 				
 				if ((index >= limit)&& (text.charAt (index++) != ':')) break;
 				
-				if ((index >= limit) && !isDigit (text.charAt (index))) break;
-				offset = (text.charAt (index++) - '0') * 10;
-				if ((index >= limit) && !isDigit (text.charAt (index))) break;
-				offset += text.charAt (index++) - '0';
+				if ((index >= limit) && !isDigit (ch = text.charAt (index))) break;
+				offset = (ch - '0') * 10; ++index;
+				if ((index >= limit) && !isDigit (ch = text.charAt (index))) break;
+				offset += ch - '0'; ++index;
 
 				return (new Date (day, month, year, offset));
 			}
 				
 			if ((index < limit)&& (text.charAt (index) == '-')) {
 				++index;
-				if ((index >= limit) && !isDigit (text.charAt (index))) break; 
-				int offset = (text.charAt (index++) - '0') * 600;
-				if ((index >= limit) && !isDigit (text.charAt (index))) break;
-				offset += (text.charAt (index++) - '0') * 60;
+				if ((index >= limit) && !isDigit (ch = text.charAt (index))) break; 
+				int offset = (ch - '0') * 600; ++index;
+				if ((index >= limit) && !isDigit (ch = text.charAt (index))) break;
+				offset += (ch - '0') * 60; ++index;
 				
 				if ((index >= limit)&& (text.charAt (index++) != ':')) break;
 				
-				if ((index >= limit) && !isDigit (text.charAt (index))) break;
-				offset = (text.charAt (index++) - '0') * 10;
-				if ((index >= limit) && !isDigit (text.charAt (index))) break;
-				offset += text.charAt (index++) - '0';
+				if ((index >= limit) && !isDigit (ch = text.charAt (index))) break;
+				offset = (ch - '0') * 10; ++index;
+				if ((index >= limit) && !isDigit (ch = text.charAt (index))) break;
+				offset += ch - '0'; ++index;
 
 				return (new Date (day, month, year, -offset));
 			}

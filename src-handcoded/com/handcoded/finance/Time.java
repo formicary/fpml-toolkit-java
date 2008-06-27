@@ -155,6 +155,8 @@ public final class Time extends Temporal
 	 */
 	public static Time parse (String text)
 	{
+		char		ch;
+		
 		if (text != null) text = text.trim();
 		
 		int			limit = text.length ();
@@ -162,17 +164,17 @@ public final class Time extends Temporal
 		
 		while (true) {
 			// Extract time components
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			int hours = (text.charAt (index++) - '0') * 10;
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			hours += text.charAt (index++) - '0';
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			int hours = (ch - '0') * 10; ++index;
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			hours += ch - '0'; ++index;
 			
 			if ((index >= limit) || (text.charAt (index++) != ':')) break;
 			
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			int minutes = (text.charAt (index++) - '0') * 10;
-			if ((index >= limit) || !isDigit (text.charAt (index))) break;
-			minutes += text.charAt (index++) - '0';
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			int minutes = (ch - '0') * 10; ++index;
+			if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+			minutes += ch - '0'; ++index;
 			
 			if ((index >= limit) || (text.charAt (index++) != ':')) break;
 			
@@ -195,34 +197,34 @@ public final class Time extends Temporal
 			// Detect time offsets
 			if ((index < limit) && (text.charAt (index) == '+')) {
 				++index;
-				if ((index >= limit) || !isDigit (text.charAt (index))) break; 
-				int offset = (text.charAt (index++) - '0') * 600;
-				if ((index >= limit) || !isDigit (text.charAt (index))) break;
-				offset += (text.charAt (index++) - '0') * 60;
+				if ((index >= limit) || !isDigit (ch = text.charAt (index))) break; 
+				int offset = (ch - '0') * 600; ++index;
+				if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+				offset += (ch - '0') * 60; ++index;
 				
 				if ((index >= limit) || (text.charAt (index++) != ':')) break;
 				
-				if ((index >= limit) || !isDigit (text.charAt (index))) break;
-				offset += (text.charAt (index++) - '0') * 10;
-				if ((index >= limit) || !isDigit (text.charAt (index))) break;
-				offset += (text.charAt (index++) - '0');
+				if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+				offset += (ch - '0') * 10; ++index;
+				if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+				offset += (ch - '0'); ++index;
 
 				return (new Time (hours, minutes, seconds, offset));
 			}
 				
 			if ((index < limit)&& (text.charAt (index) == '-')) {
 				++index;
-				if ((index >= limit) || !isDigit (text.charAt (index))) break; 
-				int offset = (text.charAt (index++) - '0') * 600;
-				if ((index >= limit) || !isDigit (text.charAt (index))) break;
-				offset += (text.charAt (index++) - '0') * 60;
+				if ((index >= limit) || !isDigit (ch = text.charAt (index))) break; 
+				int offset = (ch - '0') * 600; ++index;
+				if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+				offset += (ch - '0') * 60; ++index;
 				
 				if ((index >= limit) || (text.charAt (index++) != ':')) break;
 				
-				if ((index >= limit) || !isDigit (text.charAt (index))) break;
-				offset += (text.charAt (index++) - '0') * 10;
-				if ((index >= limit) || !isDigit (text.charAt (index))) break;
-				offset += (text.charAt (index++) - '0');
+				if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+				offset += (ch - '0') * 10; ++index;
+				if ((index >= limit) || !isDigit (ch = text.charAt (index))) break;
+				offset += (ch - '0'); ++index;
 
 				return (new Time (hours, minutes, seconds, -offset));
 			}
