@@ -189,7 +189,7 @@ public final class SharedRules extends Logic
 					errorHandler.error ("305", context,
 						"Offset has day type set to 'Business' but the period " +
 						"multiplier is set to zero.",
-						getName (), Types.toString (XPath.path (context, "periodMultiplier")));
+						getName (), Types.toToken (XPath.path (context, "periodMultiplier")));
 
 					result = false;
 				}				

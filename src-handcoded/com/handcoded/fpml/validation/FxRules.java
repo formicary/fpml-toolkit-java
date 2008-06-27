@@ -75,7 +75,7 @@ public final class FxRules extends FpMLRuleSet
 					
 					errorHandler.error ("305", context,
 							"The rate must be positive",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -161,7 +161,7 @@ public final class FxRules extends FpMLRuleSet
 					
 					errorHandler.error ("305", context,
 							"Sum of spotRate and forwardPoints does not equal rate.",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -206,7 +206,7 @@ public final class FxRules extends FpMLRuleSet
 					if (equal (baseCcy, ccy1) || equal (baseCcy, ccy2)) {
 						errorHandler.error ("305", context,
 								"The side rate base currency must not be one of the trade currencies.",
-								getName (), Types.toString (baseCcy));
+								getName (), toToken (baseCcy));
 					
 						result = false;
 					}
@@ -247,8 +247,8 @@ public final class FxRules extends FpMLRuleSet
 					if ((ccy == null) || (ccy1 == null) || equal (ccy, ccy1)) continue;
 					
 					errorHandler.error ("305", context,
-							"The side rate currency1 '" + Types.toString(ccy1) +
-							"' must be the same as trade currency1 '" + Types.toString(ccy) + "'.",
+							"The side rate currency1 '" + toToken (ccy1) +
+							"' must be the same as trade currency1 '" + toToken (ccy) + "'.",
 							getName (), null);
 				
 					result = false;
@@ -289,8 +289,8 @@ public final class FxRules extends FpMLRuleSet
 					if ((ccy == null) || (ccy1 == null) || equal (ccy, ccy1)) continue;
 					
 					errorHandler.error ("305", context,
-							"The side rate currency2 '" + Types.toString(ccy1) +
-							"' must be the same as trade currency2 '" + Types.toString(ccy) + "'.",
+							"The side rate currency2 '" + toToken (ccy1) +
+							"' must be the same as trade currency2 '" + toToken (ccy) + "'.",
 							getName (), null);
 				
 					result = false;
@@ -332,7 +332,7 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"The trigger rate must be positive",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -462,7 +462,7 @@ public final class FxRules extends FpMLRuleSet
 					Element		period	= XPath.path (context, "calculationPeriodFrequency");
 					
 					if ((start == null) || (end == null) || (period == null) ||
-							toInterval (period).dividesDates(toDate (start), toDate (end))) continue;
+							toInterval (period).dividesDates (toDate (start), toDate (end))) continue;
 								
 					errorHandler.error ("305", context,
 							"The observation period is not a multiple of the calculationPeriodFrequency",
@@ -514,7 +514,7 @@ public final class FxRules extends FpMLRuleSet
 							if (equal (dates [outer], dates [inner]))
 								errorHandler.error ("305", nodes.item (inner),
 										"Duplicate observation date",
-										getName (), Types.toString(nodes.item (inner)));
+										getName (), toToken (nodes.item (inner)));
 							
 							result = false;
 						}
@@ -565,7 +565,7 @@ public final class FxRules extends FpMLRuleSet
 					if ((start == null) || (end == null) || (freq == null) || (roll == null)) continue;
 					
 					Date [] 	dates	= generateSchedule (toDate (start), toDate (end),
-							toInterval (freq), DateRoll.forName (Types.toString (roll)), null);
+							toInterval (freq), DateRoll.forName (toToken (roll)), null);
 					
 					NodeList	nodes	= XPath.paths (context, "observedRates", "observationDate");
 										
@@ -583,9 +583,9 @@ public final class FxRules extends FpMLRuleSet
 						
 						if (!found) {
 							errorHandler.error ("305", observed,
-									"Observation date '" + Types.toString (observed) +
+									"Observation date '" + toToken (observed) +
 									"' does not match with the schedule.",
-									getName (), Types.toString(observed));
+									getName (), toToken(observed));
 							
 							result = false;
 						}
@@ -649,9 +649,9 @@ public final class FxRules extends FpMLRuleSet
 						
 						if (!found) {
 							errorHandler.error ("305", observed,
-									"Observation date '" + Types.toString (observed) +
+									"Observation date '" + toToken (observed) +
 									"' does not match with a defined observationDate.",
-									getName (), Types.toString(observed));
+									getName (), toToken(observed));
 							
 							result = false;
 						}
@@ -739,7 +739,7 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"The spot rate must be positive",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -782,7 +782,7 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"The spot rate must be positive",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -823,7 +823,7 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"The trigger rate must be positive",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -1143,7 +1143,7 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"The rate must be positive",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -1316,7 +1316,7 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"The rate must be positive",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -1404,7 +1404,7 @@ public final class FxRules extends FpMLRuleSet
 					
 					errorHandler.error ("305", context,
 							"Sum of spotRate and forwardPoints does not equal rate.",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -1449,7 +1449,7 @@ public final class FxRules extends FpMLRuleSet
 					
 					errorHandler.error ("305", context,
 							"The base currency must be different from the side rate currencies.",
-							getName (), Types.toString (base));
+							getName (), toToken (base));
 					
 					result = false;
 				}
@@ -1534,7 +1534,7 @@ public final class FxRules extends FpMLRuleSet
 					
 					errorHandler.error ("305", context,
 							"The maturity date must be after the start date",
-							getName (), Types.toString (maturity));
+							getName (), toToken (maturity));
 					
 					result = false;
 				}
@@ -1574,7 +1574,7 @@ public final class FxRules extends FpMLRuleSet
 
 					errorHandler.error ("305", context,
 							"The principal amount must be positive",
-							getName (), Types.toString (amount));
+							getName (), toToken (amount));
 					
 					result = false;
 				}
@@ -1614,7 +1614,7 @@ public final class FxRules extends FpMLRuleSet
 
 					errorHandler.error ("305", context,
 							"The fixed rate must be positive",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -1656,7 +1656,7 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"Expiry date must be after trade date.",
-							getName (), Types.toString (expiryDate));
+							getName (), toToken (expiryDate));
 					
 					result = false;
 				}
@@ -1698,7 +1698,7 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"Expiry date must be after trade date.",
-							getName (), Types.toString (expiryDate));
+							getName (), toToken (expiryDate));
 					
 					result = false;
 				}
@@ -1740,7 +1740,7 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"Expiry date must be after trade date.",
-							getName (), Types.toString (expiryDate));
+							getName (), toToken (expiryDate));
 					
 					result = false;
 				}
@@ -1784,7 +1784,7 @@ public final class FxRules extends FpMLRuleSet
 							
 							errorHandler.error ("305", context,
 									"value date must be after trade date.",
-									getName (), Types.toString (valueDate));
+									getName (), toToken (valueDate));
 							
 							result = false;
 						}
@@ -1794,7 +1794,7 @@ public final class FxRules extends FpMLRuleSet
 							
 							errorHandler.error ("305", context,
 									"value date must be after trade date.",
-									getName (), Types.toString (value1Date));
+									getName (), toToken (value1Date));
 							
 							result = false;
 						}
@@ -1804,7 +1804,7 @@ public final class FxRules extends FpMLRuleSet
 							
 							errorHandler.error ("305", context,
 									"value date must be after trade date.",
-									getName (), Types.toString (value2Date));
+									getName (), toToken (value2Date));
 							
 							result = false;
 						}
@@ -1855,7 +1855,7 @@ public final class FxRules extends FpMLRuleSet
 								
 								errorHandler.error ("305", leg,
 										"value date must be after trade date.",
-										getName (), Types.toString (valueDate));
+										getName (), toToken (valueDate));
 								
 								result = false;
 							}
@@ -1865,7 +1865,7 @@ public final class FxRules extends FpMLRuleSet
 								
 								errorHandler.error ("305", leg,
 										"value date must be after trade date.",
-										getName (), Types.toString (value1Date));
+										getName (), toToken (value1Date));
 								
 								result = false;
 							}
@@ -1875,7 +1875,7 @@ public final class FxRules extends FpMLRuleSet
 								
 								errorHandler.error ("305", leg,
 										"value date must be after trade date.",
-										getName (), Types.toString (value2Date));
+										getName (), toToken (value2Date));
 								
 								result = false;
 							}
@@ -1919,7 +1919,7 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"The trigger rate must be positive",
-							getName (), Types.toString (rate));
+							getName (), toToken (rate));
 					
 					result = false;
 				}
@@ -1968,7 +1968,7 @@ public final class FxRules extends FpMLRuleSet
 							if (equal (dates [outer], dates [inner]))
 								errorHandler.error ("305", nodes.item (inner),
 										"Duplicate observation date",
-										getName (), Types.toString(nodes.item (inner)));
+										getName (), toToken(nodes.item (inner)));
 							
 							result = false;
 						}
@@ -2149,12 +2149,12 @@ public final class FxRules extends FpMLRuleSet
 					Element		basis	= XPath.path (context, "currency1SideRate", "sideRateBasis");
 					
 					if ((basis == null) ||
-						Types.toString (basis).equalsIgnoreCase ("Currency1perBaseCurrency") || 
-						Types.toString (basis).equalsIgnoreCase ("BaseCurrencyPerCurrency1")) continue;
+						toToken (basis).equalsIgnoreCase ("Currency1perBaseCurrency") || 
+						toToken (basis).equalsIgnoreCase ("BaseCurrencyPerCurrency1")) continue;
 					
 					errorHandler.error ("305", context,
 							"Side rate basis for currency1 should not be expressed in terms of currency2.",
-							getName (), Types.toString (basis));
+							getName (), toToken (basis));
 					
 					result = false;
 				}
@@ -2191,12 +2191,12 @@ public final class FxRules extends FpMLRuleSet
 					Element		basis	= XPath.path (context, "currency2SideRate", "sideRateBasis");
 					
 					if ((basis == null) ||
-						Types.toString (basis).equalsIgnoreCase ("Currency2perBaseCurrency") || 
-						Types.toString (basis).equalsIgnoreCase ("BaseCurrencyPerCurrency2")) continue;
+						toToken (basis).equalsIgnoreCase ("Currency2perBaseCurrency") || 
+						toToken (basis).equalsIgnoreCase ("BaseCurrencyPerCurrency2")) continue;
 					
 					errorHandler.error ("305", context,
 							"Side rate basis for currency2 should not be expressed in terms of currency1.",
-							getName (), Types.toString (basis));
+							getName (), toToken (basis));
 					
 					result = false;
 				}

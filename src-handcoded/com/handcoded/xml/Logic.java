@@ -148,7 +148,7 @@ public abstract class Logic extends Types
 	public static boolean equal (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (equal (toString (lhs), toString (rhs)));
+			return (equal (toToken (lhs), toToken (rhs)));
 		return (false);
 	}
 
@@ -163,7 +163,7 @@ public abstract class Logic extends Types
 	 */
 	public static boolean equal (final Node lhs, final String rhs)
 	{
-		return ((lhs != null) ? equal (toString (lhs), rhs) : false);
+		return ((lhs != null) ? equal (toToken (lhs), rhs) : false);
 	}
 
 	/**
@@ -279,7 +279,7 @@ public abstract class Logic extends Types
 	public static boolean notEqual (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (notEqual (toString (lhs), toString (rhs)));
+			return (notEqual (toToken (lhs), toToken (rhs)));
 		return (false);
 	}
 
@@ -294,7 +294,7 @@ public abstract class Logic extends Types
 	 */
 	public static boolean notEqual (final Node lhs, final String rhs)
 	{
-		return ((lhs != null) ? notEqual (toString (lhs), rhs) : false);
+		return ((lhs != null) ? notEqual (toToken (lhs), rhs) : false);
 	}
 
 	/**
@@ -426,7 +426,7 @@ public abstract class Logic extends Types
 	public static boolean less (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (less (toString (lhs), toString (rhs)));
+			return (less (toToken (lhs), toToken (rhs)));
 		return (false);
 	}
 
@@ -442,7 +442,7 @@ public abstract class Logic extends Types
 	 */
 	public static boolean less (final Node lhs, final String rhs)
 	{
-		return ((lhs != null) ? less (toString (lhs), rhs) : false);
+		return ((lhs != null) ? less (toToken (lhs), rhs) : false);
 	}
 
 	/**
@@ -529,7 +529,7 @@ public abstract class Logic extends Types
 	public static boolean greater (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (greater (toString (lhs), toString (rhs)));
+			return (greater (toToken (lhs), toToken (rhs)));
 		return (false);
 	}
 
@@ -631,7 +631,7 @@ public abstract class Logic extends Types
 	public static boolean lessOrEqual (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (lessOrEqual (toString (lhs), toString (rhs)));
+			return (lessOrEqual (toToken (lhs), toToken (rhs)));
 		return (false);
 	}
 
@@ -648,7 +648,7 @@ public abstract class Logic extends Types
 	public static boolean lessOrEqual (final Node lhs, double rhs)
 	{
 		try {
-			return (Double.parseDouble (toString (lhs)) <= rhs);
+			return (Double.parseDouble (toToken (lhs)) <= rhs);
 		}
 		catch (Exception error) {
 			return (false);
@@ -745,7 +745,7 @@ public abstract class Logic extends Types
 	public static boolean greaterOrEqual (final Node lhs, final Node rhs)
 	{
 		if ((lhs != null) && (rhs != null))
-			return (greaterOrEqual (toString (lhs), toString (rhs)));
+			return (greaterOrEqual (toToken (lhs), toToken (rhs)));
 		return (false);
 	}
 

@@ -66,8 +66,8 @@ public final class EqdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"American exercise commencement date " + Types.toString (commence) +
-						" should be the same as trade date " + Types.toString (trade),
+						"American exercise commencement date " + toToken (commence) +
+						" should be the same as trade date " + toToken (trade),
 						getName (), null);
 
 					result = false;
@@ -106,8 +106,8 @@ public final class EqdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"American exercise expiration date " + Types.toString (expiration) +
-						" should be the same or later than trade date " + Types.toString (trade),
+						"American exercise expiration date " + toToken (expiration) +
+						" should be the same or later than trade date " + toToken (trade),
 						getName (), null);
 
 					result = false;
@@ -186,8 +186,8 @@ public final class EqdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Bermuda exercise commencement date " + Types.toString (commence) +
-						" should not be before the trade date " + Types.toString (trade),
+						"Bermuda exercise commencement date " + toToken (commence) +
+						" should not be before the trade date " + toToken (trade),
 						getName (), null);
 
 					result = false;
@@ -226,8 +226,8 @@ public final class EqdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Bermuda exercise expiration date " + Types.toString (expiration) +
-						" should not be before the trade date " + Types.toString (trade),
+						"Bermuda exercise expiration date " + toToken (expiration) +
+						" should not be before the trade date " + toToken (trade),
 						getName (), null);
 
 					result = false;
@@ -307,8 +307,8 @@ public final class EqdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Bermuda exercise dates " + Types.toString (context) + " and " +
-						Types.toString (next) + " are not in order",
+						"Bermuda exercise dates " + toToken (context) + " and " +
+						toToken (next) + " are not in order",
 						getName (), null);
 
 					result = false;
@@ -347,9 +347,9 @@ public final class EqdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Bermuda exercise date " + Types.toString (context) +
+						"Bermuda exercise date " + toToken (context) +
 						" should be after exercise period commencement date " +
-						Types.toString (commence),
+						toToken (commence),
 						getName (), null);
 									
 					result = false;
@@ -388,9 +388,9 @@ public final class EqdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Bermuda exercise date " + Types.toString (context) +
+						"Bermuda exercise date " + toToken (context) +
 						" should be on or before exercise period expiration date " +
-						Types.toString (expiration),
+						toToken (expiration),
 						getName (), null);
 									
 					result = false;
@@ -429,8 +429,8 @@ public final class EqdRules extends Logic
 						if (notEqual (toDate (context), toDate (other))) continue;
 
 						errorHandler.error ("305", context,
-							"Duplicate bermuda exercise date, " + Types.toString (other),
-							getName (), Types.toString (other));
+							"Duplicate bermuda exercise date, " + toToken (other),
+							getName (), toToken (other));
 
 						result = false;
 					}
@@ -469,8 +469,8 @@ public final class EqdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"European exercise expiration date " + Types.toString (expiration) +
-						" should not be before the trade date " + Types.toString (trade),
+						"European exercise expiration date " + toToken (expiration) +
+						" should not be before the trade date " + toToken (trade),
 						getName (), null);
 
 					result = false;
@@ -509,8 +509,8 @@ public final class EqdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Equity premium payment date " + Types.toString (premiumDate) +
-						" must be on or after trade date " + Types.toString (tradeDate),
+						"Equity premium payment date " + toToken (premiumDate) +
+						" must be on or after trade date " + toToken (tradeDate),
 						getName (), null);
 
 					result = false;
@@ -549,8 +549,8 @@ public final class EqdRules extends Logic
 						continue;
 
 					errorHandler.error ("305", context,
-						"Broker equity premium payment date " + Types.toString (premiumDate) +
-						" must be on or after trade date " + Types.toString (tradeDate),
+						"Broker equity premium payment date " + toToken (premiumDate) +
+						" must be on or after trade date " + toToken (tradeDate),
 						getName (), null);
 
 					result = false;

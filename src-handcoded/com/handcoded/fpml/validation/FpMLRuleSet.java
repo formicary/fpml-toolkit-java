@@ -52,7 +52,7 @@ public abstract class FpMLRuleSet extends Logic
 			try {
 				return (new Interval (
 					toInteger (XPath.path (context, "periodMultiplier")),
-					Period.forCode (toString (XPath.path (context, "period")))));
+					Period.forCode (toToken (XPath.path (context, "period")))));
 			}
 			catch (Exception error) {
 				return (null);

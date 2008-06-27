@@ -189,7 +189,7 @@ public final class IrdRules extends FpMLRuleSet
 									interval)) continue;
 
 					errorHandler.error ("305", context,
-						"The first payment date '" + Types.toString (paymentDate) + "' does not " +
+						"The first payment date '" + toToken (paymentDate) + "' does not " +
 						"fall on one of the unadjusted calculation period dates.",
 						getName (), null);
 
@@ -248,7 +248,7 @@ public final class IrdRules extends FpMLRuleSet
 									interval)) continue;
 
 					errorHandler.error ("305", context,
-						"The first payment date '" + Types.toString (paymentDate) + "' does not " +
+						"The first payment date '" + toToken (paymentDate) + "' does not " +
 						"fall on one of the unadjusted calculation period dates.",
 						getName (), null);
 
@@ -350,8 +350,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"The first payment date " + Types.toString (payment) + " must be after " +
-						"the unadjusted effective date " + Types.toString (effective),
+						"The first payment date " + toToken (payment) + " must be after " +
+						"the unadjusted effective date " + toToken (effective),
 						getName (), null);
 
 					result = false;
@@ -530,7 +530,7 @@ public final class IrdRules extends FpMLRuleSet
 					Element	context = (Element) list.item (index);
 					Element rollConvention	= XPath.path (context, "calculationPeriodFrequency", "rollConvention");
 
-					if (!isNumber (Types.toString (rollConvention))) continue;
+					if (!isNumber (toToken (rollConvention))) continue;
 
 					Element	startDate = XPath.path (context, "firstRegularPeriodStartDate");
 					if (!exists (startDate))
@@ -547,7 +547,7 @@ public final class IrdRules extends FpMLRuleSet
 
 					errorHandler.error ("305", context,
 						"The start date of the calculation period,  '" + start + "' is not " +
-						"consistent with the roll convention " + Types.toString (rollConvention),
+						"consistent with the roll convention " + toToken (rollConvention),
 						getName (), null);
 
 					result = false;
@@ -578,14 +578,14 @@ public final class IrdRules extends FpMLRuleSet
 					Element	context = (Element) list.item (index);
 					Element rollConvention	= XPath.path (context, "calculationPeriodFrequency", "rollConvention");
 
-					if (!isNumber (Types.toString (rollConvention))) continue;
+					if (!isNumber (toToken (rollConvention))) continue;
 
 					Element	endDate = XPath.path (context, "firstRegularPeriodEndDate");
 					if (!exists (endDate))
 						endDate = XPath.path (context, "terminationDate", "unadjustedDate");
 
 					int		rollDate = toInteger (rollConvention);
-					Date	end	 = Date.parse (Types.toString (endDate));
+					Date	end	 = toDate (endDate);
 
 					if (rollDate < end.lastDayOfMonth ()) {
 						if (rollDate == end.dayOfMonth ()) continue;
@@ -595,7 +595,7 @@ public final class IrdRules extends FpMLRuleSet
 
 					errorHandler.error ("305", context,
 						"The end date of the calculation period,  '" + end + "' is not " +
-						"consistent with the roll convention " + Types.toString (rollConvention),
+						"consistent with the roll convention " + toToken (rollConvention),
 						getName (), null);
 
 					result = false;
@@ -681,8 +681,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted termination date '" + Types.toString (termination) + "' should " +
-						"be after unadjusted effective date '" + Types.toString (effective) + "'",
+						"Unadjusted termination date '" + toToken (termination) + "' should " +
+						"be after unadjusted effective date '" + toToken (effective) + "'",
 						getName (), null);
 
 					result = false;
@@ -717,8 +717,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted termination date '" + Types.toString (termination) + "' should " +
-						"be after unadjusted first period start date '" + Types.toString (periodStart) + "'",
+						"Unadjusted termination date '" + toToken (termination) + "' should " +
+						"be after unadjusted first period start date '" + toToken (periodStart) + "'",
 						getName (), null);
 
 					result = false;
@@ -753,8 +753,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted termination date '" + Types.toString (termination) + "' should " +
-						"be after unadjusted first regular period start date '" + Types.toString (periodStart) + "'",
+						"Unadjusted termination date '" + toToken (termination) + "' should " +
+						"be after unadjusted first regular period start date '" + toToken (periodStart) + "'",
 						getName (), null);
 
 					result = false;
@@ -789,8 +789,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted termination date '" + Types.toString (termination) + "' should " +
-						"be after unadjusted last regular period end date '" + Types.toString (periodEnd) + "'",
+						"Unadjusted termination date '" + toToken (termination) + "' should " +
+						"be after unadjusted last regular period end date '" + toToken (periodEnd) + "'",
 						getName (), null);
 
 					result = false;
@@ -825,8 +825,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted last regular period end date '" + Types.toString (periodEnd) + "' should " +
-						"be after unadjusted first regular period start date '" + Types.toString (periodStart) + "'",
+						"Unadjusted last regular period end date '" + toToken (periodEnd) + "' should " +
+						"be after unadjusted first regular period start date '" + toToken (periodStart) + "'",
 						getName (), null);
 
 					result = false;
@@ -861,8 +861,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted last regular period end date '" + Types.toString (periodEnd) + "' should " +
-						"be after unadjusted first period start date '" + Types.toString (periodStart) + "'",
+						"Unadjusted last regular period end date '" + toToken (periodEnd) + "' should " +
+						"be after unadjusted first period start date '" + toToken (periodStart) + "'",
 						getName (), null);
 
 					result = false;
@@ -897,8 +897,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted last regular period end date " + Types.toString (last) +
-						" must be after unadjusted effective date " + Types.toString (effective),
+						"Unadjusted last regular period end date " + toToken (last) +
+						" must be after unadjusted effective date " + toToken (effective),
 						getName (), null);
 
 					result = false;
@@ -937,8 +937,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted first period start date " + Types.toString (first) +
-						" must be before unadjusted effective date " + Types.toString (effective),
+						"Unadjusted first period start date " + toToken (first) +
+						" must be before unadjusted effective date " + toToken (effective),
 						getName (), null);
 
 					result = false;
@@ -973,8 +973,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Unadjusted first period start date " + Types.toString (first) +
-						" must be before first regular period start date " + Types.toString (regular),
+						"Unadjusted first period start date " + toToken (first) +
+						" must be before first regular period start date " + toToken (regular),
 						getName (), null);
 
 					result = false;
@@ -1501,8 +1501,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Adjusted termination date '" + Types.toString (termination) + "' must be " +
-						"after adjusted effective date '" + Types.toString (effective) + "'",
+						"Adjusted termination date '" + toToken (termination) + "' must be " +
+						"after adjusted effective date '" + toToken (effective) + "'",
 						getName (), null);
 
 					result = false;
@@ -1582,8 +1582,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"The first payment date '" + Types.toString (firstDate) + "' should be " +
-						"before the last regular payment date '" + Types.toString (lastDate) + "'",
+						"The first payment date '" + toToken (firstDate) + "' should be " +
+						"before the last regular payment date '" + toToken (lastDate) + "'",
 						getName (), null);
 
 					result = false;
@@ -1710,8 +1710,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"The adjusted exercise date '" + Types.toString (exercise) + "' should be " +
-						"on or before the adjusted early termination date '" + Types.toString (termination) + "'",
+						"The adjusted exercise date '" + toToken (exercise) + "' should be " +
+						"on or before the adjusted early termination date '" + toToken (termination) + "'",
 						getName (), null);
 
 					result = false;
@@ -1750,9 +1750,9 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"The adjusted exercise date '" + Types.toString (exercise) + "' should be " +
+						"The adjusted exercise date '" + toToken (exercise) + "' should be " +
 						"on or before the adjusted cash settlement date '" +
-						Types.toString (valuation) + "'",
+						toToken (valuation) + "'",
 						getName (), null);
 
 					result = false;
@@ -1792,9 +1792,9 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"The adjusted case settlement valuation date '" + Types.toString (valuation) +
+						"The adjusted case settlement valuation date '" + toToken (valuation) +
 						"' should be on or before the adjusted cash settlement payment date '" +
-						Types.toString (payment) + "'",
+						toToken (payment) + "'",
 						getName (), null);
 
 					result = false;
@@ -1833,8 +1833,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"The adjusted exercise date '" + Types.toString (exercise) + "' should be " +
-						"on or before the adjusted extended termination date '" + Types.toString (termination) + "'",
+						"The adjusted exercise date '" + toToken (exercise) + "' should be " +
+						"on or before the adjusted extended termination date '" + toToken (termination) + "'",
 						getName (), null);
 
 					result = false;
@@ -1913,9 +1913,9 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"The adjusted mandatory early termination date '" + Types.toString (termination) + "', " +
-						"cash settlement valuation date '" + Types.toString (valuation) + "' and " +
-						"cash settlement payment date '" + Types.toString (payment) + "' " +
+						"The adjusted mandatory early termination date '" + toToken (termination) + "', " +
+						"cash settlement valuation date '" + toToken (valuation) + "' and " +
+						"cash settlement payment date '" + toToken (payment) + "' " +
 						"are not in order",
 						getName (), null);
 
@@ -2220,7 +2220,7 @@ public final class IrdRules extends FpMLRuleSet
 							"The notional step schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
 							last + "'",
-							getName (), Types.toString (date));
+							getName (), toToken (date));
 
 						result = false;
 					}
@@ -2281,7 +2281,7 @@ public final class IrdRules extends FpMLRuleSet
 							"The fixed rate schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
 							last + "'",
-							getName (), Types.toString (date));
+							getName (), toToken (date));
 
 						result = false;
 					}
@@ -2341,7 +2341,7 @@ public final class IrdRules extends FpMLRuleSet
 							"The cap rate schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
 							last + "'",
-							getName (), Types.toString (date));
+							getName (), toToken (date));
 
 						result = false;
 					}
@@ -2401,7 +2401,7 @@ public final class IrdRules extends FpMLRuleSet
 							"The floor rate schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
 							last + "'",
-							getName (), Types.toString (date));
+							getName (), toToken (date));
 
 						result = false;
 					}
@@ -2461,7 +2461,7 @@ public final class IrdRules extends FpMLRuleSet
 							"The known amount schedule step date '" + payment + "' does not fall " +
 							"on one of the calculated period dates between '" + first + "' and '" +
 							last + "'",
-							getName (), Types.toString (date));
+							getName (), toToken (date));
 
 						result = false;
 					}
@@ -2584,7 +2584,7 @@ public final class IrdRules extends FpMLRuleSet
 						implies (
 							not (
 								or (
-									isWeekDayName (Types.toString (convention)),
+									isWeekDayName (toToken (convention)),
 									or (
 										equal (convention, "NONE"),
 										equal (convention, "SFE")))),
@@ -2594,8 +2594,8 @@ public final class IrdRules extends FpMLRuleSet
 						continue;
 
 					errorHandler.error ("305", context,
-						"Calculation period frequency roll convention '" + Types.toString (convention) +
-						"' is inconsistent with the calculation period '" + Types.toString (period) + "'",
+						"Calculation period frequency roll convention '" + toToken (convention) +
+						"' is inconsistent with the calculation period '" + toToken (period) + "'",
 						getName (), null);
 
 					result = false;
@@ -2628,13 +2628,13 @@ public final class IrdRules extends FpMLRuleSet
 
 					if ((convention == null) || (period == null) ||
 						implies (
-							isWeekDayName (Types.toString (convention)),
+							isWeekDayName (toToken (convention)),
 							equal (period, "W")))
 						continue;
 
 					errorHandler.error ("305", context,
-						"Calculation period frequency roll convention '" + Types.toString (convention) +
-						"' is inconsistent with the calculation period '" + Types.toString (period) + "'",
+						"Calculation period frequency roll convention '" + toToken (convention) +
+						"' is inconsistent with the calculation period '" + toToken (period) + "'",
 						getName (), null);
 
 					result = false;

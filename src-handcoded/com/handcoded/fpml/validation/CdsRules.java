@@ -1771,11 +1771,11 @@ public final class CdsRules extends Logic
 
 					if ((ccy1 == null) || (ccy2 == null) || (amount == null) || (minimum == null)
 						|| notEqual (ccy1, ccy2)
-						|| (Double.parseDouble (Types.toString (amount)) >= toDouble (minimum)))
+						|| (Double.parseDouble (toToken (amount)) >= toDouble (minimum)))
 						continue;
 
 					errorHandler.error ("305", context,
-						"In cash settlement terms, quotation amount " + Types.toString (amount) +
+						"In cash settlement terms, quotation amount " + toToken (amount) +
 						" must be greater or equal to minimum quotation amount",
 						getName (), null);
 
@@ -2240,8 +2240,8 @@ public final class CdsRules extends Logic
 	{
 		try {
 			return (new Interval (
-				Integer.parseInt (Types.toString (XPath.path (context, "periodMultiplier"))),
-				Period.forCode (Types.toString (XPath.path (context, "period")))));
+				Integer.parseInt (toToken (XPath.path (context, "periodMultiplier"))),
+				Period.forCode (toToken (XPath.path (context, "period")))));
 		}
 		catch (Exception error) {
 			return (null);

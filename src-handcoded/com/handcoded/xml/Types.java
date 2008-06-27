@@ -43,6 +43,19 @@ public abstract class Types
 	 */
 	public static String toString (final Node node)
 	{
+		return (DOM.getInnerText ((Element) node));
+	}
+
+	/**
+	 * Returns the value of the given <CODE>Node</CODE> as a token string
+	 * with all extra white space removed.
+	 *
+	 * @param 	node			The <CODE>Node</CODE> containing the value.
+	 * @return	The value of the node as a Java datatype.
+	 * @since	TFP 1.2
+	 */
+	public static String toToken (final Node node)
+	{
 		return (DOM.getInnerText ((Element) node).trim ());
 	}
 
@@ -56,7 +69,7 @@ public abstract class Types
 	public static boolean toBool (final Node node)
 	{
 		try {
-			return (Boolean.parseBoolean (toString (node)));
+			return (Boolean.parseBoolean (toToken (node)));
 		}
 		catch (Exception error) {
 			;
@@ -74,7 +87,7 @@ public abstract class Types
 	public static int toInteger (final Node node)
 	{
 		try {
-			return (Integer.parseInt (toString (node)));
+			return (Integer.parseInt (toToken (node)));
 		}
 		catch (Exception error) {
 			;
@@ -92,7 +105,7 @@ public abstract class Types
 	public static double toDouble (final Node node)
 	{
 		try {
-			return (Double.parseDouble (toString (node)));
+			return (Double.parseDouble (toToken (node)));
 		}
 		catch (Exception error) {
 			;
@@ -110,7 +123,7 @@ public abstract class Types
 	public static BigDecimal toDecimal (final Node node)
 	{
 		try {
-            return (new BigDecimal (toString (node)));
+            return (new BigDecimal (toToken (node)));
 		}
 		catch (Exception error) {
 			;
@@ -128,7 +141,7 @@ public abstract class Types
 	public static Date toDate (final Node node)
 	{
 		try {
-			return (Date.parse (toString (node)));
+			return (Date.parse (toToken (node)));
 		}
 		catch (Exception error) {
 			;
@@ -146,7 +159,7 @@ public abstract class Types
 	public static DateTime toDateTime (final Node node)
 	{
 		try {
-			return (DateTime.parse (toString (node)));
+			return (DateTime.parse (toToken (node)));
 		}
 		catch (Exception error) {
 			;
@@ -164,7 +177,7 @@ public abstract class Types
 	public static Time toTime (final Node node)
 	{
 		try {
-			return (Time.parse (toString (node)));
+			return (Time.parse (toToken (node)));
 		}
 		catch (Exception error) {
 			;
