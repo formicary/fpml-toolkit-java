@@ -173,14 +173,15 @@ public final class RuleSet extends Validator
 		for (Enumeration keys = rules.keys (); keys.hasMoreElements ();) {
 			Rule 			rule = (Rule) rules.get (keys.nextElement ());
 			Precondition 	condition = rule.getPrecondition ();
+			Boolean			cached = (Boolean) cache.get(condition);
 			boolean 		applies;
 			
-			if (!cache.containsKey (condition)) {
+			if (cached == null) {
 				applies = condition.evaluate (nodeIndex);
 				cache.put (condition, applies ? Boolean.TRUE : Boolean.FALSE);
 			}
 			else
-				applies = (cache.get (condition) == Boolean.TRUE);
+				applies = (cached == Boolean.TRUE);
 			
 			if (applies) result &= rule.validate (nodeIndex, errorHandler);
 		}

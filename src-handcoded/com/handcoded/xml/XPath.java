@@ -130,12 +130,16 @@ public final class XPath
 	 */
 	public static Element path (final Element context, final String name)
 	{
-		if (name.equals ("."))
-			return (context);
-		else if (name.equals (".."))
-			return ((Element) context.getParentNode ());
-		else
-			return ((context != null) ? DOM.getElementByLocalName (context, name) : null);
+		if (context != null) {
+			if (name.equals ("."))
+				return (context);
+			
+			if (name.equals (".."))
+				return ((Element) context.getParentNode ());
+		
+			return (DOM.getElementByLocalName (context, name));
+		}
+		return (null);
 	}
 
 	/**
@@ -286,30 +290,31 @@ public final class XPath
 	 */
 	public static NodeList paths (final Element context, final String name)
 	{
-		if (name.equals ("*"))
-			return ((context != null) ? DOM.getChildElements (context) : MutableNodeList.EMPTY);
-		if (name.equals (".")) {
-			if (context != null) {
+		if (context != null) {
+			if (name.equals ("*"))
+				return (DOM.getChildElements (context));
+			
+			if (name.equals (".")) {
 				MutableNodeList	list = new MutableNodeList ();
 
 				list.add (context);
 				return (list);
 			}
-			else
-				return (MutableNodeList.EMPTY);
-		}
-		else if (name.equals ("..")) {
-			if ((context != null) && (context.getParentNode () != null)) {
-				MutableNodeList	list = new MutableNodeList ();
-
-				list.add (context.getParentNode ());
-				return (list);
+			
+			if (name.equals ("..")) {
+				if (context.getParentNode () != null) {
+					MutableNodeList	list = new MutableNodeList ();
+	
+					list.add (context.getParentNode ());
+					return (list);
+				}
+				else
+					return (MutableNodeList.EMPTY);
 			}
-			else
-				return (MutableNodeList.EMPTY);
+		
+			return (context.getElementsByTagName (name));
 		}
-		else
-			return ((context != null) ? context.getElementsByTagName (name) : MutableNodeList.EMPTY);
+		return (MutableNodeList.EMPTY);
 	}
 
 	/**
