@@ -224,7 +224,7 @@ public abstract class Logic extends Types
 	 */
 	public static boolean equal (final BigDecimal lhs, final BigDecimal rhs)
 	{
-		return (lhs.equals (rhs));
+		return (lhs.compareTo (rhs) == 0);
 	}
 
 	/**
