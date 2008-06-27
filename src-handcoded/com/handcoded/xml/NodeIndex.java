@@ -197,8 +197,6 @@ public final class NodeIndex
 	 */
 	private static final NodeList EMPTY 	= new MutableNodeList ();
 	
-	private static final Object	NIL			= new Object ();
-	
 	/**
 	 * The DOM <CODE>Document</CODE> from which this index is derived.
 	 * @since	TFP 1.0
