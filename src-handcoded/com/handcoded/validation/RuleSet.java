@@ -61,12 +61,17 @@ public final class RuleSet extends Validator
 	 * Returns a reference to the named <CODE>RuleSet</CODE> instance if it exists.
 	 * 
 	 * @param 	name		The name of the required <CODE>RuleSet</CODE>.
-	 * @return	The corresponding <CODE>RuleSet</CODE> instance or <CODE>null</CODE>.
+	 * @return	The corresponding <CODE>RuleSet</CODE> instance.
 	 * @since	TFP 1.2
 	 */
 	public static RuleSet forName (final String name)
 	{
-		return ((RuleSet) extent.get(name));
+		synchronized (extent) {
+			RuleSet			result = (RuleSet) extent.get(name);
+			
+			if (result == null) result = new RuleSet (name);
+			return (result);
+		}
 	}
 	
 	/**
@@ -334,8 +339,11 @@ public final class RuleSet extends Validator
 	 */
 	private Hashtable		rules	= new Hashtable ();
 
-	
-	
+	/**
+	 * Causes the <CODE>RuleSet</CODE> class to try and bootstrap the business
+	 * rules from a configuration file.
+	 * @since	TFP 1.2
+	 */
 	static {
 		try {
 			SAXParser parser = new SAXParser (false, true, false, false, null, null);
