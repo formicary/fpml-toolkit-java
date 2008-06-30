@@ -16,19 +16,6 @@
 	<forceLoad platform="Java" class="com.handcoded.fpml.validation.SchemeRules"/>
 	<forceLoad platform="Java" class="com.handcoded.fpml.validation.DataTypeRules"/>
 	
-	<!-- Load .Net classes that implement the standard rule sets -->
-	<forceLoad platform=".Net" class="HandCoded.FpML.Validation.IrdRules"/>
-	<forceLoad platform=".Net" class="HandCoded.FpML.Validation.CdsRules"/>
-	<forceLoad platform=".Net" class="HandCoded.FpML.Validation.EqdRules"/>
-	<forceLoad platform=".Net" class="HandCoded.FpML.Validation.FxRules"/>
-	<forceLoad platform=".Net" class="HandCoded.FpML.Validation.SharedRules"/>
-	<forceLoad platform=".Net" class="HandCoded.FpML.Validation.BusinessProcessRules"/>
-	<forceLoad platform=".Net" class="HandCoded.FpML.Validation.PricingAndRiskRules"/>
-	<forceLoad platform=".Net" class="HandCoded.FpML.Validation.ReferenceRules"/>
-	
-	<forceLoad platform=".Net" class="HandCoded.FpML.Validation.SchemeRules"/>
-	<forceLoad platform=".Net" class="HandCoded.FpML.Validation.DataTypeRules"/>
-	
 	<!-- Define Standard FpML Rule Sets -->
 	<ruleSet name="IrdRules">
 		<addRule name="ird-1"/>
@@ -99,7 +86,9 @@
 		<addRule name="cd-1b"/>
 		<addRule name="cd-2"/>
 		<addRule name="cd-3"/>
+		<addRule name="cd-3b"/>
 		<addRule name="cd-4"/>
+		<addRule name="cd-4b"/>
 		<addRule name="cd-5"/>
 		<addRule name="cd-6"/>
 		<addRule name="cd-7"/>
@@ -144,22 +133,22 @@
 	</ruleSet>
 	
 	<ruleSet name="EqdRules">
-		<addRule name="eqd-1"/>
+		<!-- Removed <addRule name="eqd-1"/> -->
 		<addRule name="eqd-2"/>
 		<addRule name="eqd-3"/>
 		<addRule name="eqd-4"/>
 		<addRule name="eqd-5"/>
 		<addRule name="eqd-6"/>
-		<addRule name="eqd-7"/>
+		<!-- Deprecated <addRule name="eqd-7"/> -->
 		<addRule name="eqd-8"/>
 		<addRule name="eqd-9"/>
 		<addRule name="eqd-10"/>
-		<!-- Gap in the sequence <addRule name="eqd-11"/> -->
+		<!-- Removed <addRule name="eqd-11"/> -->
 		<addRule name="eqd-12"/>
 		<addRule name="eqd-13"/>
 		<addRule name="eqd-14"/>
 		<addRule name="eqd-15"/>
-		<addRule name="eqd-16"/>
+		<!-- Removed <addRule name="eqd-16"/> -->
 		<addRule name="eqd-17"/>
 		<addRule name="eqd-18"/>
 		<addRule name="eqd-19"/>
@@ -203,7 +192,7 @@
 		<addRule name="fx-29"/>
 		<addRule name="fx-30"/>
 		<addRule name="fx-31"/>
-		<!-- Gap in the sequence <addRule name="fx-32"/> -->
+		<addRule name="fx-32"/>
 		<addRule name="fx-33"/>
 		<addRule name="fx-34"/>
 		<addRule name="fx-35"/>
@@ -219,7 +208,6 @@
 		<addRule name="fx-45"/>
 		<addRule name="fx-46"/>
 		<addRule name="fx-47"/>
-		<addRule name="fx-48"/>
 	</ruleSet>
 	
 	<ruleSet name="SharedRules">
