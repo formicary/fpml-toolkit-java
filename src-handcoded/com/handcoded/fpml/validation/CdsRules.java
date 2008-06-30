@@ -1288,16 +1288,16 @@ public final class CdsRules extends Logic
 							for (int count = 0; count < children.getLength (); ++count) {
 								Node	node = children.item (count);
 								if (node instanceof Element) {
-									String name = node.getLocalName();
+									String localName = node.getLocalName();
 
-									if (name.equals ("bankruptcy") ||
-										name.equals ("failureToPay") ||
-										name.equals ("repudiationMoratorium") ||
-										name.equals ("obligationDefault") ||
-										name.equals ("obligationAcceleration")) {
+									if (localName.equals ("bankruptcy") ||
+										localName.equals ("failureToPay") ||
+										localName.equals ("repudiationMoratorium") ||
+										localName.equals ("obligationDefault") ||
+										localName.equals ("obligationAcceleration")) {
 										errorHandler.error ("305", context,
 											"Illegal element found in short form credit default swap",
-											getName (), XPath.forNode (node));
+											getName (), localName);
 
 											result = false;
 									}
@@ -1982,7 +1982,7 @@ public final class CdsRules extends Logic
 
 	/**
 	 * A <CODE>Rule</CODE> that ensures the if any
-	 * <CODE>referencePoolItem/constituentWeight/basketPercentage<CODE> values
+	 * <CODE>referencePoolItem/constituentWeight/basketPercentage</CODE> values
 	 * are defined then they must sum to 1.
 	 * <P>
 	 * Applies to FpML 4.2 and later.
@@ -2051,7 +2051,7 @@ public final class CdsRules extends Logic
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					Element		info	= XPath.path (context, "generalTerm", "basketReferenceInformation");
+					Element		info	= XPath.path (context, "generalTerms", "basketReferenceInformation");
 					Element		nth		= XPath.path (context, "nthToDefault");
 					Element		mth		= XPath.path (context, "mthToDefault");
 
@@ -2108,8 +2108,8 @@ public final class CdsRules extends Logic
 		};
 
 	/**
-	 * A <CODE>Rule</CODE> that ensures if <CODE>indexReferenceInformation/tranche<CODE>
-	 * is not present then <CODE>modifiedEquityDelivery<CODE> must not be present.
+	 * A <CODE>Rule</CODE> that ensures if <CODE>indexReferenceInformation/tranche</CODE>
+	 * is not present then <CODE>modifiedEquityDelivery</CODE> must not be present.
 	 * <P>
 	 * Applies to FpML 4.3 and later.
 	 * @since	TFP 1.1
@@ -2146,8 +2146,8 @@ public final class CdsRules extends Logic
 		};
 
 	/**
-	 * If <CODE>basketReferenceInformation<CODE> is not present then
-	 * <CODE>substitution<CODE> must not be present.
+	 * If <CODE>basketReferenceInformation</CODE> is not present then
+	 * <CODE>substitution</CODE> must not be present.
 	 * <P>
 	 * Applies to FpML 4.3 and later.
 	 * @since	TFP 1.1
@@ -2183,91 +2183,91 @@ public final class CdsRules extends Logic
 			}
 		};
 
-		/**
-		 * A <CODE>Rule</CODE> that ensures if the trade has an initial payment
-		 * then it is paid by the protection buyer to the protection seller.
-		 * <P>
-		 * Applies to FpML 4.3 and later.
-		 * @since	TFP 1.1
-		 */
-		public static final Rule	RULE43
-			= new Rule (Preconditions.R4_3__LATER, "cd-43")
+	/**
+	 * A <CODE>Rule</CODE> that ensures if the trade has an initial payment
+	 * then it is paid by the protection buyer to the protection seller.
+	 * <P>
+	 * Applies to FpML 4.3 and later.
+	 * @since	TFP 1.1
+	 */
+	public static final Rule	RULE43
+		= new Rule (Preconditions.R4_3__LATER, "cd-43")
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
-				/**
-				 * {@inheritDoc}
-				 */
-				public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
-				{
-					boolean		result 	= true;
-					NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
+				boolean		result 	= true;
+				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
 
-					for (int index = 0; index < list.getLength (); ++index) {
-						Element		context = (Element) list.item (index);
+				for (int index = 0; index < list.getLength (); ++index) {
+					Element		context = (Element) list.item (index);
 
-						if (!isSingleName (context)) continue;
+					if (!isSingleName (context)) continue;
 
-						if (!exists (XPath.path(context, "feeLeg", "initialPayment"))) continue;
+					if (!exists (XPath.path(context, "feeLeg", "initialPayment"))) continue;
 
-						Element		payer		= XPath.path (context, "feeLeg", "initialPayment", "payerPartyReference");
-						Element		receiver 	= XPath.path (context, "feeLeg", "initialPayment", "receiverPartyReference");
-						Element		seller		= XPath.path (context, "generalTerms", "sellerPartyReference");
-						Element		buyer		= XPath.path (context, "generalTerms", "buyerPartyReference");
+					Element		payer		= XPath.path (context, "feeLeg", "initialPayment", "payerPartyReference");
+					Element		receiver 	= XPath.path (context, "feeLeg", "initialPayment", "receiverPartyReference");
+					Element		seller		= XPath.path (context, "generalTerms", "sellerPartyReference");
+					Element		buyer		= XPath.path (context, "generalTerms", "buyerPartyReference");
 
-						if ((payer != null) && (seller != null) && (receiver != null) && (buyer != null)) {
-							if (DOM.getAttribute (payer, "href").equals(DOM.getAttribute (buyer, "href")) &&
-								DOM.getAttribute (receiver, "href").equals(DOM.getAttribute (seller, "href")))
-								continue;
-						}
+					if ((payer != null) && (seller != null) && (receiver != null) && (buyer != null)) {
+						if (DOM.getAttribute (payer, "href").equals(DOM.getAttribute (buyer, "href")) &&
+							DOM.getAttribute (receiver, "href").equals(DOM.getAttribute (seller, "href")))
+							continue;
+					}
 
-						errorHandler.error ("305", context,
-							"The initial payment should be paid by the protection buyer to the protection seller",
+					errorHandler.error ("305", context,
+						"The initial payment should be paid by the protection buyer to the protection seller",
+						getName (), null);
+
+					result = false;
+				}
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures either every <CODE>referencePoolItem</CODE>
+	 * has a <CODE>basketPercentage</CODE> or that none of them have.
+	 * <P>
+	 * Applies to FpML 4.2 and later.
+	 * @since	TFP 1.1
+	 */
+	public static final Rule	RULE44
+		= new Rule (Preconditions.R4_2__LATER, "cd-44")
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				return (validate (nodeIndex.getElementsByName ("creditDefaultSwap"), errorHandler));
+			}
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result = true;
+
+				for (int index = 0; index < list.getLength (); ++index) {
+					Element		context = (Element) list.item (index);
+					Element		pool	= XPath.path (context, "generalTerms", "basketReferenceInformation", "referencePool");
+					NodeList	items  	= XPath.paths (pool, "referencePoolItem");
+					NodeList	weights	= XPath.paths (pool, "referencePoolItem", "constituentWeight", "basketPercentage");
+
+					if ((weights.getLength () == 0) || (weights.getLength () == items.getLength ())) continue;
+
+					errorHandler.error ("305", pool,
+							"Either every referencePoolItem should have a basketPercentage or none should have one",
 							getName (), null);
 
-						result = false;
-					}
-					return (result);
+					result = false;
 				}
-			};
-
-		/**
-		 * A <CODE>Rule</CODE> that ensures either every <CODE>referencePoolItem</CODE>
-		 * has a <CODE>basketPercentage</CODE> or that none of them have.
-		 * <P>
-		 * Applies to FpML 4.2 and later.
-		 * @since	TFP 1.1
-		 */
-		public static final Rule	RULE44
-			= new Rule (Preconditions.R4_2__LATER, "cd-44")
-			{
-				/**
-				 * {@inheritDoc}
-				 */
-				public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
-				{
-					return (validate (nodeIndex.getElementsByName ("creditDefaultSwap"), errorHandler));
-				}
-
-				private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
-				{
-					boolean		result = true;
-
-					for (int index = 0; index < list.getLength (); ++index) {
-						Element		context = (Element) list.item (index);
-						Element		pool	= XPath.path (context, "generalTerm", "basketReferenceInformation", "referencePool");
-						NodeList	items  	= XPath.paths (pool, "referencePoolItem");
-						NodeList	weights	= XPath.paths (pool, "referencePoolItem", "constituentWeight", "basketPercentage");
-
-						if ((weights.getLength () == 0) || (weights.getLength () == items.getLength ())) continue;
-
-						errorHandler.error ("305", pool,
-								"Either every referencePoolItem should have a basketPercentage or none should have one",
-								getName (), null);
-
-						result = false;
-					}
-					return (result);
-				}
-				};
+				return (result);
+			}
+		};
 
 	/**
 	 * Provides access to the CDS validation rule set.

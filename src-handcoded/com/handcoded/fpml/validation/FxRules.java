@@ -55,7 +55,7 @@ public final class FxRules extends FpMLRuleSet
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
-				if (nodeIndex.hasTypeInformation()) 
+				if (nodeIndex.hasTypeInformation ()) 
 					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "ExchangeRate"), errorHandler));					
 					
 				return (
@@ -95,7 +95,7 @@ public final class FxRules extends FpMLRuleSet
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
-				if (nodeIndex.hasTypeInformation()) 
+				if (nodeIndex.hasTypeInformation ()) 
 					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "ExchangeRate"), errorHandler));					
 					
 				return (
@@ -136,7 +136,7 @@ public final class FxRules extends FpMLRuleSet
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
-				if (nodeIndex.hasTypeInformation()) 
+				if (nodeIndex.hasTypeInformation ()) 
 					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "ExchangeRate"), errorHandler));					
 					
 				return (
@@ -168,8 +168,6 @@ public final class FxRules extends FpMLRuleSet
 				return (result);
 			}
 		};
-
-	// 4 5 6
 
 	/**
 	 * A <CODE>Rule</CODE> that ensures sideRates/baseCurrency must be neither
@@ -341,8 +339,8 @@ public final class FxRules extends FpMLRuleSet
 		};
 
 	/**
-	 * A <CODE>Rule</CODE> that observationStartDate and observationEndDate
-	 * both exist then observationStartDate <= observationEndDate.
+	 * A <CODE>Rule</CODE> that ensures if observationStartDate and observationEndDate
+	 * both exist then observationStartDate &lt;= observationEndDate.
 	 * <P>
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
@@ -385,8 +383,8 @@ public final class FxRules extends FpMLRuleSet
 		};
 			
 	/**
-	 * A <CODE>Rule</CODE> that ensures observationStartDate and observationEndDate
-	 * both exist then observationStartDate <= observationEndDate.
+	 * A <CODE>Rule</CODE> that ensures if observationStartDate and observationEndDate
+	 * both exist then observationStartDate &lt;= observationEndDate.
 	 * <P>
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
@@ -664,7 +662,7 @@ public final class FxRules extends FpMLRuleSet
 
 	/**
 	 * A <CODE>Rule</CODE> that ensures observationStartDate and observationEndDate
-	 * both exist then observationStartDate <= observationEndDate.
+	 * both exist then observationStartDate &lt;= observationEndDate.
 	 * <P>
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
@@ -1533,7 +1531,6 @@ public final class FxRules extends FpMLRuleSet
 				
 	/**
 	 * A <CODE>Rule</CODE> that ensures the principal amount is positive.
-	 * are different.
 	 * <P>
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
@@ -1573,7 +1570,6 @@ public final class FxRules extends FpMLRuleSet
 				
 	/**
 	 * A <CODE>Rule</CODE> that ensures the fixed rate is positive.
-	 * are different.
 	 * <P>
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
@@ -1640,7 +1636,7 @@ public final class FxRules extends FpMLRuleSet
 					
 					if ((tradeDate == null) || (expiryDate == null)) continue;
 					
-					if (less (tradeDate, expiryDate)) continue;
+					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
 										
 					errorHandler.error ("305", context,
 							"Expiry date must be after trade date.",
@@ -1682,7 +1678,7 @@ public final class FxRules extends FpMLRuleSet
 					
 					if ((tradeDate == null) || (expiryDate == null)) continue;
 					
-					if (less (tradeDate, expiryDate)) continue;
+					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
 										
 					errorHandler.error ("305", context,
 							"Expiry date must be after trade date.",
@@ -1724,7 +1720,7 @@ public final class FxRules extends FpMLRuleSet
 					
 					if ((tradeDate == null) || (expiryDate == null)) continue;
 					
-					if (less (tradeDate, expiryDate)) continue;
+					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
 										
 					errorHandler.error ("305", context,
 							"Expiry date must be after trade date.",
@@ -1781,7 +1777,7 @@ public final class FxRules extends FpMLRuleSet
 							if (less (toDate (tradeDate), toDate (value1Date))) continue;
 							
 							errorHandler.error ("305", context,
-									"value date must be after trade date.",
+									"value1date must be after trade date.",
 									getName (), toToken (value1Date));
 							
 							result = false;
@@ -1791,7 +1787,7 @@ public final class FxRules extends FpMLRuleSet
 							if (less (toDate (tradeDate), toDate (value2Date))) continue;
 							
 							errorHandler.error ("305", context,
-									"value date must be after trade date.",
+									"value2date must be after trade date.",
 									getName (), toToken (value2Date));
 							
 							result = false;
@@ -1852,7 +1848,7 @@ public final class FxRules extends FpMLRuleSet
 								if (less (toDate (tradeDate), toDate (value1Date))) continue;
 								
 								errorHandler.error ("305", leg,
-										"value date must be after trade date.",
+										"value1date must be after trade date.",
 										getName (), toToken (value1Date));
 								
 								result = false;
@@ -1862,7 +1858,7 @@ public final class FxRules extends FpMLRuleSet
 								if (less (toDate (tradeDate), toDate (value2Date))) continue;
 								
 								errorHandler.error ("305", leg,
-										"value date must be after trade date.",
+										"value2date must be after trade date.",
 										getName (), toToken (value2Date));
 								
 								result = false;
@@ -2134,7 +2130,7 @@ public final class FxRules extends FpMLRuleSet
 					Element		basis	= XPath.path (context, "currency1SideRate", "sideRateBasis");
 					
 					if ((basis == null) ||
-						toToken (basis).equalsIgnoreCase ("Currency1perBaseCurrency") || 
+						toToken (basis).equalsIgnoreCase ("Currency1PerBaseCurrency") || 
 						toToken (basis).equalsIgnoreCase ("BaseCurrencyPerCurrency1")) continue;
 					
 					errorHandler.error ("305", context,
@@ -2176,7 +2172,7 @@ public final class FxRules extends FpMLRuleSet
 					Element		basis	= XPath.path (context, "currency2SideRate", "sideRateBasis");
 					
 					if ((basis == null) ||
-						toToken (basis).equalsIgnoreCase ("Currency2perBaseCurrency") || 
+						toToken (basis).equalsIgnoreCase ("Currency2PerBaseCurrency") || 
 						toToken (basis).equalsIgnoreCase ("BaseCurrencyPerCurrency2")) continue;
 					
 					errorHandler.error ("305", context,

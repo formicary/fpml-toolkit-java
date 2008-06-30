@@ -40,6 +40,7 @@ public final class RuleSet extends Validator
 	 * Constructs an unnamed empty <CODE>RuleSet</CODE>.
 	 * 
 	 * @since 	TFP 1.0
+	 * @deprecated
 	 */
 	public RuleSet ()
 	{

@@ -978,7 +978,7 @@ public final class EqdRules extends FpMLRuleSet
 	 * validation rules for equity derivative products.
 	 * @since	TFP 1.0
 	 */
-	private static final RuleSet	rules = new RuleSet ();
+	private static final RuleSet	rules = RuleSet.forName ("EqdRules");
 	
 	/**
 	 * Ensures no instances can be created.
