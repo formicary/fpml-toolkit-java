@@ -28,7 +28,6 @@ import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.xml.DOM;
 import com.handcoded.xml.Logic;
 import com.handcoded.xml.NodeIndex;
-import com.handcoded.xml.Types;
 import com.handcoded.xml.XPath;
 
 /**
@@ -57,8 +56,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
@@ -87,50 +92,56 @@ public final class CdsRules extends Logic
 			}
 		};
 
-		/**
-		 * A <CODE>Rule</CODE> that ensures <CODE>tradeHeader/tradeDate</CODE> is before
-		 * <CODE>creditDefaultSwap/generalTerms/effectiveDate/unadjustedDate</CODE>.
-		 * <P>
-		 * Applies to FpML 4.0 and later.
-		 * @since	TFP 1.0
-		 */
-		public static final Rule	RULE01B
-			= new Rule (Preconditions.R4_0__LATER, "cd-1b")
+	/**
+	 * A <CODE>Rule</CODE> that ensures <CODE>tradeHeader/tradeDate</CODE> is before
+	 * <CODE>creditDefaultSwap/generalTerms/effectiveDate/unadjustedDate</CODE>.
+	 * <P>
+	 * Applies to FpML 4.0 and later.
+	 * @since	TFP 1.0
+	 */
+	public static final Rule	RULE01B
+		= new Rule (Preconditions.R4_0__LATER, "cd-1b")
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
-				/**
-				 * {@inheritDoc}
-				 */
-				public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
-				{
-					boolean		result 	= true;
-					NodeList	list 	= nodeIndex.getElementsByName ("trade");
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result 	= true;
 
-					for (int index = 0; index < list.getLength (); ++index) {
-						Element		context = (Element) list.item (index);
+				for (int index = 0; index < list.getLength (); ++index) {
+					Element		context = (Element) list.item (index);
 
-						Element		creditDefaultSwap
-							= DOM.getElementByLocalName (context, "creditDefaultSwap");
+					Element		creditDefaultSwap
+						= DOM.getElementByLocalName (context, "creditDefaultSwap");
 
-						if ((creditDefaultSwap == null) || !isCreditIndex (creditDefaultSwap)) continue;
+					if ((creditDefaultSwap == null) || !isCreditIndex (creditDefaultSwap)) continue;
 
-						try {
-							Date tradeDate		= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (context, "tradeHeader", "tradeDate")));
-							Date effectiveDate	= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (creditDefaultSwap, "generalTerms", "effectiveDate", "unadjustedDate")));
+					try {
+						Date tradeDate		= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (context, "tradeHeader", "tradeDate")));
+						Date effectiveDate	= Date.parse (DOM.getInnerText (DOM.getElementByLocalName (creditDefaultSwap, "generalTerms", "effectiveDate", "unadjustedDate")));
 
-							if (tradeDate.compareTo (effectiveDate) >= 0) continue;
+						if (tradeDate.compareTo (effectiveDate) >= 0) continue;
 
-							errorHandler.error ("305", context,
-									"The tradeHeader/tradeDate must not be before creditDefaultSwap/generalTerms/effectiveDate/unadjustedDate",
-									getName (), null);
-							result = false;
-						}
-						catch (IllegalArgumentException error) {
-							// Syntax errors handled elsewhere
-						}
+						errorHandler.error ("305", context,
+								"The tradeHeader/tradeDate must not be before creditDefaultSwap/generalTerms/effectiveDate/unadjustedDate",
+								getName (), null);
+						result = false;
 					}
-					return (result);
+					catch (IllegalArgumentException error) {
+						// Syntax errors handled elsewhere
+					}
 				}
-			};
+				return (result);
+			}
+		};
 
 	/**
 	 * A <CODE>Rule</CODE> that ensures if <CODE>calculationAgent</CODE> is present,
@@ -147,8 +158,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
@@ -194,8 +211,9 @@ public final class CdsRules extends Logic
 	 * A <CODE>Rule</CODE> that ensures contracts referencing ISDA 1999 definitions
 	 * do not use ISDA 2003 supplements.
 	 * <P>
-	 * Applies to FpML 4.0 and later.
+	 * Applies to FpML 4.0 and 4.1.
 	 * @since	TFP 1.0
+	 * @deprecated
 	 */
 	public static final Rule	RULE03
 		= new Rule (Preconditions.R4_0__LATER, "cd-3")
@@ -205,8 +223,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
@@ -218,16 +242,71 @@ public final class CdsRules extends Logic
 
 					if (!isIsda1999 (context)) continue;
 
-					Element		supplement
-						= DOM.getElementByLocalName (context, "documentation", "contractualSupplement");
+					NodeList	supplements
+						= XPath.paths (context, "documentation", "contractualSupplement");
 
-					if (supplement != null)
-						if (DOM.getInnerText (supplement).startsWith ("ISDA2003Credit")) {
-							errorHandler.error ("305", context,
+					for (int count = 0; count < supplements.getLength(); ++count) {
+						Element		supplement = (Element) supplements.item (count);
+						
+						if (toToken (supplement).startsWith ("ISDA2003Credit")) {
+							errorHandler.error ("305", supplement,
 								"The contractualSupplement name may not begin with ISDA2003Credit",
 								getName (), DOM.getInnerText (supplement));
 							result = false;
 						}
+					}
+				}
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures contracts referencing ISDA 1999 definitions
+	 * do not use ISDA 2003 supplements.
+	 * <P>
+	 * Applies to FpML 4.2 and later.
+	 * @since	TFP 1.0
+	 */
+	public static final Rule	RULE03B
+		= new Rule (Preconditions.R4_2__LATER, "cd-3b")
+		{		
+			/**
+			 * {@inheritDoc}
+			 */
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result 	= true;
+
+				for (int index = 0; index < list.getLength (); ++index) {
+					Element		context = (Element) list.item (index);
+
+					Element		creditDefaultSwap
+						= DOM.getElementByLocalName (context, "creditDefaultSwap");
+
+					if (creditDefaultSwap == null) continue;
+
+					if (!isIsda1999 (context)) continue;
+
+					NodeList	types
+						= XPath.paths (context, "documentation", "contractualTermsSupplement", "type");
+
+					for (int count = 0; count < types.getLength (); ++count) {
+						Element 	type = (Element) types.item (count);
+						
+						if (toToken (type).startsWith ("ISDA2003Credit")) {
+							errorHandler.error ("305", type,
+								"The contractualTermsSupplement/type may not begin with ISDA2003Credit",
+								getName (), toToken (type));
+							result = false;
+						}
+					}
 				}
 				return (result);
 			}
@@ -237,8 +316,9 @@ public final class CdsRules extends Logic
 	 * A <CODE>Rule</CODE> that ensures contracts referencing ISDA 2003 definitions
 	 * do not use ISDA 1999 supplements.
 	 * <P>
-	 * Applies to FpML 4.0 and later.
+	 * Applies to FpML 4.0 and 4.1.
 	 * @since	TFP 1.0
+	 * @deprecated
 	 */
 	public static final Rule	RULE04
 		= new Rule (Preconditions.R4_0__LATER, "cd-4")
@@ -248,8 +328,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
@@ -261,16 +347,71 @@ public final class CdsRules extends Logic
 
 					if (!isIsda2003 (context)) continue;
 
-					Element		supplement
-						= DOM.getElementByLocalName (context, "documentation", "contractualSupplement");
+					NodeList	supplements
+						= XPath.paths (context, "documentation", "contractualSupplement");
 
-					if (supplement != null)
+					for (int count = 0; count < supplements.getLength (); ++count) {
+						Element		supplement = (Element) supplements.item (count);
+						
 						if (DOM.getInnerText (supplement).startsWith ("ISDA1999Credit")) {
-							errorHandler.error ("305", context,
+							errorHandler.error ("305", supplement,
 								"The contractualSupplement name may not begin with ISDA1999Credit",
 								getName (), DOM.getInnerText (supplement));
 							result = false;
 						}
+					}
+				}
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures contracts referencing ISDA 2003 definitions
+	 * do not use ISDA 1999 supplements.
+	 * <P>
+	 * Applies to FpML 4.2 and later.
+	 * @since	TFP 1.0
+	 */
+	public static final Rule	RULE04B
+		= new Rule (Preconditions.R4_2__LATER, "cd-4b")
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result 	= true;
+
+				for (int index = 0; index < list.getLength (); ++index) {
+					Element		context = (Element) list.item (index);
+
+					Element		creditDefaultSwap
+						= DOM.getElementByLocalName (context, "creditDefaultSwap");
+
+					if (creditDefaultSwap == null) continue;
+
+					if (!isIsda2003 (context)) continue;
+
+					NodeList	types
+						= XPath.paths (context, "documentation", "contractualTermsSupplement", "type");
+
+					for (int count = 0; count < types.getLength (); ++count) {
+						Element		type = (Element) types.item (count);
+				
+						if (toToken (type).startsWith ("ISDA1999Credit")) {
+							errorHandler.error ("305", type,
+								"The contractualTermSupplement/type name may not begin with ISDA1999Credit",
+								getName (), DOM.getInnerText (type));
+							result = false;
+						}
+					}
 				}
 				return (result);
 			}
@@ -901,8 +1042,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
@@ -913,7 +1060,7 @@ public final class CdsRules extends Logic
 						result &=
 							  validate (context, XPath.path (context, "protectionTerms", "creditEvents", "creditEventNotice", "businessCenter"), errorHandler)
 							& validate (context, XPath.path (context, "protectionTerms", "creditEvents", "restructuring", "multipleHolderObligation"), errorHandler)
-							& validate (context, XPath.path (context, "protectionTerms", "creditEvents", "restructuring", "multiplCreditEventNotices"), errorHandler)
+							& validate (context, XPath.path (context, "protectionTerms", "creditEvents", "restructuring", "multipleCreditEventNotices"), errorHandler)
 							& validate (context, XPath.path (context, "generalTerms", "referenceInformation", "allGuarantees"), errorHandler)
 							& validate (context, XPath.path (context, "generalTerms", "indexReferenceInformation"), errorHandler)
 							& validate (context, XPath.path (context, "generalTerms", "substitution"), errorHandler)
@@ -951,8 +1098,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 					boolean		result 	= true;
-					NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 					for (int index = 0; index < list.getLength (); ++index) {
 						Element		trade = (Element) list.item (index);
@@ -989,8 +1142,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
@@ -1046,8 +1205,14 @@ public final class CdsRules extends Logic
 				 */
 				public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 				{
+					return (
+						  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+						& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+				}
+			
+				private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+				{
 					boolean		result 	= true;
-					NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 					for (int index = 0; index < list.getLength (); ++index) {
 						Element		trade = (Element) list.item (index);
@@ -1102,8 +1267,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
@@ -1119,7 +1290,7 @@ public final class CdsRules extends Logic
 								if (node instanceof Element) {
 									String name = node.getLocalName();
 
-									if (name.equals ("bankrupcy") ||
+									if (name.equals ("bankruptcy") ||
 										name.equals ("failureToPay") ||
 										name.equals ("repudiationMoratorium") ||
 										name.equals ("obligationDefault") ||
@@ -1154,8 +1325,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
@@ -1194,8 +1371,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
@@ -1247,8 +1430,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
@@ -1555,8 +1744,14 @@ public final class CdsRules extends Logic
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+		
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("trade");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		trade = (Element) list.item (index);
@@ -1810,7 +2005,7 @@ public final class CdsRules extends Logic
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					Element 	pool	= XPath.path (context, "generalTerm", "basketReferenceInformation",	"referencePool");
+					Element 	pool	= XPath.path (context, "generalTerms", "basketReferenceInformation",	"referencePool");
 					NodeList	items	= XPath.paths (pool, "referencePoolItem", "constituentWeight", "basketPercentage");
 
 					if (items.getLength() == 0) continue;
@@ -1819,7 +2014,7 @@ public final class CdsRules extends Logic
 					for (int count = 0; count < items.getLength (); ++count)
 						total = total.add (toDecimal (items.item (count)));
 
-					if (total.equals(BigDecimal.ONE)) continue;
+					if (equal (total, BigDecimal.ONE)) continue;
 
 					errorHandler.error ("305", pool,
 							"The sum of referencePoolItem/constituentWeight/basketPercentage should be equal to 1",
@@ -1896,12 +2091,11 @@ public final class CdsRules extends Logic
 
 			for (int index = 0; index < list.getLength (); ++index) {
 				Element		context = (Element) list.item (index);
-				Element		tranche	= XPath.path (context, "generalTerm", "basketReferenceInformation", "tranche");
-				Element		attach	= XPath.path (context, "attachmentPoint");
-				Element		exhaust	= XPath.path (context, "exhaustionPoint");
+				Element		tranche	= XPath.path (context, "generalTerms", "indexReferenceInformation", "tranche");
+				Element		attach	= XPath.path (tranche, "attachmentPoint");
+				Element		exhaust	= XPath.path (tranche, "exhaustionPoint");
 
-				if ((attach == null) || (exhaust == null) ||
-						(toDecimal (attach).compareTo (toDecimal (exhaust)) <= 0)) continue;
+				if ((attach == null) || (exhaust == null) || lessOrEqual (toDecimal (attach), toDecimal (exhaust))) continue;
 
 				errorHandler.error ("305", tranche,
 						"attachmentPoint must be less than or equal to exhaustionPoint.",
@@ -2151,10 +2345,9 @@ public final class CdsRules extends Logic
 			if (exists (XPath.path (trade, "documentation", "contractualMatrix")))
 				return (true);
 
-			if ((target = XPath.path (trade, "documentation", "contractualTermsSupplement")) != null) {
-				String	value = DOM.getInnerText (target).trim ();
-				if (value.startsWith ("iTraxx") ||
-					value.startsWith ("CDX"))
+			if ((target = XPath.path (trade, "documentation", "contractualTermsSupplement", "type")) != null) {
+				String	value = toToken (target);
+				if (value.startsWith ("iTraxx") ||	value.startsWith ("CDX"))
 					return (true);
 			}
 		}
