@@ -26,7 +26,6 @@ import com.handcoded.validation.RuleSet;
 import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.xml.DOM;
 import com.handcoded.xml.NodeIndex;
-import com.handcoded.xml.Types;
 import com.handcoded.xml.XPath;
 
 /**
@@ -46,7 +45,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	private static final Rule	RULE01 = new Rule ("ird-1")
+	public static final Rule	RULE01 = new Rule ("ird-1")
 		{
 			/**
 			 * {@inheritDoc}
@@ -586,6 +585,8 @@ public final class IrdRules extends FpMLRuleSet
 
 					int		rollDate = toInteger (rollConvention);
 					Date	end	 = toDate (endDate);
+					
+					if (end == null) continue;
 
 					if (rollDate < end.lastDayOfMonth ()) {
 						if (rollDate == end.dayOfMonth ()) continue;

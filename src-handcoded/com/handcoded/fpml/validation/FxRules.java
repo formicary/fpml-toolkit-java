@@ -28,7 +28,6 @@ import com.handcoded.validation.RuleSet;
 import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.xml.DOM;
 import com.handcoded.xml.NodeIndex;
-import com.handcoded.xml.Types;
 import com.handcoded.xml.XPath;
 
 /**
@@ -913,11 +912,8 @@ public final class FxRules extends FpMLRuleSet
 					Element		ccy1	= XPath.path (context, "exchangedCurrency1", "paymentAmount", "currency");
 					Element		ccy2	= XPath.path (context, "exchangedCurrency2", "paymentAmount", "currency");
 					
-					if ((ccy1 == null) || (ccy2 == null)) continue;
+					if ((ccy1 == null) || (ccy2 == null) || !isSameCurrency (ccy1, ccy2)) continue;
 					
-					// TODO check currency scheme as well
-					if (notEqual (ccy1, ccy2)) continue;
-										
 					errorHandler.error ("305", context,
 							"Exchanged currencies must be different.",
 							getName (), null);
@@ -1095,11 +1091,8 @@ public final class FxRules extends FpMLRuleSet
 					Element		ccy1	= XPath.path (context, "putCurrencyAmount", "currency");
 					Element		ccy2	= XPath.path (context, "callCurrencyAmount", "currency");
 					
-					if ((ccy1 == null) || (ccy2 == null)) continue;
+					if ((ccy1 == null) || (ccy2 == null) || !isSameCurrency (ccy1, ccy2)) continue;
 					
-					// TODO check currency scheme as well
-					if (notEqual (ccy1, ccy2)) continue;
-										
 					errorHandler.error ("305", context,
 							"Put and call currencies must be different.",
 							getName (), null);
@@ -1269,11 +1262,8 @@ public final class FxRules extends FpMLRuleSet
 					Element		ccy1	= XPath.path (context, "currency1");
 					Element		ccy2	= XPath.path (context, "currency2");
 					
-					if ((ccy1 == null) || (ccy2 == null)) continue;
+					if ((ccy1 == null) || (ccy2 == null) || !isSameCurrency (ccy1, ccy2)) continue;
 					
-					// TODO check currency scheme as well
-					if (notEqual (ccy1, ccy2)) continue;
-										
 					errorHandler.error ("305", context,
 							"Currencies must be different.",
 							getName (), null);
@@ -1443,9 +1433,7 @@ public final class FxRules extends FpMLRuleSet
 					Element		ccy2	= XPath.path (context, "currency2SideRate", "currency");
 					
 					if ((base == null) || (ccy1 == null) || (ccy2 == null)) continue;
-					
-					// TODO handle currency scheme
-					if (notEqual (base, ccy1) && notEqual (base, ccy2)) continue;
+					if (!isSameCurrency (base, ccy1) && !isSameCurrency (base, ccy2)) continue;
 					
 					errorHandler.error ("305", context,
 							"The base currency must be different from the side rate currencies.",
@@ -1465,8 +1453,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE33
-		= new Rule (Preconditions.R4_0__LATER, "fx-33")
+	public static final Rule 	RULE32
+		= new Rule (Preconditions.R4_0__LATER, "fx-32")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1508,8 +1496,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE34
-		= new Rule (Preconditions.R4_0__LATER, "fx-34")
+	public static final Rule 	RULE33
+		= new Rule (Preconditions.R4_0__LATER, "fx-33")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1550,8 +1538,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE35
-		= new Rule (Preconditions.R4_0__LATER, "fx-35")
+	public static final Rule 	RULE34
+		= new Rule (Preconditions.R4_0__LATER, "fx-34")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1590,8 +1578,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE36
-		= new Rule (Preconditions.R4_0__LATER, "fx-36")
+	public static final Rule 	RULE35
+		= new Rule (Preconditions.R4_0__LATER, "fx-35")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1629,8 +1617,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE37
-		= new Rule (Preconditions.R3_0__LATER, "fx-37")
+	public static final Rule	RULE36
+		= new Rule (Preconditions.R3_0__LATER, "fx-36")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1671,8 +1659,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE38
-		= new Rule (Preconditions.R3_0__LATER, "fx-38")
+	public static final Rule	RULE37
+		= new Rule (Preconditions.R3_0__LATER, "fx-37")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1713,8 +1701,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE39
-		= new Rule (Preconditions.R3_0__LATER, "fx-39")
+	public static final Rule	RULE38
+		= new Rule (Preconditions.R3_0__LATER, "fx-38")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1755,8 +1743,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE40
-		= new Rule (Preconditions.R3_0__LATER, "fx-40")
+	public static final Rule	RULE39
+		= new Rule (Preconditions.R3_0__LATER, "fx-39")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1822,8 +1810,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE41
-		= new Rule (Preconditions.R3_0__LATER, "fx-41")
+	public static final Rule	RULE40
+		= new Rule (Preconditions.R3_0__LATER, "fx-40")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1893,8 +1881,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE42
-		= new Rule (Preconditions.R3_0__LATER, "fx-42")
+	public static final Rule 	RULE41
+		= new Rule (Preconditions.R3_0__LATER, "fx-41")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1935,8 +1923,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE43
-		= new Rule (Preconditions.R3_0__LATER, "fx-43")
+	public static final Rule 	RULE42
+		= new Rule (Preconditions.R3_0__LATER, "fx-42")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1986,8 +1974,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE44
-		= new Rule (Preconditions.R3_0__LATER, "fx-44")
+	public static final Rule	RULE43
+		= new Rule (Preconditions.R3_0__LATER, "fx-43")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2009,11 +1997,8 @@ public final class FxRules extends FpMLRuleSet
 					Element		ccy1	= XPath.path (context, "putCurrencyAmount", "currency");
 					Element		ccy2	= XPath.path (context, "callCurrencyAmount", "currency");
 					
-					if ((ccy1 == null) || (ccy2 == null)) continue;
-					
-					// TODO check currency scheme as well
-					if (notEqual (ccy1, ccy2)) continue;
-										
+					if ((ccy1 == null) || (ccy2 == null) || !isSameCurrency (ccy1, ccy2)) continue;
+													
 					errorHandler.error ("305", context,
 							"Put and call currencies must be different.",
 							getName (), null);
@@ -2031,8 +2016,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE45
-		= new Rule (Preconditions.R3_0__LATER, "fx-45")
+	public static final Rule	RULE44
+		= new Rule (Preconditions.R3_0__LATER, "fx-44")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2079,8 +2064,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE46
-		= new Rule (Preconditions.R3_0__LATER, "fx-46")
+	public static final Rule	RULE45
+		= new Rule (Preconditions.R3_0__LATER, "fx-45")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2128,8 +2113,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE47
-		= new Rule (Preconditions.R3_0__LATER, "fx-47")
+	public static final Rule 	RULE46
+		= new Rule (Preconditions.R3_0__LATER, "fx-46")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2170,8 +2155,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE48
-		= new Rule (Preconditions.R3_0__LATER, "fx-48")
+	public static final Rule 	RULE47
+		= new Rule (Preconditions.R3_0__LATER, "fx-47")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{

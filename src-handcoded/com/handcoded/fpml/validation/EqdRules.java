@@ -20,9 +20,7 @@ import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
 import com.handcoded.validation.ValidationErrorHandler;
 import com.handcoded.xml.DOM;
-import com.handcoded.xml.Logic;
 import com.handcoded.xml.NodeIndex;
-import com.handcoded.xml.Types;
 import com.handcoded.xml.XPath;
 
 /**
@@ -34,48 +32,8 @@ import com.handcoded.xml.XPath;
  * @version	$Id$
  * @since	TFP 1.0
  */
-public final class EqdRules extends Logic
+public final class EqdRules extends FpMLRuleSet
 {
-	/**
-	 * A <CODE>Rule</CODE> instance that ensures the unadjusted commencement
-	 *date is the same as the trade date for american options.
-	 * <P>
-	 * Applies to FpML 4.0 and later.
-	 * @since	TFP 1.0
-	 */
-	public static final Rule	RULE01	= new Rule (Preconditions.R4_0__LATER, "eqd-1")
-		{
-			/**
-			 * {@inheritDoc}
-			 */
-			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
-			{
-				return (validate (nodeIndex.getElementsByName("equityAmericanExercise"), errorHandler));
-			}
-			
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
-			{
-				boolean		result	= true;
-
-				for (int index = 0; index < list.getLength (); ++index) {
-					Element context 	= (Element) list.item (index);
-					Element	commence	= XPath.path (context, "commencementDate", "adjustableDate", "unadjustedDate");
-					Element	trade		= XPath.path (context, "..", "..", "..", "tradeHeader", "tradeDate");
-
-					if ((commence == null) || (trade == null) || equal (toDate (commence), toDate (trade)))
-						continue;
-
-					errorHandler.error ("305", context,
-						"American exercise commencement date " + toToken (commence) +
-						" should be the same as trade date " + toToken (trade),
-						getName (), null);
-
-					result = false;
-				}
-				return (result);
-			}
-		};
-
 	/**
 	 * A <CODE>Rule</CODE> instance that ensures the unadjusted expiration
 	 * date is after the trade date for american options.
@@ -599,45 +557,6 @@ public final class EqdRules extends Logic
 		};
 
 	/**
-	 * A <CODE>Rule</CODE> instance that ensures the minimum number of options
-	 * is less than the maximum.
-	 * <P>
-	 * Applies to FpML 4.0 and later.
-	 * @since	TFP 1.0
-	 */
-	public static final Rule	RULE16	= new Rule (Preconditions.R4_0__LATER, "eqd-16")
-		{
-			/**
-			 * {@inheritDoc}
-			 */
-			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
-			{
-				return (validate (nodeIndex.getElementsByName ("equityMultipleExercise"), errorHandler));
-			}
-			
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
-			{
-				boolean		result	= true;
-				
-				for (int index = 0; index < list.getLength (); ++index) {
-					Element context = (Element) list.item (index);
-					Element	minimum = XPath.path (context, "minimumNumberOfOptions");
-					Element	maximum = XPath.path (context, "maximumNumberOfOptions");
-
-					if ((minimum == null) || (maximum == null) || less (toDecimal (minimum), toDecimal (maximum)))
-						continue;
-
-					errorHandler.error ("305", context,
-						"Minimum number of options must be less than the maximum number",
-						getName (), null);
-
-					result = false;
-				}
-				return (result);
-			}
-		};
-
-	/**
 	 * A <CODE>Rule</CODE> instance that ensures the number of options in
 	 * a multiple exercise American option is correct.
 	 * <P>
@@ -756,14 +675,14 @@ public final class EqdRules extends Logic
 				
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
-					Element	notional	= XPath.path (context, "notional");
-					Element	payment		= XPath.path (context, "equityPremium", "paymentAmount");
+					Element	notionalCcy	= XPath.path (context, "notional", "currency");
+					Element	paymentCcy	= XPath.path (context, "equityPremium", "paymentAmount", "currency");
 					
-					if (!isSameCurrency (notional, payment)) continue;
+					if ((notionalCcy == null) || (paymentCcy == null) || !isSameCurrency (notionalCcy, paymentCcy)) continue;
 					
-					Element	totalValue	= XPath.path (notional, "amount");
+					Element	totalValue	= XPath.path (context, "notional", "amount");
 					Element	percentage	= XPath.path (context, "equityPremium", "percentageOfNotional");
-					Element	amount		= XPath.path (payment, "amount");
+					Element	amount		= XPath.path (context, "equityPremium", "paymentAmount", "amount");
 
 					if ((totalValue == null) || (percentage == null) || (amount == null) ||
 						equal (round (toDecimal (amount), 2), round (toDecimal (totalValue).multiply (toDecimal (percentage)), 2)))
@@ -804,15 +723,15 @@ public final class EqdRules extends Logic
 				
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
-					Element	price		= XPath.path (context, "equityPremium", "pricePerOption");
-					Element	payment		= XPath.path (context, "equityPremium", "paymentAmount");
+					Element	priceCcy	= XPath.path (context, "equityPremium", "pricePerOption", "currency");
+					Element	paymentCcy	= XPath.path (context, "equityPremium", "paymentAmount", "currency");
 					
-					if (!isSameCurrency (price, payment)) continue;
+					if ((priceCcy == null) || (paymentCcy == null) || !isSameCurrency (priceCcy, paymentCcy)) continue;
 					
 					Element	number		= XPath.path (context, "numberOfOptions");
 					Element	entitlement	= XPath.path (context, "optionEntitlement");
-					Element	priceEach	= XPath.path (price, "amount");
-					Element	amount		= XPath.path (payment, "amount");
+					Element	priceEach	= XPath.path (context, "equityPremium", "pricePerOption", "amount");
+					Element	amount		= XPath.path (context, "equityPremium", "paymentAmount", "amount");
 
 					if ((number == null) || (entitlement == null) || (priceEach == null) || (amount == null) ||
 						equal (round (toDecimal (amount), 2), round (toDecimal (priceEach).multiply (toDecimal (number)).multiply (toDecimal (entitlement)), 2)))
@@ -1019,14 +938,14 @@ public final class EqdRules extends Logic
 				
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context		= (Element) list.item (index);
-					Element	price		= XPath.path (context, "equityPremium", "pricePerOption");
-					Element	payment		= XPath.path (context, "equityPremium", "paymentAmount");
+					Element	priceCcy	= XPath.path (context, "equityPremium", "pricePerOption");
+					Element	paymentCcy	= XPath.path (context, "equityPremium", "paymentAmount");
 					
-					if (!isSameCurrency (price, payment)) continue;
+					if ((priceCcy == null) || (paymentCcy == null) || !isSameCurrency (priceCcy, paymentCcy)) continue;
 					
 					Element	number		= XPath.path (context, "numberOfOptions");
-					Element	priceEach	= XPath.path (price, "amount");
-					Element	amount		= XPath.path (payment, "amount");
+					Element	priceEach	= XPath.path (context, "equityPremium", "pricePerOption", "amount");
+					Element	amount		= XPath.path (context, "equityPremium", "paymentAmount", "amount");
 
 					if ((number == null) || (priceEach == null) || (amount == null) ||
 						equal (round (toDecimal (amount), 2), round (toDecimal (priceEach).multiply (toDecimal (number)), 2)))
@@ -1067,19 +986,4 @@ public final class EqdRules extends Logic
 	 */
 	private EqdRules ()
 	{ }
-	
-	/**
-	 * Determine if two <CODE>Element</CODE> structures containing
-	 * <B>Money</B> instances have the same currency code.
-	 * 
-	 * @param	moneyA			The <CODE>Element</CODE> containing the first <B>Money</B>.
-	 * @param	moneyB			The <CODE>Element</CODE> containing the second <B>Money</B>.
-	 * @return	<CODE>true</CODE> if both <B>Money</B> structures have the same currency.
-	 * @since	TFP 1.1
-	 */
-	private static boolean isSameCurrency (Element moneyA, Element moneyB)
-	{
-		return (equal (XPath.path (moneyA, "currency"),
-					   XPath.path (moneyB, "currency")));
-	}
 }

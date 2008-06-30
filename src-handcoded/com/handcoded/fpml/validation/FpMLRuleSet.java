@@ -17,6 +17,7 @@ import org.w3c.dom.Element;
 
 import com.handcoded.finance.Interval;
 import com.handcoded.finance.Period;
+import com.handcoded.xml.DOM;
 import com.handcoded.xml.Logic;
 import com.handcoded.xml.NodeIndex;
 import com.handcoded.xml.XPath;
@@ -37,6 +38,27 @@ public abstract class FpMLRuleSet extends Logic
 	 */
 	protected FpMLRuleSet ()
 	{ }
+	
+	/**
+	 * Determine if two <CODE>Element</CODE> structures containing
+	 * <B>currency</B> instances have the same currency codes belonging to
+	 * the same currency code scheme.
+	 * 
+	 * @param	ccy1			The first currency <CODE>Element</CODE>.
+	 * @param	ccy2			The second currency <CODE>Element</CODE>.
+	 * @return	<CODE>true</CODE> if both <B>currency</B> structures have the same code.
+	 * @since	TFP 1.2
+	 */
+	protected static boolean isSameCurrency (final Element ccy1, final Element ccy2)
+	{
+		String		uri1	= DOM.getAttribute (ccy1, "currencyScheme");
+		String		uri2	= DOM.getAttribute (ccy2, "currencyScheme");
+		
+		if ((uri1 != null) && (uri2 != null) && uri1.equals (uri2))
+			return (equal (ccy1, ccy2));
+		
+		return (false);
+	}
 	
 	/**
 	 * Extracts an <CODE>Interval</CODE> from the data stored below the
