@@ -315,7 +315,6 @@ public final class LoanRules extends FpMLRuleSet
 		}
 	};
 	
-	
 	/**
 	 * Provides access to the Loan validation rule set.
 	 *
@@ -340,19 +339,4 @@ public final class LoanRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	private static final RuleSet	rules = RuleSet.forName ("LoanRules");
-	
-	/**
-	 * Determine if two <CODE>Element</CODE> structures containing
-	 * <B>Money</B> instances have the same currency code.
-	 * 
-	 * @param	moneyA			The <CODE>Element</CODE> containing the first <B>Money</B>.
-	 * @param	moneyB			The <CODE>Element</CODE> containing the second <B>Money</B>.
-	 * @return	<CODE>true</CODE> if both <B>Money</B> structures have the same currency.
-	 * @since	TFP 1.1
-	 */
-	private static boolean isSameCurrency (Element moneyA, Element moneyB)
-	{
-		return (equal (XPath.path (moneyA, "currency"),
-					   XPath.path (moneyB, "currency")));
-	}
 }
