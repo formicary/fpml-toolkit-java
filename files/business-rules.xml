@@ -12,6 +12,7 @@
 	<forceLoad platform="Java" class="com.handcoded.fpml.validation.BusinessProcessRules"/>
 	<forceLoad platform="Java" class="com.handcoded.fpml.validation.PricingAndRiskRules"/>
 	<forceLoad platform="Java" class="com.handcoded.fpml.validation.ReferenceRules"/>
+	<forceLoad platform="Java" class="com.handcoded.fpml.validation.LoanRules"/>
 	
 	<forceLoad platform="Java" class="com.handcoded.fpml.validation.SchemeRules"/>
 	<forceLoad platform="Java" class="com.handcoded.fpml.validation.DataTypeRules"/>
@@ -233,6 +234,15 @@
 		<addRule name="shared-17"/>
 	</ruleSet>
 	
+	<ruleSet name="LoanRules">
+		<addRule name="ln-1"/>
+		<addRule name="ln-2"/>
+		<addRule name="ln-3"/>
+		<addRule name="ln-4"/>
+		<addRule name="ln-5"/>
+		<addRule name="ln-10"/>
+	</ruleSet>
+	
 	<!-- HandCoded Rule Sets -->
 	<ruleSet name="DataTypeRules">
 		<addRule name="datatype-1"/>
@@ -329,6 +339,7 @@
 		<addRuleSet name="CdsRules"/>
 		<addRuleSet name="EqdRules"/>
 		<addRuleSet name="SharedRules"/>
+		<addRuleSet name="LoanRules"/>
 		<!-- <addRuleSet name="BusinessProcessRules"/> -->
 		<!-- <addRuleSet name="PricingAndRiskRules"/> -->
 		<!-- <addRuleSet name="ReferenceRules"/> -->
