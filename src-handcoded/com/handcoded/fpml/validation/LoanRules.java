@@ -92,10 +92,10 @@ public final class LoanRules extends FpMLRuleSet
 		{
 			if (nodeIndex.hasTypeInformation()) 
 				return (
-					  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "LoanContract"), errorHandler));					
+					  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "DrawdownNotice"), errorHandler));					
 				
 			return (
-				  validate (nodeIndex.getElementsByName ("loanContract"), errorHandler));
+					  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "DrawdownNotice"), errorHandler));
 		}
 		
 		private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
@@ -104,16 +104,18 @@ public final class LoanRules extends FpMLRuleSet
 			
 			for (int index = 0; index < list.getLength(); ++index) {
 				Element		context = (Element) list.item (index);
-				Element		effective	= XPath.path (context, "effectiveDate");
-				Element		fixingDate	= XPath.path (context, "currentInterestRatePeriod", "rateFixingDate");
-				Element		rateIndex	= XPath.path (context, "currentInterestRatePeriod", "floatingRateIndex");
+				if (exists (XPath.path (context, "loanContract"))){
+					Element		effective	= XPath.path (context, "loanContract", "effectiveDate");
+					Element		fixingDate	= XPath.path (context, "loanContract", "currentInterestRatePeriod", "rateFixingDate");
+					Element		rateIndex	= XPath.path (context, "loanContract", "currentInterestRatePeriod", "floatingRateIndex");
 				
-				if ((fixingDate != null) && (effective != null) && (DOM.getInnerText (rateIndex).contains("PRIME"))) {
-					if (notEqual (toDate (fixingDate) , toDate (effective))){
-						errorHandler.error ("305", context,
+					if ((fixingDate != null) && (effective != null) && (DOM.getInnerText (rateIndex).contains("PRIME"))) {
+						if (notEqual (toDate (fixingDate) , toDate (effective))){
+							errorHandler.error ("305", context,
 								"If the floatingRateIndex contains the string 'PRIME' then the currentInterestRatePeriod/rateFixingDate must be the same as the effectiveDate",
 								getName (), null);
-						result = false;
+							result = false;
+						}
 					}
 				}
 			}
@@ -286,7 +288,7 @@ public final class LoanRules extends FpMLRuleSet
 					  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FacilityNotice"), errorHandler));					
 				
 			return (
-				  validate (nodeIndex.getElementsByName ("facilityNotice"), errorHandler));
+					  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FacilityNotice"), errorHandler));					
 		}
 		
 		private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
