@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -25,7 +25,7 @@ import com.handcoded.xml.XPath;
 
 /**
  * The <CODE>ProductType</CODE> class contains a set of <CODE>Category</CODE>
- * instance configured to classify standard FpML product types.
+ * instances configured to classify standard FpML product types.
  * <P>
  * In addition to specific product types a number of 'abstract' categories
  * are defined such as <CODE>(OPTION)</CODE> and <CODE>(INTEREST RATE DERIVATIVE)
@@ -56,7 +56,21 @@ public final class ProductType
 	 * @since	TFP 1.0
 	 */
 	public static final Category	STRUCTURED_PRODUCT
-		= new AbstractCategory ("(STRUCTURED PRODUCT)", PRODUCT_TYPE);
+		= new RefinableCategory ("(STRUCTURED PRODUCT)", PRODUCT_TYPE)
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable(final Object value)
+			{
+				Document	document = ((Element) value).getOwnerDocument ();
+				
+				if (Releases.FPML.getReleaseForDocument (document) == Releases.R1_0)
+					return (XPath.path ((Element) value, "product", "strategy") != null);
+				else
+					return (XPath.path ((Element) value, "strategy") != null);
+			}
+		};
 
 	/**
 	 * A <CODE>Category</CODE> representing all swaps.
@@ -107,7 +121,7 @@ public final class ProductType
 	 * @since  	TFP 1.0
 	 */
 	public static final Category FX_SPOT
-		= new RefinableCategory ("FX_SPOT", FX_SPOT_FORWARD)
+		= new RefinableCategory ("FX SPOT", FX_SPOT_FORWARD)
 		{
 			/**
 			 * {@inheritDoc}
@@ -123,7 +137,7 @@ public final class ProductType
 	 * @since  	TFP 1.0
 	 */
 	public static final Category FX_FORWARD
-		= new RefinableCategory ("FX_FORWARD", 
+		= new RefinableCategory ("FX FORWARD", 
 				new Category [] { FX_SPOT_FORWARD, FORWARD })
 		{
 			/**
@@ -136,20 +150,43 @@ public final class ProductType
 		};
 	
 	/**
-	 * A <CODE>Category</CODE> representing all foreign exchange options.
+	 * A <CODE>Category</CODE> representing all foreign exchange forward deals.
 	 * @since  	TFP 1.0
 	 */
-	public static final Category FX_OPTION
-		= new RefinableCategory ("FX_OPTION", 
-				new Category [] { FOREIGN_EXCHANGE, OPTION })
+	public static final Category FX_SWAP
+		= new RefinableCategory ("FX SWAP", 
+				new Category [] { FOREIGN_EXCHANGE, SWAP })
 		{
 			/**
 			 * {@inheritDoc}
 			 */
 			protected boolean isApplicable (final Object value)
 			{
-				return ((XPath.path ((Element) value, "fxSimpleOption") != null) ||
-						(XPath.path ((Element) value, "fxBarrierOption") != null));
+				return (XPath.path ((Element) value, "fxSwap") != null);
+			}
+		};
+		
+	/**
+	 * A <CODE>Category</CODE> representing all foreign exchange options.
+	 * @since  	TFP 1.0
+	 */
+	public static final Category FX_OPTION
+		= new AbstractCategory ("FX OPTION", 
+				new Category [] { FOREIGN_EXCHANGE, OPTION });
+	
+	/**
+	 * A <CODE>Category</CODE> representing all foreign exchange options.
+	 * @since  	TFP 1.0
+	 */
+	public static final Category FX_SIMPLE_OPTION
+		= new RefinableCategory ("FX SIMPLE OPTION", FX_OPTION)
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "fxSimpleOption") != null);
 			}
 		};
 	
@@ -158,7 +195,7 @@ public final class ProductType
 	 * @since  	TFP 1.0
 	 */
 	public static final Category FX_BARRIER_OPTION
-		= new RefinableCategory ("FX_BARRIER OPTION", FX_OPTION)
+		= new RefinableCategory ("FX BARRIER OPTION", FX_OPTION)
 		{
 			/**
 			 * {@inheritDoc}
@@ -174,7 +211,7 @@ public final class ProductType
 	 * @since  	TFP 1.1
 	 */
 	public static final Category FX_DIGITAL_OPTION
-		= new RefinableCategory ("FX_DIGITAL OPTION", FX_OPTION)
+		= new RefinableCategory ("FX DIGITAL OPTION", FX_OPTION)
 		{
 			/**
 			 * {@inheritDoc}
@@ -185,6 +222,59 @@ public final class ProductType
 			}
 		};
 			
+	/**
+	 * A <CODE>Category</CODE> representing all foreign exchange average rate
+	 * options.
+	 * @since  	TFP 1.2
+	 */
+	public static final Category FX_AVERATE_RATE_OPTION
+		= new RefinableCategory ("FX AVERAGE RATE OPTION", FX_OPTION)
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "fxAverageRateOption") != null);
+			}
+		};
+		
+	/**
+	 * A <CODE>Category</CODE> representing all foreign exchange option strategies.
+	 * @since  	TFP 1.2
+	 */
+	public static final Category FX_OPTION_STRATEGY
+		= new RefinableCategory ("FX OPTION STRATEGY",
+				new Category [] { FOREIGN_EXCHANGE, STRUCTURED_PRODUCT })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				NodeList	nodes = XPath.paths ((Element) value, "strategy", "*");
+				
+				if (nodes.getLength () > 0) {
+					for (int index = 0; index < nodes.getLength (); ++index) {
+						String localName = ((Element) nodes.item (index)).getLocalName ();
+
+						if (localName.equals ("productType")) continue;
+						if (localName.equals ("productId")) continue;
+						
+						if (localName.equals ("fxSingleLeg")) continue;
+						if (localName.equals ("fxSimpleOption")) continue;
+						if (localName.equals ("fxBarrierOption")) continue;
+						if (localName.equals ("fxDigitalOption")) continue;
+						if (localName.equals ("fxAverageRateOption")) continue;
+						
+						return (false);
+					}
+					return (true);
+				}
+				return (false);
+			}
+		};
+
 	/**
 	 * A <CODE>Category</CODE> representing all bullet payments.
 	 * @since 	TFP 1.0
@@ -207,6 +297,27 @@ public final class ProductType
 	 */
 	public static final Category	INTEREST_RATE_DERIVATIVE
 		= new AbstractCategory ("(INTEREST RATE DERIVATIVE)", PRODUCT_TYPE);
+
+	/**
+	 * A <CODE>Category</CODE> representing all forward rate agreements.
+	 * @since	TFP 1.0
+	 */
+	public static final Category	FORWARD_RATE_AGREEMENT
+		= new RefinableCategory ("FORWARD RATE AGREEMENT", INTEREST_RATE_DERIVATIVE)
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				Document	document = ((Element) value).getOwnerDocument ();
+				
+				if (Releases.FPML.getReleaseForDocument (document) == Releases.R1_0)
+					return (XPath.path ((Element) value, "product", "fra") != null);
+				else
+					return (XPath.path ((Element) value, "fra") != null);
+			}		
+		};
 
 	/**
 	 * A <CODE>Category</CODE> representing all interest rate swaps.
@@ -268,19 +379,22 @@ public final class ProductType
 		};
 
 	/**
-	 * A <CODE>Category</CODE> representing all inflation swap.
+	 * A <CODE>Category</CODE> representing all inflation swaps.
 	 * @since	TFP 1.0
 	 */
 	public static final Category	INFLATION_SWAP
-		= new RefinableCategory ("INFLATION SWAP", SWAP)
+		= new RefinableCategory ("INFLATION SWAP", INTEREST_RATE_SWAP)
 		{
 			/**
 			 * {@inheritDoc}
 			 */
 			protected boolean isApplicable (final Object value)
 			{
-				// TODO: Finish
-				return (false);
+				NodeList 	calcs = XPath.paths((Element) value,
+						"swap", "swapStream", "calculationPeriodAmount",
+						"calculation", "inflationRateCalculation");
+				
+				return (calcs.getLength () > 0);
 			}		
 		};
 			
@@ -466,28 +580,114 @@ public final class ProductType
 		};
 
 	/**
-	 * A <CODE>Category</CODE> representing all credit derivatives.
-	 * @since	TFP 1.0
+	 * A <CODE>Category</CODE> representing all equity correlation swaps.
+	 * @since	TFP 1.2
 	 */
-	public static final Category	CREDIT_DERIVATIVE
-		= new AbstractCategory ("(CREDIT DERIVATIVE)", PRODUCT_TYPE);
-	
-	/**
-	 * A <CODE>Category</CODE> representing all total return swaps.
-	 * @since	TFP 1.0
-	 */
-	public static final Category	TOTAL_RETURN_SWAP
-		= new RefinableCategory ("TOTAL RETURN SWAP", SWAP)
+	public static final Category	EQUITY_CORRELATION_SWAP
+		= new RefinableCategory ("EQUITY CORRELATION SWAP", 
+				new Category [] { EQUITY_DERIVATIVE, SWAP })
 		{
 			/**
 			 * {@inheritDoc}
 			 */
 			protected boolean isApplicable (final Object value)
 			{
-				return (false);
-			}		
+				return (XPath.path ((Element) value, "correlationSwap") != null);
+			}
 		};
-		
+
+	/**
+	 * A <CODE>Category</CODE> representing all equity correlation swaps.
+	 * @since	TFP 1.2
+	 */
+	public static final Category	EQUITY_DIVIDEND_SWAP
+		= new RefinableCategory ("EQUITY DIVIDEND SWAP", 
+				new Category [] { EQUITY_DERIVATIVE, SWAP })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "dividendSwapTransactionSupplement") != null);
+			}
+		};
+
+	/**
+	 * A <CODE>Category</CODE> representing all equity correlation swaps.
+	 * @since	TFP 1.2
+	 */
+	public static final Category	EQUITY_VARIANCE_SWAP
+		= new RefinableCategory ("EQUITY VARIANCE SWAP", 
+				new Category [] { EQUITY_DERIVATIVE, SWAP })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "varianceSwap") != null);
+			}
+		};
+
+	/**
+	 * A <CODE>Category</CODE> representing all equity total return swaps.
+	 * @since	TFP 1.2
+	 */
+	public static final Category	EQUITY_TOTAL_RETURN_SWAP
+		= new RefinableCategory ("EQUITY TOTAL RETURN SWAP", 
+				new Category [] { EQUITY_DERIVATIVE, SWAP })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "returnSwap") != null);
+			}
+		};
+
+	/**
+	 * A <CODE>Category</CODE> representing all equity return swaps.
+	 * @since	TFP 1.2
+	 */
+	public static final Category	EQUITY_SWAP_TRANSACTION_SUPPLEMENT
+		= new RefinableCategory ("EQUITY SWAP TRANSACTION SUPPLEMENT", 
+				new Category [] { EQUITY_DERIVATIVE, SWAP })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "equitySwapTransactionSupplement") != null);
+			}
+		};
+
+	/**
+	 * A <CODE>Category</CODE> representing all bond options.
+	 * @since	TFP 1.2
+	 */
+	public static final Category	BOND_OPTION
+		= new RefinableCategory ("BOND OPTION", 
+				new Category [] { INTEREST_RATE_DERIVATIVE, OPTION })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "bondOption") != null);
+			}
+		};
+
+	/**
+	 * A <CODE>Category</CODE> representing all credit derivatives.
+	 * @since	TFP 1.0
+	 */
+	public static final Category	CREDIT_DERIVATIVE
+		= new AbstractCategory ("(CREDIT DERIVATIVE)", PRODUCT_TYPE);
+	
 	/**
 	 * A <CODE>Category</CODE> representing all credit default swaps.
 	 * @since	TFP 1.0
@@ -506,28 +706,22 @@ public final class ProductType
 		};
 				
 	/**
-	 * A <CODE>Category</CODE> representing an asset swap.
-	 * @since	TFP 1.0
+	 * A <CODE>Category</CODE> representing all credit default swaptions.
+	 * @since	TFP 1.2
 	 */
-	public static final Category	ASSET_SWAP
-		= new AbstractCategory ("ASSET SWAP", SWAP);
-	
-	/**
-	 * A <CODE>Category</CODE> representing all forward rate agreements.
-	 * @since	TFP 1.0
-	 */
-	public static final Category	FORWARD_RATE_AGREEMENT
-		= new RefinableCategory ("FORWARD RATE AGREEMENT", INTEREST_RATE_DERIVATIVE)
+	public static final Category	CREDIT_DEFAULT_SWAPTION
+		= new RefinableCategory ("CREDIT DEFAULT SWAPTION",
+				new Category [] { CREDIT_DERIVATIVE, OPTION })
 		{
 			/**
 			 * {@inheritDoc}
 			 */
 			protected boolean isApplicable (final Object value)
 			{
-				return (XPath.path ((Element) value, "fra") != null);
+				return (XPath.path ((Element) value, "creditDefaultSwapOption") != null);
 			}		
 		};
-
+			
 	/**
 	 * Attempts to determine the type of product used within a trade.
 	 *

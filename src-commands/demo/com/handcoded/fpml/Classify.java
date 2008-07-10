@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -56,6 +56,8 @@ public class Classify extends Application
 	 */
 	protected void startUp ()
 	{
+		super.startUp ();
+		
 		if (getArguments ().length == 0) {
 			logger.severe ("No files are present on the command line");
 			System.exit (1);
@@ -74,6 +76,8 @@ public class Classify extends Application
 		Document		document;
 		NodeIndex		nodeIndex;
 		
+		arguments = findFiles (arguments);
+
 		try {
 			for (int index = 0; index < arguments.length; ++index) {
 				String filename = arguments [index];
