@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -341,7 +341,12 @@ public abstract class Window
 	 */
 	protected static Image loadImage (final String filename)
 	{
-		return (loadImageIcon (filename).getImage ());
+		try {
+			return (loadImageIcon (filename).getImage ());
+		}
+		catch (NullPointerException error) {
+			return (null);
+		}
 	}
 
 	/**
@@ -355,6 +360,11 @@ public abstract class Window
 	 */
 	protected static ImageIcon loadImageIcon (final String filename)
 	{
-		return (new ImageIcon (Window.class.getClassLoader().getResource (filename)));
+		try {
+			return (new ImageIcon (Window.class.getClassLoader().getResource (filename)));
+		}
+		catch (NullPointerException error) {
+			return (null);
+		}
 	}
 }
