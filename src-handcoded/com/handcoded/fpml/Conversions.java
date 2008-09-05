@@ -1321,6 +1321,83 @@ public final class Conversions
 	}
 
 	/**
+	 * The <CODE>R4_4__TR4_5</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.4 schema based document to 4.5 
+	 * 
+	 * @since	TFP 1.2
+	 */
+	public static class R4_4__R4_5 extends DirectConversion 
+	{
+		public R4_4__R4_5 ()
+		{
+			super (Releases.R4_4, Releases.R4_5);
+		}
+		
+		/**
+		 * {@inheritDoc}
+		 * @since	TFP 1.2
+		 */
+		public Document convert (Document source, Helper helper)
+		{
+			Document	target = getTargetRelease ().newInstance ("FpML");
+			Element			oldRoot = source.getDocumentElement ();
+			Element			newRoot	= target.getDocumentElement ();
+			
+			// Transfer the attributes
+			newRoot.setAttributeNS (Schema.INSTANCE_URL, "xsi:type", "DataDocument");
+			
+			// Transcribe each of the first level child elements
+			for (Node node = oldRoot.getFirstChild (); node != null;) {
+				transcribe (node, target, newRoot);
+				node = node.getNextSibling ();
+			}
+	
+			return (target);
+		}
+		
+		/**
+		 * Recursively copies the structure of the old document into a new 
+		 * document adjusting the elements and attributes as necessary.
+		 * 
+		 * @param 	context			The <CODE>node</CODE> to be copied.
+		 * @param 	document		The new <CODE>Document</CODE> instance.
+		 * @param 	parent			The new parent <CODE>Node</CODE>.
+		 * @since	TFP 1.2
+		 */
+		private void transcribe (Node context, Document document, Node parent)
+		{
+			switch (context.getNodeType ()) {
+			case Node.ELEMENT_NODE:
+				{
+					Element		element = (Element) context;
+					Element		clone;
+					
+					clone = document.createElementNS (null, element.getLocalName ());
+					
+					parent.appendChild (clone);
+				
+					NamedNodeMap	attrs = element.getAttributes ();
+					for (int index = 0; index < attrs.getLength (); ++index) {
+						Attr attr 	= (Attr) attrs.item (index);
+						
+						clone.setAttribute (attr.getName (), attr.getValue ());
+					}
+					
+					// Recursively copy the child node across
+					for (Node node = element.getFirstChild (); node != null;) {
+						transcribe (node, document, clone);
+						node = node.getNextSibling ();
+					}
+					break;
+				}
+				
+			default:
+				parent.appendChild (document.importNode (context, false));
+			}
+		}
+	}
+
+	/**
 	 * Ensures no instances can be constructed.
 	 * @since	TFP 1.0
 	 */

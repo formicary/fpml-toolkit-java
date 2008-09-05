@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -686,7 +686,7 @@ public final class Releases
 			
 	/**
 	 * A <CODE>SchemaRelease</CODE> instance containing the details for
-	 * FpML 4-3 working draft.
+	 * FpML 4-3 recommendation.
 	 * @since	TFP 1.0
 	 */
 	public static SchemaRelease	R4_3
@@ -742,13 +742,13 @@ public final class Releases
 	
 	/**
 	 * A <CODE>SchemaRelease</CODE> instance containing the details for
-	 * FpML 4-3 working draft.
+	 * FpML 4-4 recommendation.
 	 * @since	TFP 1.0
 	 */
 	public static SchemaRelease	R4_4
 		= new SchemaRelease (FPML, "4-4",
 				"http://www.fpml.org/2007/FpML-4-4", "fpml-main-4-4.xsd",
-				"fpml", "fpml4-3", initialiser, recogniser, "FpML",
+				"fpml", "fpml4-4", initialiser, recogniser, "FpML",
 				new SchemeDefaults (
 						new String [][] {
 							{	"assetMeasureScheme",
@@ -855,6 +855,122 @@ public final class Releases
 								"http://www.fpml.org/coding-scheme/trade-cashflows-status-1-0" }
 						}),
 						parseSchemes ("schemes4-4.xml"));
+
+	/**
+	 * A <CODE>SchemaRelease</CODE> instance containing the details for
+	 * FpML 4-4 recommendation.
+	 * @since	TFP 1.0
+	 */
+	public static SchemaRelease	R4_5
+		= new SchemaRelease (FPML, "4-5",
+				"http://www.fpml.org/2008/FpML-4-5", "fpml-main-4-5.xsd",
+				"fpml", "fpml4-5", initialiser, recogniser, "FpML",
+				new SchemeDefaults (
+						new String [][] {
+							{	"assetMeasureScheme",
+								"http://www.fpml.org/coding-scheme/asset-measure" },
+							{	"brokerConfirmationTypeScheme",
+								"http://www.fpml.org/coding-scheme/broker-confirmation-type" },
+							{	"businessCenterScheme",
+								"http://www.fpml.org/coding-scheme/business-center" },
+							{	"cashflowTypeScheme",
+								"http://www.fpml.org/coding-scheme/cashflow-type" },
+							{	"clearanceSystemIdScheme",
+								"http://www.fpml.org/coding-scheme/clearance-system" },
+							{	"compoundingFrequencyScheme",
+								"http://www.fpml.org/coding-scheme/compounding-frequency" },
+							{	"contractualDefinitionsScheme",
+								"http://www.fpml.org/coding-scheme/contractual-definitions" },
+							{	"contractualSupplementScheme",
+								"http://www.fpml.org/coding-scheme/contractual-supplement" },
+							{	"countryScheme",
+								"http://www.fpml.org/ext/iso3166" },
+							{	"couponTypeScheme",
+								"http://www.fpml.org/coding-scheme/coupon-type" },
+							{	"creditSeniorityScheme",
+								"http://www.fpml.org/coding-scheme/credit-seniority" },
+							{	"currencyScheme",
+								"http://www.fpml.org/ext/iso4217-2001-08-15" },
+							{	"cutNameScheme",
+								"http://www.fpml.org/coding-scheme/cut-name" },
+							{	"dayCountFractionScheme",
+								"http://www.fpml.org/coding-scheme/day-count-fraction" },
+							{	"derivativeCalculationMethodScheme",
+								"http://www.fpml.org/coding-scheme/derivative-calculation-method" },
+							{	"entityIdScheme",
+								"http://www.fpml.org/spec/2003/entity-id-RED" },
+							{	"entityNameScheme",
+								"http://www.fpml.org/spec/2003/entity-name-RED" },
+							{	"entityTypeScheme",
+								"http://www.fpml.org/coding-scheme/entity-type" },
+							{	"exchangeIdScheme",
+								"http://www.fpml.org/spec/2002/exchange-id-MIC" },
+							{	"facilityTypeScheme",
+								"http://www.fpml.org/coding-scheme/facility-type" },
+							{	"floatingRateIndexScheme",
+								"http://www.fpml.org/coding-scheme/floating-rate-index" },
+							{	"governingLawScheme",
+								"http://www.fpml.org/coding-scheme/governing-law" },
+							{	"indexAnnexSourceScheme",
+								"http://www.fpml.org/coding-scheme/cdx-index-annex-source" },
+							{	"informationProviderScheme",
+								"http://www.fpml.org/coding-scheme/information-provider" },
+							{	"interpolationMethodScheme",
+								"http://www.fpml.org/coding-scheme/interpolation-method" },
+							{	"lienScheme",
+								"http://www.fpml.org/coding-scheme/designated-priority" },
+							{	"loanTrancheScheme",
+								"http://www.fpml.org/coding-scheme/underlying-asset-tranche" },
+							{	"mainPublicationScheme",
+								"http://www.fpml.org/coding-scheme/inflation-main-publication" },
+							{	"marketDisruptionScheme",
+								"http://www.fpml.org/coding-scheme/market-disruption" },
+							{	"masterAgreementTypeScheme",
+								"http://www.fpml.org/coding-scheme/master-agreement-type" },
+							{	"masterConfirmationTypeScheme",
+								"http://www.fpml.org/coding-scheme/master-confirmation-type" },
+							{	"matrixTermScheme",
+								"http://www.fpml.org/coding-scheme/credit-matrix-transaction-type" },
+							{	"matrixTypeScheme",
+								"http://www.fpml.org/coding-scheme/matrix-type" },
+							{	"mortgageSectorScheme",
+								"http://www.fpml.org/coding-scheme/mortgage-sector" },
+							{	"partyIdScheme",
+								"http://www.fpml.org/ext/iso9362" },
+							{	"perturbationTypeScheme",
+								"http://www.fpml.org/coding-scheme/perturbation-type" },
+							{	"positionStatusScheme",
+								"http://www.fpml.org/coding-scheme/position-status" },
+							{	"priceQuoteUnitsScheme",
+								"http://www.fpml.org/coding-scheme/price-quote-units" },
+							{	"pricingInputTypeScheme",
+								"http://www.fpml.org/coding-scheme/pricing-input-type" },
+							{	"productTypeScheme",
+								"http://www.fpml.org/coding-scheme/product-type-simple" },
+							{	"queryParameterOperatorScheme",
+								"http://www.fpml.org/coding-scheme/query-parameter-operator" },
+							{	"quoteTimingScheme",
+								"http://www.fpml.org/coding-scheme/quote-timing" },
+							{	"reasonCodeScheme",
+								"http://www.fpml.org/coding-scheme/reason-code" },
+							{	"restructuringScheme",
+								"http://www.fpml.org/coding-scheme/restructuring" },
+							{ 	"routingIdScheme",
+								"http://www.fpml.org/ext/iso9362" },
+							{ 	"scheduledDateTypeScheme",
+								"http://www.fpml.org/coding-scheme/scheduled-date-type" },
+							{ 	"settledEntityMatrixSourceScheme",
+								"http://www.fpml.org/coding-scheme/settled-entity-matrix-source" },
+							{ 	"settlementMethodScheme",
+								"http://www.fpml.org/coding-scheme/settlement-method" },
+							{ 	"settlementPriceSourceScheme",
+								"http://www.fpml.org/coding-scheme/settlement-price-source" },
+							{ 	"spreadScheduleTypeScheme",
+								"http://www.fpml.org/coding-scheme/spread-schedule-type" },
+							{ 	"tradeCashflowsStatusScheme",
+								"http://www.fpml.org/coding-scheme/trade-cashflows-status" }
+						}),
+						parseSchemes ("schemes4-5.xml"));
 
 	/**
 	 * A <CODE>SchemaRelease</CODE> instance containing the details for
@@ -1177,6 +1293,17 @@ public final class Releases
 		= new Conversions.R4_3__R4_4 ();
 	
 	/**
+	 * A <CODE>Conversion</CODE> instance configured for FpML 4-4 to 4-5
+	 * transformation. The specific changes needed are:
+	 * <UL>
+	 * <LI>The FpML XML schema namespace URI is updated.</LI>
+	 * </UL>
+	 * @since	TFP 1.2
+	 */
+	public static final Conversion R4_4__R4_5
+		= new Conversions.R4_4__R4_5 ();
+	
+	/**
 	 * Examines the provided <CODE>Document</CODE> to determine the associated
 	 * FpML <CODE>Release</CODE> instance.
 	 * 
@@ -1229,6 +1356,7 @@ public final class Releases
 		R4_2.addImport (com.handcoded.dsig.Releases.R1_0);
 		R4_3.addImport (com.handcoded.dsig.Releases.R1_0);
 		R4_4.addImport (com.handcoded.dsig.Releases.R1_0);
+		R4_5.addImport (com.handcoded.dsig.Releases.R1_0);
 
 		R5_0_CONFIRMATION.addImport (com.handcoded.dsig.Releases.R1_0);
 		R5_0_PRETRADE.addImport (com.handcoded.dsig.Releases.R1_0);

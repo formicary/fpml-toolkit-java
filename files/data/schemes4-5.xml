@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schemeDefinitions>
-	<scheme uri="http://www.fpml.org/coding-scheme/asset-measure" name="assetMeasureScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/asset-measure-5-0" canonicalUri="http://www.fpml.org/coding-scheme/asset-measure" name="assetMeasureScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="NPV">
 				<paragraph>Net Present Value = sum of present values of all cash flows; excludes cash flows paid or received on the valution date.</paragraph>
@@ -217,7 +217,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/broker-confirmation-type" name="brokerConfirmationTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/broker-confirmation-type-4-0" canonicalUri="http://www.fpml.org/coding-scheme/broker-confirmation-type" name="brokerConfirmationTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="AsiaCorporate">
 				<paragraph>Broker Confirmation Type of Asia Corporate.</paragraph>
@@ -332,7 +332,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/business-center" name="businessCenterScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/business-center-6-6" canonicalUri="http://www.fpml.org/coding-scheme/business-center" name="businessCenterScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="AEAD">
 				<paragraph>Abu Dhabi</paragraph>
@@ -395,7 +395,7 @@
 				<paragraph>Prague</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="DEDU">
-				<paragraph>Dusseldorf</paragraph>
+				<paragraph>D&#194;&#129;sseldorf</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="DEFR">
 				<paragraph>Frankfurt</paragraph>
@@ -582,7 +582,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/cashflow-type" name="cashflowTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/cashflow-type-2-0" canonicalUri="http://www.fpml.org/coding-scheme/cashflow-type" name="cashflowTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Premium">
 				<paragraph>The premium associated with an OTC contract such as an option or a cap/floor.</paragraph>
@@ -628,7 +628,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/clearance-system" name="clearanceSystemScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/clearance-system-1-0" canonicalUri="http://www.fpml.org/coding-scheme/clearance-system" name="clearanceSystemScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Clearstream">
 				<paragraph>Clearstream International</paragraph>
@@ -647,7 +647,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/commodity-market-disruption-fallback" name="commodityMarketDisruptionFallbackScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/commodity-market-disruption-fallback-1-0" canonicalUri="http://www.fpml.org/coding-scheme/commodity-market-disruption-fallback" name="commodityMarketDisruptionFallbackScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="FallbackReferenceDealers">
 				<paragraph>Fallback Reference Dealers as defined in section 7.5 para (c) subpara (i) of the ISDA 2005 Commodity Derivative definitions.</paragraph>
@@ -675,7 +675,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/commodity-market-disruption" name="commodityMarketDisruptionScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/commodity-market-disruption-1-0" canonicalUri="http://www.fpml.org/coding-scheme/commodity-market-disruption" name="commodityMarketDisruptionScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="PriceSourceDisruption">
 				<paragraph>Price Source Disruption as defined in section 7.4 para (c) subpara (i) of the ISDA 2005 Commodity Derivative definitions or section 7.4 para (c) subpara (i) of the ISDA 1993 Commodity Derivative definitions as applicable.</paragraph>
@@ -706,7 +706,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/compounding-frequency" name="compoundingFrequencyScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/compounding-frequency-1-0" canonicalUri="http://www.fpml.org/coding-scheme/compounding-frequency" name="compoundingFrequencyScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Continuous">
 				<paragraph>The curve represents continuous compounding.</paragraph>
@@ -719,7 +719,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/contractual-definitions" name="contractualDefinitionsScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/contractual-definitions-3-2" canonicalUri="http://www.fpml.org/coding-scheme/contractual-definitions" name="contractualDefinitionsScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="ISDA1991">
 				<paragraph>ISDA 1991 Definitions</paragraph>
@@ -756,7 +756,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/contractual-supplement" name="contractualSupplementScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/contractual-supplement-6-8" canonicalUri="http://www.fpml.org/coding-scheme/contractual-supplement" name="contractualSupplementScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="ISDA1999CreditRestructuring">
 				<paragraph>Restructuring Supplement to the 1999 ISDA Credit Derivatives Definitions dated May 11, 2001.</paragraph>
@@ -907,7 +907,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/coupon-type" name="couponTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/coupon-type-1-0" canonicalUri="http://www.fpml.org/coding-scheme/coupon-type" name="couponTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Fixed">
 				<paragraph>Bond has fixed rate coupon.</paragraph>
@@ -920,7 +920,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/credit-seniority" name="creditSeniorityScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/credit-seniority-1-0" canonicalUri="http://www.fpml.org/coding-scheme/credit-seniority" name="creditSeniorityScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Senior">
 				<paragraph>Top precedence.</paragraph>
@@ -939,7 +939,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/credit-seniority-trading" name="creditSeniorityTradingScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/credit-seniority-trading-1-0" canonicalUri="http://www.fpml.org/coding-scheme/credit-seniority-trading" name="creditSeniorityTradingScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Senior">
 				<paragraph>Top precedence.</paragraph>
@@ -949,7 +949,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/credit-support-agreement-type" name="creditSupportAgreementTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/credit-support-agreement-type-1-0" canonicalUri="http://www.fpml.org/coding-scheme/credit-support-agreement-type" name="creditSupportAgreementTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="ISDA1994CreditSupportAnnexNewYorkLaw">
 				<paragraph>The ISDA 1994 Credit Support Annex New York Law (pledge) applies.</paragraph>
@@ -968,7 +968,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/cut-name" name="cutNameScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/cut-name-1-0" canonicalUri="http://www.fpml.org/coding-scheme/cut-name" name="cutNameScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Comex">
 				<paragraph>2:30 p.m. New York time.</paragraph>
@@ -1002,7 +1002,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/day-count-fraction" name="dayCountFractionScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/day-count-fraction-2-1" canonicalUri="http://www.fpml.org/coding-scheme/day-count-fraction" name="dayCountFractionScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="1/1">
 				<paragraph>Per 2006 ISDA Definitions, Section 4.16. Day Count Fraction, paragraph (a) or Annex to the 2000 ISDA Definitions (June 2000 Version), Section 4.16. Day Count Fraction, paragraph (a).</paragraph>
@@ -1039,7 +1039,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/derivative-calculation-method" name="derivativeCalculationMethodScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/derivative-calculation-method-1-0" canonicalUri="http://www.fpml.org/coding-scheme/derivative-calculation-method" name="derivativeCalculationMethodScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Analytic">
 				<paragraph>The derivative is computed analytically, e.g. by a closed form analytical equation.</paragraph>
@@ -1055,7 +1055,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/designated-priority" name="designatedPriorityScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/designated-priority-1-0" canonicalUri="http://www.fpml.org/coding-scheme/designated-priority" name="designatedPriorityScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="FirstLienLoan">
 				<paragraph>First lien.</paragraph>
@@ -1071,7 +1071,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/entity-type" name="entityTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/entity-type-1-0" canonicalUri="http://www.fpml.org/coding-scheme/entity-type" name="entityTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="WesternEuropean">
 				<paragraph>Entity Type of Western European.</paragraph>
@@ -1105,7 +1105,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/floating-rate-index" name="floatingRateIndexScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/floating-rate-index-2-0" canonicalUri="http://www.fpml.org/coding-scheme/floating-rate-index" name="floatingRateIndexScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="ISDA" name="AUD-AONIA-OIS-COMPOUND">
 				<paragraph>Per 2006 ISDA Definitions or Annex to the 2000 ISDA Definitions, Section 7.1 Rate Options, as amended and supplemented through the date on which parties enter into the relevant transaction.</paragraph>
@@ -1832,7 +1832,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/governing-law" name="governingLawScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/governing-law-1-1" canonicalUri="http://www.fpml.org/coding-scheme/governing-law" name="governingLawScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="CAAB">
 				<paragraph>Alberta law</paragraph>
@@ -1887,7 +1887,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/cdx-index-annex-source" name="indexAnnexSourceScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/cdx-index-annex-source-1-0" canonicalUri="http://www.fpml.org/coding-scheme/cdx-index-annex-source" name="indexAnnexSourceScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Publisher">
 				<paragraph>As defined in the relevant form of Master Confirmation applicable to the confirmation of Dow Jones CDX indices.</paragraph>
@@ -1897,7 +1897,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/inflation-index-description" name="inflationIndexDescriptionScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/inflation-index-description-2-0" canonicalUri="http://www.fpml.org/coding-scheme/inflation-index-description" name="inflationIndexDescriptionScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="AUD-CPI">
 				<paragraph>AUD - Non-revised Consumer Price Index (CPI)</paragraph>
@@ -2009,7 +2009,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/inflation-index-source" name="inflationIndexSourceScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/inflation-index-source-2-0" canonicalUri="http://www.fpml.org/coding-scheme/inflation-index-source" name="inflationIndexSourceScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="Bloomberg" name="AUCPI">
 				<paragraph>Bloomberg Screen AUCP.</paragraph>
@@ -2076,7 +2076,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/inflation-main-publication" name="inflationMainPublicationScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/inflation-main-publication-1-0" canonicalUri="http://www.fpml.org/coding-scheme/inflation-main-publication" name="inflationMainPublicationScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="ABS">
 				<paragraph>Bloomberg Screen AUCP.</paragraph>
@@ -2119,7 +2119,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/information-provider" name="informationProviderScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/information-provider-2-0" canonicalUri="http://www.fpml.org/coding-scheme/information-provider" name="informationProviderScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="ISDA" name="BankOfCanada">
 				<paragraph>The central bank of Canada.</paragraph>
@@ -2150,7 +2150,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/interpolation-method" name="interpolationMethodScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/interpolation-method-1-1" canonicalUri="http://www.fpml.org/coding-scheme/interpolation-method" name="interpolationMethodScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="LinearZeroYield">
 				<paragraph>TBD</paragraph>
@@ -2160,7 +2160,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/facility-type" name="loanTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/facility-type-1-0" canonicalUri="http://www.fpml.org/coding-scheme/facility-type" name="loanTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="BridgeLoan">
 				<paragraph>Bridge loan.</paragraph>
@@ -2182,7 +2182,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/local-jurisdiction" name="localJurisdictionScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/local-jurisdiction-1-0" canonicalUri="http://www.fpml.org/coding-scheme/local-jurisdiction" name="localJurisdictionScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="NotApplicable">
 				<paragraph>No Local Jurisdiction applies to this Transaction.</paragraph>
@@ -2204,7 +2204,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/market-disruption" name="marketDisruptionScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/market-disruption-1-0" canonicalUri="http://www.fpml.org/coding-scheme/market-disruption" name="marketDisruptionScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Omission">
 				<paragraph>As defined in section 6.7 para (c) subpara (i) of the ISDA 2002 Equity Derivative definitions.</paragraph>
@@ -2217,7 +2217,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/master-agreement-type" name="masterAgreementTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/master-agreement-type-1-0" canonicalUri="http://www.fpml.org/coding-scheme/master-agreement-type" name="masterAgreementTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="AFB">
 				<paragraph>AFB Master Agreement for Foreign Exchange and Derivatives Transactions</paragraph>
@@ -2239,7 +2239,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/master-confirmation-type" name="masterConfirmationTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/master-confirmation-type-5-8" canonicalUri="http://www.fpml.org/coding-scheme/master-confirmation-type" name="masterConfirmationTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="2003CreditIndex">
 				<paragraph>Used for CDS Index trades. Relevant Master Confirmation determined by the contents of the creditDefaultSwap element. Best practice is to use the most specific code that applies.</paragraph>
@@ -2381,7 +2381,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/credit-matrix-transaction-type" name="matrixTermScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/credit-matrix-transaction-type-3-1" canonicalUri="http://www.fpml.org/coding-scheme/credit-matrix-transaction-type" name="matrixTermScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="NorthAmericanCorporate">
 				<paragraph>Matrix Transaction Type of NORTH AMERICAN CORPORATE.</paragraph>
@@ -2457,7 +2457,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/matrix-type" name="matrixTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/matrix-type-1-0" canonicalUri="http://www.fpml.org/coding-scheme/matrix-type" name="matrixTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="SettlementMatrix">
 				<paragraph>The ISDA-published 2000 ISDA Definitions Settlement Matrix for Early Terminations and Swaptions.</paragraph>
@@ -2467,7 +2467,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/mortgage-sector" name="mortgageSectorScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/mortgage-sector-1-0" canonicalUri="http://www.fpml.org/coding-scheme/mortgage-sector" name="mortgageSectorScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="ABS">
 				<paragraph>Asset Backed Security.</paragraph>
@@ -2483,7 +2483,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/perturbation-type" name="perturbationTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/perturbation-type-1-0" canonicalUri="http://www.fpml.org/coding-scheme/perturbation-type" name="perturbationTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Absolute">
 				<paragraph>The perturbation is absolute, ie. it is ADDED to the original value.</paragraph>
@@ -2493,7 +2493,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/position-status" name="positionStatusScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/position-status-1-0" canonicalUri="http://www.fpml.org/coding-scheme/position-status" name="positionStatusScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Matched">
 				<paragraph>Both sides have the same position information within matching policies.</paragraph>
@@ -2509,7 +2509,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/price-quote-units" name="priceQuoteUnitsScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/price-quote-units-1-2" canonicalUri="http://www.fpml.org/coding-scheme/price-quote-units" name="priceQuoteUnitsScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Price">
 				<paragraph>A price, expressed in currency units.</paragraph>
@@ -2636,7 +2636,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/pricing-input-type" name="pricingInputTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/pricing-input-type-1-0" canonicalUri="http://www.fpml.org/coding-scheme/pricing-input-type" name="pricingInputTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="YieldCurve">
 				<paragraph>A representation of the interest rates (yields) at different maturities.</paragraph>
@@ -2658,7 +2658,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/product-type-simple" name="productTypeSimpleScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/product-type-simple-1-2" canonicalUri="http://www.fpml.org/coding-scheme/product-type-simple" name="productTypeSimpleScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="InterestRateSwap">
 				<paragraph>A swap agreement which consists in swapping interest rate streams, whatever the type of interest rate references that are being used (i.e. float vs. float swaps, also known as basis swaps, are included in this category).</paragraph>
@@ -2743,7 +2743,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/query-parameter-operator" name="queryParameterOperatorScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/query-parameter-operator-1-0" canonicalUri="http://www.fpml.org/coding-scheme/query-parameter-operator" name="queryParameterOperatorScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Equals">
 				<paragraph>The equals operator.</paragraph>
@@ -2759,7 +2759,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/quote-timing" name="quoteTimingScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/quote-timing-1-0" canonicalUri="http://www.fpml.org/coding-scheme/quote-timing" name="quoteTimingScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Open">
 				<paragraph>The quotation represents the beginning of day/market open.</paragraph>
@@ -2775,7 +2775,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/reason-code" name="reasonCodeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/reason-code-1-0" canonicalUri="http://www.fpml.org/coding-scheme/reason-code" name="reasonCodeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="100">
 				<paragraph>Default transport error code.</paragraph>
@@ -2881,7 +2881,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/restructuring" name="restructuringScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/restructuring-1-0" canonicalUri="http://www.fpml.org/coding-scheme/restructuring" name="restructuringScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="R">
 				<paragraph>Restructuring as defined in the applicable ISDA Credit Derivatives Definitions. (1999 or 2003). Note that the 1999 Restructuring definition can be altered on a bilateral basis with the November 2001 Successor Supplement.</paragraph>
@@ -2894,7 +2894,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/scheduled-date-type" name="scheduledDateTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/scheduled-date-type-1-0" canonicalUri="http://www.fpml.org/coding-scheme/scheduled-date-type" name="scheduledDateTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Effective">
 				<paragraph>The effective date of the swap leg. This is useful when the information is not directly included in the swap stream (for example, in certain equity swaps).</paragraph>
@@ -2925,7 +2925,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/settled-entity-matrix-source" name="settledEntityMatrixSourceScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/settled-entity-matrix-source-1-0" canonicalUri="http://www.fpml.org/coding-scheme/settled-entity-matrix-source" name="settledEntityMatrixSourceScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Publisher">
 				<paragraph>The Settled Entity Matrix published by the Index Publisher.</paragraph>
@@ -2938,7 +2938,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/settlement-method" name="settlementMethodScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/settlement-method-1-0" canonicalUri="http://www.fpml.org/coding-scheme/settlement-method" name="settlementMethodScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Chaps">
 				<paragraph>To be settled via Chaps network.</paragraph>
@@ -2963,7 +2963,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/settlement-price-source" name="settlementPriceSourceScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/settlement-price-source-1-0" canonicalUri="http://www.fpml.org/coding-scheme/settlement-price-source" name="settlementPriceSourceScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Bid">
 				<paragraph>The bid price per share on the exchange at the valuation time on the valuation date</paragraph>
@@ -2988,7 +2988,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/settlement-rate-option" name="settlementRateOptionScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/settlement-rate-option-2-1" canonicalUri="http://www.fpml.org/coding-scheme/settlement-rate-option" name="settlementRateOptionScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="CNY.SAEC/CNY01">
 				<paragraph>The Spot Rate for a Rate Calculation Date will be the Chinese Renminbi/U.S. Dollar official fixing rate, expressed as the amount of Chinese Renminbi per one U.S. Dollar, for settlement in two Business Days reported by The State Administration of Exchange Control of the People's Republic of China, Beijing, which appears on the Reuters Screen SAEC Page opposite the symbol "CYN=" as of 4:00 p.m., Beijing time, on that Rate Calculation Date.</paragraph>
@@ -3054,7 +3054,7 @@
 				<paragraph>The Spot Rate for a Rate Calculation Date will be the Brazilian Real/U.S. Dollar Specified Rate, expressed as the amount of Brazilian Reais per one U.S. Dollar, for settlement in two Business Days (where such days are Business Days in both Sao Paulo and New York) which appears on the Reuters Screen BRBY Page under the caption "INTBK FLTING (LAST)" at approximately 11:00 a.m., Sao Paulo time, on that Rate Calculation Date.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="BRL.OFFICIAL.RATE/BRL02">
-				<paragraph>The Spot Rate for a Rate Calculation Date will be the Brazilian Real/U.S. Dollar Specified Rate, expressed as the amount of Brazilian Reais per one U.S. Dollar, for settlement in two Business Days (where such days are Business Days in both Sao Paulo and New York) reported by the Banco Central do Brasil in the "Di rio Oficial da Uniao" on the first Business Day following that Rate Calculation Date.</paragraph>
+				<paragraph>The Spot Rate for a Rate Calculation Date will be the Brazilian Real/U.S. Dollar Specified Rate, expressed as the amount of Brazilian Reais per one U.S. Dollar, for settlement in two Business Days (where such days are Business Days in both Sao Paulo and New York) reported by the Banco Central do Brasil in the "Diario Oficial da Uniao" on the first Business Day following that Rate Calculation Date.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="BRL.PCOT-COMMERCIAL/BRL03">
 				<paragraph>The Spot Rate for a Rate Calculation Date will be the Brazilian Real/U.S. Dollar commercial rate, expressed as the amount of Brazilian Reais per one U.S. Dollar, for settlement in two Business Days (where such days are Business Days in both Sao Paulo and New York) reported by the Banco Central do Brasil on SISBACEN Data System under transaction code PCOT- 390, Option 3, at the Specified Time, if any, on that Rate Calculation Date.</paragraph>
@@ -3069,7 +3069,7 @@
 				<paragraph>The Spot Rate for a Rate Calculation Date will be the Brazilian Real/U.S. Dollar commercial rate, expressed as the amount of Brazilian Reais per one U.S. Dollar, for settlement in two Business Days (where such days are Business Days in both Sao Paulo and New York) reported by the Banco Central do Brasil which appears on the Reuters Screen BRFR Page at PTAX-800 as of 11:00 a.m., Sao Paulo time, on the first Business Day following that Rate Calculation Date. 23</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="BRL.PTAX-FLOATING/BRL07">
-				<paragraph>The Spot Rate for a Rate Calculation Date will be the Brazilian Real/U.S. Dollar floating rate, expressed as the amount of Brazilian Reais per one U.S. Dollar, for settlement in two Business Days (where such days are Business Days in both Sao Paulo and New York) reported by the Banco Central do Brasil on SISBACEN Data System under transaction code PTAX- 800 ("Consultas de Cambio" or Exchange Rate Inquiry), Option 5 ("Cotacoes para Contabilidad" or Rates for Accounting Purposes) market type "F" (corresponding to U.S. Dollars traded in the foreign exchange market segment officially denominated "Flutuante") as of 7:30 p.m., Sao Paulo time, on that Rate Calculation Date.</paragraph>
+				<paragraph>The Spot Rate for a Rate Calculation Date will be the Brazilian Real/U.S. Dollar floating rate, expressed as the amount of Brazilian Reais per one U.S. Dollar, for settlement in two Business Days (where such days are Business Days in both Sao Paulo and New York) reported by the Banco Central do Brasil on SISBACEN Data System under transaction code PTAX- 800 ("Consultas de C?mbio" or Exchange Rate Inquiry), Option 5 ("Cotacoes para Contabilidad" or Rates for Accounting Purposes) market type "F" (corresponding to U.S. Dollars traded in the foreign exchange market segment officially denominated "Flutuante") as of 7:30 p.m., Sao Paulo time, on that Rate Calculation Date.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="BRL.PTAX-FLOATING.BRFR/BRL08">
 				<paragraph>The Spot Rate for a Rate Calculation Date will be the Brazilian Real/U.S. Dollar floating rate, expressed as the amount of Brazilian Reais per one U.S. Dollar, for settlement in two Business Days (where such days are Business Days in both Sao Paulo and New York) reported by the Banco Central do Brasil on the SISBACEN Data System which appears on the Reuters Screen BRFR Page at PTAX-800 as of 11:00 a.m., Sao Paulo time, on the first Business Day following that Rate Calculation Date.</paragraph>
@@ -3126,7 +3126,7 @@
 				<paragraph>The Spot Rate for a Rate Calculation Date will be the Peruvian Sol/U.S. Dollar fixing rate (mid market last), expressed as the amount of Peruvian Sols per one U.S. Dollar, for settlement on that same day which appears on the Reuters Screen PDSB Page opposite the caption "PEN=" as of 12:00 noon, Lima time, on that Rate Calculation Date.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="VER.VBCV/VEB01">
-				<paragraph>The Spot Rate for a Rate Calculation Date will be the Venezuelan Bolivar/U.S. Dollar tipo de c?mbio referencial rate, expressed as the amount of Venezuelan Bolivar per one U.S. Dollar, for settlement in two Business Days (where such days are Business Days in both Caracas and New York) reported by the Banco Central de Venezuela which appears on the Reuters Screen VBCV Page at approximately 5:00 p.m., Caracas time, on that Rate Calculation Date.</paragraph>
+				<paragraph>The Spot Rate for a Rate Calculation Date will be the Venezuelan Bolivar/U.S. Dollar tipo de cambio referencial rate, expressed as the amount of Venezuelan Bolivar per one U.S. Dollar, for settlement in two Business Days (where such days are Business Days in both Caracas and New York) reported by the Banco Central de Venezuela which appears on the Reuters Screen VBCV Page at approximately 5:00 p.m., Caracas time, on that Rate Calculation Date.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="ILS.BOIJ/ILS01">
 				<paragraph>The Spot Rate for a Rate Calculation Date will be the Israeli Shekel/U.S. Dollar Specified Rate, expressed as the amount of Israeli Shekels per one U.S. Dollar, for settlement in two Business Days which appears on the Reuters Screen BOIJ Page as of 1:00 p.m., Tel Aviv time, on that Rate Calculation Date.</paragraph>
@@ -3173,7 +3173,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/spread-schedule-type" name="spreadScheduleTypeScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/spread-schedule-type-1-0" canonicalUri="http://www.fpml.org/coding-scheme/spread-schedule-type" name="spreadScheduleTypeScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Long">
 				<paragraph>Represents a Long Spread Schedule. Spread schedules defined as "Long" will be applied to Long Positions.</paragraph>
@@ -3183,7 +3183,7 @@
 			</schemeValue>
 		</schemeValues>
 	</scheme>
-	<scheme uri="http://www.fpml.org/coding-scheme/trade-cashflows-status" name="tradeCashflowsStatusScheme">
+	<scheme uri="http://www.fpml.org/coding-scheme/trade-cashflows-status-1-0" canonicalUri="http://www.fpml.org/coding-scheme/trade-cashflows-status" name="tradeCashflowsStatusScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="Alleged">
 				<paragraph>No corresponding payment (or set of payments) was found in "your" submitted sets.</paragraph>

@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -83,6 +83,22 @@ public interface Preconditions
 		= new VersionPrecondition (Releases.R4_3);
 
 	/**
+	 * A <CODE>Precondition</CODE> instance that detects FpML 4-4 compatible
+	 * documents.
+	 * @since	TFP 1.2
+	 */
+	public static final Precondition 	R4_4
+		= new VersionPrecondition (Releases.R4_4);
+
+	/**
+	 * A <CODE>Precondition</CODE> instance that detects FpML 4-5 compatible
+	 * documents.
+	 * @since	TFP 1.2
+	 */
+	public static final Precondition 	R4_5
+		= new VersionPrecondition (Releases.R4_5);
+
+	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML 5-0 confirmation
 	 * documents.
 	 * @since	TFP 1.1
@@ -114,14 +130,6 @@ public interface Preconditions
 	public static final Precondition 	R5_0
 		= Precondition.or (R5_0_CONFIRMATION,
 			Precondition.or (R5_0_PRETRADE, R5_0_REPORTING));
-
-	/**
-	 * A <CODE>Precondition</CODE> instance that detects FpML 4-3 compatible
-	 * documents.
-	 * @since	TFP 1.1
-	 */
-	public static final Precondition 	R4_4
-		= new VersionPrecondition (Releases.R4_4);
 
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions that use
@@ -164,12 +172,20 @@ public interface Preconditions
 		= R5_0;
 
 	/**
+	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-5 and
+	 * later.
+	 * @since	TFP 1.0
+	 */
+	public static final Precondition	R4_5__LATER
+		= Precondition.or (R4_5, R5_0__LATER);
+
+	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-4 and
 	 * later.
 	 * @since	TFP 1.0
 	 */
 	public static final Precondition	R4_4__LATER
-		= Precondition.or (R4_4, R5_0__LATER);
+		= Precondition.or (R4_4, R4_5__LATER);
 
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-3 and
