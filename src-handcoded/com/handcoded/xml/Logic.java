@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -215,6 +215,28 @@ public abstract class Logic extends Types
 	}
 
 	/**
+	 * Determines if the value of a <CODE>Node</CODE> is the same as a
+	 * given <CODE>BigDecimal</CODE>.
+	 * 
+	 * @param 	lhs				The <CODE>Node</CODE> to compare.
+	 * @param 	rhs				The <CODE>BigDecimal</CODE> value.
+	 * @return	<CODE>true</CODE> if the values are equal.
+	 * @since	TFP 1.2 
+	 */
+	public static boolean equal (final Node lhs, final BigDecimal rhs)
+	{
+		if (lhs != null) {
+			try {
+				return (toDecimal (lhs).compareTo (rhs) == 0);
+			}
+			catch (Exception error) {
+				return (false);
+			}
+		}
+		return (false);
+	}
+
+	/**
 	 * Determines if two <CODE>BigDecimal</CODE> values have the same contents.
 	 * 
 	 * @param 	lhs				The <CODE>BigDecimal</CODE> to compare.
@@ -346,7 +368,7 @@ public abstract class Logic extends Types
 	{
 		if (lhs != null) {
 			try {
-				return (!toDecimal (lhs).equals (rhs));
+				return (toDecimal (lhs).compareTo (rhs) != 0);
 			}
 			catch (Exception error) {
 				return (false);
@@ -366,7 +388,7 @@ public abstract class Logic extends Types
 	 */
 	public static boolean notEqual (final BigDecimal lhs, final BigDecimal rhs)
 	{
-		return (!lhs.equals (rhs));
+		return (lhs.compareTo (rhs) != 0);
 	}
 
 	/**
