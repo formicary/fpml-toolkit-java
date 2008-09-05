@@ -590,7 +590,9 @@ public final class SchemeRules
 	 * @since	TFP 1.0	
 	 */
 	public static final Rule	RULE53
-		= new SchemeRule (Preconditions.R4_0__LATER, "scheme-53", "marketDisruption", "marketDisruptionScheme");
+		= new SchemeRule (Preconditions.R4_0__LATER, "scheme-53", 
+				new String [] { "averagingPeriodIn", "averagingPeriodOut" },
+				new String [] { "marketDisruption" }, "marketDisruptionScheme");
 	
 	/**
 	 * Rule 54: The value of any <CODE>masterConfirmationType</CODE>b> element must be valid
