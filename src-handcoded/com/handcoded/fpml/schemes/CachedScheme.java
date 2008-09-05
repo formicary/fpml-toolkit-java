@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -29,7 +29,8 @@ public class CachedScheme extends Scheme
 	 * Constructs a <CODE>CachedScheme</CODE> instance for the indicated
 	 * scheme URI.
 	 *
-	 * @param	uri			The URI used to reference the scheme.
+	 * @param	uri				The URI used to reference the scheme.
+	 * @since	TFP 1.0
 	 */
 	public CachedScheme (final String uri)
 	{
@@ -37,7 +38,21 @@ public class CachedScheme extends Scheme
 	}
 		
 	/**
+	 * Constructs a <CODE>CachedScheme</CODE> instance for the indicated
+	 * scheme URI.
+	 *
+	 * @param	uri				The URI used to reference the scheme.
+	 * @param	canonicalUri	The Canonical scheme URI.
+	 * @since	TFP 1.2
+	 */
+	public CachedScheme (final String uri, final String canonicalUri)
+	{
+		super (uri, canonicalUri);
+	}
+		
+	/**
 	 * {@inheritDoc}
+	 * @since	TFP 1.0
 	 */
 	public boolean isValid (final String code)
 	{
@@ -46,6 +61,7 @@ public class CachedScheme extends Scheme
 	
 	/**
 	 * Provides the underlying storage for the code values.
+	 * @since	TFP 1.0
 	 */
 	protected Hashtable	values	= new Hashtable ();
 
@@ -58,6 +74,7 @@ public class CachedScheme extends Scheme
 	 * @param	value		The scheme <CODE>Value</CODE> to be added.
 	 * @return	The old <CODE>Value</CODE> instance having the same code as
 	 *			the new one, otherwise <CODE>null</CODE>.
+	 * @since	TFP 1.0
 	 */
 	protected final Value add (Value value)
 	{

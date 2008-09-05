@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -10,6 +10,7 @@
 // PARTICULAR PURPOSE, OR NON-INFRINGEMENT. HANDCODED SOFTWARE LTD SHALL NOT BE
 // LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
 // OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
+
 package com.handcoded.fpml.schemes;
 
 import java.util.Hashtable;
@@ -83,7 +84,13 @@ public final class SchemeCollection
 	 */
 	public Scheme add (final Scheme scheme)
 	{
-		return ((Scheme) schemes.put (scheme.getUri (), scheme));
+		Scheme		resultA = (Scheme) schemes.put (scheme.getUri (), scheme);
+		Scheme		resultB = null;
+		
+		if (scheme.getCanonicalUri () != null)
+			resultB = (Scheme) schemes.put (scheme.getCanonicalUri (), scheme);
+		
+		return ((resultA != null) ? resultA : resultB);
 	}
 	
 	/**
@@ -96,7 +103,10 @@ public final class SchemeCollection
 	 */
 	public Scheme remove (final Scheme scheme)
 	{
-		return (remove (scheme.getUri()));
+		Scheme		resultA = (Scheme) schemes.remove (scheme.getUri());
+		Scheme		resultB = (Scheme) schemes.remove (scheme.getCanonicalUri());
+		
+		return ((resultA != null) ? resultA : resultB);
 	}
 	
 	/**
@@ -110,7 +120,12 @@ public final class SchemeCollection
 	 */
 	public Scheme remove (final String uri)
 	{
-		return ((Scheme) schemes.remove (uri));
+		Scheme		scheme = findSchemeForUri (uri);
+		
+		if (scheme != null)
+			return (remove (scheme));
+		
+		return (null);
 	}
 	
 	/**
@@ -147,8 +162,15 @@ public final class SchemeCollection
 			int			index;
 
 			if (localName.equals ("scheme")) {
-				if ((index = attributes.getIndex ("uri")) >= 0)
-					add (scheme = new ClosedScheme (attributes.getValue (index)));
+				if ((index = attributes.getIndex ("uri")) >= 0) {
+					int		index2 = attributes.getIndex ("canonicalUri");
+					
+					if (index2 >= 0)
+						add (scheme = new ClosedScheme (attributes.getValue (index),
+														attributes.getValue (index2)));
+					else
+						add (scheme = new ClosedScheme (attributes.getValue (index)));
+				}
 				else {
 					logger.warning ("uri attribute missing from scheme in bootstrap definitions");
 					scheme = null;

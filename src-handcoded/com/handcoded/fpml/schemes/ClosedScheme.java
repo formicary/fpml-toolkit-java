@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -31,7 +31,8 @@ public class ClosedScheme extends CachedScheme implements Enumerable, Matchable
 	 * Constructs a <CODE>ClosedScheme</CODE> instance for the indicated
 	 * scheme URI.
 	 *
-	 * @param	uri			The URI used to reference the scheme.
+	 * @param	uri				The URI used to reference the scheme.
+	 * @since	TFP 1.0
 	 */
 	public ClosedScheme (final String uri)
 	{
@@ -39,7 +40,21 @@ public class ClosedScheme extends CachedScheme implements Enumerable, Matchable
 	}
 	
 	/**
+	 * Constructs a <CODE>ClosedScheme</CODE> instance for the indicated
+	 * scheme URI and Canonical scheme URI.
+	 *
+	 * @param	uri				The URI used to reference the scheme.
+	 * @param	canonicalUri	The Canonical scheme URI.
+	 * @since	TFP 1.2
+	 */
+	public ClosedScheme (final String uri, final String canonicalUri)
+	{
+		super (uri, canonicalUri);
+	}
+	
+	/**
 	 * {@inheritDoc}
+	 * @since	TFP 1.0
 	 */
 	public final Value [] values ()
 	{
@@ -51,6 +66,7 @@ public class ClosedScheme extends CachedScheme implements Enumerable, Matchable
 	
 	/**
 	 * {@inheritDoc}
+	 * @since	TFP 1.0
 	 */
 	public final Value [] values (final String pattern)
 	{
