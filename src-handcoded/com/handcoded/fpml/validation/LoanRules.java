@@ -30,7 +30,7 @@ import java.math.BigDecimal;
  * initialised with FpML defined validation rules for syndicated loan messages.
  * <P>
  * @author 	Goonie
- * @version	$Id: $
+ * @version	$Id$
  * @since	TFP 1.2
  */
 

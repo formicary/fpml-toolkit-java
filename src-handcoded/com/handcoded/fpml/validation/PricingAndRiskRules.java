@@ -13,13 +13,15 @@
 
 package com.handcoded.fpml.validation;
 
+import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
 import com.handcoded.validation.ValidationErrorHandler;
-import com.handcoded.xml.Logic;
 import com.handcoded.xml.NodeIndex;
+import com.handcoded.xml.XPath;
 
 /**
  * The <CODE>PricingAndRiskRules</CODE> class contains a <CODE>RuleSet</CODE>
@@ -29,53 +31,123 @@ import com.handcoded.xml.NodeIndex;
  * @version	$Id$
  * @since	TFP 1.1
  */
-public final class PricingAndRiskRules extends Logic
+public final class PricingAndRiskRules extends FpMLRuleSet
 {
 	/**
-	 * A <CODE>Rule</CODE> that ensures the @href attribute must match the @id
+	 * A <CODE>Rule</CODE> that ensures the generic/@href attribute must match the @id
 	 * attribute of an element of type Asset.
 	 * <P>
 	 * Applies to FpML 4.0 and later.
-	 * @since	TFP 1.0
+	 * 
+	 * @since		TFP 1.2
+	 * @deprecated
 	 */
 	public static final Rule	RULE01
 		= new Rule (Preconditions.R4_0__LATER, "pr-1")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation ())
+					return (validate (nodeIndex, nodeIndex.getElementsByType (determineNamespace (nodeIndex), "PricingDataPointCoordinate"), errorHandler));
+
+				return (validate (nodeIndex, nodeIndex.getElementsByName ("coordinate"), errorHandler));
+			}
+			
+			public boolean validate (NodeIndex nodeIndex, NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result 	= true;
-				NodeList	list 	= nodeIndex.getElementsByName ("firstPeriodStartDate");
 				
 				for (int index = 0; index < list.getLength (); ++index) {
-					// TODO
+					Element		context = (Element) list.item (index);
+					Element		generic	= XPath.path (context, "generic");
+					Attr		href;
+					Element		target;
+					
+					if ((generic == null) ||
+						((href = generic.getAttributeNode ("href")) == null) ||
+						((target = nodeIndex.getElementById (href.getValue ())) == null)) continue;
+					
+					String targetName = target.getLocalName ();
+					
+					if (targetName.equals ("basket") ||
+						targetName.equals ("cash") ||
+						targetName.equals ("commodity") ||
+						targetName.equals ("deposit") ||
+						targetName.equals ("bond") ||
+						targetName.equals ("convertibleBond") ||		
+						targetName.equals ("equity") ||
+						targetName.equals ("exchangeTradedFund") ||
+						targetName.equals ("index") ||
+						targetName.equals ("future") ||
+						targetName.equals ("fxRate") ||
+						targetName.equals ("loan") ||
+						targetName.equals ("mortgage") ||
+						targetName.equals ("mutualFund") ||
+						targetName.equals ("rateIndex") ||
+						targetName.equals ("simpleCreditDefautSwap") ||
+						targetName.equals ("simpleFra") ||
+						targetName.equals ("simpleIrSwap") ||
+						targetName.equals ("dealSummary") ||
+						targetName.equals ("facilitySummary")) continue;
+					
+					errorHandler.error ("305", context,
+						"generic/@href must match the @id attribute of an element of type Asset",
+						getName (), targetName);
+					
+					result = false;
 				}
-				
 				return (result);
 			}
 		};
 		
-		/**
-		 * A <CODE>Rule</CODE> that ensures the @href attribute must match the @id
-		 * attribute of an element of type PricingStructure.
-		 * <P>
-		 * Applies to FpML 4.0 and later.
-		 * @since	TFP 1.0
-		 */
-		public static final Rule	RULE02
-			= new Rule (Preconditions.R4_0__LATER, "pr-2")
+	/**
+	 * A <CODE>Rule</CODE> that ensures the @href attribute must match the @id
+	 * attribute of an element of type PricingStructure.
+	 * <P>
+	 * Applies to FpML 4.0 and later.
+	 * 
+	 * @since		TFP 1.0
+	 * @deprecated
+	 */
+	public static final Rule	RULE02
+		= new Rule (Preconditions.R4_0__LATER, "pr-2")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
-				public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
-				{
-					boolean		result 	= true;
-					NodeList	list 	= nodeIndex.getElementsByName ("firstPeriodStartDate");
+				if (nodeIndex.hasTypeInformation ())
+					return (validate (nodeIndex, nodeIndex.getElementsByType (determineNamespace (nodeIndex), "PaymentCalculationPeriod"), errorHandler));
+
+				return (validate (nodeIndex, nodeIndex.getElementsByName ("paymentCalculationPeriod"), errorHandler));
+			}
+			
+			public boolean validate (NodeIndex nodeIndex, NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result 	= true;
+				
+				for (int index = 0; index < list.getLength (); ++index) {
+					Element		context = (Element) list.item (index);
+					Attr		href;
+					Element		target;
 					
-					for (int index = 0; index < list.getLength (); ++index) {
-						// TODO
-					}
+					if (((href = context.getAttributeNode ("href")) == null) ||
+						((target = nodeIndex.getElementById (href.getValue ())) == null)) continue;
 					
-					return (result);
+					String targetName = target.getLocalName ();
+					
+					if (targetName.equals ("creditCurve") ||
+						targetName.equals ("fxCurve") ||
+						targetName.equals ("volatilityRepresentation") ||
+						targetName.equals ("yieldCurve")) continue;
+					
+					errorHandler.error ("305", context,
+						"@href must match the @id attribute of an element of type PricingStructure",
+						getName (), targetName);
+					
+					result = false;
 				}
-			};
+				return (result);
+			}
+		};
 
 	/**
 	 * Provides access to the pricing and risk validation rule set.
