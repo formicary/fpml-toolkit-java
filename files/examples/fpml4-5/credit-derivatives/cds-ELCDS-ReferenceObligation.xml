@@ -52,7 +52,7 @@
                      <borrower>
                         <entityName>BorrowerName2</entityName>
                      </borrower>
-                     <facilityType facilityTypeScheme="http://www.fpml.org/coding-scheme/facility-type">RevolvingLoan</facilityType>
+                     <facilityType>RevolvingLoan</facilityType>
                      <creditAgreementDate>2005-11-04</creditAgreementDate>
                   </loan>
                </referenceObligation>
@@ -74,13 +74,13 @@
          </feeLeg>
          <protectionTerms>
             <calculationAmount id="calculationAmount">
-               <currency currencyScheme="http://www.fpml.org/ext/iso4217">USD</currency>
+               <currency>USD</currency>
                <amount>10000000</amount>
             </calculationAmount>
             <obligations>
                <category>Loan</category>
                <fullFaithAndCreditObLiability/>
-               <designatedPriority lienScheme="http://www.fpml.org/coding-scheme/lien">FirstLienLoan</designatedPriority>
+               <designatedPriority>FirstLienLoan</designatedPriority>
                <cashSettlementOnly/>
                <deliveryOfCommitments/>
                <continuity/>
