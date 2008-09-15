@@ -274,25 +274,15 @@ public final class SchemeRules
 	// FpML 3.0 ------------------------------------------------------------
 
 	/**
-	 * Rule 24A: The value of any <CODE>clearanceSystem</CODE> element must be valid
+	 * Rule 24: The value of any <CODE>clearanceSystem</CODE> element must be valid
 	 * within the domain defined by its <CODE>clearanceSystemIdScheme</CODE> attribute.
 	 * <P>
 	 * Applies to FpML 3-0 and later.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE24A
-		= new SchemeRule (Preconditions.R3_0__R4_0, "scheme-24a", "clearanceSystem", "clearanceSystemScheme");
-	
-	/**
-	 * Rule 24B: The value of any <CODE>clearanceSystem</CODE> element must be valid
-	 * within the domain defined by its <CODE>clearanceSystemScheme</CODE> attribute.
-	 * <P>
-	 * Applies to FpML 3-0 and later.
-	 * @since	TFP 1.0	
-	 */
-	public static final Rule	RULE24B
-		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-24b", "clearanceSystem", "clearanceSystemScheme");
-	
+	public static final Rule	RULE24
+		= new SchemeRule (Preconditions.R3_0__LATER, "scheme-24", "clearanceSystem", "clearanceSystemScheme");
+		
 	/**
 	 * Rule 25: The value of any <CODE>contractualDefinitions</CODE> element must
 	 * be valid within the domain defined by its <CODE>@contractualDefinitionsScheme</CODE>
@@ -697,67 +687,79 @@ public final class SchemeRules
 		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-63", "matrixTerm", "matrixTermScheme");
 	
 	/**
-	 * Rule 64: The value of any <CODE>perturbationType</CODE> element must be valid
+	 * Rule 64: The value of any <CODE>matrixType</CODE> element must be valid
+	 * within the domain defined by its <CODE>matrixTypeScheme</CODE> attribute.
+	 * <P>
+	 * Applies to FpML 4.1 and later.
+	 * @since	TFP 1.2	
+	 */
+	public static final Rule	RULE64
+		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-64", "matrixType", "matrixTypeScheme");
+	
+	/**
+	 * Rule 65: The value of any <CODE>perturbationType</CODE> element must be valid
 	 * within the domain defined by its <CODE>perturbationTypeScheme</CODE> attribute.
 	 * <P>
 	 * Applies to FpML 4.1 and later.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE64
-		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-64", "perturbationType", "perturbationTypeScheme");
+	public static final Rule	RULE65
+		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-65", "perturbationType", "perturbationTypeScheme");
 	
 	/**
-	 * Rule 65: The value of any <CODE>priceQuoteUnit</CODE> element must be valid
+	 * Rule 66: The value of any <CODE>priceQuoteUnit</CODE> element must be valid
 	 * within the domain defined by its <CODE>priceQuoteUnitScheme</CODE> attribute.
 	 * <P>
 	 * Applies to FpML 4.1 and later.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE65
-		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-65", "priceQuoteUnit", "priceQuoteUnitScheme");
+	public static final Rule	RULE66
+		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-66", "priceQuoteUnit", "priceQuoteUnitScheme");
 	
 	/**
-	 * Rule 66: The value of any <CODE>pricingInputType</CODE> element must be valid
+	 * Rule 67: The value of any <CODE>pricingInputType</CODE> element must be valid
 	 * within the domain defined by its <CODE>pricingInputTypeScheme</CODE> attribute.
 	 * <P>
 	 * Applies to FpML 4.1 and later.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE66
-		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-66", "pricingInputType", "pricingInputTypeScheme");
+	public static final Rule	RULE67
+		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-67", "pricingInputType", "pricingInputTypeScheme");
 	
 	/**
-	 * Rule 67: The value of any <CODE>queryParameterOperator</CODE> element must be valid
+	 * Rule 68: The value of any <CODE>queryParameterOperator</CODE> element must be valid
 	 * within the domain defined by its <CODE>queryParameterOperatorScheme</CODE> attribute.
 	 * <P>
 	 * Applies to FpML 4.1 and later.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE67
-		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-67", "queryParameterOperator", "queryParameterOperatorScheme");
+	public static final Rule	RULE68
+		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-68", "queryParameterOperator", "queryParameterOperatorScheme");
 	
 	/**
-	 * Rule 68: The value of any <CODE>quoteTiming</CODE> element must be valid
+	 * Rule 69: The value of any <CODE>quoteTiming</CODE> element must be valid
 	 * within the domain defined by its <CODE>quoteTimingScheme</CODE> attribute.
 	 * <P>
 	 * Applies to FpML 4.1 and later.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE68
-		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-68", "quoteTiming", "quoteTimingScheme");
+	public static final Rule	RULE69
+		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-69", "quoteTiming", "quoteTimingScheme");
 	
 	/**
-	 * Rule 69: The value of any <CODE>valuationSetDetail</CODE> element must be valid
+	 * Rule 70: The value of any <CODE>valuationSetDetail</CODE> element must be valid
 	 * within the domain defined by its <CODE>valuationSetDetailScheme</CODE> attribute.
 	 * <P>
 	 * Applies to FpML 4.1 and later.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE69
-		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-69", "valuationSetDetail", "valuationSetDetailScheme");
+	public static final Rule	RULE70
+		= new SchemeRule (Preconditions.R4_1__LATER, "scheme-70", "valuationSetDetail", "valuationSetDetailScheme");
 	
 	// FpML 4.2 ------------------------------------------------------------
 
+	// cashflowTypeScheme
+	
 	/**
 	 * Rule 70: The value of any <CODE>creditSeniorityTrading</CODE> element must be valid
 	 * within the domain defined by its <CODE>creditSeniorityTradingScheme</CODE> attribute.
@@ -765,8 +767,8 @@ public final class SchemeRules
 	 * Applies to FpML 4.2.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE70
-		= new SchemeRule (Preconditions.R4_2, "scheme-70", "creditSeniorityTrading", "creditSeniorityTradingScheme");
+	public static final Rule	RULE71
+		= new SchemeRule (Preconditions.R4_2, "scheme-71", "creditSeniorityTrading", "creditSeniorityTradingScheme");
 	
 	/**
 	 * Rule 71: The value of any <CODE>derivativeCalculationMethod</CODE> element must be valid
@@ -775,21 +777,23 @@ public final class SchemeRules
 	 * Applies to FpML 4.2.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE71
-		= new SchemeRule (Preconditions.R4_2, "scheme-71", "derivativeCalculationMethod", "derivativeCalculationMethodScheme");
-	
-	/**
-	 * Rule 72: The value of any <CODE>matrixType</CODE> element must be valid
-	 * within the domain defined by its <CODE>matrixTypeScheme</CODE> attribute.
-	 * <P>
-	 * Applies to FpML 4.2.
-	 * @since	TFP 1.0	
-	 */
 	public static final Rule	RULE72
-		= new SchemeRule (Preconditions.R4_2, "scheme-72", "matrixType", "matrixTypeScheme");
+		= new SchemeRule (Preconditions.R4_2, "scheme-72", "derivativeCalculationMethod", "derivativeCalculationMethodScheme");
+	
+	// entityTypeScheme
+	// inflationIndexDescriptionScheme
+	// inflationIndexSourceScheme
+	// localJurisdictionScheme
+	// productTypeSimpleScheme
+	// reasonCodeScheme
+	// settledEntityMatrixSourceScheme
+	// spreadScheduleTypeScheme
+	// tradeCashflowsStatusScheme
 	
 	// FpML 4.3 ------------------------------------------------------------
 
+	// designatedPriorityScheme
+	
 	/**
 	 * Rule 73: The value of any <CODE>interestShortfall/rateSource</CODE> type element must
 	 * be valid within the domain defined by its <CODE>@floatingRateIndexScheme</CODE> attribute.
@@ -800,8 +804,19 @@ public final class SchemeRules
 	public static final Rule	RULE73
 		= new SchemeRule (Preconditions.R4_3__LATER, "scheme-73", "interestShortfall", "rateSource", "floatingRateIndexScheme");
 
-	// FpML 4.4 ------------------------------------------------------------
+	// loanTypeScheme
+	// mortgageSectorScheme
+	// positionStatusScheme
 	
+	// FpML 4.4 ------------------------------------------------------------
+
+	// creditSupportAgreementTypeScheme
+	
+	// FpML 4.5 ------------------------------------------------------------
+	
+	// commodityMarketDisruptionFallbackScheme
+	// commodityMarketDisruptionScheme
+
 	/**
 	 * Provides access to the scheme validation rule set.
 	 * 

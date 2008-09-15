@@ -489,6 +489,8 @@ public final class CdsRules extends Logic
 
 					Element		seller
 						= DOM.getElementByLocalName (context, "sellerPartyReference");
+					
+					if ((buyer == null) || (seller == null)) continue;
 
 					if (buyer.getAttribute ("href").equals (seller.getAttribute ("href"))) {
 						errorHandler.error ("305", context,
@@ -1585,20 +1587,17 @@ public final class CdsRules extends Logic
 				NodeList	list 	= nodeIndex.getElementsByName ("creditDefaultSwap");
 
 				for (int index = 0; index < list.getLength (); ++index) {
-					Element		context = (Element) list.item (index);
-					Element		paymentDate;
-					Element		effectiveDate;
+					Element		context 		= (Element) list.item (index);
+					Element		paymentDate 	= XPath.path (context, "feeLeg", "periodicPayment", "firstPaymentDate");
+					Element		effectiveDate	= XPath.path (context, "generalTerms", "effectiveDate", "unadjustedDate");
 
-					if (implies (
-						exists (XPath.path (context, "feeLeg", "periodicPayment", "firstPaymentDate")),
-						greater (
-							paymentDate = XPath.path (context, "feeLeg", "periodicPayment", "firstPaymentDate"),
-							effectiveDate = XPath.path (context, "generalTerms", "effectiveDate", "unadjustedDate"))))
+					if ((paymentDate == null) || (effectiveDate == null)
+						|| greater (paymentDate, effectiveDate))
 						continue;
-
+					
 					errorHandler.error ("305", context,
-						"First periodic payment date '" + DOM.getInnerText (paymentDate) + "' " +
-						"must be after the effective date '" + DOM.getInnerText (effectiveDate) + "'",
+						"First periodic payment date '" + toToken (paymentDate) + "' " +
+						"must be after the effective date '" + toToken (effectiveDate) + "'",
 						getName (), null);
 
 					result = false;
@@ -1731,7 +1730,7 @@ public final class CdsRules extends Logic
 
 	/**
 	 * A <CODE>Rule</CODE> that ensures if a long form contracts defines a feeLeg
-	 * then it must contain a calculationAmount and dayCountFraction.
+	 * then it must contain a dayCountFraction if there is a calculationAmount.
 	 * <P>
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.0
@@ -1761,19 +1760,13 @@ public final class CdsRules extends Logic
 
 						if (context == null) continue;
 
-						if (!exists (XPath.path (context, "fixedAmountCalculation", "calculationAmount"))) {
-							errorHandler.error ("305", context,
-								"Calculation amount must be present in the fixed amount " +
-								"calculation of periodic payment",
-								getName (), null);
-
-							result = false;
-						}
+						if (!exists (XPath.path (context, "fixedAmountCalculation", "calculationAmount")))
+							continue;
 
 						if (!exists (XPath.path (context, "fixedAmountCalculation", "dayCountFraction"))) {
 							errorHandler.error ("305", context,
-								"Day count fraction must be present in the fixed amount " +
-								"calculation of periodic payment",
+								"Day count fraction must be present if a periodic payment is based on " +
+								"a fixed amount calculation",
 								getName (), null);
 
 							result = false;
@@ -2312,13 +2305,16 @@ public final class CdsRules extends Logic
 	{
 		if (exists (XPath.path (trade, "creditDefaultSwap"))) {
 			Element		target;
-
-			if ((target = XPath.path (trade, "documentation", "contractualDefinitions")) != null)
-				if (DOM.getInnerText (target).trim ().startsWith ("ISDA2003Credit"))
+			NodeList	defs	= XPath.paths (trade, "documentation", "contractualDefinitions");
+			
+			for (int index = 0; index < defs.getLength (); ++index) {
+				target = (Element) defs.item (index);
+				if (toToken (target).startsWith ("ISDA2003Credit"))
 					return (true);
+			}
 
 			if ((target = XPath.path (trade, "documentation", "masterConfirmation", "masterConfirmationType")) != null) {
-				String value = DOM.getInnerText (trade).trim ();
+				String value = toToken (trade);
 
 				if (value.startsWith ("ISDA2003Credit") ||
 					value.startsWith ("ISDA2004Credit"))
@@ -2347,7 +2343,7 @@ public final class CdsRules extends Logic
 
 			if ((target = XPath.path (trade, "documentation", "contractualTermsSupplement", "type")) != null) {
 				String	value = toToken (target);
-				if (value.startsWith ("iTraxx") ||	value.startsWith ("CDX"))
+				if (value.startsWith ("iTraxx") || value.startsWith ("CDX"))
 					return (true);
 			}
 		}

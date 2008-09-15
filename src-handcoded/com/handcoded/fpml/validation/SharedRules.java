@@ -260,9 +260,14 @@ public final class SharedRules extends Logic
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element payer  = (Element) list.item (index);
+					
+					if (payer == null) continue;
+					
 					Element parent = (Element) payer.getParentNode ();
  					Element receiver = DOM.getElementByLocalName (parent, "receiverPartyReference");
 					
+ 					if (receiver == null) continue;
+ 					
 					if (payer.getAttribute ("href").equals (receiver.getAttribute ("href"))) {
 						errorHandler.error ("305", parent,
 							"payer and receiver party references must be different",
@@ -295,26 +300,16 @@ public final class SharedRules extends Logic
 				
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
-					Element		latest  = DOM.getElementByLocalName (context, "latestExerciseTime");
+					Element		latest  = XPath.path (context, "latestExerciseTime", "hourMinuteTime");
+					Element		earliest = XPath.path (context, "earliestExerciseTime", "hourMinuteTime");
 					
-					if (latest != null) {
-						Element		earliest = DOM.getElementByLocalName (context, "earliestExerciseTime");
+					if ((latest == null) || (earliest == null) ||
+						less (toTime (earliest), toTime (latest))) continue;
 						
-						try {
-							Time latestTime   = Time.parse (DOM.getInnerText (DOM.getElementByLocalName (latest, "hourMinuteTime")));
-							Time earliestTime = Time.parse (DOM.getInnerText (DOM.getElementByLocalName (earliest, "hourMinuteTime")));
-
-							if (earliestTime.compareTo (latestTime) >= 0) {
-								errorHandler.error ("305", context,
-									"The latest exercise time must be after the earliest",
-									getName (), null);
-								result = false;
-							}
-						}
-						catch (IllegalArgumentException error) {
-							// Syntax errors handled elsewhere.
-						}
-					}
+					errorHandler.error ("305", context,
+						"The latest exercise time must be after the earliest",
+						getName (), null);
+					result = false;
 				}
 				return (result);
 			}

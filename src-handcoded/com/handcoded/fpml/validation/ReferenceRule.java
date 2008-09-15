@@ -78,10 +78,10 @@ public class ReferenceRule extends Rule
 	}
 	
 	/**
-	 * Checks the elements in context <CODE>NodeList>/CODE> to see if they
+	 * Checks the elements in context <CODE>NodeList</CODE> to see if they
 	 * reference elements in the target <CODE>NodeList</CODE>.
 	 *  
-	 * @param 	context			A <CODE>NodeList</CODE> of context <CODE>Element</CODE> instances.
+	 * @param 	contexts		A <CODE>NodeList</CODE> of context <CODE>Element</CODE> instances.
 	 * @param 	targets			A <CODE>NodeList</CODE> of target <CODE>Element</CODE> instances.
 	 * @param 	errorHandler	The <CODE>ValidationErrorHandler</CODE> used to report errors.
 	 * @return	<CODE>true</CODE> if the validation succeeded.
@@ -117,7 +117,7 @@ public class ReferenceRule extends Rule
 			errorHandler.error ("305", context,
 					"The @href attribute of a '" + contextType + "' element should " +
 					"match with an @id attribute on a '" + targetType + "' element.",
-					getName (), null);
+					getName (), hrefValue);
 			
 			result = false;
 		}

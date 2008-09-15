@@ -138,7 +138,7 @@ public final class ReferenceRules extends FpMLRuleSet
 
 	/**
 	 * A <CODE>Rule</CODE> that ensures an <CODE>InterestCalculationReference</CODE> correctly
-	 * refers to an <CODE>InterestCalculation</CODE>.
+	 * refers to an <CODE>Rate</CODE>.
 	 * <P>
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.2
@@ -147,8 +147,9 @@ public final class ReferenceRules extends FpMLRuleSet
 		= new ReferenceRule (Preconditions.R4_0__LATER, "ref-6",
 				"InterestCalculationReference", new String [] {
 					"interestLegRate" },
-				"InterestCalculation", new String [] {
-					"interestCalculation" });
+				"Rate", new String [] {
+				"rateCalculation", "floatingRate", "floatingRateCalculation",
+				"inflationRateCalculation" });
 			
 	/**
 	 * A <CODE>Rule</CODE> that ensures an <CODE>InterestLegCalculationPeriodDatesReference</CODE> correctly
@@ -206,55 +207,7 @@ public final class ReferenceRules extends FpMLRuleSet
 				"PricingStructure", new String [] {
 					"creditCurve", "fxCurve", "volatilityRepresentation",
 					"yieldCurve" });
-	
-//	/**
-//	 * A <CODE>Rule</CODE> that ensures the @href attribute must match the @id
-//	 * attribute of an element of type PricingStructure.
-//	 * <P>
-//	 * Applies to FpML 4.0 and later.
-//	 * 
-//	 * @since		TFP 1.0
-//	 */
-//	public static final Rule	RULE10
-//		= new Rule (Preconditions.R4_0__LATER, "ref-10")
-//		{
-//			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
-//			{
-//				if (nodeIndex.hasTypeInformation ())
-//					return (validate (nodeIndex, nodeIndex.getElementsByType (determineNamespace (nodeIndex), "PaymentCalculationPeriod"), errorHandler));
-//
-//				return (validate (nodeIndex, nodeIndex.getElementsByName ("paymentCalculationPeriod"), errorHandler));
-//			}
-//			
-//			public boolean validate (NodeIndex nodeIndex, NodeList list, ValidationErrorHandler errorHandler)
-//			{
-//				boolean		result 	= true;
-//				
-//				for (int index = 0; index < list.getLength (); ++index) {
-//					Element		context = (Element) list.item (index);
-//					Attr		href;
-//					Element		target;
-//					
-//					if (((href = context.getAttributeNode ("href")) == null) ||
-//						((target = nodeIndex.getElementById (href.getValue ())) == null)) continue;
-//					
-//					String targetName = target.getLocalName ();
-//					
-//					if (targetName.equals ("creditCurve") ||
-//						targetName.equals ("creditCurve") ||
-//						targetName.equals ("volatilityRepresentation") ||
-//						targetName.equals ("yieldCurve")) continue;
-//					
-//					errorHandler.error ("305", context,
-//						"@href must match the @id attribute of an element of type PricingStructure",
-//						getName (), targetName);
-//					
-//					result = false;
-//				}
-//				return (result);
-//			}
-//		};
-				
+					
 	/**
 	 * A <CODE>Rule</CODE> that ensures a <CODE>PaymentDatesReference</CODE> correctly
 	 * refers to a <CODE>PaymentDates</CODE>.
@@ -682,18 +635,18 @@ public final class ReferenceRules extends FpMLRuleSet
 					"spreadSchedule" });
 		
 	/**
-	 * A <CODE>Rule</CODE> that ensures a <CODE>SensitivitySetReference</CODE> correctly
-	 * refers to a <CODE>SensitivitySet</CODE>.
+	 * A <CODE>Rule</CODE> that ensures a <CODE>SensitivitySetDefinitionReference</CODE>
+	 * correctly refers to a <CODE>SensitivitySetDefinition</CODE>.
 	 * <P>
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE36
 		= new ReferenceRule (Preconditions.R4_0__LATER, "ref-36",
-				"SensitivitySetReference", new String [] {
+				"SensitivitySetDefinitionReference", new String [] {
 					"definitionReference" },
-				"SensitivitySet", new String [] {
-					"sensitivitySet" });
+				"SensitivitySetDefinition", new String [] {
+					"sensitivitySetDefinition" });
 		
 	/**
 	 * Provides access to the business process validation rule set.
