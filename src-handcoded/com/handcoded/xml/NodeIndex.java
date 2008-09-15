@@ -122,7 +122,7 @@ public final class NodeIndex
 	 * element nodes of a given type (or a derived subtype).
 	 *
 	 * @param	ns				The required namespace URI.
-	 * @param	name			The required type name.
+	 * @param	type			The required type name.
 	 * @return	A <CODE>NodeList</CODE> of corresponding nodes.
 	 * @since	TFP 1.1
 	 */
