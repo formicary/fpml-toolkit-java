@@ -743,7 +743,7 @@ public final class Releases
 	/**
 	 * A <CODE>SchemaRelease</CODE> instance containing the details for
 	 * FpML 4-4 recommendation.
-	 * @since	TFP 1.0
+	 * @since	TFP 1.2
 	 */
 	public static SchemaRelease	R4_4
 		= new SchemaRelease (FPML, "4-4",
@@ -858,8 +858,8 @@ public final class Releases
 
 	/**
 	 * A <CODE>SchemaRelease</CODE> instance containing the details for
-	 * FpML 4-4 recommendation.
-	 * @since	TFP 1.0
+	 * FpML 4-5 recommendation.
+	 * @since	TFP 1.2
 	 */
 	public static SchemaRelease	R4_5
 		= new SchemaRelease (FPML, "4-5",
