@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2008 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,7 +13,9 @@
 
 package com.handcoded.xml.resolver;
 
+import java.net.URI;
 import java.util.Stack;
+import java.net.URISyntaxException;
 
 import org.xml.sax.SAXException;
 
@@ -49,7 +51,13 @@ final class NextCatalogEntry extends RelativeEntry implements EntityRule, UriRul
 	Stack				catalogs)
 		throws SAXException
 	{
-		return (CatalogManager.find (catalog).getDefinition ().applyRules (publicId, systemId, catalogs));
+		try {
+			return (CatalogManager.find (baseAsUri ().resolve (new URI (catalog)).toString ())
+				.getDefinition ().applyRules (publicId, systemId, catalogs));
+		}
+		catch (URISyntaxException error) {
+			return (null);
+		}
 	}
 
 	/**
@@ -61,7 +69,13 @@ final class NextCatalogEntry extends RelativeEntry implements EntityRule, UriRul
 	Stack				catalogs)
 		throws SAXException
 	{
-		return (CatalogManager.find (catalog).getDefinition ().applyRules (uri, catalogs));
+		try {
+			return (CatalogManager.find (baseAsUri ().resolve (new URI (catalog)).toString ())
+				.getDefinition ().applyRules (uri, catalogs));
+		}
+		catch (URISyntaxException error) {
+			return (null);
+		}
 	}
 
 	/**
