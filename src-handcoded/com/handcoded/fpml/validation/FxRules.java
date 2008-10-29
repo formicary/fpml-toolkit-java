@@ -1650,6 +1650,48 @@ public final class FxRules extends FpMLRuleSet
 		};
 					
 	/**
+	 * A <CODE>Rule</CODE> that ensures expiry date is after contract trade date.
+	 * <P>
+	 * Applies to FpML 4.2 and later.
+	 * @since	TFP 1.2
+	 */
+	public static final Rule	RULE36B
+		= new Rule (Preconditions.R4_2__LATER, "fx-36b")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Contract"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  = (Element) list.item (index);
+					Element		tradeDate	 = XPath.path (context, "header", "contractDate");
+					Element		expiryDate	 = XPath.path (context, "fxAverageRateOption", "expiryDateTime", "expiryDate");
+					
+					if ((tradeDate == null) || (expiryDate == null)) continue;
+					
+					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
+										
+					errorHandler.error ("305", context,
+							"Expiry date must be after contract trade date.",
+							getName (), toToken (expiryDate));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+						
+	/**
 	 * A <CODE>Rule</CODE> that ensures expiry date is after trade date.
 	 * <P>
 	 * Applies to FpML 3.0 and later.
@@ -1682,6 +1724,48 @@ public final class FxRules extends FpMLRuleSet
 										
 					errorHandler.error ("305", context,
 							"Expiry date must be after trade date.",
+							getName (), toToken (expiryDate));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures expiry date is after contract trade date.
+	 * <P>
+	 * Applies to FpML 4.2 and later.
+	 * @since	TFP 1.2
+	 */
+	public static final Rule	RULE37B
+		= new Rule (Preconditions.R4_2__LATER, "fx-37b")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Contract"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  = (Element) list.item (index);
+					Element		tradeDate	 = XPath.path (context, "header", "contractDate");
+					Element		expiryDate	 = XPath.path (context, "fxBarrierOption", "expiryDateTime", "expiryDate");
+					
+					if ((tradeDate == null) || (expiryDate == null)) continue;
+					
+					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
+										
+					errorHandler.error ("305", context,
+							"Expiry date must be after contract trade date.",
 							getName (), toToken (expiryDate));
 					
 					result = false;
@@ -1733,6 +1817,48 @@ public final class FxRules extends FpMLRuleSet
 			}
 		};
 						
+	/**
+	 * A <CODE>Rule</CODE> that ensures expiry date is after contract trade date.
+	 * <P>
+	 * Applies to FpML 4.2 and later.
+	 * @since	TFP 1.2
+	 */
+	public static final Rule	RULE38B
+		= new Rule (Preconditions.R4_2__LATER, "fx-38b")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Contract"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  = (Element) list.item (index);
+					Element		tradeDate	 = XPath.path (context, "header", "contractDate");
+					Element		expiryDate	 = XPath.path (context, "fxDigitalOption", "expiryDateTime", "expiryDate");
+					
+					if ((tradeDate == null) || (expiryDate == null)) continue;
+					
+					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
+										
+					errorHandler.error ("305", context,
+							"Expiry date must be after contract trade date.",
+							getName (), toToken (expiryDate));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+							
 	/**
 	 * A <CODE>Rule</CODE> that ensures value date is after trade date.
 	 * <P>
@@ -1788,6 +1914,72 @@ public final class FxRules extends FpMLRuleSet
 							
 							errorHandler.error ("305", context,
 									"value2date must be after trade date.",
+									getName (), toToken (value2Date));
+							
+							result = false;
+						}
+					}
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures value date is after contract trade date.
+	 * <P>
+	 * Applies to FpML 3.0 and later.
+	 * @since	TFP 1.2
+	 */
+	public static final Rule	RULE39B
+		= new Rule (Preconditions.R4_2__LATER, "fx-39b")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Contract"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  = (Element) list.item (index);
+					Element		tradeDate = XPath.path (context, "header", "contractDate");
+					Element		valueDate = XPath.path (context, "fxSingleLeg", "valueDate");
+					Element		value1Date = XPath.path (context, "fxSingleLeg", "currency1ValueDate");
+					Element		value2Date = XPath.path (context, "fxSingleLeg", "currency2ValueDate");
+					
+					if (tradeDate != null) {
+						if (valueDate != null) {
+							if (less (toDate (tradeDate), toDate (valueDate))) continue;
+							
+							errorHandler.error ("305", context,
+									"value date must be after contract trade date.",
+									getName (), toToken (valueDate));
+							
+							result = false;
+						}
+						
+						if (value1Date != null) {
+							if (less (toDate (tradeDate), toDate (value1Date))) continue;
+							
+							errorHandler.error ("305", context,
+									"value1date must be after contract trade date.",
+									getName (), toToken (value1Date));
+							
+							result = false;
+						}
+
+						if (value2Date != null) {
+							if (less (toDate (tradeDate), toDate (value2Date))) continue;
+							
+							errorHandler.error ("305", context,
+									"value2date must be after contract trade date.",
 									getName (), toToken (value2Date));
 							
 							result = false;
@@ -1859,6 +2051,78 @@ public final class FxRules extends FpMLRuleSet
 								
 								errorHandler.error ("305", leg,
 										"value2date must be after trade date.",
+										getName (), toToken (value2Date));
+								
+								result = false;
+							}
+						}
+					}
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures all FX swap value dates are after the
+	 * contract trade date.
+	 * <P>
+	 * Applies to FpML 4.2 and later.
+	 * @since	TFP 1.2
+	 */
+	public static final Rule	RULE40B
+		= new Rule (Preconditions.R4_2__LATER, "fx-40b")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Contract"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("contract"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  	= (Element) list.item (index);
+					Element		tradeDate 	= XPath.path (context, "header", "contractDate");
+					NodeList	legs	  	= XPath.paths (context, "fxSwap", "fxSingleLeg");
+					
+					for (int count = 0; count < legs.getLength(); ++count) {
+						Element		leg			= (Element) legs.item (count);
+						Element		valueDate 	= XPath.path (leg, "valueDate");
+						Element		value1Date 	= XPath.path (leg, "currency1ValueDate");
+						Element		value2Date 	= XPath.path (leg, "currency2ValueDate");
+						
+						if (tradeDate != null) {
+							if (valueDate != null) {
+								if (less (toDate (tradeDate), toDate (valueDate))) continue;
+								
+								errorHandler.error ("305", leg,
+										"value date must be after contract trade date.",
+										getName (), toToken (valueDate));
+								
+								result = false;
+							}
+							
+							if (value1Date != null) {
+								if (less (toDate (tradeDate), toDate (value1Date))) continue;
+								
+								errorHandler.error ("305", leg,
+										"value1date must be after contract trade date.",
+										getName (), toToken (value1Date));
+								
+								result = false;
+							}
+
+							if (value2Date != null) {
+								if (less (toDate (tradeDate), toDate (value2Date))) continue;
+								
+								errorHandler.error ("305", leg,
+										"value2date must be after contract trade date.",
 										getName (), toToken (value2Date));
 								
 								result = false;
