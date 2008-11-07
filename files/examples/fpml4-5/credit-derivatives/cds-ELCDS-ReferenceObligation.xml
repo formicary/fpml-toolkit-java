@@ -52,7 +52,7 @@
                      <borrower>
                         <entityName>BorrowerName2</entityName>
                      </borrower>
-                     <facilityType>RevolvingLoan</facilityType>
+                     <facilityType facilityTypeScheme="http://www.fpml.org/coding-scheme/facility-type">RevolvingLoan</facilityType>
                      <creditAgreementDate>2005-11-04</creditAgreementDate>
                   </loan>
                </referenceObligation>
@@ -74,13 +74,13 @@
          </feeLeg>
          <protectionTerms>
             <calculationAmount id="calculationAmount">
-               <currency>USD</currency>
+               <currency currencyScheme="http://www.fpml.org/ext/iso4217">USD</currency>
                <amount>10000000</amount>
             </calculationAmount>
             <obligations>
                <category>Loan</category>
                <fullFaithAndCreditObLiability/>
-               <designatedPriority>FirstLienLoan</designatedPriority>
+               <designatedPriority lienScheme="http://www.fpml.org/coding-scheme/lien">FirstLienLoan</designatedPriority>
                <cashSettlementOnly/>
                <deliveryOfCommitments/>
                <continuity/>
@@ -104,7 +104,7 @@
       </collateral>
       <documentation>
          <masterAgreement>
-            <masterAgreementType masterAgreementTypeScheme="http://dtcc.com/coding-scheme/master-agreement-type">ISDA</masterAgreementType>
+            <masterAgreementType>ISDA</masterAgreementType>
             <masterAgreementDate>2007-12-12</masterAgreementDate>
          </masterAgreement>
          <contractualTermsSupplement>

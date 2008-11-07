@@ -1098,6 +1098,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Schedule"), errorHandler));					
+
 				return (
 					  validate (nodeIndex.getElementsByName ("floatingRateMultiplierSchedule"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("spreadSchedule"), errorHandler)
@@ -2581,19 +2584,11 @@ public final class IrdRules extends FpMLRuleSet
 					Element	convention	= XPath.path (context, "rollConvention");
 					Element	period		= XPath.path (context, "period");
 
-					if ((convention == null) || (period == null) ||
-						implies (
-							not (
-								or (
-									isWeekDayName (toToken (convention)),
-									or (
-										equal (convention, "NONE"),
-										equal (convention, "SFE")))),
-							or (
-								equal (period, "M"),
-								equal (period, "Y"))))
-						continue;
-
+					if ((convention == null) || (period == null)
+					    || !(equal (period, "M") || equal (period, "Y"))) continue;
+					    
+					if (!isWeeklyRollConvention (toToken (convention))) continue;
+				
 					errorHandler.error ("305", context,
 						"Calculation period frequency roll convention '" + toToken (convention) +
 						"' is inconsistent with the calculation period '" + toToken (period) + "'",
@@ -2627,12 +2622,10 @@ public final class IrdRules extends FpMLRuleSet
 					Element	convention	= XPath.path (context, "rollConvention");
 					Element	period		= XPath.path (context, "period");
 
-					if ((convention == null) || (period == null) ||
-						implies (
-							isWeekDayName (toToken (convention)),
-							equal (period, "W")))
-						continue;
-
+					if ((convention == null) || (period == null) || !equal (period, "W")) continue;
+					
+					if (isWeeklyRollConvention (toToken (convention))) continue;
+					
 					errorHandler.error ("305", context,
 						"Calculation period frequency roll convention '" + toToken (convention) +
 						"' is inconsistent with the calculation period '" + toToken (period) + "'",
@@ -2683,6 +2676,43 @@ public final class IrdRules extends FpMLRuleSet
 
 							result = false;
 						}
+					}
+					return (result);
+				}
+			};
+
+		/**
+		 * A <CODE>Rule</CODE> that ensures the calculation period is a term when
+		 * the roll convention is "NONE".
+		 * <P>
+		 * Applies to all FpML releases.
+		 * @since	TFP 1.0
+		 */
+		public static final Rule	RULE60 = new Rule ("ird-60")
+			{
+				/**
+				 * {@inheritDoc}
+				 */
+				public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+				{
+					boolean		result	= true;
+					NodeList	list 	= nodeIndex.getElementsByName ("calculationPeriodFrequency");
+
+					for (int index = 0; index < list.getLength (); ++index) {
+						Element context 	= (Element) list.item (index);
+						Element	convention	= XPath.path (context, "rollConvention");
+						Element	period		= XPath.path (context, "period");
+
+						if ((convention == null) || (period == null) || !equal (period, "T")) continue;
+						
+						if (equal (convention, "NONE")) continue;
+						
+						errorHandler.error ("305", context,
+							"Calculation period frequency roll convention '" + toToken (convention) +
+							"' is inconsistent with the calculation period '" + toToken (period) + "'",
+							getName (), null);
+
+						result = false;
 					}
 					return (result);
 				}
@@ -2777,6 +2807,20 @@ public final class IrdRules extends FpMLRuleSet
 		if (name.equals ("SUN")) return (true);
 
 		return (false);
+	}
+	
+	/**
+	 * Determines if a string value contains a code that can be used as a
+	 * weekly roll convention.
+	 * 
+	 * @param 	code			The code value to be tested.
+	 * @return	<CODE>true</CODE> if the string matches a recognized weekly
+	 * 			roll convention.
+	 * @since	TFP 1.2
+	 */
+	private static boolean isWeeklyRollConvention (final String code)
+	{
+		return (isWeekDayName (code) || code.equals ("NONE") || code.equals("SFE"));
 	}
 
 	/**
