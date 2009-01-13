@@ -177,9 +177,9 @@ public final class Interval implements Serializable
 		if ((period == Period.MONTH) && (other.period == Period.YEAR))
 			return (new Interval (multiplier + 12 * other.multiplier, Period.MONTH));
 		if ((period == Period.WEEK) && (other.period == Period.DAY))
-			return (new Interval (7 * multiplier + other.multiplier, Period.MONTH));
+			return (new Interval (7 * multiplier + other.multiplier, Period.DAY));
 		if ((period == Period.DAY) && (other.period == Period.WEEK))
-			return (new Interval (multiplier + 7 * other.multiplier, Period.MONTH));
+			return (new Interval (multiplier + 7 * other.multiplier, Period.DAY));
 	
 		throw new IllegalArgumentException ("Intervals cannot be combined");
 	}
