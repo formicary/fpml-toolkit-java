@@ -60,7 +60,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -111,7 +111,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -162,7 +162,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -227,7 +227,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -247,7 +247,7 @@ public final class CdsRules extends Logic
 
 					for (int count = 0; count < supplements.getLength(); ++count) {
 						Element		supplement = (Element) supplements.item (count);
-						
+
 						if (toToken (supplement).startsWith ("ISDA2003Credit")) {
 							errorHandler.error ("305", supplement,
 								"The contractualSupplement name may not begin with ISDA2003Credit",
@@ -269,7 +269,7 @@ public final class CdsRules extends Logic
 	 */
 	public static final Rule	RULE03B
 		= new Rule (Preconditions.R4_2__LATER, "cd-3b")
-		{		
+		{
 			/**
 			 * {@inheritDoc}
 			 */
@@ -279,7 +279,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -299,7 +299,7 @@ public final class CdsRules extends Logic
 
 					for (int count = 0; count < types.getLength (); ++count) {
 						Element 	type = (Element) types.item (count);
-						
+
 						if (toToken (type).startsWith ("ISDA2003Credit")) {
 							errorHandler.error ("305", type,
 								"The contractualTermsSupplement/type may not begin with ISDA2003Credit",
@@ -332,7 +332,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -352,7 +352,7 @@ public final class CdsRules extends Logic
 
 					for (int count = 0; count < supplements.getLength (); ++count) {
 						Element		supplement = (Element) supplements.item (count);
-						
+
 						if (DOM.getInnerText (supplement).startsWith ("ISDA1999Credit")) {
 							errorHandler.error ("305", supplement,
 								"The contractualSupplement name may not begin with ISDA1999Credit",
@@ -384,7 +384,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -404,7 +404,7 @@ public final class CdsRules extends Logic
 
 					for (int count = 0; count < types.getLength (); ++count) {
 						Element		type = (Element) types.item (count);
-				
+
 						if (toToken (type).startsWith ("ISDA1999Credit")) {
 							errorHandler.error ("305", type,
 								"The contractualTermSupplement/type name may not begin with ISDA1999Credit",
@@ -489,7 +489,7 @@ public final class CdsRules extends Logic
 
 					Element		seller
 						= DOM.getElementByLocalName (context, "sellerPartyReference");
-					
+
 					if ((buyer == null) || (seller == null)) continue;
 
 					if (buyer.getAttribute ("href").equals (seller.getAttribute ("href"))) {
@@ -572,9 +572,9 @@ public final class CdsRules extends Logic
 
 					Element		adjustable
 						= DOM.getElementByLocalName (context, "scheduledTerminationDate", "adjustableDate");
-					
+
 					if (adjustable == null) continue;
-					
+
 					Element		def
 						= DOM.getElementByLocalName (adjustable, "dateAdjustments");
 					Element		ref
@@ -1048,7 +1048,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -1104,7 +1104,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 					boolean		result 	= true;
@@ -1148,7 +1148,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -1162,7 +1162,16 @@ public final class CdsRules extends Logic
 						if (!isSingleName (context)) continue;
 
 						result &=
-							  validate (context, XPath.path (context, "cashSettlementTerms"), errorHandler)
+							  validate (context, XPath.path (context, "cashSettlementTerms", "settlementCurrency"), errorHandler)
+							& validate (context, XPath.path (context, "cashSettlementTerms", "valuationDate"), errorHandler)
+							& validate (context, XPath.path (context, "cashSettlementTerms", "valuationTime"), errorHandler)
+							& validate (context, XPath.path (context, "cashSettlementTerms", "quotationMethod"), errorHandler)
+							& validate (context, XPath.path (context, "cashSettlementTerms", "quotationAmount"), errorHandler)
+							& validate (context, XPath.path (context, "cashSettlementTerms", "minimumQuotationAmount"), errorHandler)
+							& validate (context, XPath.path (context, "cashSettlementTerms", "dealer"), errorHandler)
+							& validate (context, XPath.path (context, "cashSettlementTerms", "cashSettlementBusinessDays"), errorHandler)
+							& validate (context, XPath.path (context, "cashSettlementTerms", "accruedInterest"), errorHandler)
+							& validate (context, XPath.path (context, "cashSettlementTerms", "valuationMethod"), errorHandler)
 							& validate (context, XPath.path (context, "physicalSettlementTerms"), errorHandler)
 							& validate (context, XPath.path (context, "feeLeg", "periodicPayment", "fixedAmountCalculation", "calculationAmount"), errorHandler)
 							& validate (context, XPath.path (context, "feeLeg", "periodicPayment", "fixedAmountCalculation", "dayCountFraction"), errorHandler)
@@ -1211,7 +1220,7 @@ public final class CdsRules extends Logic
 						  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 						& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 				}
-			
+
 				private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 				{
 					boolean		result 	= true;
@@ -1273,7 +1282,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -1331,7 +1340,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -1377,7 +1386,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -1436,7 +1445,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -1594,7 +1603,7 @@ public final class CdsRules extends Logic
 					if ((paymentDate == null) || (effectiveDate == null)
 						|| greater (paymentDate, effectiveDate))
 						continue;
-					
+
 					errorHandler.error ("305", context,
 						"First periodic payment date '" + toToken (paymentDate) + "' " +
 						"must be after the effective date '" + toToken (effectiveDate) + "'",
@@ -1747,7 +1756,7 @@ public final class CdsRules extends Logic
 					  validate (nodeIndex.getElementsByName ("trade"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("contract"), errorHandler));
 			}
-		
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
@@ -2306,7 +2315,7 @@ public final class CdsRules extends Logic
 		if (exists (XPath.path (trade, "creditDefaultSwap"))) {
 			Element		target;
 			NodeList	defs	= XPath.paths (trade, "documentation", "contractualDefinitions");
-			
+
 			for (int index = 0; index < defs.getLength (); ++index) {
 				target = (Element) defs.item (index);
 				if (toToken (target).startsWith ("ISDA2003Credit"))
