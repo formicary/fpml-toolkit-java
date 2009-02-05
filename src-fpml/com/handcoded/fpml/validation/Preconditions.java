@@ -99,6 +99,14 @@ public interface Preconditions
 		= new VersionPrecondition (Releases.R4_5);
 
 	/**
+	 * A <CODE>Precondition</CODE> instance that detects FpML 4-6 compatible
+	 * documents.
+	 * @since	TFP 1.3
+	 */
+	public static final Precondition 	R4_6
+		= new VersionPrecondition (Releases.R4_6);
+
+	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML 5-0 confirmation
 	 * documents.
 	 * @since	TFP 1.1
@@ -172,17 +180,25 @@ public interface Preconditions
 		= R5_0;
 
 	/**
+	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-6 and
+	 * later.
+	 * @since	TFP 1.3
+	 */
+	public static final Precondition	R4_6__LATER
+		= Precondition.or (R4_6, R5_0__LATER);
+
+	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-5 and
 	 * later.
-	 * @since	TFP 1.0
+	 * @since	TFP 1.2
 	 */
 	public static final Precondition	R4_5__LATER
-		= Precondition.or (R4_5, R5_0__LATER);
+		= Precondition.or (R4_5, R4_6__LATER);
 
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-4 and
 	 * later.
-	 * @since	TFP 1.0
+	 * @since	TFP 1.2
 	 */
 	public static final Precondition	R4_4__LATER
 		= Precondition.or (R4_4, R4_5__LATER);
@@ -190,7 +206,7 @@ public interface Preconditions
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-3 and
 	 * later.
-	 * @since	TFP 1.0
+	 * @since	TFP 1.2
 	 */
 	public static final Precondition	R4_3__LATER
 		= Precondition.or (R4_3, R4_4__LATER);
@@ -198,7 +214,7 @@ public interface Preconditions
 	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML versions 4-2 and
 	 * later.
-	 * @since	TFP 1.0
+	 * @since	TFP 1.1
 	 */
 	public static final Precondition	R4_2__LATER
 		= Precondition.or (R4_2, R4_3__LATER);
