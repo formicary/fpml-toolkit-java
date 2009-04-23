@@ -576,7 +576,7 @@ public final class ReferenceRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE32
-		= new ReferenceRule (Preconditions.R4_0__LATER, "ref-31",
+		= new ReferenceRule (Preconditions.R4_0__LATER, "ref-32",
 				"ProductReference", new String [] {
 					"premiumProductReference", "definition" },
 				"Product", new String [] {
