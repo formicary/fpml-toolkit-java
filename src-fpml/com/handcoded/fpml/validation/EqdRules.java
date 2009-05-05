@@ -50,7 +50,7 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName("equityAmericanExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
@@ -90,11 +90,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("equityAmericanExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength(); ++index) {
 					Element context	= (Element) list.item (index);
 
@@ -107,7 +107,7 @@ public final class EqdRules extends FpMLRuleSet
 						"American exercise structure should include a latest " +
 						"exercise time, since time type is set to SpecificTime",
 						getName (), null);
-				
+
 					result = false;
 				}
 				return (result);
@@ -130,11 +130,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("equityBermudaExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	commence	= XPath.path (context, "commencementDate", "adjustableDate", "unadjustedDate");
@@ -170,11 +170,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("equityBermudaExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	expiration	= XPath.path (context, "expirationDate", "adjustableDate", "unadjustedDate");
@@ -210,11 +210,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("equityBermudaExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context	= (Element) list.item (index);
 
@@ -227,7 +227,7 @@ public final class EqdRules extends FpMLRuleSet
 						"Bermuda exercise structure should include a latest " +
 						"exercise time, since time type is set to SpecificTime",
 						getName (), null);
-				
+
 					result = false;
 				}
 				return (result);
@@ -251,11 +251,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("equityBermudaExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				list = XPath.paths (list, "bermudaExerciseDates", "date");
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element 	context = (Element) list.item (index);
@@ -291,11 +291,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("equityBermudaExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				list = XPath.paths (list, "bermudaExerciseDates", "date");
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
@@ -309,7 +309,7 @@ public final class EqdRules extends FpMLRuleSet
 						" should be after exercise period commencement date " +
 						toToken (commence),
 						getName (), null);
-									
+
 					result = false;
 				}
 				return (result);
@@ -332,11 +332,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("equityBermudaExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				list = XPath.paths (list, "bermudaExerciseDates", "date");
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
@@ -350,7 +350,7 @@ public final class EqdRules extends FpMLRuleSet
 						" should be on or before exercise period expiration date " +
 						toToken (expiration),
 						getName (), null);
-									
+
 					result = false;
 				}
 				return (result);
@@ -373,11 +373,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("equityBermudaExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				list = XPath.paths (list, "bermudaExerciseDates", "date");
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context	= (Element) list.item (index);
@@ -413,11 +413,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("equityEuropeanExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	expiration	= XPath.path (context, "expirationDate", "adjustableDate", "unadjustedDate");
@@ -453,11 +453,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("trade"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	premiumDate	= XPath.path (context, "equityOption", "equityPremium", "paymentDate", "unadjustedDate");
@@ -493,11 +493,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("trade"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	premiumDate	= XPath.path (context, "brokerEquityOption", "equityPremium", "paymentDate", "unadjustedDate");
@@ -533,11 +533,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("equityExercise"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	valuationDate	= XPath.path (context, "equityValuation", "valuationDate", "adjustableDate", "unadjustedDate");
@@ -572,13 +572,14 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (
 					  validate (nodeIndex.getElementsByName ("equityOption"), errorHandler)
-					& validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler));
+					& validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("equityOptionTransactionSupplement"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	multiple	= XPath.path (context, "equityExercise", "equityAmericanExercise", "equityMultipleExercise");
@@ -618,14 +619,15 @@ public final class EqdRules extends FpMLRuleSet
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
 				return (
-						  validate (nodeIndex.getElementsByName ("equityOption"), errorHandler)
-						& validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler));
+						    validate (nodeIndex.getElementsByName ("equityOption"), errorHandler)
+						  & validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler)
+						  & validate (nodeIndex.getElementsByName ("equityOptionTransactionSupplement"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	multiple	= XPath.path (context, "equityExercise", "equityBermudaExercise", "equityMultipleExercise");
@@ -665,21 +667,22 @@ public final class EqdRules extends FpMLRuleSet
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
 				return (
-					  validate (nodeIndex.getElementsByName ("equityOption"), errorHandler)
-					& validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler));
+					    validate (nodeIndex.getElementsByName ("equityOption"), errorHandler)
+					  & validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler)
+					  & validate (nodeIndex.getElementsByName ("equityOptionTransactionSupplement"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	notionalCcy	= XPath.path (context, "notional", "currency");
 					Element	paymentCcy	= XPath.path (context, "equityPremium", "paymentAmount", "currency");
-					
+
 					if ((notionalCcy == null) || (paymentCcy == null) || !isSameCurrency (notionalCcy, paymentCcy)) continue;
-					
+
 					Element	totalValue	= XPath.path (context, "notional", "amount");
 					Element	percentage	= XPath.path (context, "equityPremium", "percentageOfNotional");
 					Element	amount		= XPath.path (context, "equityPremium", "paymentAmount", "amount");
@@ -714,20 +717,21 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (
 					  validate (nodeIndex.getElementsByName ("equityOption"), errorHandler)
-					& validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler));
+					& validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("equityOptionTransactionSupplement"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	priceCcy	= XPath.path (context, "equityPremium", "pricePerOption", "currency");
 					Element	paymentCcy	= XPath.path (context, "equityPremium", "paymentAmount", "currency");
-					
+
 					if ((priceCcy == null) || (paymentCcy == null) || !isSameCurrency (priceCcy, paymentCcy)) continue;
-					
+
 					Element	number		= XPath.path (context, "numberOfOptions");
 					Element	entitlement	= XPath.path (context, "optionEntitlement");
 					Element	priceEach	= XPath.path (context, "equityPremium", "pricePerOption", "amount");
@@ -765,14 +769,14 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("calculationAgent"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
-					
+
 					if (!context.getParentNode().getLocalName ().equals ("trade")) continue;
 
 					if (exists (
@@ -808,11 +812,11 @@ public final class EqdRules extends FpMLRuleSet
 					& validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("equityForward"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context	= (Element) list.item (index);
 					Element	buyer	= XPath.path (context, "buyerPartyReference");
@@ -821,7 +825,7 @@ public final class EqdRules extends FpMLRuleSet
 					if ((buyer == null) || (seller == null) ||
 						notEqual (buyer.getAttribute ("href"), seller.getAttribute ("href")))
 						continue;
-			
+
 					errorHandler.error ("305", context,
 						"The buyerPartyReference/@href must not be the same as the " +
 						"sellerPartyReference/@href",
@@ -852,11 +856,11 @@ public final class EqdRules extends FpMLRuleSet
 					& validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("equityForward"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 		= (Element) list.item (index);
 					Element	effectiveDate	= XPath.path (context, "equityEffectiveDate");
@@ -892,11 +896,11 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("schedule"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context		= (Element) list.item (index);
 					Element	startDate	= XPath.path (context, "startDate");
@@ -931,18 +935,18 @@ public final class EqdRules extends FpMLRuleSet
 			{
 				return (validate (nodeIndex.getElementsByName ("brokerEquityOption"), errorHandler));
 			}
-			
+
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
 			{
 				boolean		result	= true;
-				
+
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context		= (Element) list.item (index);
 					Element	priceCcy	= XPath.path (context, "equityPremium", "pricePerOption");
 					Element	paymentCcy	= XPath.path (context, "equityPremium", "paymentAmount");
-					
+
 					if ((priceCcy == null) || (paymentCcy == null) || !isSameCurrency (priceCcy, paymentCcy)) continue;
-					
+
 					Element	number		= XPath.path (context, "numberOfOptions");
 					Element	priceEach	= XPath.path (context, "equityPremium", "pricePerOption", "amount");
 					Element	amount		= XPath.path (context, "equityPremium", "paymentAmount", "amount");
@@ -964,7 +968,7 @@ public final class EqdRules extends FpMLRuleSet
 
 	/**
 	 * Provides access to the EQD validation rule set.
-	 * 
+	 *
 	 * @return	The EQD validation rule set.
 	 * @since	TFP 1.0
 	 */
@@ -972,14 +976,14 @@ public final class EqdRules extends FpMLRuleSet
 	{
 		return (rules);
 	}
-	
+
 	/**
 	 * A <CODE>RuleSet</CODE> containing all the standard FpML defined
 	 * validation rules for equity derivative products.
 	 * @since	TFP 1.0
 	 */
 	private static final RuleSet	rules = RuleSet.forName ("EqdRules");
-	
+
 	/**
 	 * Ensures no instances can be created.
 	 * @since	TFP 1.0
