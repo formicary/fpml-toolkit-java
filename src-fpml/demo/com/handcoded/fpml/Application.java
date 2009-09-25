@@ -77,6 +77,7 @@ public abstract class Application extends com.handcoded.framework.Application
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_4);
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_5);
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_6);
+		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_7);
 		
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_CONFIRMATION);
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_PRETRADE);
