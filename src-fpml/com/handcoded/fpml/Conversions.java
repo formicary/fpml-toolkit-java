@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2009 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -17,15 +17,17 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import org.w3c.dom.Attr;
-import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.handcoded.meta.ConversionException;
 import com.handcoded.meta.DirectConversion;
 import com.handcoded.meta.Helper;
+import com.handcoded.meta.Release;
+import com.handcoded.meta.SchemaRelease;
 import com.handcoded.meta.Schema;
 import com.handcoded.xml.DOM;
 import com.handcoded.xml.XPath;
@@ -323,7 +325,7 @@ public final class Conversions
 		 */
 		public Document convert (Document source, Helper helper)
 		{
-			Document	target = getTargetRelease ().newInstance ("FpML");
+			Document		target = getTargetRelease ().newInstance ("FpML");
 			Element			oldRoot = source.getDocumentElement ();
 			Element			newRoot	= target.getDocumentElement ();
 			Hashtable		cache	= new Hashtable ();
@@ -640,6 +642,45 @@ public final class Conversions
 	 */
 	public static class R4_0__R4_1 extends DirectConversion 
 	{
+		public interface Helper extends com.handcoded.meta.Helper
+		{
+			/**
+			 * Uses the context information provided to determine the reference
+			 * currency of the trade or throws a <CODE>ConversionException</CODE>.
+			 * 
+			 * @param	context		The <CODE>Element</CODE> of the fxFeature.
+			 * @return	The reference currency code value (e.g. GBP).
+			 */
+			public String getReferenceCurrency (final Element context);
+
+			/**
+			 * Uses the context information provided to determine the first quanto
+			 * currency of the trade or throws a <CODE>ConversionException</CODE>.
+			 * 
+			 * @param 	context		The <CODE>Element</CODE> of the fxFeature
+			 * @return	The reference currency code value (e.g. GBP).
+			 */
+			public String getQuantoCurrency1 (final Element context);
+
+			/**
+			 * Uses the context information provided to determine the second quanto
+			 * currency of the trade or throws a <CODE>ConversionException</CODE>.
+			 * 
+			 * @param 	context		The <CODE>Element</CODE> of the fxFeature
+			 * @return	The reference currency code value (e.g. GBP).
+			 */
+			public String getQuantoCurrency2 (final Element context);
+			
+			/**
+			 * Uses the context information provided to determine the quanto
+			 * currency basis or throws a <CODE>ConversionException</CODE>.
+			 * 
+			 * @param 	context		The <CODE>Element</CODE> of the fxFeature
+			 * @return	The quanto currency basis.
+			 */
+			public String getQuantoCurrencyBasis (final Element context);
+		}
+		
 		public R4_0__R4_1 ()
 		{
 			super (Releases.R4_0, Releases.R4_1);
@@ -649,9 +690,10 @@ public final class Conversions
 		 * {@inheritDoc}
 		 * @since	TFP 1.0
 		 */
-		public Document convert (Document source, Helper helper)
+		public Document convert (Document source, com.handcoded.meta.Helper helper)
+			throws ConversionException
 		{
-			Document	target = getTargetRelease ().newInstance ("FpML");
+			Document		target = getTargetRelease ().newInstance ("FpML");
 			Element			oldRoot = source.getDocumentElement ();
 			Element			newRoot	= target.getDocumentElement ();
 			
@@ -660,7 +702,7 @@ public final class Conversions
 			
 			// Transcribe each of the first level child elements
 			for (Node node = oldRoot.getFirstChild (); node != null;) {
-				transcribe (node, target, newRoot);
+				transcribe (node, target, newRoot, helper);
 				node = node.getNextSibling ();
 			}
 	
@@ -675,9 +717,12 @@ public final class Conversions
 		 * @param 	context			The <CODE>node</CODE> to be copied.
 		 * @param 	document		The new <CODE>Document</CODE> instance.
 		 * @param 	parent			The new parent <CODE>Node</CODE>.
+		 * @param	helper			The helper instance.
 		 * @since	TFP 1.0
 		 */
-		private void transcribe (Node context, Document document, Node parent)
+		private void transcribe (Node context, Document document, Node parent,
+				com.handcoded.meta.Helper helper)
+			throws ConversionException
 		{
 			switch (context.getNodeType ()) {
 			case Node.ELEMENT_NODE:
@@ -744,30 +789,30 @@ public final class Conversions
 						Element receiver	= document.createElement ("receiverPartyReference");
 
 						if ((target = XPath.path (element, "buyerPartyReference")) != null) {
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 							payer.setAttribute ("href", target.getAttribute ("href"));
 						}
 						if ((target = XPath.path (element, "sellerPartyReference")) != null) {
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 							receiver.setAttribute ("href", target.getAttribute ("href"));
 						}
 						if ((target = XPath.path (element, "optionType")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "equityEffectiveDate")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "underlyer")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "notional")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "equityExercise")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "fxFeature")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "methodOfAdjustment")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 
 						if ((target = XPath.path (element, "extraordinaryEvents")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						else {
 							Element	child = document.createElement ("extraordinaryEvents");
 							Element	failure = document.createElement ("failureToDeliver");
@@ -782,15 +827,15 @@ public final class Conversions
 						}
 						
 						if ((target = XPath.path (element, "equityOptionFeatures")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "strike")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "spot")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "numberOfOptions")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "optionEntitlement")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 
 						premium.appendChild (payer);
 						premium.appendChild (receiver);			
@@ -806,37 +851,37 @@ public final class Conversions
 						Element agent = document.createElement ("calculationAgent");
 
 						if ((target = XPath.path (element, "buyerPartyReference")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "sellerPartyReference")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 
 						list = element.getElementsByTagName ("premium");
 						for (int index = 0; index < list.getLength (); ++index)
-							transcribe (list.item (index), document, clone);
+							transcribe (list.item (index), document, clone, helper);
 
 						if ((target = XPath.path (element, "americanExercise")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "bermudaExercise")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "europeanExercise")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "exerciseProcedure")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 	
 						clone.appendChild (agent);
 
 						list = element.getElementsByTagName ("calculationAgentPartyReference");
 						for (int index = 0; index < list.getLength (); ++index)
-							transcribe (list.item (index), document, agent);
+							transcribe (list.item (index), document, agent, helper);
 
 						if ((target = XPath.path (element, "cashSettlement")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "swaptionStraddle")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "swaptionAdjustedDates")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "swap")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 
 						break;
 					}
@@ -847,19 +892,21 @@ public final class Conversions
 						Element	target;
 						Element	rccy	= document.createElement ("referenceCurrency");
 
-						DOM.setInnerText (rccy, "???");
-						clone.appendChild (rccy);
+						if (helper instanceof Helper) {
+							DOM.setInnerText (rccy, ((Helper) helper).getReferenceCurrency (element));
+							clone.appendChild (rccy);
+						}
+						else
+							throw new ConversionException ("Cannot determine the fxFeature reference currency");
 
 						if (DOM.getInnerText (XPath.path (element, "fxFeatureType")).trim ().toUpperCase ().equals ("COMPOSITE")) {
 							child = document.createElement ("composite");
 
 							if ((target = XPath.path (element, "fxSource")) != null)
-								transcribe (target, document, child);
+								transcribe (target, document, child, helper);
 						}
 						else {
 							child = document.createElement ("quanto");
-
-							Comment	note	= document.createComment ("Note: Manual enrichment required here");
 
 							Element	pair	= document.createElement ("quotedCurrencyPair");
 							Element	ccy1	= document.createElement ("currency1");
@@ -868,14 +915,18 @@ public final class Conversions
 							Element	rate	= document.createElement ("fxRate");
 							Element	value	= document.createElement ("rate");
 
-							DOM.setInnerText (ccy1, "???");
-							DOM.setInnerText (ccy2, "???");
-							DOM.setInnerText (basis, "Currency1PerCurrency2");
+							if (helper instanceof Helper) {
+								DOM.setInnerText (ccy1, ((Helper) helper).getQuantoCurrency1 (element));
+								DOM.setInnerText (ccy2, ((Helper) helper).getQuantoCurrency2 (element));
+								DOM.setInnerText (basis, ((Helper) helper).getQuantoCurrencyBasis (element));
 
-							pair.appendChild (ccy1);
-							pair.appendChild (ccy2);
-							pair.appendChild (basis);
-
+								pair.appendChild (ccy1);
+								pair.appendChild (ccy2);
+								pair.appendChild (basis);
+							}
+							else
+								throw new ConversionException ("Cannot determine fxFeature quanto currencies");
+							
 							if ((target = XPath.path (element, "fxRate")) != null)
 								DOM.setInnerText (value, DOM.getInnerText (target));
 							else
@@ -884,11 +935,10 @@ public final class Conversions
 							rate.appendChild (pair);
 							rate.appendChild (value);
 
-							child.appendChild (note);
 							child.appendChild (rate);
 
 							if ((target = XPath.path (element, "fxSource")) != null)
-								transcribe (target, document, child);
+								transcribe (target, document, child, helper);
 						}
 						clone.appendChild (child);
 				
@@ -901,29 +951,29 @@ public final class Conversions
 						Element	child;
 
 						if ((kind = XPath.path (element, "quanto")) != null) {
-							transcribe (XPath.path (kind, "referenceCurrency"), document, clone);
+							transcribe (XPath.path (kind, "referenceCurrency"), document, clone, helper);
 
 							child = document.createElement ("quanto");
 
 							NodeList	list = kind.getElementsByTagName ("fxRate");
 							for (int index = 0; index < list.getLength(); ++index)
-								transcribe (list.item (index), document, child);
+								transcribe (list.item (index), document, child, helper);
 
 							clone.appendChild (child);
 						}
 						if ((kind = XPath.path (element, "compositeFx")) != null) {
 							Element	target;
 
-							transcribe (XPath.path (kind, "referenceCurrency"), document, clone);
+							transcribe (XPath.path (kind, "referenceCurrency"), document, clone, helper);
 
 							child = document.createElement ("composite");
 
 							if ((target = XPath.path (kind, "determinationMethod")) != null)
-								transcribe (target, document, child);
+								transcribe (target, document, child, helper);
 							if ((target = XPath.path (kind, "relativeDate")) != null)
-								transcribe (target, document, child);
+								transcribe (target, document, child, helper);
 							if ((target = XPath.path (kind, "fxDetermination")) != null)
-								transcribe (target, document, child);
+								transcribe (target, document, child, helper);
 
 							clone.appendChild (child);
 						}
@@ -936,11 +986,11 @@ public final class Conversions
 						Element		target;
 
 						if ((target = XPath.path (element, "productType")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 	
 						list = element.getElementsByTagName ("productId");
 						for (int index = 0; index < list.getLength (); ++index)
-							transcribe (list.item (index), document, clone);
+							transcribe (list.item (index), document, clone, helper);
 
 						Element	firstLeg = (Element) element.getElementsByTagName ("equityLeg").item (0);
 
@@ -956,20 +1006,20 @@ public final class Conversions
 						
 						list = element.getElementsByTagName ("equityLeg");
 						for (int index = 0; index < list.getLength (); ++index)
-							transcribe (list.item (index), document, clone);
+							transcribe (list.item (index), document, clone, helper);
 						list = element.getElementsByTagName ("interestLeg");
 						for (int index = 0; index < list.getLength (); ++index)
-							transcribe (list.item (index), document, clone);
+							transcribe (list.item (index), document, clone, helper);
 
 						if ((target = XPath.path (element, "principalExchangeFeatures")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 
 						list = element.getElementsByTagName ("additionalPayment");
 						for (int index = 0; index < list.getLength (); ++index)
-							transcribe (list.item (index), document, clone);
+							transcribe (list.item (index), document, clone, helper);
 						list = element.getElementsByTagName ("earlyTermination");
 						for (int index = 0; index < list.getLength (); ++index)
-							transcribe (list.item (index), document, clone);
+							transcribe (list.item (index), document, clone, helper);
 
 						break;
 					}
@@ -980,28 +1030,28 @@ public final class Conversions
 						Element	target;
 
 						if ((target = XPath.path (element, "commission")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "determinationMethod")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "amountRelativeTo")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "grossPrice")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "netPrice")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "accruedInterestPrice")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "fxConversion")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 
 						Element	valuation = document.createElement ("equityValuation");
 
 						if ((target = XPath.path (element, "equityValuationDate")) != null)
-							transcribe (target, document, valuation);
+							transcribe (target, document, valuation, helper);
 						if ((target = XPath.path (element, "valuationTimeType")) != null)
-							transcribe (target, document, valuation);
+							transcribe (target, document, valuation, helper);
 						if ((target = XPath.path (element, "valuationTime")) != null)
-							transcribe (target, document, valuation);
+							transcribe (target, document, valuation, helper);
 
 						clone.appendChild (valuation);
 						break;
@@ -1012,28 +1062,28 @@ public final class Conversions
 						Element	target;
 
 						if ((target = XPath.path (element, "commission")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "determinationMethod")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "amountRelativeTo")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "grossPrice")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "netPrice")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "accruedInterestPrice")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "fxConversion")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 
 						Element	valuation = document.createElement ("equityValuation");
 
 						if ((target = XPath.path (element, "equityValuationDates")) != null)
-							transcribe (target, document, valuation);
+							transcribe (target, document, valuation, helper);
 						if ((target = XPath.path (element, "valuationTimeType")) != null)
-							transcribe (target, document, valuation);
+							transcribe (target, document, valuation, helper);
 						if ((target = XPath.path (element, "valuationTime")) != null)
-							transcribe (target, document, valuation);
+							transcribe (target, document, valuation, helper);
 
 						clone.appendChild (valuation);
 						break;
@@ -1043,9 +1093,9 @@ public final class Conversions
 						Element	target = XPath.path (element, "basketPercentage");
 
 						if (target != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						else
-							transcribe (XPath.path (element, "openUnits"), document, clone);
+							transcribe (XPath.path (element, "openUnits"), document, clone, helper);
 
 						break;
 					}
@@ -1055,7 +1105,7 @@ public final class Conversions
 						Element	target;
 
 						if ((target = XPath.path (element, "mergerEvents")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						
 						Element	failure = document.createElement ("failureToDeliver");
 						
@@ -1067,16 +1117,16 @@ public final class Conversions
 						clone.appendChild (failure);
 						
 						if ((target = XPath.path (element, "nationalisationOrInsolvency")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 						if ((target = XPath.path (element, "delisting")) != null)
-							transcribe (target, document, clone);
+							transcribe (target, document, clone, helper);
 
 						break;
 					}
 					
 					// Recursively copy the child node across 
 					for (Node node = element.getFirstChild (); node != null;) {
-						transcribe (node, document, clone);
+						transcribe (node, document, clone, helper);
 						node = node.getNextSibling ();
 					}
 					break;
@@ -1107,12 +1157,9 @@ public final class Conversions
 		 */
 		public Document convert (Document source, Helper helper)
 		{
-			Document	target = getTargetRelease ().newInstance ("FpML");
+			Document		target = getTargetRelease ().newInstance ("FpML");
 			Element			oldRoot = source.getDocumentElement ();
 			Element			newRoot	= target.getDocumentElement ();
-			
-			// Transfer the attributes
-			newRoot.setAttributeNS (Schema.INSTANCE_URL, "xsi:type", "DataDocument");
 			
 			// Transcribe each of the first level child elements
 			for (Node node = oldRoot.getFirstChild (); node != null;) {
@@ -1141,7 +1188,8 @@ public final class Conversions
 					Element		element = (Element) context;
 					Element		clone;
 					
-					clone = document.createElementNS (null, element.getLocalName ());
+					clone = document.createElementNS (
+							((SchemaRelease) getTargetRelease ()).getNamespaceUri(), element.getLocalName ());
 					
 					parent.appendChild (clone);
 				
@@ -1185,12 +1233,9 @@ public final class Conversions
 		 */
 		public Document convert (Document source, Helper helper)
 		{
-			Document	target = getTargetRelease ().newInstance ("FpML");
+			Document		target = getTargetRelease ().newInstance ("FpML");
 			Element			oldRoot = source.getDocumentElement ();
 			Element			newRoot	= target.getDocumentElement ();
-			
-			// Transfer the attributes
-			newRoot.setAttributeNS (Schema.INSTANCE_URL, "xsi:type", "DataDocument");
 			
 			// Transcribe each of the first level child elements
 			for (Node node = oldRoot.getFirstChild (); node != null;) {
@@ -1262,12 +1307,9 @@ public final class Conversions
 		 */
 		public Document convert (Document source, Helper helper)
 		{
-			Document	target = getTargetRelease ().newInstance ("FpML");
+			Document		target = getTargetRelease ().newInstance ("FpML");
 			Element			oldRoot = source.getDocumentElement ();
 			Element			newRoot	= target.getDocumentElement ();
-			
-			// Transfer the attributes
-			newRoot.setAttributeNS (Schema.INSTANCE_URL, "xsi:type", "DataDocument");
 			
 			// Transcribe each of the first level child elements
 			for (Node node = oldRoot.getFirstChild (); node != null;) {
@@ -1321,7 +1363,7 @@ public final class Conversions
 	}
 
 	/**
-	 * The <CODE>R4_4__TR4_5</CODE> class contains the logic to migrate
+	 * The <CODE>R4_4__R4_5</CODE> class contains the logic to migrate
 	 * the content of a FpML 4.4 schema based document to 4.5 
 	 * 
 	 * @since	TFP 1.2
@@ -1339,12 +1381,9 @@ public final class Conversions
 		 */
 		public Document convert (Document source, Helper helper)
 		{
-			Document	target = getTargetRelease ().newInstance ("FpML");
+			Document		target = getTargetRelease ().newInstance ("FpML");
 			Element			oldRoot = source.getDocumentElement ();
 			Element			newRoot	= target.getDocumentElement ();
-			
-			// Transfer the attributes
-			newRoot.setAttributeNS (Schema.INSTANCE_URL, "xsi:type", "DataDocument");
 			
 			// Transcribe each of the first level child elements
 			for (Node node = oldRoot.getFirstChild (); node != null;) {
@@ -1398,9 +1437,238 @@ public final class Conversions
 	}
 
 	/**
+	 * The <CODE>R4_5__R4_6</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.5 schema based document to 4.6 
+	 * 
+	 * @since	TFP 1.3
+	 */
+	public static class R4_5__R4_6 extends DirectConversion 
+	{
+		public R4_5__R4_6 ()
+		{
+			super (Releases.R4_5, Releases.R4_6);
+		}
+		
+		/**
+		 * {@inheritDoc}
+		 * @since	TFP 1.2
+		 */
+		public Document convert (Document source, Helper helper)
+		{
+			Document		target = getTargetRelease ().newInstance ("FpML");
+			Element			oldRoot = source.getDocumentElement ();
+			Element			newRoot	= target.getDocumentElement ();
+			
+			// Transcribe each of the first level child elements
+			for (Node node = oldRoot.getFirstChild (); node != null;) {
+				transcribe (node, target, newRoot);
+				node = node.getNextSibling ();
+			}
+	
+			return (target);
+		}
+		
+		/**
+		 * Recursively copies the structure of the old document into a new 
+		 * document adjusting the elements and attributes as necessary.
+		 * 
+		 * @param 	context			The <CODE>node</CODE> to be copied.
+		 * @param 	document		The new <CODE>Document</CODE> instance.
+		 * @param 	parent			The new parent <CODE>Node</CODE>.
+		 * @since	TFP 1.2
+		 */
+		private void transcribe (Node context, Document document, Node parent)
+		{
+			switch (context.getNodeType ()) {
+			case Node.ELEMENT_NODE:
+				{
+					Element		element = (Element) context;
+					Element		clone;
+					
+					clone = document.createElementNS (null, element.getLocalName ());
+					
+					parent.appendChild (clone);
+				
+					NamedNodeMap	attrs = element.getAttributes ();
+					for (int index = 0; index < attrs.getLength (); ++index) {
+						Attr attr 	= (Attr) attrs.item (index);
+						
+						clone.setAttribute (attr.getName (), attr.getValue ());
+					}
+					
+					// Recursively copy the child node across
+					for (Node node = element.getFirstChild (); node != null;) {
+						transcribe (node, document, clone);
+						node = node.getNextSibling ();
+					}
+					break;
+				}
+				
+			default:
+				parent.appendChild (document.importNode (context, false));
+			}
+		}
+	}
+	
+	/**
+	 *
+	 */
+	private static class R5_0 extends DirectConversion
+	{
+		public R5_0 (Release source, Release target)
+		{
+			super (source, target);
+		}
+		
+		/**
+		 * {@inheritDoc}
+		 * @since	TFP 1.2
+		 */
+		public Document convert (Document source, Helper helper)
+		{
+			Element			oldRoot = source.getDocumentElement ();
+			String			msgType = oldRoot.getAttribute("xsi:type");
+		
+			MessageType		newType = (MessageType) messageMap.get (new MessageType (this.getSourceRelease(), msgType));
+				
+			Document		target = getTargetRelease ().newInstance (newType.getMessage ());
+			Element			newRoot	= target.getDocumentElement ();
+			
+			// Transcribe each of the first level child elements
+			for (Node node = oldRoot.getFirstChild (); node != null;) {
+				transcribe (node, target, newRoot);
+				node = node.getNextSibling ();
+			}
+	
+			return (target);
+		}
+		
+		/**
+		 * Recursively copies the structure of the old document into a new 
+		 * document adjusting the elements and attributes as necessary.
+		 * 
+		 * @param 	context			The <CODE>node</CODE> to be copied.
+		 * @param 	document		The new <CODE>Document</CODE> instance.
+		 * @param 	parent			The new parent <CODE>Node</CODE>.
+		 * @since	TFP 1.2
+		 */
+		private void transcribe (Node context, Document document, Node parent)
+		{
+			switch (context.getNodeType ()) {
+			case Node.ELEMENT_NODE:
+				{
+					Element		element = (Element) context;
+					Element		clone;
+					
+					clone = document.createElementNS (null, element.getLocalName ());
+					
+					parent.appendChild (clone);
+				
+					NamedNodeMap	attrs = element.getAttributes ();
+					for (int index = 0; index < attrs.getLength (); ++index) {
+						Attr attr 	= (Attr) attrs.item (index);
+						
+						clone.setAttribute (attr.getName (), attr.getValue ());
+					}
+					
+					// Recursively copy the child node across
+					for (Node node = element.getFirstChild (); node != null;) {
+						transcribe (node, document, clone);
+						node = node.getNextSibling ();
+					}
+					break;
+				}
+				
+			default:
+				parent.appendChild (document.importNode (context, false));
+			}
+		}		
+	}
+	
+	/**
+	 * The <CODE>R4_4__TR4_5</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.4 schema based document to 4.5 
+	 * 
+	 * @since	TFP 1.2
+	 */
+	public static class R4_6__R5_0_CONFIRMATION extends R5_0 
+	{
+		public R4_6__R5_0_CONFIRMATION ()
+		{
+			super (Releases.R4_6, Releases.R5_0_CONFIRMATION);
+		}
+	}
+
+	/**
+	 * The <CODE>R4_4__TR4_5</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.4 schema based document to 4.5 
+	 * 
+	 * @since	TFP 1.2
+	 */
+	public static class R4_6__R5_0_PRETRADE extends R5_0 
+	{
+		public R4_6__R5_0_PRETRADE ()
+		{
+			super (Releases.R4_6, Releases.R5_0_PRETRADE);
+		}
+	}
+
+	/**
+	 * The <CODE>R4_4__TR4_5</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.4 schema based document to 4.5 
+	 * 
+	 * @since	TFP 1.2
+	 */
+	public static class R4_6__R5_0_REPORTING extends R5_0 
+	{
+		public R4_6__R5_0_REPORTING ()
+		{
+			super (Releases.R4_6, Releases.R5_0_REPORTING);
+		}
+	}
+
+	/**
+	 * 
+	 * @param targetVersion
+	 * @param source
+	 * @param document
+	 * @return
+	 */
+	public static MessageType suggestMessage (final String targetVersion, Release source, Document document)
+	{
+		String			messageType	= "DataDocument";
+		
+		if (targetVersion.startsWith ("1-")) return (new MessageType (Releases.R1_0, null));
+		if (targetVersion.startsWith ("2-")) return (new MessageType (Releases.R2_0, null));
+		if (targetVersion.startsWith ("3-")) return (new MessageType (Releases.R3_0, null));
+
+		if (source.getVersion ().startsWith ("4-"))
+			messageType = document.getDocumentElement().getAttribute("xsi:type");
+			
+		if (targetVersion.startsWith ("4-"))
+			return (new MessageType (Releases.FPML.getReleaseForVersion (targetVersion), messageType));
+	
+		if (targetVersion.startsWith ("5-"))
+			return ((MessageType) messageMap.get (messageType));
+		
+		return (null);
+	}
+	
+	private static Hashtable	messageMap	= new Hashtable ();
+
+	/**
 	 * Ensures no instances can be constructed.
 	 * @since	TFP 1.0
 	 */
 	private Conversions ()
-	{ }
+	{
+	}
+	
+	static {
+		messageMap.put ("DataDocument",
+			new MessageType (Releases.R5_0_CONFIRMATION, "dataDocument"));
+	
+		messageMap.put ("ContractCreated",
+		new MessageType (Releases.R5_0_CONFIRMATION, "tradeExecutedAdvice"));
+	}
 }

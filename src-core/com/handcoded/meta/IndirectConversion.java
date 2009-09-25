@@ -64,6 +64,7 @@ final class IndirectConversion extends Conversion
 	 * @since	TFP 1.0
 	 */
 	public Document convert (Document document, Helper helper)
+		throws ConversionException
 	{
 		return (second.convert (first.convert (document, helper), helper));
 	}

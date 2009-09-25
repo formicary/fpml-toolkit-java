@@ -80,7 +80,8 @@ public abstract class Conversion
 	 * 			data.
 	 * @since	TFP 1.0 
 	 */
-	public abstract Document convert (Document document, Helper helper);
+	public abstract Document convert (Document document, Helper helper)
+		throws ConversionException;
 	
 	/**
 	 * Constructs a <CODE>Conversion</CODE> instance.
