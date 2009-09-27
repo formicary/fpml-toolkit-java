@@ -422,7 +422,7 @@
 	<scheme uri="http://www.fpml.org/coding-scheme/bullion-delivery-location-1-0" canonicalUri="http://www.fpml.org/coding-scheme/bullion-delivery-location" name="bullionDeliveryLocationScheme">
 		<schemeValues>
 			<schemeValue schemeValueSource="FpML" name="BankOfEngland">
-				<paragraph>Delivery will be made to the Purchaser of Bullion&apos;s account with the Bank of England in London.</paragraph>
+				<paragraph>Delivery will be made to the Purchaser of Bullion's account with the Bank of England in London.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="INCOActonPool">
 				<paragraph>Delivery will be made to the INCO Acton Pool.</paragraph>
@@ -434,10 +434,10 @@
 				<paragraph>Delivery will be made to the Johnson Matthey Pennsylvania Pool.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="London">
-				<paragraph>Delivery will be made to the Purchaser of Bullion&apos;s custodian bank in London. Custodian bank to be agreed by the parties.</paragraph>
+				<paragraph>Delivery will be made to the Purchaser of Bullion's custodian bank in London. Custodian bank to be agreed by the parties.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="Zurich">
-				<paragraph>Delivery will be made to the Purchaser of Bullion&apos;s custodian bank in London. Custodian bank to be agreed by the parties.</paragraph>
+				<paragraph>Delivery will be made to the Purchaser of Bullion's custodian bank in London. Custodian bank to be agreed by the parties.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="TBA">
 				<paragraph>If parties are not intending to deliver the physical but are using a transaction to open a position that will be closed prior to settlement, the value TBA may be used to indicate that a delivery location needs to be agreed between the parties.</paragraph>
@@ -534,7 +534,7 @@
 				<paragraph>Madrid</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="EUTA">
-				<paragraph>TARGET (euro &apos;Business Center&apos;)</paragraph>
+				<paragraph>TARGET (euro 'Business Center')</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="FIHE">
 				<paragraph>Helsinki</paragraph>
@@ -1278,10 +1278,10 @@
 			<schemeValue schemeValueSource="ISDA" name="BENZENE-SPOT BENZENE-GALLON-CMAI">
 				<paragraph>Per 2005 ISDA Commodity Definitions, Sub-Annex A, Section 7.1 Commodity Reference Prices, as amended and supplemented through the date on which parties enter into the relevant transaction.</paragraph>
 			</schemeValue>
-			<schemeValue schemeValueSource="ISDA" name="COAL-TFS API 2-ARGUS/MCCLOSKEY&apos;S">
+			<schemeValue schemeValueSource="ISDA" name="COAL-TFS API 2-ARGUS/MCCLOSKEY'S">
 				<paragraph>Per 2005 ISDA Commodity Definitions, Sub-Annex A, Section 7.1 Commodity Reference Prices, as amended and supplemented through the date on which parties enter into the relevant transaction.</paragraph>
 			</schemeValue>
-			<schemeValue schemeValueSource="ISDA" name="COAL-TFS API 4-ARGUS/MCCLOSKEY&apos;S">
+			<schemeValue schemeValueSource="ISDA" name="COAL-TFS API 4-ARGUS/MCCLOSKEY'S">
 				<paragraph>Per 2005 ISDA Commodity Definitions, Sub-Annex A, Section 7.1 Commodity Reference Prices, as amended and supplemented through the date on which parties enter into the relevant transaction.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="ISDA" name="COAL-NEWCASTLE-GLOBALCOAL">
@@ -4261,7 +4261,7 @@
 				<paragraph>Per 2006 ISDA Definitions, Section 4.16. Day Count Fraction, paragraph (a) or Annex to the 2000 ISDA Definitions (June 2000 Version), Section 4.16. Day Count Fraction, paragraph (a).</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="ACT/ACT.ISDA">
-				<paragraph>Per 2006 ISDA Definitions, Section 4.16. Day Count Fraction, paragraph (b) or Annex to the 2000 ISDA Definitions (June 2000 Version), Section 4.16. Day Count Fraction, paragraph (b). Note that going from FpML 2.0 Recommendation to the FpML 3.0 Trial Recommendation the code in FpML 2.0 &apos;ACT/365.ISDA&apos; became &apos;ACT/ACT.ISDA&apos;.</paragraph>
+				<paragraph>Per 2006 ISDA Definitions, Section 4.16. Day Count Fraction, paragraph (b) or Annex to the 2000 ISDA Definitions (June 2000 Version), Section 4.16. Day Count Fraction, paragraph (b). Note that going from FpML 2.0 Recommendation to the FpML 3.0 Trial Recommendation the code in FpML 2.0 'ACT/365.ISDA' became 'ACT/ACT.ISDA'.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="ACT/ACT.ICMA">
 				<paragraph>Per 2006 ISDA Definitions, Section 4.16. Day Count Fraction, paragraph (c). This day count fraction code is applicable for transactions booked under the 2006 ISDA Definitions. Transactions under the 2000 ISDA Definitions should use the ACT/ACT.ISMA code instead.</paragraph>
@@ -6455,7 +6455,7 @@
 				<paragraph>Message corrupted (e.g. CRC failure).</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="111">
-				<paragraph>Message text doesn&apos;t match digital signature hash.</paragraph>
+				<paragraph>Message text doesn't match digital signature hash.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="200">
 				<paragraph>Default message processing error code.</paragraph>
@@ -6476,7 +6476,7 @@
 				<paragraph>System unavailable.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="211">
-				<paragraph>Message component text doesn&apos;t match digital signature hash.</paragraph>
+				<paragraph>Message component text doesn't match digital signature hash.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="300">
 				<paragraph>Default validation error code.</paragraph>
@@ -6488,7 +6488,7 @@
 				<paragraph>Unsupported FpML version.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="303">
-				<paragraph>Invalid FpML message - message doesn&apos;t validate w.r.t. specified DTD/schema.</paragraph>
+				<paragraph>Invalid FpML message - message doesn't validate w.r.t. specified DTD/schema.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="304">
 				<paragraph>Validation failure - unsupported message type.</paragraph>
@@ -6515,13 +6515,13 @@
 				<paragraph>Default business process error code.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="401">
-				<paragraph>Don&apos;t know - unrecognized trade.</paragraph>
+				<paragraph>Don't know - unrecognized trade.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="402">
-				<paragraph>Suitability - trade can&apos;t be done for client or dealer suitability reasons.</paragraph>
+				<paragraph>Suitability - trade can't be done for client or dealer suitability reasons.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="403">
-				<paragraph>Credit - trade can&apos;t be done for credit reasons.</paragraph>
+				<paragraph>Credit - trade can't be done for credit reasons.</paragraph>
 			</schemeValue>
 			<schemeValue schemeValueSource="FpML" name="404">
 				<paragraph>Not interested - recipient chooses not to respond.</paragraph>

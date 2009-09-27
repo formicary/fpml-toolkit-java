@@ -1511,6 +1511,80 @@ public final class Conversions
 	}
 	
 	/**
+	 * The <CODE>R4_6__R4_7</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.6 schema based document to 4.7 
+	 * 
+	 * @since	TFP 1.4
+	 */
+	public static class R4_6__R4_7 extends DirectConversion 
+	{
+		public R4_6__R4_7 ()
+		{
+			super (Releases.R4_6, Releases.R4_7);
+		}
+		
+		/**
+		 * {@inheritDoc}
+		 * @since	TFP 1.4
+		 */
+		public Document convert (Document source, Helper helper)
+		{
+			Document		target = getTargetRelease ().newInstance ("FpML");
+			Element			oldRoot = source.getDocumentElement ();
+			Element			newRoot	= target.getDocumentElement ();
+			
+			// Transcribe each of the first level child elements
+			for (Node node = oldRoot.getFirstChild (); node != null;) {
+				transcribe (node, target, newRoot);
+				node = node.getNextSibling ();
+			}
+	
+			return (target);
+		}
+		
+		/**
+		 * Recursively copies the structure of the old document into a new 
+		 * document adjusting the elements and attributes as necessary.
+		 * 
+		 * @param 	context			The <CODE>node</CODE> to be copied.
+		 * @param 	document		The new <CODE>Document</CODE> instance.
+		 * @param 	parent			The new parent <CODE>Node</CODE>.
+		 * @since	TFP 1.4
+		 */
+		private void transcribe (Node context, Document document, Node parent)
+		{
+			switch (context.getNodeType ()) {
+			case Node.ELEMENT_NODE:
+				{
+					Element		element = (Element) context;
+					Element		clone;
+					
+					clone = document.createElementNS (null, element.getLocalName ());
+					
+					parent.appendChild (clone);
+				
+					NamedNodeMap	attrs = element.getAttributes ();
+					for (int index = 0; index < attrs.getLength (); ++index) {
+						Attr attr 	= (Attr) attrs.item (index);
+						
+						clone.setAttribute (attr.getName (), attr.getValue ());
+					}
+					
+					// Recursively copy the child node across
+					for (Node node = element.getFirstChild (); node != null;) {
+						transcribe (node, document, clone);
+						node = node.getNextSibling ();
+					}
+					break;
+				}
+				
+			default:
+				parent.appendChild (document.importNode (context, false));
+			}
+		}
+	}
+	
+	/**
 	 *
 	 */
 	private static class R5_0 extends DirectConversion
@@ -1586,44 +1660,44 @@ public final class Conversions
 	}
 	
 	/**
-	 * The <CODE>R4_4__TR4_5</CODE> class contains the logic to migrate
-	 * the content of a FpML 4.4 schema based document to 4.5 
+	 * The <CODE>R4_7__R5_0_CONFIRMATION</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.7 schema based document to 5.0 
 	 * 
-	 * @since	TFP 1.2
+	 * @since	TFP 1.4
 	 */
-	public static class R4_6__R5_0_CONFIRMATION extends R5_0 
+	public static class R4_7__R5_0_CONFIRMATION extends R5_0 
 	{
-		public R4_6__R5_0_CONFIRMATION ()
+		public R4_7__R5_0_CONFIRMATION ()
 		{
-			super (Releases.R4_6, Releases.R5_0_CONFIRMATION);
+			super (Releases.R4_7, Releases.R5_0_CONFIRMATION);
 		}
 	}
 
 	/**
-	 * The <CODE>R4_4__TR4_5</CODE> class contains the logic to migrate
-	 * the content of a FpML 4.4 schema based document to 4.5 
+	 * The <CODE>R4_6__R%_0_PRETRADE</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.7 schema based document to 5/0 
 	 * 
-	 * @since	TFP 1.2
+	 * @since	TFP 1.4
 	 */
-	public static class R4_6__R5_0_PRETRADE extends R5_0 
+	public static class R4_7__R5_0_PRETRADE extends R5_0 
 	{
-		public R4_6__R5_0_PRETRADE ()
+		public R4_7__R5_0_PRETRADE ()
 		{
-			super (Releases.R4_6, Releases.R5_0_PRETRADE);
+			super (Releases.R4_7, Releases.R5_0_PRETRADE);
 		}
 	}
 
 	/**
-	 * The <CODE>R4_4__TR4_5</CODE> class contains the logic to migrate
-	 * the content of a FpML 4.4 schema based document to 4.5 
+	 * The <CODE>R4_7__R5_0_REPORTING</CODE> class contains the logic to migrate
+	 * the content of a FpML 4.7 schema based document to 5.0 
 	 * 
-	 * @since	TFP 1.2
+	 * @since	TFP 1.4
 	 */
-	public static class R4_6__R5_0_REPORTING extends R5_0 
+	public static class R4_7__R5_0_REPORTING extends R5_0 
 	{
-		public R4_6__R5_0_REPORTING ()
+		public R4_7__R5_0_REPORTING ()
 		{
-			super (Releases.R4_6, Releases.R5_0_REPORTING);
+			super (Releases.R4_7, Releases.R5_0_REPORTING);
 		}
 	}
 
@@ -1669,6 +1743,6 @@ public final class Conversions
 			new MessageType (Releases.R5_0_CONFIRMATION, "dataDocument"));
 	
 		messageMap.put ("ContractCreated",
-		new MessageType (Releases.R5_0_CONFIRMATION, "tradeExecutedAdvice"));
+			new MessageType (Releases.R5_0_CONFIRMATION, "tradeExecutedAdvice"));
 	}
 }

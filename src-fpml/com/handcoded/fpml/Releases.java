@@ -1547,37 +1547,37 @@ public final class Releases
 		= new Conversions.R4_5__R4_6 ();
 	
 	/**
-	 * A <CODE>Conversion</CODE> instance configured for FpML 4-6 to 5-0
-	 * pretrade transformation. The specific changes needed are:
+	 * A <CODE>Conversion</CODE> instance configured for FpML 4-7 to 5-0
+	 * pre-trade transformation. The specific changes needed are:
 	 * <UL>
 	 * <LI>The FpML XML schema namespace URI is updated.</LI>
 	 * </UL>
-	 * @since	TFP 1.3
+	 * @since	TFP 1.4
 	 */
-	public static final Conversion R4_6__R5_0_PRETRADE
-		= new Conversions.R4_6__R5_0_PRETRADE ();
+	public static final Conversion R4_7__R5_0_PRETRADE
+		= new Conversions.R4_7__R5_0_PRETRADE ();
 	
 	/**
-	 * A <CODE>Conversion</CODE> instance configured for FpML 4-6 to 5-0
+	 * A <CODE>Conversion</CODE> instance configured for FpML 4-7 to 5-0
 	 * confirmation transformation. The specific changes needed are:
 	 * <UL>
 	 * <LI>The FpML XML schema namespace URI is updated.</LI>
 	 * </UL>
-	 * @since	TFP 1.3
+	 * @since	TFP 1.4
 	 */
-	public static final Conversion R4_6__R5_0_CONFIRMATION
-		= new Conversions.R4_6__R5_0_CONFIRMATION ();
+	public static final Conversion R4_7__R5_0_CONFIRMATION
+		= new Conversions.R4_7__R5_0_CONFIRMATION ();
 	
 	/**
-	 * A <CODE>Conversion</CODE> instance configured for FpML 4-6 to 5-0
+	 * A <CODE>Conversion</CODE> instance configured for FpML 4-7 to 5-0
 	 * reporting transformation. The specific changes needed are:
 	 * <UL>
 	 * <LI>The FpML XML schema namespace URI is updated.</LI>
 	 * </UL>
-	 * @since	TFP 1.3
+	 * @since	TFP 1.4
 	 */
-	public static final Conversion R4_6__R5_0_REPORTING
-		= new Conversions.R4_6__R5_0_REPORTING ();
+	public static final Conversion R4_7__R5_0_REPORTING
+		= new Conversions.R4_7__R5_0_REPORTING ();
 	
 	/**
 	 * Examines the provided <CODE>Document</CODE> to determine the associated
