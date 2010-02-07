@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,6 +13,8 @@
 
 package com.handcoded.framework;
 
+import java.io.InputStream;
+import java.io.FileInputStream;
 import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
@@ -53,6 +55,12 @@ public abstract class Application extends Process
 		this.arguments = Option.processArguments (arguments);
 
 		super.run ();
+	}
+
+	public InputStream OpenStream (final String name)
+		throws Exception
+	{
+			return (new FileInputStream (name));
 	}
 
 	/**
