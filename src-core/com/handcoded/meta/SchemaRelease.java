@@ -308,7 +308,7 @@ public class SchemaRelease extends Release implements Schema
 	public boolean isInstance (Document document)
 	{
 		if (recogniser.recognises (this, document)) {
-			Element			root = document.getDocumentElement ();
+			//Element			root = document.getDocumentElement ();
 
 			// TODO: Improve import detection
 			return (true);
