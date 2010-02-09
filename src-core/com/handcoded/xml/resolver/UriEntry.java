@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -82,7 +82,15 @@ final class UriEntry extends RelativeEntry implements UriRule
 		// If they match then replace with the catalog URI
 		if (systemUri.equals (targetUri)) {
 			try {
-				return (baseAsUri ().resolve (new URI (this.uri)).toString ());
+				URI base = baseAsUri ();
+				
+				// Resolve JAR URI references the hard way 
+				if (base.getScheme () != null && base.getScheme ().equals ("jar")) {
+					String [] parts = base.toString().split ("!");
+					return (parts [0] + "!" + new URI (parts [1]).resolve (new URI (this.uri)).toString ());
+				}
+				else
+					return (base.resolve (new URI (this.uri)).toString ());
 			}
 			catch (URISyntaxException error) {
 				throw new SAXException ("Failed to resolve new URI", error);

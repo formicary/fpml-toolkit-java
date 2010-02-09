@@ -1,4 +1,4 @@
-// Copyright (C),2007-2008 HandCoded Software Ltd.
+// Copyright (C),2007-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,9 +13,9 @@
 
 package com.handcoded.xml;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Vector;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +27,7 @@ import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
 
+import com.handcoded.framework.Application;
 import com.handcoded.meta.SchemaRelease;
 import com.handcoded.xml.resolver.Catalog;
 
@@ -80,7 +81,7 @@ public final class SchemaSet
 
 			try {
 				String source = catalog.resolve (schema.getNamespaceUri());
-				
+	
 				if (!schemas.contains (schema)) {
 					if (source == null) {
 						logger.severe ("Failed to resolve schema URI '" + schema.getNamespaceUri() + "'");
@@ -111,8 +112,11 @@ public final class SchemaSet
 		if (schema == null) {
 			Source [] sourceArray = new StreamSource [sources.size()];
 			
-			for (int index = 0; index < sources.size (); ++index)
-				sourceArray [index] =  new StreamSource ((String) sources.elementAt (index));
+			for (int index = 0; index < sources.size (); ++index) {
+				String systemId = (String) sources.elementAt (index);
+
+				sourceArray [index] =  new StreamSource (Application.openStream (systemId), systemId);
+			}
 
 			try {
 				schema = SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI).newSchema (sourceArray);

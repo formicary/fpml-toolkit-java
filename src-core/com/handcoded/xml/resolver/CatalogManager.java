@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -26,6 +26,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.handcoded.framework.Application;
 import com.handcoded.xml.parser.SAXParser;
 
 /**
@@ -55,14 +56,12 @@ public final class CatalogManager
 	{
 		Catalog 			catalog;
 		
-		// TODO: url = CatalogManager.class.getClassLoader().getResource (url).toString();
-
 		if ((catalog = (Catalog) catalogs.get (url)) == null) {
 			try {
 				SAXParser parser = new SAXParser (validate, true, validate, false, null, null);
 
 				CatalogHandler handler = new CatalogHandler (url);
-				parser.parse (new InputSource (url), handler);
+				parser.parse (new InputSource (Application.openStream (url)), handler);
 				
 				catalog = handler.getCatalog ();
 			}

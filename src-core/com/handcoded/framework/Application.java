@@ -13,11 +13,14 @@
 
 package com.handcoded.framework;
 
-import java.io.InputStream;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The <CODE>Application</CODE> class extends the basic <CODE>Process</CODE>
@@ -41,7 +44,7 @@ public abstract class Application extends Process
 	{
 		return (application);
 	}
-
+	
 	/**
 	 * Causes the <CODE>Application</CODE> to process it's command line arguments
 	 * and begin the execution cycle.
@@ -57,12 +60,45 @@ public abstract class Application extends Process
 		super.run ();
 	}
 
-	public InputStream OpenStream (final String name)
-		throws Exception
+	/**
+	 * Opens a stream to read the contents of an application resource that is
+	 * with packaged in the application JAR or as a local file.
+	 * 
+	 * @param 	name			The name of the resource to be opened
+	 * @return	An <CODE>InputStream</CODE> attached to the resource.
+	 * @since	TFP 1.4
+	 */
+	public static InputStream openStream (String name)
 	{
-			return (new FileInputStream (name));
-	}
+		// Reading the resource from a URI
+		try {
+			URL	url = new URL (name);
 
+			return (url.openStream ());
+		}
+		catch (Exception error) {
+			;
+		}
+	
+		// Otherwise check for a JAR resource
+		try {
+			if (true) {
+				URL url = Application.class.getResource ("/" + name);
+				
+				if (url != null) {
+					return (url.openStream ());
+				}
+			}
+			
+			// Or a local file
+			return (new FileInputStream (name));
+		}
+		catch (Exception error) {
+			logger.log (Level.SEVERE, "Error while opening stream", error);
+			return (null);
+		}
+	}
+	
 	/**
 	 * Converts the instance data members to a <CODE>String</CODE> representation
 	 * that can be displayed for debugging purposes.
@@ -178,6 +214,13 @@ public abstract class Application extends Process
 		return (buffer.toString ());
 	}
 	
+	/**
+	 * A <CODE>Logger</CODE> instance used to report serious errors.
+	 * @since	TFP 1.4
+	 */
+	private static Logger	logger
+		= Logger.getLogger ("com.handcoded.framework.Application");
+
 	/**
 	 * The one and only <CODE>Application</CODE> instance.
 	 * @since	TFP 1.0

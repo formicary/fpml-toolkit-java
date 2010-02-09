@@ -53,7 +53,7 @@ public abstract class Application extends com.handcoded.framework.Application
 
 		// Initialise the default catalog
 		String		catalogPath = "files/catalog-fpml.xml";
-
+		
 		if (catalogOption.isPresent ()) {
 			if (catalogOption.getValue() != null)
 				catalogPath = catalogOption.getValue ();

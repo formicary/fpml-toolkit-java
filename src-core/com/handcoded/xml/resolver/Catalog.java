@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -22,6 +22,8 @@ import javax.xml.transform.stream.StreamSource;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.EntityResolver2;
+
+import com.handcoded.framework.Application;
 
 /**
  * The <CODE>Catalog</CODE> provides a configurable <CODE>EntityResolver
@@ -70,14 +72,7 @@ public final class Catalog implements EntityResolver2
 //		logger.info ("\nresult   = " + ((result   != null) ? result   : "null"));
 
 		if (result != null) {
-			if (result.startsWith ("file:")) {
-//				logger.info ("Opening " + result);
-				return (new InputSource (result));
-			}
-			else {
-//				logger.info ("Opening " + Catalog.class.getClassLoader().getResource (result).toExternalForm());
-				return (new InputSource (Catalog.class.getClassLoader().getResource (result).toExternalForm()));
-			}
+			return (new InputSource (Application.openStream (result)));
 		}
 		
 		return (null);
@@ -99,14 +94,7 @@ public final class Catalog implements EntityResolver2
 //		logger.info ("\nresult   = " + ((result   != null) ? result   : "null"));
 
 		if (result != null) {
-			if (result.startsWith ("file:")) {
-//				logger.info ("Opening " + result);
-				return (new InputSource (result));
-			}
-			else {
-//				logger.info ("Opening " + Catalog.class.getClassLoader().getResource (result).toExternalForm());
-				return (new InputSource (Catalog.class.getClassLoader().getResource (result).toExternalForm()));
-			}
+			return (new InputSource (Application.openStream (result)));
 		}
 
 		return (null);
@@ -134,14 +122,9 @@ public final class Catalog implements EntityResolver2
 		throws SAXException
 	{
 		String				result = resolve (uri);
-
+		
 		if (result != null) {
-			if (result.startsWith ("file:"))
-				return (new StreamSource (result));
-			else {
-				logger.info ("?? " + Catalog.class.getClassLoader().getResource (result).toExternalForm());
-				return (new StreamSource (Catalog.class.getClassLoader().getResource (result).toExternalForm()));
-			}
+			return new StreamSource (Application.openStream (uri), uri);
 		}
 		return (null);	
 	}

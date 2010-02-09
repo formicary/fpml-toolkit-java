@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,7 +13,6 @@
 
 package com.handcoded.xml.resolver;
 
-import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -72,10 +71,7 @@ abstract class RelativeEntry extends CatalogComponent
 	{
 		String				xmlbase = getXmlBase ();
 		
-		if (xmlbase.indexOf (':') < 0)
-			return (new File (xmlbase).toURI ());
-		else
-			return (new URI (xmlbase));
+		return (new URI (xmlbase));
 	}
 	
 	/**

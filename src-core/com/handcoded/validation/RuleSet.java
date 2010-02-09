@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,15 +13,16 @@
 
 package com.handcoded.validation;
 
-import java.io.File;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.handcoded.framework.Application;
 import com.handcoded.xml.NodeIndex;
 import com.handcoded.xml.parser.SAXParser;
 
@@ -350,7 +351,7 @@ public final class RuleSet extends Validator
 			SAXParser parser = new SAXParser (false, true, false, false, null, null);
 			
 			try {
-				parser.parse (new File ("files/business-rules.xml"),	new BootStrap ());
+				parser.parse (new InputSource (Application.openStream ("files/business-rules.xml")),	new BootStrap ());
 			}
 			catch (Exception error) {
 				logger.log (Level.SEVERE, "Unable to load rule set definitions", error);	

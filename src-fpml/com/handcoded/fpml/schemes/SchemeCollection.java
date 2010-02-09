@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -21,6 +21,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.handcoded.framework.Application;
 import com.handcoded.xml.parser.SAXParser;
 
 /**
@@ -49,7 +50,7 @@ public final class SchemeCollection
 	{ }
 	
 	/**
-	 * Parses the scheme definition in the indicated file and addes them to
+	 * Parses the scheme definition in the indicated file and adds them to
 	 * this collection.
 	 * 
 	 * @param 	uri			The URI of the source XML document.
@@ -61,7 +62,7 @@ public final class SchemeCollection
 			SAXParser parser = new SAXParser (false, true, false, false, null, null);
 			
 			try {
-				parser.parse (new InputSource (uri), new BootStrap ());
+				parser.parse (new InputSource (Application.openStream (uri)), new BootStrap ());
 			}
 			catch (Exception error) {
 				logger.log (Level.SEVERE, "Unable to load standard FpML schemes", error);	
