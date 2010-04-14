@@ -1469,7 +1469,7 @@ public final class Releases
 	 */
 	public static SchemaRelease	R5_0_CONFIRMATION
 		= new SchemaRelease (FPML, "5-0",
-				"http://www.fpml.org/FpML-5-0/confirmation", "fpml-main-5-0.xsd",
+				"http://www.fpml.org/FpML-5/confirmation", "fpml-main-5-0.xsd",
 				"fpml", "fpml5-0", initialiser, recogniser,
 				new String [] {
 					// In all views
@@ -1546,7 +1546,7 @@ public final class Releases
 //	 */
 //	public static SchemaRelease	R5_0_PRETRADE
 //		= new SchemaRelease (FPML, "5-0",
-//				"http://www.fpml.org/FpML-5-0/pretrade", "fpml-main-5-0.xsd",
+//				"http://www.fpml.org/FpML-5/pretrade", "fpml-main-5-0.xsd",
 //				"fpml", "fpml5-0", initialiser, recogniser,
 //				new String [] {
 //					// In all views
@@ -1619,7 +1619,7 @@ public final class Releases
 	 */
 	public static SchemaRelease	R5_0_REPORTING
 		= new SchemaRelease (FPML, "5-0",
-				"http://www.fpml.org/FpML-5-0/reporting", "fpml-main-5-0.xsd",
+				"http://www.fpml.org/FpML-5/reporting", "fpml-main-5-0.xsd",
 				"fpml", "fpml5-0", initialiser, recogniser,
 				new String [] {
 					// In all views
