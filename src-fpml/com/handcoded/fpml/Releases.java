@@ -1,4 +1,4 @@
-// Copyright (C),2005-2009 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -1539,78 +1539,78 @@ public final class Releases
 						}),
 						parseSchemes ("schemes5-0.xml"));
 	
-	/**
-	 * A <CODE>SchemaRelease</CODE> instance containing the details for
-	 * FpML 5-0 pretrade view working draft.
-	 * @since	TFP 1.0
-	 */
-	public static SchemaRelease	R5_0_PRETRADE
-		= new SchemaRelease (FPML, "5-0",
-				"http://www.fpml.org/FpML-5-0/pretrade", "fpml-main-5-0.xsd",
-				"fpml", "fpml5-0", initialiser, recogniser,
-				new String [] {
-					// In all views
-				  	"messageRejected",
-				  	"requestTradeStatus",
-				  	"tradeNotFound",
-				  	"tradeStatus",
-				  	"tradeAlreadyCancelled",
-				 	"tradeAlreadySubmitted",
-				 	"tradeAlreadyTerminated",
-				 	// View specific
-				 	"acceptQuote",
-				    "quoteAcceptanceConfirmed",
-				    "quoteAlreadyExpired",
-				    "quoteUpdated",
-				    "requestQuote",
-				    "requestQuoteResponse",
-				},
-				new SchemeDefaults (
-						new String [][] {
-							{	"additionalTermScheme",
-								"http://www.fpml.org/spec/2003/additional-term-1-0" },
-							{	"businessCenterScheme",
-								"http://www.fpml.org/spec/2000/business-center-1-0" },
-							{	"clearanceSystemIdScheme",
-								"http://www.fpml.org/spec/2002/clearance-system-1-0" },
-							{	"contractualDefinitionsScheme",
-								"http://www.fpml.org/spec/2003/contractual-definitions-2-0" },
-							{	"contractualSupplementScheme",
-								"http://www.fpml.org/spec/2003/contractual-supplement-1-0" },
-							{	"countryScheme",
-								"http://www.fpml.org/ext/iso3166" },
-							{	"currencyScheme",
-								"http://www.fpml.org/ext/iso4217-2001-08-15" },
-							{	"cutNameScheme",
-								"http://www.fpml.org/spec/2002/cut-name-1-0" },
-							{	"exchangeIdScheme",
-								"http://www.fpml.org/spec/2002/exchange-id-MIC-1-0" },
-							{	"floatingRateIndexScheme",
-								"http://www.fpml.org/ext/isda-2000-definitions" },
-							{	"fxFeatureTypeScheme",
-								"http://www.fpml.org/spec/2003/fxFeatureType-1-0" },
-							{	"governingLawScheme",
-								"http://www.fpml.org/spec/2002/governing-law-1-0" },
-							{	"informationProviderScheme",
-								"http://www.fpml.org/spec/2003/information-provider-2-0" },
-							{	"marketDisruptionScheme",
-								"http://www.fpml.org/spec/2003/marketDisruption-1-0" },
-							{	"masterAgreementTypeScheme",
-								"http://www.fpml.org/spec/2002/master-agreement-type-1-0" },
-							{	"masterConfirmationTypeScheme",
-								"http://www.fpml.org/spec/2003/master-confirmation-type-1-0" },
-							{	"partyIdScheme",
-								"http://www.fpml.org/ext/iso9362" },
-							{	"restructuringScheme",
-								"http://www.fpml.org/spec/2003/restructuring-1-0" },
-							{ 	"routingIdScheme",
-								"http://www.fpml.org/spec/2002/routing-id-code-1-0" },
-							{ 	"settlementMethodScheme",
-								"http://www.fpml.org/spec/2002/settlement-method-1-0" },
-							{ 	"settlementPriceSourceScheme",
-								"http://www.fpml.org/spec/2002/settlement-price-source-1-0" }
-						}),
-						parseSchemes ("schemes5-0.xml"));
+//	/**
+//	 * A <CODE>SchemaRelease</CODE> instance containing the details for
+//	 * FpML 5-0 pretrade view working draft.
+//	 * @since	TFP 1.0
+//	 */
+//	public static SchemaRelease	R5_0_PRETRADE
+//		= new SchemaRelease (FPML, "5-0",
+//				"http://www.fpml.org/FpML-5-0/pretrade", "fpml-main-5-0.xsd",
+//				"fpml", "fpml5-0", initialiser, recogniser,
+//				new String [] {
+//					// In all views
+//				  	"messageRejected",
+//				  	"requestTradeStatus",
+//				  	"tradeNotFound",
+//				  	"tradeStatus",
+//				  	"tradeAlreadyCancelled",
+//				 	"tradeAlreadySubmitted",
+//				 	"tradeAlreadyTerminated",
+//				 	// View specific
+//				 	"acceptQuote",
+//				    "quoteAcceptanceConfirmed",
+//				    "quoteAlreadyExpired",
+//				    "quoteUpdated",
+//				    "requestQuote",
+//				    "requestQuoteResponse",
+//				},
+//				new SchemeDefaults (
+//						new String [][] {
+//							{	"additionalTermScheme",
+//								"http://www.fpml.org/spec/2003/additional-term-1-0" },
+//							{	"businessCenterScheme",
+//								"http://www.fpml.org/spec/2000/business-center-1-0" },
+//							{	"clearanceSystemIdScheme",
+//								"http://www.fpml.org/spec/2002/clearance-system-1-0" },
+//							{	"contractualDefinitionsScheme",
+//								"http://www.fpml.org/spec/2003/contractual-definitions-2-0" },
+//							{	"contractualSupplementScheme",
+//								"http://www.fpml.org/spec/2003/contractual-supplement-1-0" },
+//							{	"countryScheme",
+//								"http://www.fpml.org/ext/iso3166" },
+//							{	"currencyScheme",
+//								"http://www.fpml.org/ext/iso4217-2001-08-15" },
+//							{	"cutNameScheme",
+//								"http://www.fpml.org/spec/2002/cut-name-1-0" },
+//							{	"exchangeIdScheme",
+//								"http://www.fpml.org/spec/2002/exchange-id-MIC-1-0" },
+//							{	"floatingRateIndexScheme",
+//								"http://www.fpml.org/ext/isda-2000-definitions" },
+//							{	"fxFeatureTypeScheme",
+//								"http://www.fpml.org/spec/2003/fxFeatureType-1-0" },
+//							{	"governingLawScheme",
+//								"http://www.fpml.org/spec/2002/governing-law-1-0" },
+//							{	"informationProviderScheme",
+//								"http://www.fpml.org/spec/2003/information-provider-2-0" },
+//							{	"marketDisruptionScheme",
+//								"http://www.fpml.org/spec/2003/marketDisruption-1-0" },
+//							{	"masterAgreementTypeScheme",
+//								"http://www.fpml.org/spec/2002/master-agreement-type-1-0" },
+//							{	"masterConfirmationTypeScheme",
+//								"http://www.fpml.org/spec/2003/master-confirmation-type-1-0" },
+//							{	"partyIdScheme",
+//								"http://www.fpml.org/ext/iso9362" },
+//							{	"restructuringScheme",
+//								"http://www.fpml.org/spec/2003/restructuring-1-0" },
+//							{ 	"routingIdScheme",
+//								"http://www.fpml.org/spec/2002/routing-id-code-1-0" },
+//							{ 	"settlementMethodScheme",
+//								"http://www.fpml.org/spec/2002/settlement-method-1-0" },
+//							{ 	"settlementPriceSourceScheme",
+//								"http://www.fpml.org/spec/2002/settlement-price-source-1-0" }
+//						}),
+//						parseSchemes ("schemes5-0.xml"));
 	
 	/**
 	 * A <CODE>SchemaRelease</CODE> instance containing the details for
@@ -1804,16 +1804,16 @@ public final class Releases
 	public static final Conversion R4_5__R4_6
 		= new Conversions.R4_5__R4_6 ();
 	
-	/**
-	 * A <CODE>Conversion</CODE> instance configured for FpML 4-7 to 5-0
-	 * pre-trade transformation. The specific changes needed are:
-	 * <UL>
-	 * <LI>The FpML XML schema namespace URI is updated.</LI>
-	 * </UL>
-	 * @since	TFP 1.4
-	 */
-	public static final Conversion R4_7__R5_0_PRETRADE
-		= new Conversions.R4_7__R5_0_PRETRADE ();
+//	/**
+//	 * A <CODE>Conversion</CODE> instance configured for FpML 4-7 to 5-0
+//	 * pre-trade transformation. The specific changes needed are:
+//	 * <UL>
+//	 * <LI>The FpML XML schema namespace URI is updated.</LI>
+//	 * </UL>
+//	 * @since	TFP 1.4
+//	 */
+//	public static final Conversion R4_7__R5_0_PRETRADE
+//		= new Conversions.R4_7__R5_0_PRETRADE ();
 	
 	/**
 	 * A <CODE>Conversion</CODE> instance configured for FpML 4-7 to 5-0
@@ -1895,7 +1895,7 @@ public final class Releases
 		R4_7.addImport (com.handcoded.dsig.Releases.R1_0);
 
 		R5_0_CONFIRMATION.addImport (com.handcoded.dsig.Releases.R1_0);
-		R5_0_PRETRADE.addImport (com.handcoded.dsig.Releases.R1_0);
+//		R5_0_PRETRADE.addImport (com.handcoded.dsig.Releases.R1_0);
 		R5_0_REPORTING.addImport (com.handcoded.dsig.Releases.R1_0);
 	}
 }

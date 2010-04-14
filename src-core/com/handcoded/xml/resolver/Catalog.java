@@ -64,12 +64,12 @@ public final class Catalog implements EntityResolver2
 	public final InputSource resolveEntity (final String publicId, final String	systemId)
 		throws SAXException
 	{
-//		logger.info ("\npublicId = " + ((publicId != null) ? publicId : "null") +
-//					 "\nsystemId = " + ((systemId != null) ? systemId : "null"));
+		logger.info ("\npublicId = " + ((publicId != null) ? publicId : "null") +
+					 "\nsystemId = " + ((systemId != null) ? systemId : "null"));
 
 		String				result = definition.applyRules (publicId, systemId, new Stack ());
 		
-//		logger.info ("\nresult   = " + ((result   != null) ? result   : "null"));
+		logger.info ("\nresult   = " + ((result   != null) ? result   : "null"));
 
 		if (result != null) {
 			return (new InputSource (Application.openStream (result)));
@@ -84,14 +84,14 @@ public final class Catalog implements EntityResolver2
 	public InputSource resolveEntity (String name, String publicId, String baseUri, String systemId)
 	throws SAXException, IOException
 	{
-//		logger.info ("\nname = " + ((name != null) ? name : "null") +
-//				     "\npublicId = " + ((publicId != null) ? publicId : "null") +
-//				     "\nbaseUri = " + ((baseUri != null) ? baseUri : "null") +
-//				     "\nsystemId = " + ((systemId != null) ? systemId : "null"));
+		logger.info ("\nname = " + ((name != null) ? name : "null") +
+				     "\npublicId = " + ((publicId != null) ? publicId : "null") +
+				     "\nbaseUri = " + ((baseUri != null) ? baseUri : "null") +
+				     "\nsystemId = " + ((systemId != null) ? systemId : "null"));
 
 		String				result = definition.applyRules (publicId, systemId, new Stack ());
 		
-//		logger.info ("\nresult   = " + ((result   != null) ? result   : "null"));
+		logger.info ("\nresult   = " + ((result   != null) ? result   : "null"));
 
 		if (result != null) {
 			return (new InputSource (Application.openStream (result)));
@@ -139,11 +139,11 @@ public final class Catalog implements EntityResolver2
 	public final String resolve (final String uri)
 		throws SAXException
 	{
-//		logger.info ("\nuri    = " + ((uri != null) ? uri : "null"));
+		logger.info ("\nuri    = " + ((uri != null) ? uri : "null"));
 
 		String				result = definition.applyRules (uri, new Stack ());
 
-//		logger.info ("\nresult = " + ((result != null) ? result   : "null"));
+		logger.info ("\nresult = " + ((result != null) ? result   : "null"));
 		return (result);	
 	}
 	

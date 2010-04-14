@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -80,7 +80,7 @@ public abstract class Application extends com.handcoded.framework.Application
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_7);
 		
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_CONFIRMATION);
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_PRETRADE);
+//		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_PRETRADE);
 		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_REPORTING);
 	}
 
