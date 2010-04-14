@@ -12,17 +12,18 @@ Example of a party report
     <sendTo>ABC</sendTo>
     <creationTimestamp>2009-10-01T18:00:00Z</creationTimestamp>
   </header>
+  <onBehalfOf>
+    <partyReference href="abc-trading-entity" />
+  </onBehalfOf>
   <asOfDate>2009-10-01</asOfDate>
   <party id="abc-trading-entity">
     <partyId>ABCDUS33</partyId>
     <partyName>ABC Bank, N.A.</partyName>
-    <partyInformation>
-      <classification classificationScheme="http://www.fpml.org/coding-scheme/industry-classification/sic">123456</classification>
-      <classification classificationScheme="http://www.fpml.org/coding-scheme/industry-classification/naics">123456</classification>
-      <creditRating creditRatingScheme="http://www.fpml.org/coding-scheme/credit-rating/moodys">BB</creditRating>
-      <creditRating creditRatingScheme="http://www.fpml.org/coding-scheme/credit-rating/dun_and_bradstreet">BB-</creditRating>
-      <country>USA</country>
-    </partyInformation>
+    <classification industryClassificationScheme="http://www.fpml.org/coding-scheme/industry-classification/sic">123456</classification>
+    <classification industryClassificationScheme="http://www.fpml.org/coding-scheme/industry-classification/naics">123456</classification>
+    <creditRating creditRatingScheme="http://www.fpml.org/coding-scheme/credit-rating/moodys">BB</creditRating>
+    <creditRating creditRatingScheme="http://www.fpml.org/coding-scheme/credit-rating/dun_and_bradstreet">BB-</creditRating>
+    <country>USA</country>
     <relatedParty>
       <partyReference href="abc-parent" />
       <role>Guarantor</role>
@@ -41,12 +42,10 @@ Example of a party report
   <party id="abc-trading-entity2">
     <partyId>ABCDGB2L</partyId>
     <partyName>ABC Bank PLC</partyName>
-    <partyInformation>
-      <classification classificationScheme="http://www.fpml.org/coding-scheme/industry-classification/sic-code">123456</classification>
-      <creditRating creditRatingScheme="http://www.fpml.org/coding-scheme/credit-rating/moodys">BB</creditRating>
-      <country>UK</country>
-      <jurisdiction>GBEN</jurisdiction>
-    </partyInformation>
+    <classification industryClassificationScheme="http://www.fpml.org/coding-scheme/industry-classification/sic-code">123456</classification>
+    <creditRating creditRatingScheme="http://www.fpml.org/coding-scheme/credit-rating/moodys">BB</creditRating>
+    <country>UK</country>
+    <jurisdiction>GBEN</jurisdiction>
     <relatedParty>
       <partyReference href="abc-parent" />
       <role>Guarantor</role>
@@ -63,20 +62,16 @@ Example of a party report
   <party id="abc-parent">
     <partyId>ABC1</partyId>
     <partyName>ABC Bankcorp, Ltd.</partyName>
-    <partyInformation>
-      <classification classificationScheme="http://www.fpml.org/coding-scheme/industry-classification/sic-code">123456</classification>
-      <creditRating creditRatingScheme="http://www.fpml.org/coding-scheme/credit-rating/moodys">AA</creditRating>
-      <country>UK</country>
-    </partyInformation>
+    <classification industryClassificationScheme="http://www.fpml.org/coding-scheme/industry-classification/sic-code">123456</classification>
+    <creditRating creditRatingScheme="http://www.fpml.org/coding-scheme/credit-rating/moodys">AA</creditRating>
+    <country>UK</country>
   </party>
 <!-- trading counterparty of abc trading entity -->
   <party id="def">
     <partyId>DEF</partyId>
     <partyName>DEF LLC</partyName>
-    <partyInformation>
-      <classification classificationScheme="http://www.fpml.org/coding-scheme/industry-classification/sic-code">123456</classification>
-      <country>USA</country>
-    </partyInformation>
+    <classification industryClassificationScheme="http://www.fpml.org/coding-scheme/industry-classification/sic-code">123456</classification>
+    <country>USA</country>
     <relatedParty>
       <partyReference href="abc-trading-entity" />
       <role>TradingPartner</role>

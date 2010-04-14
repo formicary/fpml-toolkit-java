@@ -37,10 +37,6 @@
                 <unadjustedDate>2010-05-16</unadjustedDate>
               </adjustableDate>
             </terminationDate>
-            <notionalAmount>
-              <currency>USD</currency>
-              <amount>406963.70</amount>
-            </notionalAmount>
             <underlyer>
               <singleUnderlyer>
                 <equity>
@@ -51,6 +47,12 @@
                 <openUnits>106535.00</openUnits>
               </singleUnderlyer>
             </underlyer>
+            <notional>
+              <notionalAmount>
+                <currency>USD</currency>
+                <amount>406963.70</amount>
+              </notionalAmount>
+            </notional>
           </returnLeg>
           <interestLeg>
             <interestCalculation>
@@ -139,10 +141,6 @@
                 <unadjustedDate>2010-08-26</unadjustedDate>
               </adjustableDate>
             </terminationDate>
-            <notionalAmount>
-              <currency>EUR</currency>
-              <amount>21999990.62</amount>
-            </notionalAmount>
             <underlyer>
               <singleUnderlyer>
                 <equity>
@@ -153,6 +151,12 @@
                 <openUnits>124013.00</openUnits>
               </singleUnderlyer>
             </underlyer>
+            <notional>
+              <notionalAmount>
+                <currency>EUR</currency>
+                <amount>21999990.62</amount>
+              </notionalAmount>
+            </notional>
           </returnLeg>
           <interestLeg>
             <interestCalculation>
@@ -246,6 +250,7 @@
 <!-- should we add equity swap or equity return swap to the scheme? -->
           <assetClass assetClassScheme="http://www.fpml.org/asset-class-simple">Equities</assetClass>
           <buyerPartyReference href="hedge_global" />
+          <optionType>Put</optionType>
           <underlyer>
             <singleUnderlyer>
               <equity>
@@ -254,28 +259,29 @@
               </equity>
             </singleUnderlyer>
           </underlyer>
-          <notionalAmount>
+          <notional>
             <currency>USD</currency>
             <amount>1480000</amount>
-          </notionalAmount>
-          <numberOfOptions>1000000</numberOfOptions>
-          <optionType>Put</optionType>
+          </notional>
+          <equityExercise>
+            <equityAmericanExercise>
+              <expirationDate>
+                <adjustableDate>
+                  <unadjustedDate>2010-01-15Z</unadjustedDate>
+                </adjustableDate>
+              </expirationDate>
+            </equityAmericanExercise>
+          </equityExercise>
           <strike>
             <strikePrice>80</strikePrice>
           </strike>
-          <americanExercise>
-            <expirationDate>
-              <adjustableDate>
-                <unadjustedDate>2010-01-15Z</unadjustedDate>
-              </adjustableDate>
-            </expirationDate>
-          </americanExercise>
-          <premium>
+          <numberOfOptions>1000000</numberOfOptions>
+          <equityPremium>
             <pricePerOption>
               <currency>USD</currency>
               <amount>1.48</amount>
             </pricePerOption>
-          </premium>
+          </equityPremium>
         </equityOption>
       </trade>
     </constituent>
