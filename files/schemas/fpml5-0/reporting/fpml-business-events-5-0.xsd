@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
-== Copyright (c) 2002-2009. All rights reserved. 
+== Copyright (c) 2002-2010. All rights reserved. 
 == Financial Products Markup Language is subject to the FpML public license. 
 == A copy of this license is available at http://www.fpml.org/license/license.html
 -->
@@ -296,6 +296,17 @@
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
+  <xsd:element name="additionalEvent" abstract="true" />
+  <xsd:element name="changeEvent" type="ChangeEvent" abstract="true">
+    <xsd:annotation>
+      <xsd:documentation>Abstract substitutable place holder for specific change details.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="indexChange" type="IndexChange" substitutionGroup="changeEvent">
+    <xsd:annotation>
+      <xsd:documentation>Describes a change due to an index component being adjusted.</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
   <xsd:group name="AgreementAndEffectiveDates.model">
     <xsd:annotation>
       <xsd:documentation>A model group defining agreement and effective dates.</xsd:documentation>
@@ -357,16 +368,5 @@
       </xsd:element>
     </xsd:sequence>
   </xsd:group>
-  <xsd:element name="additionalEvent" abstract="true" />
-  <xsd:element name="changeEvent" type="ChangeEvent" abstract="true">
-    <xsd:annotation>
-      <xsd:documentation>Abstract substitutable place holder for specific change details.</xsd:documentation>
-    </xsd:annotation>
-  </xsd:element>
-  <xsd:element name="indexChange" type="IndexChange" substitutionGroup="changeEvent">
-    <xsd:annotation>
-      <xsd:documentation>Describes a change due to an index component being adjusted.</xsd:documentation>
-    </xsd:annotation>
-  </xsd:element>
 </xsd:schema>
 

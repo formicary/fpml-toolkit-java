@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
-== Copyright (c) 2002-2009. All rights reserved. 
+== Copyright (c) 2002-2010. All rights reserved. 
 == Financial Products Markup Language is subject to the FpML public license. 
 == A copy of this license is available at http://www.fpml.org/license/license.html
 -->
@@ -25,56 +25,6 @@
           <xsd:element name="allocations" type="Allocations" minOccurs="0" />
           <xsd:group ref="PartiesAndAccounts.model" minOccurs="0" />
           <xsd:element name="reason" type="Reason" minOccurs="0" maxOccurs="unbounded" />
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="ExecutionNotification">
-    <xsd:complexContent>
-      <xsd:extension base="CorrectableRequestMessage">
-        <xsd:sequence>
-          <xsd:group ref="Events.model" />
-          <xsd:group ref="PartiesAndAccounts.model" />
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="ExecutionAdvice">
-    <xsd:complexContent>
-      <xsd:extension base="CorrectableRequestMessage">
-        <xsd:sequence>
-          <xsd:group ref="Events.model" />
-          <xsd:element name="paymentDetails" type="PaymentDetails" minOccurs="0" maxOccurs="unbounded">
-            <xsd:annotation>
-              <xsd:documentation xml:lang="en">Details of the payments, like amount breakdowns, settlement information.</xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
-          <xsd:group ref="PartiesAndAccounts.model" />
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="ExecutionAdviceRetracted">
-    <xsd:complexContent>
-      <xsd:extension base="NonCorrectableRequestMessage">
-        <xsd:sequence>
-          <xsd:group ref="Events.model" minOccurs="0" />
-          <xsd:element name="paymentDetails" type="PaymentDetails" minOccurs="0" maxOccurs="unbounded">
-            <xsd:annotation>
-              <xsd:documentation xml:lang="en">Details of the payments, like amount breakdowns, settlement information.</xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
-          <xsd:group ref="PartiesAndAccounts.model" minOccurs="0" />
-        </xsd:sequence>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  <xsd:complexType name="ExecutionRetracted">
-    <xsd:complexContent>
-      <xsd:extension base="NonCorrectableRequestMessage">
-        <xsd:sequence>
-          <xsd:group ref="Events.model" minOccurs="0" />
-          <xsd:group ref="PartiesAndAccounts.model" minOccurs="0" />
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -169,6 +119,56 @@
           <xsd:group ref="Events.model" minOccurs="0" />
           <xsd:group ref="PartiesAndAccounts.model" minOccurs="0" />
           <xsd:element name="reason" type="Reason" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ExecutionAdvice">
+    <xsd:complexContent>
+      <xsd:extension base="CorrectableRequestMessage">
+        <xsd:sequence>
+          <xsd:group ref="Events.model" />
+          <xsd:element name="paymentDetails" type="PaymentDetails" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Details of the payments, like amount breakdowns, settlement information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:group ref="PartiesAndAccounts.model" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ExecutionAdviceRetracted">
+    <xsd:complexContent>
+      <xsd:extension base="NonCorrectableRequestMessage">
+        <xsd:sequence>
+          <xsd:group ref="Events.model" minOccurs="0" />
+          <xsd:element name="paymentDetails" type="PaymentDetails" minOccurs="0" maxOccurs="unbounded">
+            <xsd:annotation>
+              <xsd:documentation xml:lang="en">Details of the payments, like amount breakdowns, settlement information.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:group ref="PartiesAndAccounts.model" minOccurs="0" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ExecutionNotification">
+    <xsd:complexContent>
+      <xsd:extension base="CorrectableRequestMessage">
+        <xsd:sequence>
+          <xsd:group ref="Events.model" />
+          <xsd:group ref="PartiesAndAccounts.model" />
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="ExecutionRetracted">
+    <xsd:complexContent>
+      <xsd:extension base="NonCorrectableRequestMessage">
+        <xsd:sequence>
+          <xsd:group ref="Events.model" minOccurs="0" />
+          <xsd:group ref="PartiesAndAccounts.model" minOccurs="0" />
         </xsd:sequence>
       </xsd:extension>
     </xsd:complexContent>
@@ -299,6 +299,9 @@
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">Confirmation messages.</xsd:documentation>
+  </xsd:annotation>
 <!-- Execution -->
   <xsd:element name="executionNotification" type="ExecutionNotification" />
   <xsd:element name="executionRetracted" type="ExecutionRetracted" />
