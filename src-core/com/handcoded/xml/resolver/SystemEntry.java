@@ -73,7 +73,7 @@ final class SystemEntry extends RelativeEntry implements EntityRule
 	
 		// Convert the catalog SystemId value to a URI
 		try {
-			systemUri = baseAsUri ().resolve (new URI (this.systemId));
+			systemUri = new URI (this.systemId);
 		}
 		catch (URISyntaxException error) {
 			throw new SAXException ("Failed to normalise systemId", error);

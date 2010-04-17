@@ -9,13 +9,13 @@
 	</head>
 	<body>
 		<P><font size="6">Toolkit for FpML Processing<BR>
-				Java Open Source Release 1.2 (Alpha)</font></P>
-		<p><font size="5">September, 2008</font></p>
-		<P><font size="5">Copyright (C),2006-2008 HandCoded Software Ltd.<BR>
+				Java Open Source Release 1.4</font></P>
+		<p><font size="5">April, 2010</font></p>
+		<P><font size="5">Copyright (C),2006-2010 HandCoded Software Ltd.<BR>
 				All rights reserved.</font></P>
 		<p></p>
 		<h1>Introduction</h1>
-		<p>This document accompanies Java 1.2 release of the 'HandCoded Toolkit for FpML 
+		<p>This document accompanies Java 1.4 release of the 'HandCoded Toolkit for FpML 
 			Processing' and describes the contents of the release area. The source code for 
 			this release is not included but is available from the SVN repository on 
 			SourceForge.</p>
@@ -41,22 +41,26 @@
 				<BR>
 			This file contains all compiled Java class files for the toolkit and its 
 			demonstration applications.
-			<LI>
-				example.bat<BR>
-				<BR>
-			Running this file will execute a simple batch validation of a selection of FpML 
-			examples. Examples prior to FpML 4.2 contain some mistakes and a few will 
+			<LI>Validate*-0.bat<BR>
+                <BR>
+                Running these files will execute a simple batch validation of a selection of FpML 
+			examples. Some of the example file distributed with FpML contain some mistakes and
+                will 
 			output error messages.
-			<LI>
-				files
-				<BR>
-				<BR>
+			<LI>Classify*-0.bat<BR>
+                <BR>
+                Running these files will execute a simple program that uses the classification tools
+                within the toolkit to identifty the financial product within the example files.</LI>
+                <li>files<br />
+                    <br />
 				Contains an XML catalog file (and its associated schema) used to resolve DTD 
-				system identifiers and schema namespace URIs to physical file locations.<br>
-                <br>
+				system identifiers and schema namespace URIs to physical file locations.<br />
+                    <br />
                 From release 1.2 the configuration of the business rules sets is
                 controlled by the contents of the file rules.xml (and its
-                associated schema rules.xsd).
+                associated schema rules.xsd). </li>
+        </ul>
+        <p>
 			<UL class="L2">
 				<LI>
 					schemas<BR>
@@ -80,17 +84,14 @@
 					A copy of the FpML validation test files for&nbsp;both valid and invalid case. 
 					It is important to note some valid test cases still generate errors, just not 
 					the one they are supposed to test.</LI></UL>
-			</LI>
+        </p>
+        <UL class="L1">
 			<LI>
 				lib<BR>
 				<BR>
 			Contains a copy of the Xerces JAR images used by the example application.
                 See the associated readme.txt file for version information.
-			<LI>
-				doc<BR>
-				<BR>
-				Contains the javadoc generated API descriptions for the programmer accessible 
-				classes and methods within the toolkit.</LI></UL>
+			</UL>
 		<H2>Example Applications</H2>
         <p>
             The toolkit is accompanied by some simple test scripts that demonstrates its functionality
@@ -126,32 +127,31 @@
             The classification scripts (e.g. Classify1-0.bat, etc.) execute a simple application
             that uses the toolkit to determine the type of financial product used within a trade
             or contract.</p>
-        <pre>
-files\examples\fpml1-0\FRAExample8.xml:
+        <pre>&gt;&gt; files\examples\fpml1-0\FRAExample8.xml:
 = FpML 1-0
-&gt; Trade(FORWARD RATE AGREEMENT)
-files\examples\fpml1-0\IRSExample1.xml:
+: Trade(FORWARD RATE AGREEMENT)
+&gt;&gt; files\examples\fpml1-0\IRSExample1.xml:
 = FpML 1-0
-&gt; Trade(INTEREST RATE SWAP)
-files\examples\fpml1-0\IRSExample2.xml: 
+: Trade(INTEREST RATE SWAP)
+&gt;&gt; files\examples\fpml1-0\IRSExample2.xml: 
 = FpML 1-0 
-&gt; Trade(INTEREST RATE SWAP) 
-files\examples\fpml1-0\IRSExample3.xml: 
+: Trade(INTEREST RATE SWAP) 
+&gt;&gt; files\examples\fpml1-0\IRSExample3.xml: 
 = FpML 1-0 
-&gt; Trade(INTEREST RATE SWAP) 
-files\examples\fpml1-0\IRSExample4.xml: 
+: Trade(INTEREST RATE SWAP) 
+&gt;&gt; files\examples\fpml1-0\IRSExample4.xml: 
 = FpML 1-0 
-&gt; Trade(INTEREST RATE SWAP) 
-files\examples\fpml1-0\IRSExample5.xml: 
+: Trade(INTEREST RATE SWAP) 
+&gt;&gt; files\examples\fpml1-0\IRSExample5.xml: 
 = FpML 1-0 
-&gt; Trade(INTEREST RATE SWAP) 
-files\examples\fpml1-0\IRSExample6.xml: 
+: Trade(INTEREST RATE SWAP) 
+&gt;&gt; files\examples\fpml1-0\IRSExample6.xml: 
 = FpML 1-0 
-&gt; Trade(CROSS CURRENCY SWAP) 
-files\examples\fpml1-0\IRSExample7.xml: 
+: Trade(CROSS CURRENCY SWAP) 
+&gt;&gt; files\examples\fpml1-0\IRSExample7.xml: 
 = FpML 1-0 
-&gt; Trade(INTEREST RATE SWAP)</pre>
-		<P>Futures releases will add further demonstration applications</P>
+: Trade(INTEREST RATE SWAP)</pre>
+		<P>Futures releases will add further demonstration applications.</P>
 		<H2>Support</H2>
 		<P>If you find a problem using toolkit then please use the forum and bug reporting 
 			facilities on the <A href="http://sourceforge.net/projects/fpml-toolkit">SourceForge 
@@ -173,7 +173,18 @@ files\examples\fpml1-0\IRSExample7.xml:
             <li>Additional business rule sets for FX, Business Process, Pricing/Risk and references</li>
             <li>Additional scheme support (including canonical scheme URI changes)&nbsp;</li>
         </ul>
-		<p>&nbsp;</p>
+        <p>
+            Changes in 1.3:</p>
+        <ul>
+            <li>Support for FpML 4.5 and 4.6</li>
+            <li>Numerous little fixes&nbsp; </li>
+        </ul>
+        <p>
+            Changes in 1.4:</p>
+        <ul>
+            <li>Support for FpML 4.7 and 5.0 LCWD</li>
+            <li>File handling updated to allow schemas to be within a JAR file for web applications.</li>
+        </ul>
 		<p>&nbsp;</p>
 		<p>&nbsp;</p>
 	</body>

@@ -83,7 +83,7 @@ public class Classify extends Application
 				String filename = arguments [index];
 				document = XmlUtility.nonValidatingParse (new File (filename));
 				
-				System.out.println (filename + ":");
+				System.out.println (">> " + filename);
 
 				Release release = Specification.releaseForDocument (document);
 				
@@ -130,7 +130,7 @@ public class Classify extends Application
 		for (int index = 0; index < list.getLength (); ++index) {
 			Category	category = ProductType.classify ((Element) list.item (index));
 			
-			System.out.print ("> " + container + "(");
+			System.out.print (": " + container + "(");
 			System.out.print ((category != null) ? category.toString () : "UNKNOWN");
 			System.out.println (")");
 		}

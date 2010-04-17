@@ -90,7 +90,7 @@ public final class ProductType
 	 * A <CODE>Category</CODE> representing all forwards.
 	 * @since	TFP 1.0
 	 */
-	public static final  Category	FORWARD
+	public static final Category	FORWARD
 		= new AbstractCategory ("(FORWARD)", PRODUCT_TYPE);
 	
 	/**
@@ -101,7 +101,7 @@ public final class ProductType
 		= new AbstractCategory ("(FOREIGN EXCHANGE)", PRODUCT_TYPE);
 	
 	/**
-	 * A <CODE>Category</CODE> representing all foreign exchange spot/forward deals.
+	 * A <CODE>Category</CODE> representing all foreign exchange spots/forwards.
 	 * @since  	TFP 1.0
 	 */
 	public static final Category FX_SPOT_FORWARD
@@ -117,7 +117,7 @@ public final class ProductType
 		};
 		
 	/**
-	 * A <CODE>Category</CODE> representing all foreign exchange spot deals.
+	 * A <CODE>Category</CODE> representing all foreign exchange spots.
 	 * @since  	TFP 1.0
 	 */
 	public static final Category FX_SPOT
@@ -133,7 +133,7 @@ public final class ProductType
 		};
 	
 	/**
-	 * A <CODE>Category</CODE> representing all foreign exchange forward deals.
+	 * A <CODE>Category</CODE> representing all foreign exchange forwards.
 	 * @since  	TFP 1.0
 	 */
 	public static final Category FX_FORWARD
@@ -150,7 +150,7 @@ public final class ProductType
 		};
 	
 	/**
-	 * A <CODE>Category</CODE> representing all foreign exchange forward deals.
+	 * A <CODE>Category</CODE> representing all foreign exchange swaps.
 	 * @since  	TFP 1.0
 	 */
 	public static final Category FX_SWAP
@@ -175,7 +175,7 @@ public final class ProductType
 				new Category [] { FOREIGN_EXCHANGE, OPTION });
 	
 	/**
-	 * A <CODE>Category</CODE> representing all foreign exchange options.
+	 * A <CODE>Category</CODE> representing all simple foreign exchange options.
 	 * @since  	TFP 1.0
 	 */
 	public static final Category FX_SIMPLE_OPTION
@@ -266,6 +266,7 @@ public final class ProductType
 						if (localName.equals ("fxBarrierOption")) continue;
 						if (localName.equals ("fxDigitalOption")) continue;
 						if (localName.equals ("fxAverageRateOption")) continue;
+						if (localName.equals ("termDeposit")) continue;
 						
 						return (false);
 					}
@@ -473,7 +474,8 @@ public final class ProductType
 	 * @since 	TFP 1.0
 	 */
 	public static final Category INTEREST_RATE_COLLAR
-		= new RefinableCategory ("INTEREST RATE COLLAR", INTEREST_RATE_CAP_FLOOR)
+		= new RefinableCategory ("INTEREST RATE COLLAR", 
+				new Category[] { INTEREST_RATE_CAP, INTEREST_RATE_FLOOR })
 		{
 			/**
 			 * {@inheritDoc}
@@ -527,14 +529,20 @@ public final class ProductType
 				return (XPath.path ((Element) value, "equityForward") != null);
 			}
 		};
-
+		
 	/**
-	 * A <CODE>Category</CODE> representing all equity options.
+	 * A <CODE>Category</CODE> representing all equity derivatives.
 	 * @since	TFP 1.0
 	 */
 	public static final Category	EQUITY_OPTION
-		= new RefinableCategory ("EQUITY OPTION", 
-				new Category [] { EQUITY_DERIVATIVE, OPTION })
+		= new AbstractCategory ("EQUITY OPTION", PRODUCT_TYPE);
+
+	/**
+	 * A <CODE>Category</CODE> representing all simple equity options.
+	 * @since	TFP 1.0
+	 */
+	public static final Category	EQUITY_SIMPLE_OPTION
+		= new RefinableCategory ("EQUITY SIMPLE OPTION", EQUITY_OPTION)
 		{
 			/**
 			 * {@inheritDoc}
@@ -546,12 +554,12 @@ public final class ProductType
 		};
 
 	/**
-	 * A <CODE>Category</CODE> representing all equity options.
+	 * A <CODE>Category</CODE> representing all equity short form options.
 	 * @since	TFP 1.0
 	 */
 	public static final Category	EQUITY_OPTION_SHORT_FORM
 		= new RefinableCategory ("EQUITY OPTION SHORT FORM", 
-				new Category [] { EQUITY_DERIVATIVE, OPTION })
+				new Category [] { EQUITY_OPTION, SHORT_FORM })
 		{
 			/**
 			 * {@inheritDoc}
@@ -563,12 +571,11 @@ public final class ProductType
 		};
 
 	/**
-	 * A <CODE>Category</CODE> representing all equity options.
+	 * A <CODE>Category</CODE> representing all equity option tranaction supplements.
 	 * @since	TFP 1.0
 	 */
 	public static final Category	EQUITY_OPTION_TRANSACTION_SUPPLEMENT
-		= new RefinableCategory ("EQUITY OPTION TRANSACTION SUPPLEMENT", 
-				new Category [] { EQUITY_DERIVATIVE, OPTION })
+		= new RefinableCategory ("EQUITY OPTION TRANSACTION SUPPLEMENT", EQUITY_OPTION)
 		{
 			/**
 			 * {@inheritDoc}
@@ -597,7 +604,7 @@ public final class ProductType
 		};
 
 	/**
-	 * A <CODE>Category</CODE> representing all equity correlation swaps.
+	 * A <CODE>Category</CODE> representing all equity dividend swaps.
 	 * @since	TFP 1.2
 	 */
 	public static final Category	EQUITY_DIVIDEND_SWAP
@@ -614,7 +621,23 @@ public final class ProductType
 		};
 
 	/**
-	 * A <CODE>Category</CODE> representing all equity correlation swaps.
+	 * A <CODE>Category</CODE> representing all equity variance options.
+	 * @since	TFP 1.4
+	 */
+	public static final Category	EQUITY_VARIANCE_OPTION
+		= new RefinableCategory ("EQUITY VARIANCE OPTION", EQUITY_OPTION)
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "varianceOptionTransactionSupplement") != null);
+			}
+		};
+
+	/**
+	 * A <CODE>Category</CODE> representing all equity variance swaps.
 	 * @since	TFP 1.2
 	 */
 	public static final Category	EQUITY_VARIANCE_SWAP
@@ -627,6 +650,23 @@ public final class ProductType
 			protected boolean isApplicable (final Object value)
 			{
 				return (XPath.path ((Element) value, "varianceSwap") != null);
+			}
+		};
+
+	/**
+	 * A <CODE>Category</CODE> representing all equity variance swap transaction supplements.
+	 * @since	TFP 1.4
+	 */
+	public static final Category	EQUITY_VARIANCE_SWAP_TRANSACTION_SUPPLEMENT
+		= new RefinableCategory ("EQUITY VARIANCE SWAP TRANSACTION SUPPLEMENT", 
+				new Category [] { EQUITY_DERIVATIVE, SWAP })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "varianceSwapTransactionSupplement") != null);
 			}
 		};
 
@@ -648,7 +688,7 @@ public final class ProductType
 		};
 
 	/**
-	 * A <CODE>Category</CODE> representing all equity return swaps.
+	 * A <CODE>Category</CODE> representing all equity swap transaction supplements.
 	 * @since	TFP 1.2
 	 */
 	public static final Category	EQUITY_SWAP_TRANSACTION_SUPPLEMENT
@@ -665,12 +705,19 @@ public final class ProductType
 		};
 
 	/**
+	 * A <CODE>Category</CODE> representing all fixed income products.
+	 * @since	TFP 1.4
+	 */
+	public static final Category	FIXED_INCOME
+		= new AbstractCategory ("(FIXED INCOME)", PRODUCT_TYPE);
+
+	/**
 	 * A <CODE>Category</CODE> representing all bond options.
 	 * @since	TFP 1.2
 	 */
 	public static final Category	BOND_OPTION
 		= new RefinableCategory ("BOND OPTION", 
-				new Category [] { INTEREST_RATE_DERIVATIVE, OPTION })
+				new Category [] { FIXED_INCOME, OPTION })
 		{
 			/**
 			 * {@inheritDoc}
@@ -722,6 +769,64 @@ public final class ProductType
 			}		
 		};
 			
+	/**
+	 * A <CODE>Category</CODE> representing all commodity derivatives.
+	 * @since	TFP 1.4
+	 */
+	public static final Category	COMMODITY_DERIVATIVE
+		= new AbstractCategory ("(COMMODITY DERIVATIVE)", PRODUCT_TYPE);
+		
+	/**
+	 * A <CODE>Category</CODE> representing all commodity swaps.
+	 * @since	TFP 1.4
+	 */
+	public static final Category	COMMODITY_SWAP
+		= new RefinableCategory ("COMMODITY SWAP",
+				new Category [] { COMMODITY_DERIVATIVE, SWAP })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "commoditySwap") != null);
+			}		
+		};
+			
+	/**
+	 * A <CODE>Category</CODE> representing all commodity forwards.
+	 * @since	TFP 1.4
+	 */
+	public static final Category	COMMODITY_FORWARD
+		= new RefinableCategory ("COMMODITY FORWARD",
+				new Category [] { COMMODITY_DERIVATIVE, FORWARD })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "commodityForward") != null);
+			}		
+		};
+				
+	/**
+	 * A <CODE>Category</CODE> representing all commodity options.
+	 * @since	TFP 1.4
+	 */
+	public static final Category	COMMODITY_OPTION
+		= new RefinableCategory ("COMMODITY OPTION",
+				new Category [] { COMMODITY_DERIVATIVE, OPTION })
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			protected boolean isApplicable (final Object value)
+			{
+				return (XPath.path ((Element) value, "commodityOption") != null);
+			}		
+		};
+					
 	/**
 	 * Attempts to determine the type of product used within a trade.
 	 *
