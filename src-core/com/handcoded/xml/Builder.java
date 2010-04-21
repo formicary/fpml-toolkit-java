@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -190,5 +190,11 @@ public class Builder extends Browser
 		appendElement (uri, name);
 		appendText (text);
 		closeElement ();
+	}
+	
+	// TODO: Experimental
+	public final void appendDocument (Document fragment)
+	{
+		context.appendChild (fragment.cloneNode (true));
 	}
 }
