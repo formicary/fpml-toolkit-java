@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -61,4 +61,14 @@ public interface Grammar
 	 * @since	TFP 1.0
 	 */
 	public Document newInstance (final String rootElement);
+	
+	/**
+	 * Create a new <CODE>Document</CODE> instance which will hold a fragment
+	 * of a document based on the grammar represented by this release.
+	 * 
+	 * @param 	rootElement			The name of the root element.
+	 * @return	A new <CODE>Document</CODE> instance.
+	 * @since	TFP 1.4
+	 */
+	public Document newFragment (final String rootElement);
 }

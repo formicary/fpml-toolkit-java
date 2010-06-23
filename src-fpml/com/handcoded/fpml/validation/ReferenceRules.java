@@ -415,6 +415,24 @@ public final class ReferenceRules extends FpMLRuleSet
 					"partialDerivative" });
 		
 	/**
+	 * A <CODE>Rule</CODE> that ensures a <CODE>PricingParameterDerivativeReference</CODE> correctly
+	 * refers to a <CODE>PricingParameterDerivative</CODE>.
+	 * <P>
+	 * Applies to FpML 4.0 and later.
+	 * @since	TFP 1.4
+	 */
+	public static final Rule	RULE22
+		= new ReferenceRule (Preconditions.R4_0__LATER, "ref-22",
+				"Valuation", new String [] {
+					"valuation", "assetValuation", "associatedValue",
+					"assetQuote", "pricingStructureValuation", "creditCurveValuation",
+					"defaultProbabilityCurve", "fxCurveValuation",
+					"volatilityMatrixValuation", "yieldCurveValuation" },
+				"ValuationScenario", new String [] {
+					"valuationScenario" },
+				"definitionRef");
+		
+	/**
 	 * A <CODE>Rule</CODE> that ensures a <CODE>ValuationReference</CODE> correctly
 	 * refers to a <CODE>Valuation</CODE>.
 	 * <P>
@@ -484,7 +502,7 @@ public final class ReferenceRules extends FpMLRuleSet
 	public static final Rule	RULE27
 		= new ReferenceRule (Preconditions.R4_0__LATER, "ref-27",
 				"BusinessDayAdjustmentsReference", new String [] {
-					"businessCentersReference" },
+					"dateAdjustmentsReference" },
 				"BusinessDayAdjustments", new String [] {
 					"dateAdjustments", "calculationPeriodDatesAdjustments",
 					"paymentDatesAdjustments", "resetDatesAdjustments",
@@ -532,7 +550,7 @@ public final class ReferenceRules extends FpMLRuleSet
 					"agentBankPartyReference" },
 				"Party", new String [] {
 					"party" });
-		
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures a <CODE>Payment</CODE> correctly
 	 * refers to a <CODE>PricingStructure</CODE>.

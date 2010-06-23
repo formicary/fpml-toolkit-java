@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
 /**
  * The <CODE>SchemaRelease</CODE> class adds support for the <CODE>Schema</CODE>
  * interface to the base <CODE>Release</CODE> class.
- * 
+ *
  * @author 	BitWise
  * @version	$Id$
  * @since	TFP 1.0
@@ -45,7 +45,7 @@ public class SchemaRelease extends Release implements Schema
 	 * <P>
 	 * Default implementations of <CODE>InstanceInitialiser</CODE> and
 	 * <CODE>SchemaRecogniser</CODE> will be created during construction.
-	 * 
+	 *
 	 * @param 	specification	A reference to the owning specification.
 	 * @param 	version			The version identifier for this release.
 	 * @param 	namespaceUri	The namespace used to identify the schema.
@@ -61,7 +61,7 @@ public class SchemaRelease extends Release implements Schema
 		this (specification, version, namespaceUri, schemaLocation,
 				preferredPrefix, alternatePrefix, (String []) null);
 	}
-	
+
 	/**
 	 * Constructs a <CODE>SchemaRelease</CODE> instance describing a schema
 	 * based release of a particular <CODE>Specification</CODE>.
@@ -72,7 +72,7 @@ public class SchemaRelease extends Release implements Schema
 	 * If <CODE>InstanceInitialiser</CODE> and <CODE>SchemaRecogniser</CODE>
 	 * instances are not provided then default ones will be created during
 	 * construction.
-	 * 
+	 *
 	 * @param 	specification	A reference to the owning specification.
 	 * @param 	version			The version identifier for this release.
 	 * @param 	namespaceUri	The namespace used to identify the schema.
@@ -92,7 +92,7 @@ public class SchemaRelease extends Release implements Schema
 				preferredPrefix, alternatePrefix,
 				initialiser, recogniser, (String []) null);
 	}
-	
+
 	/**
 	 * Constructs a <CODE>SchemaRelease</CODE> instance describing a schema
 	 * based release of a particular <CODE>Specification</CODE>.
@@ -102,7 +102,7 @@ public class SchemaRelease extends Release implements Schema
 	 * <P>
 	 * Default implementations of <CODE>InstanceInitialiser</CODE> and
 	 * <CODE>SchemaRecogniser</CODE> will be created during construction.
-	 * 
+	 *
 	 * @param 	specification	A reference to the owning specification.
 	 * @param 	version			The version identifier for this release.
 	 * @param 	namespaceUri	The namespace used to identify the schema.
@@ -120,7 +120,7 @@ public class SchemaRelease extends Release implements Schema
 		this (specification, version, namespaceUri, schemaLocation,
 				preferredPrefix, alternatePrefix, new String [] { rootElement });
 	}
-	
+
 	/**
 	 * Constructs a <CODE>SchemaRelease</CODE> instance describing a schema
 	 * based release of a particular <CODE>Specification</CODE>.
@@ -131,7 +131,7 @@ public class SchemaRelease extends Release implements Schema
 	 * If <CODE>InstanceInitialiser</CODE> and <CODE>SchemaRecogniser</CODE>
 	 * instances are not provided then default ones will be created during
 	 * construction.
-	 * 
+	 *
 	 * @param 	specification	A reference to the owning specification.
 	 * @param 	version			The version identifier for this release.
 	 * @param 	namespaceUri	The namespace used to identify the schema.
@@ -150,10 +150,10 @@ public class SchemaRelease extends Release implements Schema
 			final String rootElement)
 	{
 		this (specification, version, namespaceUri, schemaLocation,
-				preferredPrefix, alternatePrefix, 
+				preferredPrefix, alternatePrefix,
 				initialiser, recogniser, new String [] { rootElement });
 	}
-	
+
 	/**
 	 * Constructs a <CODE>SchemaRelease</CODE> instance describing a schema
 	 * based release of a particular <CODE>Specification</CODE>.
@@ -163,7 +163,7 @@ public class SchemaRelease extends Release implements Schema
 	 * <P>
 	 * Default implementations of <CODE>InstanceInitialiser</CODE> and
 	 * <CODE>SchemaRecogniser</CODE> will be created during construction.
-	 * 
+	 *
 	 * @param 	specification	A reference to the owning specification.
 	 * @param 	version			The version identifier for this release.
 	 * @param 	namespaceUri	The namespace used to identify the schema.
@@ -194,7 +194,7 @@ public class SchemaRelease extends Release implements Schema
 	 * If <CODE>InstanceInitialiser</CODE> and <CODE>SchemaRecogniser</CODE>
 	 * instances are not provided then default ones will be created during
 	 * construction.
-	 * 
+	 *
 	 * @param 	specification	A reference to the owning specification.
 	 * @param 	version			The version identifier for this release.
 	 * @param 	namespaceUri	The namespace used to identify the schema.
@@ -213,16 +213,16 @@ public class SchemaRelease extends Release implements Schema
 			final String [] rootElements)
 	{
 		super (specification, version, rootElements);
-		
+
 		this.namespaceUri    = namespaceUri;
 		this.schemaLocation  = schemaLocation;
 		this.preferredPrefix = preferredPrefix;
 		this.alternatePrefix = alternatePrefix;
-		
+
 		this.recogniser		 = recogniser;
 		this.initialiser	 = initialiser;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
@@ -249,7 +249,7 @@ public class SchemaRelease extends Release implements Schema
 	{
 		return (preferredPrefix);
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
@@ -258,7 +258,7 @@ public class SchemaRelease extends Release implements Schema
 	{
 		return (alternatePrefix);
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
@@ -267,11 +267,11 @@ public class SchemaRelease extends Release implements Schema
 	{
 		Vector			releases	= new Vector ();
 		SchemaRelease	mainSchema	= null;
-	
+
 		findAllImports (releases);
 		for (Iterator cursor = releases.iterator (); cursor.hasNext ();) {
 			SchemaRelease	release		= (SchemaRelease) cursor.next ();
-			
+
 			if (release.hasRootElement (rootElement)) {
 				if (mainSchema != null) {
 					logger.severe ("Multiple schemas define root element '" + rootElement + "'");
@@ -284,11 +284,11 @@ public class SchemaRelease extends Release implements Schema
 			logger.severe ("No schema recognised '" + rootElement + "' as a root element.");
 			return (null);
 		}
-		
+
 		DOMImplementation	impl = builder.getDOMImplementation ();
 		Document		document = impl.createDocument (mainSchema.getNamespaceUri (), rootElement, null);
 		Element			root	 = document.getDocumentElement ();
-		
+
 		root.setAttributeNS (NAMESPACES_URL, "xmlns:xsi", INSTANCE_URL);
 		root.setAttributeNS (INSTANCE_URL, "xsi:schemaLocation", "");
 
@@ -300,7 +300,19 @@ public class SchemaRelease extends Release implements Schema
 
 		return (document);
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 * @since	TFP 1.4
+	 */
+	public Document newFragment (final String rootElement)
+	{
+		DOMImplementation	impl = builder.getDOMImplementation ();
+		Document		document = impl.createDocument (getNamespaceUri (), rootElement, null);
+
+		return (document);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
@@ -315,11 +327,11 @@ public class SchemaRelease extends Release implements Schema
 		}
 		return (false);
 	}
-	
+
 	/**
 	 * Creates a bi-directional reference between this <CODE>SchemaRelease</CODE>
 	 * and the meta data for other instance that it imports.
-	 * 
+	 *
 	 * @param 	release			The imported <CODE>SchemaRelease</CODE>.
 	 * @since	TFP 1.0
 	 */
@@ -328,11 +340,11 @@ public class SchemaRelease extends Release implements Schema
 		this.imports.add (release);
 		release.importedBy.add (this);
 	}
-	
+
 	/**
 	 * Breaks the bi-directional reference between this <CODE>SchemaRelease</CODE>
 	 * and the indicated one.
-	 * 
+	 *
 	 * @param 	release			The <CODE>SchemaRelease</CODE> no longer imported.
 	 * @since	TFP 1.0
 	 */
@@ -341,11 +353,11 @@ public class SchemaRelease extends Release implements Schema
 		this.imports.remove (release);
 		release.importedBy.remove (this);
 	}
-	
+
 	/**
 	 * Returns a <CODE>Vector</CODE> containing this <CODE>schemaRelease</CODE>
 	 * and any it imports in dependency order.
-	 * 
+	 *
 	 * @return	The <CODE>Vector</CODE> of <CODE>SchemeRelease</CODE> instances.
 	 * @since	TFP 1.1
 	 */
@@ -353,14 +365,14 @@ public class SchemaRelease extends Release implements Schema
 	{
 		return (findAllImports (new Vector ()));
 	}
-	
+
 	/**
 	 * Java logging instance.11
 	 * @since 	TFP 1.0
 	 */
 	private static Logger		logger
 		= Logger.getLogger ("com.handcoded.xml.SchemaRelease");
-		
+
 	/**
 	 * The <CODE>DocumentBuilder</CODE> configured to create schema based
 	 * <CODE>Document</CODE> instances.
@@ -373,25 +385,25 @@ public class SchemaRelease extends Release implements Schema
 	 * @since	TFP 1.0
 	 */
 	private final String		namespaceUri;
-	
+
 	/**
 	 * The schema location string.
 	 * @since	TFP 1.0
 	 */
 	private final String		schemaLocation;
-	
+
 	/**
 	 * The preferred prefix for the namespace.
 	 * @since	TFP 1.0
 	 */
 	private final String		preferredPrefix;
-	
+
 	/**
 	 * The altername prefix for the namespace.
 	 * @since	TFP 1.0
 	 */
 	private final String		alternatePrefix;
-	
+
 	/**
 	 * The <CODE>InstanceInitialiser</CODE> used to build new documents.
 	 * @since	TFP 1.1
@@ -403,14 +415,14 @@ public class SchemaRelease extends Release implements Schema
 	 * @since	TFP 1.1
 	 */
 	private final SchemaRecogniser		recogniser;
-	
+
 	/**
 	 * The set of other <CODE>SchemaRelease</CODE> instances imported into this
 	 * one.
 	 * @since	TFP 1.0
 	 */
 	private Vector				imports		= new Vector ();
-	
+
 	/**
 	 * The set of other <CODE>SchemaRelease</CODE> instances that import thia
 	 * one.
@@ -422,7 +434,7 @@ public class SchemaRelease extends Release implements Schema
 	 * Recursively build a set of <CODE>SchemaRelease</CODE> instances
 	 * containing this one and any that it imports with the least
 	 * dependent first.
-	 * 
+	 *
 	 * @param 	releases		The <CODE>HashSet</CODE> of matches (so far).
 	 * @return	The updated set of imported releases.
 	 * @since	TFP 1.1
@@ -432,10 +444,10 @@ public class SchemaRelease extends Release implements Schema
 		if (!releases.contains (this)) {
 			// Add this schema to prevent infinte recursion
 			releases.add (this);
-			
+
 			for (int index = 0; index < imports.size (); ++index) {
 				((SchemaRelease) imports.elementAt (index)).findAllImports (releases);
-			
+
 				// But reposition it after any schemas it imports
 				releases.remove (this);
 				releases.add (this);
@@ -443,17 +455,17 @@ public class SchemaRelease extends Release implements Schema
 		}
 		return (releases);
 	}
-	
+
 	/**
 	 * Constructs a document builder used to create new document instances.
 	 * @since	TFP 1.0
 	 */
 	static {
 		DocumentBuilderFactory	factory = DocumentBuilderFactory.newInstance ();
-		
+
 		factory.setNamespaceAware (false);
 		factory.setValidating (false);
-		
+
 		try {
 			builder = factory.newDocumentBuilder ();
 		}

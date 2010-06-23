@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -44,11 +44,13 @@ public class ReferenceRule extends Rule
 	 * @param	contextElements	An array of potential context element names.
 	 * @param	targetType		The schema type for the target element.
 	 * @param	targetElements	An array of potential target element names.
-	 * @since	TFP 1.2
+	 * @param	referenceAttribute The name of the attribute containing the reference.
+	 * @since	TFP 1.4
 	 */
 	public ReferenceRule (final Precondition precondition, final String name,
 			final String contextType, final String [] contextElements,
-			final String targetType, final String [] targetElements)
+			final String targetType, final String [] targetElements,
+			final String referenceAttribute)
 	{
 		super (precondition, name);	 
 		
@@ -56,8 +58,28 @@ public class ReferenceRule extends Rule
 		this.contextElements 	= contextElements;
 		this.targetType			= targetType;
 		this.targetElements 	= targetElements;
+		this.referenceAttribute = referenceAttribute;
 	}
-
+	
+	/**
+	 * Construct a <CODE>ReferenceRule</CODE> instance that will locate
+	 * context and target elements based on the data provided.
+	 * 
+	 * @param	precondition	A <CODE>Precondition</CODE> instance.
+	 * @param 	name			The unique name for the rule.
+	 * @param	contextType		The schema type for the context element.
+	 * @param	contextElements	An array of potential context element names.
+	 * @param	targetType		The schema type for the target element.
+	 * @param	targetElements	An array of potential target element names.
+	 * @since	TFP 1.2
+	 */
+	public ReferenceRule (final Precondition precondition, final String name,
+			final String contextType, final String [] contextElements,
+			final String targetType, final String [] targetElements)
+	{
+		this (precondition, name, contextType, contextElements, targetType, targetElements, "href");	 
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 * @since	TFP 1.0	
@@ -93,7 +115,7 @@ public class ReferenceRule extends Rule
 		
 		for (int index = 0; index < contexts.getLength (); ++index) {
 			Element 	context	= (Element) contexts.item (index);
-			Attr		href	= context.getAttributeNode ("href");
+			Attr		href	= context.getAttributeNode (referenceAttribute);
 			
 			if (href == null) continue;
 			
@@ -115,8 +137,9 @@ public class ReferenceRule extends Rule
 			if (found) continue;
 			
 			errorHandler.error ("305", context,
-					"The @href attribute of a '" + contextType + "' element should " +
-					"match with an @id attribute on a '" + targetType + "' element.",
+					"The @" + referenceAttribute + " attribute of a '" + contextType
+					+ "' element should match with an @id attribute on a '" + targetType
+					+ "' element.",
 					getName (), hrefValue);
 			
 			result = false;
@@ -148,4 +171,11 @@ public class ReferenceRule extends Rule
 	 * @since	TFP 1.2
 	 */
 	private final String [] targetElements;
+	
+	/**
+	 * Contains the name of the attribute used to create the reference.
+	 * Normally this is 'href' but a few rules use special names.
+	 * @since	TFP 1.4
+	 */
+	private final String	referenceAttribute;
 }

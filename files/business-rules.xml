@@ -286,7 +286,7 @@
 		<addRule name="ref-19"/>
 		<addRule name="ref-20"/>
 		<addRule name="ref-21"/>
-		<!-- Not implemented yet <addRule name="ref-22"/> -->
+		<addRule name="ref-22"/>
 		<addRule name="ref-23"/>
 		<addRule name="ref-24"/>
 		<addRule name="ref-25"/>
@@ -296,7 +296,7 @@
 		<addRule name="ref-29"/>
 		<addRule name="ref-30"/>
 		<addRule name="ref-31"/>
-		<!-- Not implemented yet <addRule name="ref-32"/> -->
+		<addRule name="ref-32"/>
 		<addRule name="ref-33"/>
 		<addRule name="ref-34"/>
 		<addRule name="ref-35"/>

@@ -167,9 +167,9 @@ public class Builder extends Browser
 	 * @param 	text			The text to be added as a child.
 	 * @since	TFP 1.0
 	 */
-	public void appendElementAndText (final String name, final String text)
+	public Element appendElementAndText (final String name, final String text)
 	{
-		appendElementAndText (null, name, text);
+		return (appendElementAndText (null, name, text));
 	}
 	
 	/**
@@ -185,11 +185,14 @@ public class Builder extends Browser
 	 * @param 	text			The text to be added as a child.
 	 * @since	TFP 1.0
 	 */
-	public final void appendElementAndText (final String uri, final String name, final String text)
+	public final Element appendElementAndText (final String uri, final String name, final String text)
 	{
-		appendElement (uri, name);
+		Element 	result;
+		
+		result = appendElement (uri, name);
 		appendText (text);
 		closeElement ();
+		return (result);
 	}
 	
 	// TODO: Experimental
