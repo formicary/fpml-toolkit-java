@@ -235,11 +235,7 @@ public final class CdsRules extends Logic
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 
-					Element		creditDefaultSwap
-						= DOM.getElementByLocalName (context, "creditDefaultSwap");
-
-					if (creditDefaultSwap == null) continue;
-
+					if (!exists (XPath.path (context, "creditDefaultSwap"))) continue;
 					if (!isIsda1999 (context)) continue;
 
 					NodeList	supplements
@@ -287,11 +283,7 @@ public final class CdsRules extends Logic
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 
-					Element		creditDefaultSwap
-						= DOM.getElementByLocalName (context, "creditDefaultSwap");
-
-					if (creditDefaultSwap == null) continue;
-
+					if (!exists (XPath.path (context, "creditDefaultSwap"))) continue;
 					if (!isIsda1999 (context)) continue;
 
 					NodeList	types
@@ -340,11 +332,7 @@ public final class CdsRules extends Logic
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 
-					Element		creditDefaultSwap
-						= DOM.getElementByLocalName (context, "creditDefaultSwap");
-
-					if (creditDefaultSwap == null) continue;
-
+					if (!exists (XPath.path (context, "creditDefaultSwap"))) continue;
 					if (!isIsda2003 (context)) continue;
 
 					NodeList	supplements
@@ -392,11 +380,7 @@ public final class CdsRules extends Logic
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context = (Element) list.item (index);
 
-					Element		creditDefaultSwap
-						= DOM.getElementByLocalName (context, "creditDefaultSwap");
-
-					if (creditDefaultSwap == null) continue;
-
+					if (!exists (XPath.path (context, "creditDefaultSwap"))) continue;
 					if (!isIsda2003 (context)) continue;
 
 					NodeList	types
