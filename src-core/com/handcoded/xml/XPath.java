@@ -312,7 +312,7 @@ public final class XPath
 					return (MutableNodeList.EMPTY);
 			}
 		
-			return (context.getElementsByTagName (name));
+			return (DOM.getElementsByLocalName (context, name));
 		}
 		return (MutableNodeList.EMPTY);
 	}

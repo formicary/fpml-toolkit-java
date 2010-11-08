@@ -15,16 +15,19 @@ package demo.com.handcoded.fpml;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.logging.Logger;
+import java.util.Enumeration;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 import org.xml.sax.SAXException;
 
+import com.handcoded.fpml.Releases;
 import com.handcoded.framework.Option;
+import com.handcoded.meta.Release;
+import com.handcoded.meta.SchemaRelease;
 import com.handcoded.xml.XmlUtility;
 import com.handcoded.xml.resolver.Catalog;
 import com.handcoded.xml.resolver.CatalogManager;
-import com.handcoded.fpml.Releases;
 
 /**
  * The <CODE>Application</CODE> contains some standard option handling
@@ -69,20 +72,14 @@ public abstract class Application extends com.handcoded.framework.Application
 			System.exit (1);
 		}
 
-		// Activate the FpML Schemas
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_0);
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_1);
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_2);
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_3);
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_4);
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_5);
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_6);
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_7);
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R4_8);
+		// Activate the all FpML Schemas
+		Enumeration releases = Releases.FPML.releases ();
 		
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_CONFIRMATION);
-//		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_PRETRADE);
-		XmlUtility.getDefaultSchemaSet ().add (Releases.R5_0_REPORTING);
+		while (releases.hasMoreElements ()) {
+			Release release = (Release) releases.nextElement ();
+			if (release instanceof SchemaRelease)
+				XmlUtility.getDefaultSchemaSet ().add ((SchemaRelease) release);	
+		}
 	}
 
 	/**

@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -15,8 +15,20 @@ package com.handcoded.meta;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
+import com.handcoded.framework.Application;
+import com.handcoded.xml.DOM;
+import com.handcoded.xml.Types;
+import com.handcoded.xml.XPath;
+import com.handcoded.xml.XmlUtility;
 
 /**
  * Instances of the <CODE>Specification</CODE> class represent XML based
@@ -34,7 +46,7 @@ public final class Specification
 	 * @param 	name			The specification name.
 	 * @since	TFP 1.0
 	 */
-	public Specification (String name)
+	public Specification (final String name)
 	{
 		extent.put (this.name = name, this);
 	}
@@ -130,10 +142,10 @@ public final class Specification
 	 */
 	public Release getReleaseForDocument (Document document)
 	{
-		Enumeration		cursor = releases.keys ();
+		Enumeration		cursor = releases.elements ();
 		
 		while (cursor.hasMoreElements ()) {
-			Release	release = (Release) releases.get(cursor.nextElement ());
+			Release	release = (Release) cursor.nextElement ();
 			if (release.isInstance (document)) return (release);
 		}
 		return (null);
@@ -150,26 +162,55 @@ public final class Specification
 	 */
 	public Release getReleaseForVersion (final String version)
 	{
-		return ((Release) releases.get (version));
+		Enumeration		cursor = releases.elements ();
+		
+		while (cursor.hasMoreElements ()) {
+			Release	release = (Release) cursor.nextElement ();
+			if (release.getVersion ().equals (version)) return (release);
+		}
+		return (null);
+	}
+	
+	/**
+	 * Attempts to locate a <CODE>SchemaRelease</CODE> associated with this
+	 * <CODE>Specification</CODE> with the indicated version identifier and
+	 * namespace URI.
+	 * 
+	 * @param 	version			The target version identifier.
+	 * @param 	namespaceUri	The target namespace URI.
+	 * @return	The corresponding <CODE>SchemaRelease</CODE> instance or
+	 * 			<CODE>null</CODE> if none exists.
+	 * @since	TFP 1.5
+	 */
+	public SchemaRelease getReleaseForVersionAndNamespace (final String version, final String namespaceUri)
+	{
+		Enumeration		cursor = releases.elements ();
+		
+		while (cursor.hasMoreElements ()) {
+			Release release = (Release) cursor.nextElement ();
+			if (release instanceof SchemaRelease) {
+				SchemaRelease schemaRelease = (SchemaRelease) release;
+				if (schemaRelease.getVersion ().equals (version) &&
+					schemaRelease.getNamespaceUri ().equals (namespaceUri))
+					return (schemaRelease);
+			}
+		}
+		return (null);
 	}
 	
 	/**
 	 * Adds the indicated <CODE>Release</CODE> instance to the set managed
-	 * by the specification. If a <CODE>Release</CODE> instance with the same
-	 * version identifier is already in the set it will be displaced by the
-	 * new instance.
+	 * by the specification.
 	 * 
 	 * @param 	release			The <CODE>Release</CODE> instance to add.
-	 * @return	The displaced <CODE>Release</CODE> instance or <CODE>null</CODE>
-	 * 			if none.
 	 * @since	TFP 1.0 
 	 */
-	public Release add (Release release)
+	public void add (Release release)
 	{
 		if (release.getSpecification () != this)
 			throw new AssertionError ("The provided release is for a different specification");
 				
-		return ((Release) releases.put (release.getVersion (), release));
+		releases.add (release);
 	}
 	
 	/**
@@ -177,16 +218,14 @@ public final class Specification
 	 * by the <CODE>Specification</CODE>.
 	 * 
 	 * @param 	release			The <CODE>Release</CODE> to be removed.
-	 * @return	A reference to the removed <CODE>Release</CODE> instance or
-	 * 			<CODE>null</CODE> if it was not in the set.
 	 * @since	TFP 1.0
 	 */
-	public Release remove (Release release)
+	public void remove (Release release)
 	{
 		if (release.getSpecification () != this)
 			throw new AssertionError ("The provided release is for a different specification");
 
-		return ((Release) releases.remove(release.getVersion ()));
+		releases.remove (release);
 	}
 	
 	/**
@@ -237,14 +276,14 @@ public final class Specification
 		buffer.append (name);
 		buffer.append ("\", releases={");
 		
-		Enumeration cursor = releases.keys ();
+		Enumeration cursor = releases.elements ();
 		boolean		first  = true;
 		
 		while (cursor.hasMoreElements()) {
 			if (!first) buffer.append (',');
 
 			buffer.append ('"');
-			buffer.append ((String) cursor.nextElement ());
+			buffer.append (((Release) cursor.nextElement ()).getVersion ());
 			buffer.append ('"');
 			first = false;
 		}
@@ -252,6 +291,13 @@ public final class Specification
 		
 		return (buffer.toString ());
 	}
+	
+	/**
+	 * A <CODE>Logger</CODE> instance used to report run-time problems.
+	 * @since	TFP 1.4
+	 */
+	private static Logger		logger
+		= Logger.getLogger ("com.handcoded.meta.Specification");
 	
 	/**
 	 * The extent set of all <CODE>Specification</CODE> instances.
@@ -270,5 +316,133 @@ public final class Specification
 	 * <CODE>Specification</CODE>.
 	 * @since	TFP 1.0
 	 */
-	private Hashtable			releases	= new Hashtable ();
+	private Vector				releases	= new Vector ();
+	
+	/**
+	 * If the releases file defines a custom class loader to be used the process
+	 * the data block identified by the context element then return its name,
+	 * otherwise return the indicated default class name.
+	 * 
+	 * @param 	context			The context <CODE>Element</CODE>.
+	 * @param 	defaultClass	The name of the default class loader if not overridden.
+	 * @return	The name of the class loader to be instantiated.
+	 * @since	TFP 1.5
+	 */
+	private static String getClassLoader (Element context, final String defaultClass)
+	{
+		NodeList	list = XPath.paths (context, "classLoader");
+		for (int index = 0; index < list.getLength (); ++index) {
+			Element element = (Element) list.item (index);
+			String platform = DOM.getAttribute (element, "platform");
+			
+			if ((platform != null) && platform.equals ("Java"))
+				return (DOM.getAttribute (element, "class"));
+		}
+		return (defaultClass);
+	}
+	
+	/**
+	 * Creates a <CODE>ReleaseLoader</CODE> that can process a DTD meta
+	 * definition.
+	 * 
+	 * @param 	context			The context <CODE>Element</CODE>.
+	 * @return	An instance of the <CODE>ReleaseLoader</CODE> interface.
+	 * @throws 	ClassNotFoundException
+	 * 			If the default or overriding class name is not valid.
+	 * @throws 	InstantiationException
+	 * 			If an instance of the <CODE>ReleaseLoader</CODE> could not
+	 * 			be created.
+	 * @throws 	IllegalAccessException
+	 * 			If the class being dynamically created can not be publically
+	 * 			accessed.
+	 * @since	TFP 1.5
+	 */
+	private static ReleaseLoader getDtdReleaseLoader (Element context)
+		throws ClassNotFoundException, InstantiationException, IllegalAccessException
+	{
+		String targetName = getClassLoader (context, "com.handcoded.meta.DefaultDTDReleaseLoader");
+		
+		try {
+			Class targetClass = Class.forName (targetName);
+		
+			return ((ReleaseLoader) targetClass.newInstance ());
+		}
+		catch (ClassNotFoundException error) {
+			logger.log (Level.SEVERE, "Reference to undefined class loader type: " + targetName);
+			throw error;
+		}
+	}
+	
+	/**
+	 * Creates a <CODE>ReleaseLoader</CODE> that can process a schema meta
+	 * definition.
+	 * 
+	 * @param 	context			The context <CODE>Element</CODE>.
+	 * @return	An instance of the <CODE>ReleaseLoader</CODE> interface.
+	 * @throws 	ClassNotFoundException
+	 * 			If the default or overriding class name is not valid.
+	 * @throws 	InstantiationException
+	 * 			If an instance of the <CODE>ReleaseLoader</CODE> could not
+	 * 			be created.
+	 * @throws 	IllegalAccessException
+	 * 			If the class being dynamically created can not be publically
+	 * 			accessed.
+	 * @since	TFP 1.5
+	 */
+	private static ReleaseLoader getSchemaReleaseLoader (Element context)
+		throws ClassNotFoundException, InstantiationException, IllegalAccessException
+	{
+		String targetName = getClassLoader (context, "com.handcoded.meta.DefaultSchemaReleaseLoader");
+		
+		try {
+			Class targetClass = Class.forName (targetName);
+		
+			return ((ReleaseLoader) targetClass.newInstance ());
+		}
+		catch (ClassNotFoundException error) {
+			logger.log (Level.SEVERE, "Reference to undefined class loader type: " + targetName);
+			throw error;
+		}
+	}
+	
+	/**
+	 * Bootstrap the entire collection of specifications by processing the
+	 * contents of the 'files/releases.xml' file.
+	 * @since	TFP 1.5
+	 */
+	static {
+		Hashtable	loadedSchemas = new Hashtable ();
+		
+		logger.log (Level.INFO, "Bootstrapping Specifications");
+		
+		try {
+			Document document = XmlUtility.nonValidatingParse (
+					new InputSource (Application.openStream ("files/releases.xml")));
+				
+			NodeList specifications = XPath.paths (document.getDocumentElement (), "specification");
+			for (int index = 0; index < specifications.getLength (); ++index) {
+				Element context = (Element) specifications.item (index);
+				Element name = XPath.path (context, "name");
+				
+				Specification specification = new Specification (Types.toToken (name));
+				
+				NodeList dtds = XPath.paths (context, "dtdRelease");
+				for (int count = 0; count < dtds.getLength (); ++count) {
+					Element node = (Element) dtds.item (count);
+					getDtdReleaseLoader (node).loadData (specification, node, loadedSchemas);
+				}
+				
+				NodeList schemas = XPath.paths (context, "schemaRelease");
+				for (int count = 0; count < schemas.getLength (); ++count) {
+					Element node = (Element) schemas.item (count);
+					getSchemaReleaseLoader (node).loadData (specification, node, loadedSchemas);
+				}
+			}
+		}
+		catch (Exception error) {
+			logger.log (Level.SEVERE, "Unable to load specifications", error);	
+		}
+		
+		logger.log (Level.INFO, "Completed");
+	}
 }

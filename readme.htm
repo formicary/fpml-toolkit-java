@@ -1,111 +1,111 @@
-<html>
-	<head>
-		<title>HandCoded Toolkit for Java 1.2 - ReadMe</title>
-		<meta http-equiv="Content-Language" content="en-gb">
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-		<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
-		<meta name="ProgId" content="FrontPage.Editor.Document">
-		<link rel="StyleSheet" href="manual/styles.css" type="text/css">
-	</head>
-	<body>
-		<P><font size="6">Toolkit for FpML Processing<BR>
-				Java Open Source Release 1.4</font></P>
-		<p><font size="5">April, 2010</font></p>
-		<P><font size="5">Copyright (C),2006-2010 HandCoded Software Ltd.<BR>
-				All rights reserved.</font></P>
-		<p></p>
-		<h1>Introduction</h1>
-		<p>This document accompanies Java 1.4 release of the 'HandCoded Toolkit for FpML 
-			Processing' and describes the contents of the release area. The source code for 
-			this release is not included but is available from the SVN repository on 
-			SourceForge.</p>
-		<h2>License</h2>
-		<p>This toolkit is distributed under the terms if the 'Open Source License 
-			"OSL"&nbsp; Version 3.0'. A full copy of the license terms is included in the 
-			repository (click <a href="license.txt" target="_blank">here</a> to access) and 
-			must be distributed along with this file if you distribute this code to other 
-			parties.</p>
-		<H2>Directory Structure</H2>
-		<P>The ZIP file that contained this release expands into a number of files and 
-			sub-directories. The following briefly describes the purpose of each.
-		</P>
-		<UL class="L1">
-			<LI>
-			readme.html (The file you are reading)
-			<LI>
-				license.txt<BR>
-				<BR>
-			A copy of the license terms under which the toolkit is distributed.
-			<LI>
-				handcoded.jar<BR>
-				<BR>
-			This file contains all compiled Java class files for the toolkit and its 
-			demonstration applications.
-			<LI>Validate*-0.bat<BR>
-                <BR>
-                Running these files will execute a simple batch validation of a selection of FpML 
-			examples. Some of the example file distributed with FpML contain some mistakes and
-                will 
-			output error messages.
-			<LI>Classify*-0.bat<BR>
-                <BR>
-                Running these files will execute a simple program that uses the classification tools
-                within the toolkit to identifty the financial product within the example files.</LI>
-                <li>files<br />
-                    <br />
-				Contains an XML catalog file (and its associated schema) used to resolve DTD 
-				system identifiers and schema namespace URIs to physical file locations.<br />
-                    <br />
-                From release 1.2 the configuration of the business rules sets is
-                controlled by the contents of the file rules.xml (and its
-                associated schema rules.xsd). </li>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>HandCoded Toolkit for Java 1.2 - ReadMe</title>
+    <meta http-equiv="Content-Language" content="en-gb" />
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+    <meta name="GENERATOR" content="Microsoft FrontPage 4.0" />
+    <meta name="ProgId" content="FrontPage.Editor.Document" />
+    <link rel="StyleSheet" href="manual/styles.css" type="text/css" />
+</head>
+<body>
+    <p>
+        <font size="6">Toolkit for FpML Processing<br>
+            Java Open Source Release 1.5</font></p>
+    <p>
+        <font size="5">November, 2010</font></p>
+    <p>
+        <font size="5">Copyright (C),2006-2010 HandCoded Software Ltd.<br>
+            All rights reserved.</font></p>
+    <p>
+    </p>
+    <h1>
+        Introduction</h1>
+    <p>
+        This document accompanies Java 1.5 release of the 'HandCoded Toolkit for FpML Processing'
+        and describes the contents of the release area. The source code for this release
+        is not included but is available from the SVN repository on SourceForge.</p>
+    <h2>
+        License</h2>
+    <p>
+        This toolkit is distributed under the terms if the 'Open Source License "OSL"&nbsp;
+        Version 3.0'. A full copy of the license terms is included in the repository (click
+        <a href="license.txt" target="_blank">here</a> to access) and must be distributed
+        along with this file if you distribute this code to other parties.</p>
+    <h2>
+        Directory Structure</h2>
+    <p>
+        The ZIP file that contained this release expands into a number of files and sub-directories.
+        The following briefly describes the purpose of each.
+    </p>
+    <ul class="L1">
+        <li>readme.html (The file you are reading)
+            <li>license.txt<br>
+                <br>
+                A copy of the license terms under which the toolkit is distributed.
+                <li>handcoded.jar<br>
+                    <br>
+                    This file contains all compiled Java class files for the toolkit and its demonstration
+                    applications.
+                    <li>Validate*-0.bat<br>
+                        <br>
+                        Running these files will execute a simple batch validation of a selection of FpML
+                        examples. Some of the example file distributed with FpML contain some mistakes and
+                        will output error messages.
+                        <li>Classify*-0.bat<br>
+                            <br>
+                            Running these files will execute a simple program that uses the classification tools
+                            within the toolkit to identifty the financial product within the example files.</li>
+                        <li>files<br />
+                            <br />
+                            Contains an XML catalog file (and its associated schema) used to resolve DTD system
+                            identifiers and schema namespace URIs to physical file locations.<br />
+                            <br />
+                            From release 1.2 the configuration of the business rules sets is controlled by the
+                            contents of the file rules.xml (and its associated schema rules.xsd). </li>
+    </ul>
+    <p>
+        <ul class="L2">
+            <li>schemas<br>
+                <br>
+                Contains a subdirectory for each version of the FpML as well as the schema for digital
+                signatures and the HandCoded extensions for 'RejectedDocuments'
+                <li>data<br>
+                    <br>
+                    A set of XML data files containing the scheme code values defined by FpML for each
+                    release and a set of additional definitions for currency and country codes.
+                    <li>examples<br>
+                        <br>
+                        A copy of the FpML example file for each schema release. Some may contain mistakes
+                        as many have not been properly validated.
+                        <li>test-cases<br>
+                            <br>
+                            A copy of the FpML validation test files for&nbsp;both valid and invalid case. It
+                            is important to note some valid test cases still generate errors, just not the one
+                            they are supposed to test.</li>
         </ul>
-        <p>
-			<UL class="L2">
-				<LI>
-					schemas<BR>
-					<BR>
-				Contains a subdirectory for each version of the FpML as well as the schema for 
-				digital signatures and the HandCoded extensions for 'RejectedDocuments'
-				<LI>
-					data<BR>
-					<BR>
-				A set of XML data files containing the scheme code values defined by FpML for 
-				each release and a set of additional definitions for currency and country 
-				codes.
-				<LI>
-					examples<BR>
-					<BR>
-				A copy of the FpML example file for each schema release. Some may contain 
-				mistakes as many have not been properly validated.
-				<LI>
-					test-cases<BR>
-					<BR>
-					A copy of the FpML validation test files for&nbsp;both valid and invalid case. 
-					It is important to note some valid test cases still generate errors, just not 
-					the one they are supposed to test.</LI></UL>
-        </p>
-        <UL class="L1">
-			<LI>
-				lib<BR>
-				<BR>
-			Contains a copy of the Xerces JAR images used by the example application.
-                See the associated readme.txt file for version information.
-			</UL>
-		<H2>Example Applications</H2>
-        <p>
-            The toolkit is accompanied by some simple test scripts that demonstrates its functionality
-            and performance.</p>
-        <h3>
-            Validation</h3>
-		<p>The validation scripts (e.g. Validate1-0.bat, etc.) use a simple application (implemented as the class 
-			demo.com.handcoded.fpml.Validate) to process one or more XML files.
-            Running one of the example batch files will process a small selection of FpML examples 
-			displaying the results to the screen.</p>
-		<P>At the end of the run the program calculates the average processing &nbsp;time 
-			for each file and displays the number of rules tested against each file as 
-			shown below.</P>
-		<PRE>&gt;&gt; files/examples/fpml4-0/ird_ex26_fxnotional_swap_with_cfs.xml
+    </p>
+    <ul class="L1">
+        <li>lib<br>
+            <br>
+        Contains a copy of the Xerces JAR images used by the example application. See the
+        associated readme.txt file for version information.
+    </ul>
+    <h2>
+        Example Applications</h2>
+    <p>
+        The toolkit is accompanied by some simple test scripts that demonstrates its functionality
+        and performance.</p>
+    <h3>
+        Validation</h3>
+    <p>
+        The validation scripts (e.g. Validate1-0.bat, etc.) use a simple application (implemented
+        as the class demo.com.handcoded.fpml.Validate) to process one or more XML files.
+        Running one of the example batch files will process a small selection of FpML examples
+        displaying the results to the screen.</p>
+    <p>
+        At the end of the run the program calculates the average processing &nbsp;time for
+        each file and displays the number of rules tested against each file as shown below.</p>
+    <pre>&gt;&gt; files/examples/fpml4-0/ird_ex26_fxnotional_swap_with_cfs.xml
 &gt;&gt; files/examples/fpml4-0/ird_ex27_inverse_floater.xml
 &gt;&gt; files/examples/fpml4-0/ird_ex28_bullet_payments.xml
 &gt;&gt; files/examples/fpml4-0/msg_ex01_request_confirmation.xml
@@ -114,20 +114,20 @@
 &gt;&gt; files/examples/fpml4-0/td_ex01_simple_term_deposit.xml
 &gt;&gt; files/examples/fpml4-0/td_ex02_term_deposit_w_settlement_etc.xml
 == Processed 91 files in 1391 milliseconds
-== 65.42056074766356 files/sec checking 219 rules</PRE>
-		<P>The application responds to a number of command line options and can be 
-			configured to test the FpML defined rules (e.g. excludes HandCoded rules 
-			including scheme value checking) or to use a more streamlined XML parsing 
-			technique that only supports schema based instances from FpML 4.0 or later. The 
-			default configuration is to process both DTD and schema based instances which 
-			is less efficient.</P>
-        <h3>
-            Classification</h3>
-        <p>
-            The classification scripts (e.g. Classify1-0.bat, etc.) execute a simple application
-            that uses the toolkit to determine the type of financial product used within a trade
-            or contract.</p>
-        <pre>&gt;&gt; files\examples\fpml1-0\FRAExample8.xml:
+== 65.42056074766356 files/sec checking 219 rules</pre>
+    <p>
+        The application responds to a number of command line options and can be configured
+        to test the FpML defined rules (e.g. excludes HandCoded rules including scheme value
+        checking) or to use a more streamlined XML parsing technique that only supports
+        schema based instances from FpML 4.0 or later. The default configuration is to process
+        both DTD and schema based instances which is less efficient.</p>
+    <h3>
+        Classification</h3>
+    <p>
+        The classification scripts (e.g. Classify1-0.bat, etc.) execute a simple application
+        that uses the toolkit to determine the type of financial product used within a trade
+        or contract.</p>
+    <pre>&gt;&gt; files\examples\fpml1-0\FRAExample8.xml:
 = FpML 1-0
 : Trade(FORWARD RATE AGREEMENT)
 &gt;&gt; files\examples\fpml1-0\IRSExample1.xml:
@@ -151,41 +151,50 @@
 &gt;&gt; files\examples\fpml1-0\IRSExample7.xml: 
 = FpML 1-0 
 : Trade(INTEREST RATE SWAP)</pre>
-		<P>Futures releases will add further demonstration applications.</P>
-		<H2>Support</H2>
-		<P>If you find a problem using toolkit then please use the forum and bug reporting 
-			facilities on the <A href="http://sourceforge.net/projects/fpml-toolkit">SourceForge 
-				project</A> site to record the issue.</P>
-		<H2>Change History</H2>
-		<P>
-            Changes in 1.1:</P>
-        <ul>
-            <li>Support for FpML 4.3 LCWD and 4.4 WD</li>
-            <li>Toolkit supports full ISO date/time/dateTime types with timezone offsets.</li>
-        </ul>
-		<p>Changes in 1.2:</p>
-        <ul>
-            <li>Support for FpML 4.4 and 5.0 WD</li>
-            <li>File based configuration for business rules.</li>
-            <li>The NodeIndex class has been enhanced to understand schema type
-              information and inheritance by extension/restriction to make it
-              easier to file matching elements.</li>
-            <li>Additional business rule sets for FX, Business Process, Pricing/Risk and references</li>
-            <li>Additional scheme support (including canonical scheme URI changes)&nbsp;</li>
-        </ul>
-        <p>
-            Changes in 1.3:</p>
-        <ul>
-            <li>Support for FpML 4.5 and 4.6</li>
-            <li>Numerous little fixes&nbsp; </li>
-        </ul>
-        <p>
-            Changes in 1.4:</p>
-        <ul>
-            <li>Support for FpML 4.7 and 5.0 LCWD</li>
-            <li>File handling updated to allow schemas to be within a JAR file for web applications.</li>
-        </ul>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-	</body>
+    <p>
+        Futures releases will add further demonstration applications.</p>
+    <h2>
+        Support</h2>
+    <p>
+        If you find a problem using toolkit then please use the forum and bug reporting
+        facilities on the <a href="http://sourceforge.net/projects/fpml-toolkit">SourceForge
+            project</a> site to record the issue.</p>
+    <h2>
+        Change History</h2>
+    <p>
+        Changes in 1.1:</p>
+    <ul>
+        <li>Support for FpML 4.3 LCWD and 4.4 WD</li>
+        <li>Toolkit supports full ISO date/time/dateTime types with timezone offsets.</li>
+    </ul>
+    <p>
+        Changes in 1.2:</p>
+    <ul>
+        <li>Support for FpML 4.4 and 5.0 WD</li>
+        <li>File based configuration for business rules.</li>
+        <li>The NodeIndex class has been enhanced to understand schema type information and
+            inheritance by extension/restriction to make it easier to file matching elements.</li>
+        <li>Additional business rule sets for FX, Business Process, Pricing/Risk and references</li>
+        <li>Additional scheme support (including canonical scheme URI changes)&nbsp;</li>
+    </ul>
+    <p>
+        Changes in 1.3:</p>
+    <ul>
+        <li>Support for FpML 4.5 and 4.6</li>
+        <li>Numerous little fixes</li>
+    </ul>
+    <p>
+        Changes in 1.4:</p>
+    <ul>
+        <li>Support for FpML 4.7 and 5.0 LCWD</li>
+        <li>File handling updated to allow schemas to be within a JAR file for web applications.</li>
+    </ul>
+    <p>
+        Changes in 1.5:</p>
+    <ul>
+        <li>Support for FpML 4.8, 4.9 and 5.1</li>
+        <li>Release meta data has been moved from Java code into an XML data file</li>
+        <li>The Java and C# rule sets have been resynchronised.</li>
+    </ul>
+</body>
 </html>

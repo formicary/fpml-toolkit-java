@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -39,6 +39,7 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.InputSource;
 
 import com.handcoded.xml.parser.DOMParser;
 import com.handcoded.xml.resolver.Catalog;
@@ -141,20 +142,20 @@ public final class XmlUtility
 	 */
 	public static Document nonValidatingParse (final String xml, EntityResolver entityResolver)
 	{
-		return (nonValidatingParse (xml, entityResolver, 
-				new ErrorHandler ()
-				{
-					public void fatalError (SAXParseException notUsed)
-					{  }
-					
-					public void error (SAXParseException notUsed)
-					{  }
-					
-					public void warning (SAXParseException notUsed)
-					{  }
-				}));
+		return (nonValidatingParse (xml, entityResolver, defaultErrorHandler));
 	}
 	
+	/**
+	 * Performs a non-validating parse of the indicated XML string discarding any
+	 * errors generated.
+	 * 
+	 * @param 	xml			The XML <CODE>String</CODE> to be processed.
+	 * @param 	entityResolver	The <CODE>EntityResolver</CODE>.
+	 * @param	errorHandler	The <CODE>ErrorHandler</CODE>.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.0
+	 */
 	public static Document nonValidatingParse (final String xml, EntityResolver entityResolver,
 			ErrorHandler errorHandler)
 	{
@@ -198,20 +199,20 @@ public final class XmlUtility
 	 */
 	public static Document nonValidatingParse (File file, EntityResolver entityResolver)
 	{
-		return (nonValidatingParse (file, entityResolver,
-				new ErrorHandler ()
-				{
-					public void fatalError (SAXParseException notUsed)
-					{  }
-					
-					public void error (SAXParseException notUsed)
-					{  }
-					
-					public void warning (SAXParseException notUsed)
-					{  }
-				}));
+		return (nonValidatingParse (file, entityResolver, defaultErrorHandler));
 	}
 	
+	/**
+	 * Performs a non-validating parse of the indicated XML file discarding any
+	 * errors generated.
+	 * 
+	 * @param 	file			The <CODE>File</CODE> to be processed.
+	 * @param 	entityResolver	The <CODE>EntityResolver</CODE>.
+	 * @param	errorHandler	The <CODE>ErrorHandler</CODE>.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.0
+	 */
 	public static Document nonValidatingParse (File file, EntityResolver entityResolver,
 			ErrorHandler errorHandler)
 	{
@@ -229,7 +230,63 @@ public final class XmlUtility
 		return (document);
 	}
 
+	/**
+	 * Performs a non-validating parse of the indicated XML file discarding any
+	 * errors generated.
+	 * 
+	 * @param 	source			The <CODE>InputSource</CODE> to be processed.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.4
+	 */
+	public static Document nonValidatingParse (InputSource source)
+	{
+		return (nonValidatingParse (source, defaultCatalog));
+	}
 	
+	/**
+	 * Performs a non-validating parse of the indicated XML file discarding any
+	 * errors generated.
+	 * 
+	 * @param 	source			The <CODE>InputSource</CODE> to be processed.
+	 * @param 	entityResolver	The <CODE>EntityResolver</CODE>.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.4
+	 */
+	public static Document nonValidatingParse (InputSource source, EntityResolver entityResolver)
+	{
+		return (nonValidatingParse (source, entityResolver, defaultErrorHandler));
+	}
+	
+	/**
+	 * Performs a non-validating parse of the indicated XML file discarding any
+	 * errors generated.
+	 * 
+	 * @param 	source			The <CODE>InputSource</CODE> to be processed.
+	 * @param 	entityResolver	The <CODE>EntityResolver</CODE>.
+	 * @param	errorHandler	The <CODE>ErrorHandler</CODE>.
+	 * @return	A <CODE>Document</CODE> instance if the parse succeeded or
+	 * 			<CODE>null</CODE> if it failed.
+	 * @since	TFP 1.4
+	 */
+	public static Document nonValidatingParse (InputSource source, EntityResolver entityResolver,
+			ErrorHandler errorHandler)
+	{
+		Document	document	= null;
+		
+		try {
+			document = new DOMParser (false, true, false, null, entityResolver, errorHandler).parse (source);
+		}
+		catch (ParserConfigurationException error) {
+			logger.severe ("JAXP failed to provided a XML parser");
+		}
+		catch (IOException error) {
+			logger.log (Level.SEVERE, "Unexpected I/O error", error);
+		}
+		return (document);
+	}
+
 	/**
 	 * Performs a validating parse of the indicated XML <CODE>String</CODE> using the
 	 * most optimal technique given the mode. If the type of grammar is unknown
@@ -399,10 +456,28 @@ public final class XmlUtility
 
 	/**
 	 * The default schema collection used to validate schema based documents.
-	 * @since	TFp 1.0
+	 * @since	TFP 1.0
 	 */
 	private static SchemaSet	defaultSchemaSet = new SchemaSet ();
-		
+
+	/**
+	 * A dummy implementation of the <CODE>ErrorHandler</CODE> interface that
+	 * discards any errors.
+	 * @since	TFP 1.4
+	 */
+	private static ErrorHandler	defaultErrorHandler
+		= new ErrorHandler ()
+			{
+				public void fatalError (SAXParseException notUsed)
+				{  }
+				
+				public void error (SAXParseException notUsed)
+				{  }
+				
+				public void warning (SAXParseException notUsed)
+				{  }
+			};
+	
 	/**
 	 * Ensures no instances can be constructed.
 	 * @since	TFP 1.0

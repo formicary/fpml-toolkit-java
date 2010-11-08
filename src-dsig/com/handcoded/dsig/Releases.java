@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -32,7 +32,7 @@ public final class Releases
 	 * @since	TFP 1.0
 	 */
 	public static Specification	DSIG
-		= new Specification ("DSig");
+		= Specification.forName ("DSig");
 	
 	/**
 	 * A <CODE>SchemaRelease</CODE> instance containing the details for
@@ -40,9 +40,7 @@ public final class Releases
 	 * @since	TFP 1.0
 	 */
 	public static SchemaRelease	R1_0
-		= new SchemaRelease (DSIG, "1-0",
-				"http://www.w3.org/2000/09/xmldsig#", "xmldsig-core-schema.xsd",
-				"dsig", null);
+		= (SchemaRelease) DSIG.getReleaseForVersion ("1-0");
 	
 	/**
 	 * Ensures no instances can be constructed.

@@ -79,5 +79,4 @@ public final class VersionPrecondition extends Precondition
 	 * @since	TFP 1.1
 	 */
 	private final Release	release;
-
 }

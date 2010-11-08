@@ -1747,20 +1747,6 @@ public final class Conversions
 		}
 	}
 
-//	/**
-//	 * The <CODE>R4_7__R5_0_PRETRADE</CODE> class contains the logic to migrate
-//	 * the content of a FpML 4.7 schema based document to 5/0 
-//	 * 
-//	 * @since	TFP 1.4
-//	 */
-//	public static class R4_7__R5_0_PRETRADE extends R5_0 
-//	{
-//		public R4_7__R5_0_PRETRADE ()
-//		{
-//			super (Releases.R4_7, Releases.R5_0_PRETRADE);
-//		}
-//	}
-
 	/**
 	 * The <CODE>R4_7__R5_0_REPORTING</CODE> class contains the logic to migrate
 	 * the content of a FpML 4.7 schema based document to 5.0 

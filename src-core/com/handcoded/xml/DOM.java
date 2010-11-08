@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -166,6 +166,33 @@ public final class DOM
 			node = node.getNextSibling ();
 		}
 		return (false);
+	}
+	
+	/**
+	 * Returns a set of child <CODE>Element</CODE> instances that have the
+	 * given local name string.
+	 * 
+	 * @param 	context			The context <CODE>Element</CODE> for the operation.
+	 * @param 	name			The local name of the requires element.
+	 * @return	A possibly empty <CODE>NodeList</CODE> containing each of the
+	 * 			matching child elements.
+	 * @since	TFP 1.5
+	 */
+	public static NodeList getElementsByLocalName (Element context, final String name)
+	{
+		if (context == null) return (MutableNodeList.EMPTY);
+		
+		MutableNodeList result = new MutableNodeList ();
+		
+		for (Node node = context.getFirstChild (); node != null;) {
+			if (node.getNodeType () == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				if (element.getLocalName ().equals (name))
+					result.add (element);
+			}
+			node = node.getNextSibling ();
+		}
+		return (result);
 	}
 	
 	/**
