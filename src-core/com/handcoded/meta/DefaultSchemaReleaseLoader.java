@@ -136,11 +136,11 @@ public class DefaultSchemaReleaseLoader implements ReleaseLoader
 	}
 	
 	/**
-	 * Extracts the release's version number string from the XML section
-	 * describing the schema.
+	 * Connects this schema to any other schemas that it imports.
 	 * 
+	 * @param	release			The <CODE>SchemaRelease</CODE> for this schema.
 	 * @param	context			The context <CODE>Element</CODE> for the section.
-	 * @return	The release version number string.
+	 * @param	loadedSchemas	A <CODE>Hashtable</CODE> of previous bootstrapped schemas.
 	 * @since	TFP 1.5
 	 */
 	protected final void handleImports (SchemaRelease release, Element context, Hashtable loadedSchemas)

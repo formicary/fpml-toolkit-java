@@ -712,7 +712,7 @@ public final class SharedRules extends Logic
 	 * Applies to FpML 3-0 and later. 
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE13B 
+	public static final Rule	RULE13B
 		= new Rule (Preconditions.R3_0__LATER, "shared-13b")
 		{
 			/**

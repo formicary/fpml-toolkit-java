@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,6 +13,7 @@
 
 package com.handcoded.fpml.validation;
 
+import com.handcoded.validation.Precondition;
 import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
 
@@ -275,13 +276,24 @@ public final class SchemeRules
 
 	/**
 	 * Rule 24: The value of any <CODE>clearanceSystem</CODE> element must be valid
-	 * within the domain defined by its <CODE>clearanceSystemIdScheme</CODE> attribute.
+	 * within the domain defined by its <CODE>clearanceSystemScheme</CODE> attribute.
 	 * <P>
-	 * Applies to FpML 3-0 and later.
+	 * Applies to FpML 3-0 and 4-1 or later.
 	 * @since	TFP 1.0	
 	 */
-	public static final Rule	RULE24
-		= new SchemeRule (Preconditions.R3_0__LATER, "scheme-24", "clearanceSystem", "clearanceSystemScheme");
+	public static final Rule	RULE24A
+		= new SchemeRule (Precondition.or (Preconditions.R3_0, Preconditions.R4_1__LATER),
+				"scheme-24a", "clearanceSystem", "clearanceSystemScheme");
+		
+	/**
+	 * Rule 24: The value of any <CODE>clearanceSystem</CODE> element must be valid
+	 * within the domain defined by its <CODE>clearanceSystemIdScheme</CODE> attribute.
+	 * <P>
+	 * Applies to FpML 4-0 only.
+	 * @since	TFP 1.5	
+	 */
+	public static final Rule	RULE24B
+		= new SchemeRule (Preconditions.R4_0, "scheme-24b", "clearanceSystem", "clearanceSystemScheme");
 		
 	/**
 	 * Rule 25: The value of any <CODE>contractualDefinitions</CODE> element must

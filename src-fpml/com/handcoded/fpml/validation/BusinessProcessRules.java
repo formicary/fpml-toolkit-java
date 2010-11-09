@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -74,7 +74,8 @@ public final class BusinessProcessRules extends FpMLRuleSet
 		};
 
 	/**
-	 * A <CODE>Rule</CODE> that ensures The @href attribute must match the @id attribute of an element of type Party.
+	 * A <CODE>Rule</CODE> that ensures The @href attribute on a firstPeriodStartDate
+	 * must match the @id attribute of an element of type Party.
 	 * <P>
 	 * Applies to FpML 4.1 and later.
 	 * @since	TFP 1.2
@@ -103,7 +104,7 @@ public final class BusinessProcessRules extends FpMLRuleSet
 					if ((target == null) || !target.getLocalName().equals("party")) {
 						errorHandler.error ("305", context,
 							"The @href attribute on the firstPeriodStartDate must reference a party",
-							getName (), href.getValue () );
+							getName (), href.getValue ());
 						
 						result = false;
 					}
