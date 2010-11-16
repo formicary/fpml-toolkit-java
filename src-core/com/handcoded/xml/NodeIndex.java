@@ -20,6 +20,7 @@ import java.util.Vector;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.TypeInfo;
@@ -191,6 +192,21 @@ public final class NodeIndex
 	}
 	
 	/**
+	 * Creates a (possibly empty) <CODE>NodeList</CODE> containing all the
+	 * attribute nodes identified by the given name string.
+	 *
+	 * @param	name			The required attrbute name string.
+	 * @return	A <CODE>NodeList</CODE> of corresponding nodes.
+	 * @since	TFP 1.5
+	 */
+	public NodeList getAttributesByName (final String name)
+	{
+		NodeList list = (NodeList) attributesByName.get (name);
+		
+		return ((list != null) ? list : EMPTY);
+	}
+	
+	/**
 	 * An empty <CODE>MutableNodeList</CODE> used when a requested element is
 	 * not present.
 	 * @since	TFP 1.0
@@ -237,6 +253,13 @@ public final class NodeIndex
 	 * @since	TFP 1.2
 	 */
 	private Hashtable		compatibleTypes	= new Hashtable ();
+	
+	/**
+	 * A <CODE>Hashtable</CODE> containing <CODE>MutableNodeList</CODE>
+	 * instances indexed by attribute name.
+	 * @since	TFP 1.5
+	 */
+	private Hashtable		attributesByName = new Hashtable ();
 	
 	/**
 	 * Recursively walks a DOM tree creating an index of the elements by
@@ -289,6 +312,18 @@ public final class NodeIndex
 				Attr id = ((Element) node).getAttributeNode ("id");
 				
 				if (id != null) elementsById.put (id.getValue (), node);
+				
+				NamedNodeMap map = ((Element) node).getAttributes ();
+				for (int index = 0; index < map.getLength (); ++index) {
+					Attr attr = (Attr) map.item (index);
+					
+					list = (MutableNodeList) attributesByName.get (attr.getName ());
+					
+					if (list == null)
+						attributesByName.put (attr.getName (), list = new MutableNodeList ());
+					
+					list.add (attr);					
+				}
 				
 				for (Node child = node.getFirstChild (); child != null;) {
 					if (child.getNodeType () == Node.ELEMENT_NODE)

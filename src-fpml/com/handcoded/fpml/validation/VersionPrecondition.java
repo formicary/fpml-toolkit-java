@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,12 +13,14 @@
 
 package com.handcoded.fpml.validation;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.handcoded.fpml.util.Version;
+import com.handcoded.meta.Release;
 import com.handcoded.validation.Precondition;
 import com.handcoded.xml.NodeIndex;
-import com.handcoded.meta.Release;
 
 /**
  * The <CODE>VersionPrecondition</CODE> class checks that the FpML root
@@ -39,7 +41,7 @@ public final class VersionPrecondition extends Precondition
 	 */
 	public VersionPrecondition (final Release release)
 	{
-		this.release = release;
+		targetVersion = new Version ((this.release = release).getVersion ());	
 	}
 	
 	/**
@@ -48,21 +50,21 @@ public final class VersionPrecondition extends Precondition
 	 */
 	public boolean evaluate (NodeIndex nodeIndex)
 	{
-		String []		rootElements = release.getRootElements ();
+		Version 		version;
 		
-		for (int index = 0; index < rootElements.length; ++index) {
-			NodeList list = nodeIndex.getElementsByName (rootElements [index]);
-			
-			if (list.getLength() == 1) {
-				Element	fpml = (Element) list.item (0);
-			
-				if (fpml.getLocalName().equals("FpML"))
-					return (fpml.getAttribute ("version").equals (release.getVersion ()));
-				else
-					return (fpml.getAttribute ("fpmlVersion").equals (release.getVersion ()));					
-			}
+		// Find the document version
+		NodeList list = nodeIndex.getElementsByName ("FpML");
+		if (list.getLength () > 0)
+			version = new Version (((Element) list.item (0)).getAttribute ("version"));
+		else {
+			list = nodeIndex.getAttributesByName ("fpmlVersion");
+			if (list.getLength () > 0)
+				version = new Version (((Attr) list.item (0)).getValue ());
+			else
+				return (false);
 		}
-		return (false);
+		
+		return (version.equals (targetVersion));
 	}
 	
 	/**
@@ -79,4 +81,10 @@ public final class VersionPrecondition extends Precondition
 	 * @since	TFP 1.1
 	 */
 	private final Release	release;
+	
+	/**
+	 * The target FpML version number.
+	 * @since	TFP 1.5
+	 */
+	private final Version	targetVersion;
 }

@@ -13,6 +13,7 @@
 
 package com.handcoded.fpml.validation;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -54,51 +55,30 @@ public class VersionRangePrecondition extends Precondition
 	 */
 	public boolean evaluate (NodeIndex nodeIndex)
 	{
-		boolean applicable = false;
+		Version 		version;
 		
-		if (minimum != null) {
-			String [] rootElements = minimum.getRootElements ();
-			Version version;
-			
-			for (int index = 0; index < rootElements.length; ++index) {
-				NodeList list = nodeIndex.getElementsByName (rootElements [index]);
-				
-				if (list.getLength() == 1) {
-					applicable = true;
-					Element	fpml = (Element) list.item (0);
-				
-					if (fpml.getLocalName().equals("FpML"))
-						version = new Version (fpml.getAttribute ("version"));
-					else
-						version = new Version (fpml.getAttribute ("fpmlVersion"));
-					
-					if (version.compareTo (minimumVersion) < 0) return (false);
-				}
-			}
+		// Find the document version
+		NodeList list = nodeIndex.getElementsByName ("FpML");
+		if (list.getLength () > 0)
+			version = new Version (((Element) list.item (0)).getAttribute ("version"));
+		else {
+			list = nodeIndex.getAttributesByName ("fpmlVersion");
+			if (list.getLength () > 0)
+				version = new Version (((Attr) list.item (0)).getValue ());
+			else
+				return (false);
 		}
 		
-		if (maximum != null) {
-			String [] rootElements = maximum.getRootElements ();
-			Version version;
-			
-			for (int index = 0; index < rootElements.length; ++index) {
-				NodeList list = nodeIndex.getElementsByName (rootElements [index]);
-				
-				if (list.getLength() == 1) {
-					applicable = true;
-					Element	fpml = (Element) list.item (0);
-				
-					if (fpml.getLocalName().equals("FpML"))
-						version = new Version (fpml.getAttribute ("version"));
-					else
-						version = new Version (fpml.getAttribute ("fpmlVersion"));
-					
-					if (version.compareTo (maximumVersion) > 0) return (false);
-				}
-			}
-		}
+//		System.err.print ("Range (Doc=" + version
+//				+ " Min=" + ((minimumVersion != null) ? minimumVersion.toString () : "*")
+//				+ " Max=" + ((maximumVersion != null) ? maximumVersion.toString () : "*"));
+
+		boolean validMin = (minimumVersion != null) ? (version.compareTo (minimumVersion) >= 0) : true;
+		boolean validMax = (maximumVersion != null) ? (version.compareTo (maximumVersion) <= 0) : true;
 		
-		return (applicable);
+//		System.err.println (") => " + (validMin & validMax));
+
+		return (validMin & validMax);
 	}
 	
 	/**

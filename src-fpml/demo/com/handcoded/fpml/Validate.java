@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2010 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -72,9 +72,23 @@ public final class Validate extends Application
 			System.exit (1);
 		}
 		
+		if (reportOption.isPresent ()) {
+			System.out.println ("<?xml version=\"1.0\"?>");
+			System.out.println ("<report>");			
+		}
+		
 		XmlUtility.getDefaultSchemaSet ().getSchema ();
 	}
 
+	protected void cleanUp ()
+	{
+		super.cleanUp ();
+		
+		if (reportOption.isPresent ()) {
+			System.out.println ("</report>");			
+		}
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
@@ -97,19 +111,33 @@ public final class Validate extends Application
 				for (int index = 0; index < arguments.length; ++index) {
 					int		which = random ? (int)(Math.random () * arguments.length ) : index;
 					
-					System.err.println (">> " + arguments [which]);
+					if (reportOption.isPresent ())
+						System.out.println ("\t<file name=\"" + arguments [which] + "\">");
+					else
+						System.err.println (">> " + arguments [which]);
 					
 					FpMLUtility.parseAndValidate (schemaOnly, new File (arguments [which]), rules, parserErrorHandler, validationErrorHandler);
+					
+					if (reportOption.isPresent ())
+						System.out.println ("\t</file>");
+
 					++count;
 				}
 			}
 			
 			long end = System.currentTimeMillis ();
 			
-			System.err.println ("== Processed " + count + " files in "
-				+ (end - start) + " milliseconds");
-			System.err.println ("== " + ((1000.0 * count) / (end - start))
-				+ " files/sec checking " + rules.size () + " rules");		
+			if (reportOption.isPresent ())
+				System.out.println ("\t<statistics count=\"" + count
+						+ "\" time=\"" + (end - start)
+						+ "\" rate=\"" + ((1000.0 * count) / (end - start))
+						+ "\" rules=\"" + rules.size () + "\"/>");
+			else {
+				System.err.println ("== Processed " + count + " files in "
+					+ (end - start) + " milliseconds");
+				System.err.println ("== " + ((1000.0 * count) / (end - start))
+					+ " files/sec checking " + rules.size () + " rules");
+			}
 		}
 		catch (Exception error) {
 			logger.log (Level.SEVERE, "Unexpected exception during processing", error);
@@ -134,7 +162,7 @@ public final class Validate extends Application
 	 * 
 	 * @since	TFP 1.0
 	 */
-	private static class ParserErrorHandler implements org.xml.sax.ErrorHandler
+	private class ParserErrorHandler implements org.xml.sax.ErrorHandler
 	{
 		public void warning (SAXParseException error)
 		{
@@ -158,14 +186,22 @@ public final class Validate extends Application
 	 * 
 	 * @since	TFP 1.0
 	 */
-	private static class ValidationErrorHandler implements com.handcoded.validation.ValidationErrorHandler
+	private class ValidationErrorHandler implements com.handcoded.validation.ValidationErrorHandler
 	{
 		public void error (String code, Node context, String description, String ruleName, String additionalData)
 		{
-			if (additionalData != null)
-				System.err.println (ruleName + " " + XPath.forNode(context) + " " + description + " [" + additionalData + "]");
-			else
-				System.err.println (ruleName + " " + XPath.forNode(context) + " " + description);
+			if (reportOption.isPresent ()) {
+				System.out.println ("\t\t<validationError rule=\"" + ruleName
+						+ "\" context=\"" + XPath.forNode (context)
+						+ "\"" + ((additionalData != null) ? (" additionalData=\"" + additionalData + "\"") : "")
+						+ ">" + description + "</validationError>");
+			}
+			else {
+				if (additionalData != null)
+					System.err.println (ruleName + " " + XPath.forNode(context) + " " + description + " [" + additionalData + "]");
+				else
+					System.err.println (ruleName + " " + XPath.forNode(context) + " " + description);
+			}
 		}
 	}
 	
@@ -204,6 +240,13 @@ public final class Validate extends Application
 	 */
 	private Option			schemaOnlyOption
 		= new Option ("-schemaOnly", "Only accept schema based documents");
+	
+	/**
+	 * The <CODE>Option</CODE> instance use to detect <CODE>-report</CODE>
+	 * @since	TFP 1.5
+	 */
+	private Option			reportOption
+		= new Option ("-report", "Generate an XML report of the results");
 	
 	/**
 	 * A counter for the number of time to reprocess the files.

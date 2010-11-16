@@ -131,6 +131,14 @@ public interface Preconditions
 		= new VersionPrecondition (Releases.R4_9);
 
 	/**
+	 * A <CODE>Precondition</CODE> instance that detects any FpML 4-x compatible
+	 * document.
+	 * @since	TFP 1.5
+	 */
+	public static final Precondition 	R4_X
+		= new VersionRangePrecondition (Releases.R4_0, Releases.R4_9);
+
+	/**
 	 * A <CODE>Precondition</CODE> instance that detects FpML 5-0 confirmation
 	 * documents.
 	 * @since	TFP 1.4

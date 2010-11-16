@@ -126,7 +126,7 @@ public class DefaultSchemaReleaseLoader implements ReleaseLoader
 	 */
 	protected final String [] getRootElements (Element context)
 	{
-		NodeList	list = XPath.paths (context, "rootElements");
+		NodeList	list = XPath.paths (context, "rootElement");
 		String []	rootElements = new String [list.getLength ()];
 		
 		for (int index = 0; index < list.getLength (); ++index)
