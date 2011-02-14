@@ -107,7 +107,7 @@ public final class XmlUtility
 	}
 	
 	/**
-	 * Provides access to the defailt schema set.
+	 * Provides access to the default schema set.
 	 * 
 	 * @return	The <CODE>SchemaSet</CODE> instance.
 	 */
