@@ -51,7 +51,7 @@ public final class Conversions
 	 * FpML 1-0 instance document to 2-0. The specific changes needed (other
 	 * than basic DOCTYPE changes) are:
 	 * <UL>
-	 * <LI>The &lt;product&gt; constainer element was removed.</LI>
+	 * <LI>The &lt;product&gt; container element was removed.</LI>
 	 * <LI>Superfluous <CODE>type</CODE> attributes are removed.</LI>
 	 * </UL> 
 	 * @since	TFP 1.0
