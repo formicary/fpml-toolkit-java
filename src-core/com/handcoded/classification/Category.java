@@ -20,7 +20,7 @@ import java.util.HashSet;
 /**
  * The <CODE>Category</CODE> class represents a possible classification of an
  * <CODE>Object</CODE>. <CODE>Category</CODE> instances can be linked to each
- * other to create graphs of inter-related items, such as multiple inheritance
+ * other to create graphs of interrelated items, such as multiple inheritance
  * based structures.
  *
  * @author 	BitWise
