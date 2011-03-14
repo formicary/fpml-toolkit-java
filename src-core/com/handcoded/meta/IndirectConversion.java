@@ -17,7 +17,7 @@ import org.w3c.dom.Document;
 
 /**
  * The <CODE>IndirectConversion</CODE> is used to chain multiple transformations
- * together to create a multi-stage transformation. <CODE>IndirectConversion
+ * together to create a multistage transformation. <CODE>IndirectConversion
  * </CODE> instances are created during the search process to find a conversion
  * path between two releases.
  *  
