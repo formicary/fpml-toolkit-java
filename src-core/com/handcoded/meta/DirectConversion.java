@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -63,8 +63,13 @@ public abstract class DirectConversion extends Conversion
 	 */
 	protected DirectConversion (Release sourceRelease, Release targetRelease)
 	{
-		(this.sourceRelease = sourceRelease).addSourceConversion (this);
-		(this.targetRelease = targetRelease).addTargetConversion (this) ;
+		this.sourceRelease = sourceRelease;
+		this.targetRelease = targetRelease;
+		
+		if ((sourceRelease != null) && (targetRelease != null)) {
+			sourceRelease.addSourceConversion (this);
+			targetRelease.addTargetConversion (this);
+		}
 	}
 	
 	/**

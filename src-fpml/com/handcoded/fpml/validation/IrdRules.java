@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -2779,12 +2779,15 @@ public final class IrdRules extends FpMLRuleSet
 	 */
 	private static boolean isNumber (final String value)
 	{
-		for (int index = 0; index < value.length (); ++index) {
-			char ch = value.charAt (index);
-
-			if (!((ch >= '0') && (ch <= '9'))) return (false);
+		if (value != null) {
+			for (int index = 0; index < value.length (); ++index) {
+				char ch = value.charAt (index);
+	
+				if (!((ch >= '0') && (ch <= '9'))) return (false);
+			}
+			return (value.length () > 0);
 		}
-		return (value.length () > 0);
+		return (false);
 	}
 
 	/**
