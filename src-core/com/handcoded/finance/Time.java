@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -301,7 +301,12 @@ public final class Time extends Temporal
 	 */
 	public boolean equals (final Time other)
 	{
-		return (toDateTime ().equals (other.toDateTime ()));
+		if ((timeZone == null) && (other.timeZone == null))
+			return (timeValue.equals (other.timeValue));
+		else if ((timeZone != null) && (other.timeZone != null) && timeZone.equals (other.timeZone))
+			return (timeValue.equals (other.timeValue));
+		else
+			return (toDateTime ().equals (other.toDateTime ()));
 	}
 
 	/**
@@ -329,6 +334,11 @@ public final class Time extends Temporal
 	 */
 	public int compareTo (final Time other)
 	{
+		if ((timeZone == null) && (other.timeZone == null))
+			return (timeValue.compareTo (other.timeValue));
+		else if ((timeZone != null) && (other.timeZone != null) && timeZone.equals (other.timeZone))
+			return (timeValue.compareTo (other.timeValue));
+		else
 		return (toDateTime ().compareTo (other.toDateTime ()));
 	}
 	
