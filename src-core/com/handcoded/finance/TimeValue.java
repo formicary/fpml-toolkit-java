@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -24,7 +24,7 @@ import java.math.BigDecimal;
  * @version	$Id$
  * @since	TFP 1.1
  */
-final class TimeValue implements ImmutableTime, Comparable, Serializable
+final class TimeValue implements ImmutableTime, Comparable<TimeValue>, Serializable
 {
 	/**
 	 * Constant value used to range check seconds values.
@@ -185,21 +185,6 @@ final class TimeValue implements ImmutableTime, Comparable, Serializable
 	{
 		return ((hours == other.hours) && (minutes == other.minutes)
 					&& seconds.equals (other.seconds));
-	}
-	
-	/**
-	 * Returns the result of comparing this instance to another <CODE>Object
-	 * </CODE>.
-	 *
-	 * @param	other			The <CODE>Object</CODE> instance to compare with.
-	 * @return	An integer value indicating the relative ordering.
-	 * @throws	ClassCastException If the argument is not a <CODE>TimeValue</CODE>
-	 *			instance.
-	 * @since	TFP 1.1
-	 */
-	public int compareTo (Object other)
-	{
-		return (compareTo ((TimeValue) other));
 	}
 	
 	/**

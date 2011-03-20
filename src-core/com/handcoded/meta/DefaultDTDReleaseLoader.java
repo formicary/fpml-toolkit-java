@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -35,7 +35,8 @@ public class DefaultDTDReleaseLoader implements ReleaseLoader
 	 * {@inheritDoc}
 	 * @since	TFP 1.5
 	 */
-	public void loadData (Specification specification, Element context, Hashtable loadedSchemas)
+	public void loadData (Specification specification, Element context,
+			Hashtable<String, SchemaRelease> loadedSchemas)
 	{
 		new DTDRelease (specification, getVersion (context),
 				getPublicId (context), getSystemId (context),

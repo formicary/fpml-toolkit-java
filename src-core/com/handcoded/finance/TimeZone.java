@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -23,7 +23,7 @@ import java.io.Serializable;
  * @version	$Id$
  * @since	TFP 1.1
  */
-public final class TimeZone implements Comparable, Serializable
+public final class TimeZone implements Comparable<TimeZone>, Serializable
 {
 	/**
 	 * A <CODE>TimeZone</CODE> instance representing UTC.
@@ -170,21 +170,6 @@ public final class TimeZone implements Comparable, Serializable
 	public boolean equals (TimeZone other)
 	{
 		return (offset == other.offset);
-	}
-
-	/**
-	 * Returns the result of comparing this instance to another <CODE>Object
-	 * </CODE>.
-	 *
-	 * @param	other			The <CODE>Object</CODE> instance to compare with.
-	 * @return	An integer value indicating the relative ordering.
-	 * @throws	ClassCastException If the argument is not a <CODE>TimeZone</CODE>
-	 *			instance.
-	 * @since	TFP 1.1
-	 */
-	public int compareTo (Object other)
-	{
-		return (compareTo ((TimeZone) other));
 	}
 
 	/**

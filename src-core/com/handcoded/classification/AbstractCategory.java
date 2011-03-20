@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -67,14 +67,15 @@ public class AbstractCategory extends Category
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
-	protected Category classify (final Object value, HashSet visited)
+	@Override
+	protected Category classify (final Object value, HashSet<Category> visited)
 	{
 		Category			result	= null;
-		Enumeration			cursor	= subCategories.elements ();
+		Enumeration<Category> cursor = subCategories.elements ();
 		
 		visited.add (this);
 		while (cursor.hasMoreElements ()) {
-			Category 			category = (Category)(cursor.nextElement ());
+			Category 			category = cursor.nextElement ();
 			Category			match;
 
 			if (!visited.contains (category) && (match = category.classify (value, visited)) != null) {

@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -54,6 +54,7 @@ public class CachedScheme extends Scheme
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	public boolean isValid (final String code)
 	{
 		return (values.containsKey (code));
@@ -63,7 +64,8 @@ public class CachedScheme extends Scheme
 	 * Provides the underlying storage for the code values.
 	 * @since	TFP 1.0
 	 */
-	protected Hashtable	values	= new Hashtable ();
+	protected Hashtable<String, Value>	values
+		= new Hashtable<String, Value> ();
 
 	/**
 	 * Adds a <CODE>Value</CODE> instance to the extent set managed by this
@@ -78,6 +80,6 @@ public class CachedScheme extends Scheme
 	 */
 	protected final Value add (Value value)
 	{
-		return ((Value) values.put (value.getCode (), value));
+		return (values.put (value.getCode (), value));
 	}
 }

@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -61,7 +61,6 @@ public class DefaultSpecificationHandler extends DefaultHandler
 	 * This method is called when the XML parser detects that end of an
 	 * element definition. It is used to trigger the processing of data
 	 * cached during the elements processing.
-	 * 
 	 * @since	TFP 1.4
 	 */
 	public void endElement (String ns, String localName, String qName)
@@ -160,7 +159,7 @@ public class DefaultSpecificationHandler extends DefaultHandler
 	 * root element names.
 	 * @since	TFP 1.4
 	 */
-	protected Vector		rootElements = new Vector ();	
+	protected Vector<String> rootElements = new Vector<String> ();	
 	
 	/**
 	 * Creates a <CODE>DTDRelease</CODE> instance from the cached information.

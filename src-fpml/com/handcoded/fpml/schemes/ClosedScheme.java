@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -70,11 +70,10 @@ public class ClosedScheme extends CachedScheme implements Enumerable, Matchable
 	 */
 	public final Value [] values (final String pattern)
 	{
-		Vector			matches = new Vector ();
-		Enumeration		cursor 	= values.elements ();
-
-		while (cursor.hasMoreElements ()) {
-			Value			value = (Value) cursor.nextElement ();
+		Vector<Value>	matches = new Vector<Value> ();
+		
+		for (Enumeration<Value> cursor = values.elements (); cursor.hasMoreElements ();) {
+			Value		value = cursor.nextElement ();
 			
 			if (value.getCode ().matches (pattern)) matches.add (value);
 		}

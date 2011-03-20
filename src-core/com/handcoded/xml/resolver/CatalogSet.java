@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -41,7 +41,7 @@ public final class CatalogSet implements EntityResolver2
 	 */
     public CatalogSet()
     {
-        catalogs = new Vector();
+        catalogs = new Vector<Catalog> ();
     }
 
 	/**
@@ -89,7 +89,7 @@ public final class CatalogSet implements EntityResolver2
         InputSource			inputSource = null;
         
         for (int index = 0; index < catalogs.size(); ++index)
-        	if ((inputSource = ((Catalog) catalogs.elementAt (index)).resolveEntity (publicId, systemId)) != null)
+        	if ((inputSource = catalogs.elementAt (index).resolveEntity (publicId, systemId)) != null)
         		break;
         		
         return (inputSource);
@@ -131,7 +131,8 @@ public final class CatalogSet implements EntityResolver2
 	 *
 	 * @return 	The object's <CODE>String</CODE> representation.
 	 * @since	TFP 1.0
-	 */ 
+	 */
+	@Override
 	public String toString ()
 	{
 		return (getClass ().getName () + " [" + toDebug () + "]");
@@ -164,5 +165,5 @@ public final class CatalogSet implements EntityResolver2
 	 * The <CODE>Catalog</CODE> instances that comprise the set.
 	 * @since	TFP 1.0
 	 */
-    private Vector catalogs;
+    private Vector<Catalog> catalogs;
 }

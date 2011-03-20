@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -72,7 +72,7 @@ public final class Specification
 	 * @param	document			The <CODE>Document</CODE> to examine.
 	 * @return	The <CODE>Specification</CODE> instance corresponding to the
 	 * 			<CODE>Document</CODE> or <CODE>null</CODE> if its not
-	 * 			recognized.
+	 * 			recognised.
 	 * @since	TFP 1.0
 	 */
 	public static Specification forDocument (Document document)
@@ -89,16 +89,15 @@ public final class Specification
 	 * @param	document			The <CODE>Document</CODE> to examine.
 	 * @return	The <CODE>Release</CODE> instance corresponding to the
 	 * 			<CODE>Document</CODE> or <CODE>null</CODE> if its not
-	 * 			recognized.
+	 * 			recognised.
 	 * @since	TFP 1.0
 	 */
 	public static Release releaseForDocument (Document document)
 	{
-		Enumeration		cursor	= extent.keys ();
+		Enumeration<String>	cursor	= extent.keys ();
 		
 		while (cursor.hasMoreElements ()) {
-			Release	release = ((Specification) extent.get (cursor.nextElement ()))
-									.getReleaseForDocument (document);
+			Release	release = extent.get (cursor.nextElement ()).getReleaseForDocument (document);
 			
 			if (release != null) return (release);
 		}
@@ -142,10 +141,10 @@ public final class Specification
 	 */
 	public Release getReleaseForDocument (Document document)
 	{
-		Enumeration		cursor = releases.elements ();
+		Enumeration<Release> cursor = releases.elements ();
 		
 		while (cursor.hasMoreElements ()) {
-			Release	release = (Release) cursor.nextElement ();
+			Release	release = cursor.nextElement ();
 			if (release.isInstance (document)) return (release);
 		}
 		return (null);
@@ -162,10 +161,10 @@ public final class Specification
 	 */
 	public Release getReleaseForVersion (final String version)
 	{
-		Enumeration		cursor = releases.elements ();
+		Enumeration<Release> cursor = releases.elements ();
 		
 		while (cursor.hasMoreElements ()) {
-			Release	release = (Release) cursor.nextElement ();
+			Release	release = cursor.nextElement ();
 			if (release.getVersion ().equals (version)) return (release);
 		}
 		return (null);
@@ -184,10 +183,10 @@ public final class Specification
 	 */
 	public SchemaRelease getReleaseForVersionAndNamespace (final String version, final String namespaceUri)
 	{
-		Enumeration		cursor = releases.elements ();
+		Enumeration<Release> cursor = releases.elements ();
 		
 		while (cursor.hasMoreElements ()) {
-			Release release = (Release) cursor.nextElement ();
+			Release release = cursor.nextElement ();
 			if (release instanceof SchemaRelease) {
 				SchemaRelease schemaRelease = (SchemaRelease) release;
 				if (schemaRelease.getVersion ().equals (version) &&
@@ -235,7 +234,7 @@ public final class Specification
 	 * @return	An <CODE>Enumeration</CODE> instance.
 	 * @since	TFP 1.0
 	 */
-	public Enumeration releases ()
+	public Enumeration<Release> releases ()
 	{
 		return (releases.elements ());
 	}
@@ -246,6 +245,7 @@ public final class Specification
 	 * @return	The hash code for this instance.
 	 * @since	TFP 1.0 
 	 */
+	@Override
 	public int hashCode ()
 	{
 		return (name.hashCode ());
@@ -257,6 +257,7 @@ public final class Specification
 	 * @return 	A text description of the instance.
 	 * @since	TFP 1.0
 	 */
+	@Override
 	public String toString ()
 	{
 		return (getClass ().getName () + " [" + toDebug () + "]");
@@ -276,14 +277,14 @@ public final class Specification
 		buffer.append (name);
 		buffer.append ("\", releases={");
 		
-		Enumeration cursor = releases.elements ();
+		Enumeration<Release> cursor = releases.elements ();
 		boolean		first  = true;
 		
 		while (cursor.hasMoreElements()) {
 			if (!first) buffer.append (',');
 
 			buffer.append ('"');
-			buffer.append (((Release) cursor.nextElement ()).getVersion ());
+			buffer.append (cursor.nextElement ().getVersion ());
 			buffer.append ('"');
 			first = false;
 		}
@@ -303,7 +304,8 @@ public final class Specification
 	 * The extent set of all <CODE>Specification</CODE> instances.
 	 * @since	TFP 1.0
 	 */
-	private static Hashtable	extent	= new Hashtable ();
+	private static Hashtable<String, Specification>	extent
+		= new Hashtable<String, Specification> ();
 	
 	/**
 	 * The unique name of this <CODE>Specification</CODE>.
@@ -316,7 +318,7 @@ public final class Specification
 	 * <CODE>Specification</CODE>.
 	 * @since	TFP 1.0
 	 */
-	private Vector				releases	= new Vector ();
+	private Vector<Release>		releases	= new Vector<Release> ();
 	
 	/**
 	 * If the releases file defines a custom class loader to be used the process
@@ -363,7 +365,7 @@ public final class Specification
 		String targetName = getClassLoader (context, "com.handcoded.meta.DefaultDTDReleaseLoader");
 		
 		try {
-			Class targetClass = Class.forName (targetName);
+			Class<?> targetClass = Class.forName (targetName);
 		
 			return ((ReleaseLoader) targetClass.newInstance ());
 		}
@@ -385,7 +387,7 @@ public final class Specification
 	 * 			If an instance of the <CODE>ReleaseLoader</CODE> could not
 	 * 			be created.
 	 * @throws 	IllegalAccessException
-	 * 			If the class being dynamically created can not be publically
+	 * 			If the class being dynamically created can not be publicly
 	 * 			accessed.
 	 * @since	TFP 1.5
 	 */
@@ -395,7 +397,7 @@ public final class Specification
 		String targetName = getClassLoader (context, "com.handcoded.meta.DefaultSchemaReleaseLoader");
 		
 		try {
-			Class targetClass = Class.forName (targetName);
+			Class<?> targetClass = Class.forName (targetName);
 		
 			return ((ReleaseLoader) targetClass.newInstance ());
 		}
@@ -411,7 +413,7 @@ public final class Specification
 	 * @since	TFP 1.5
 	 */
 	static {
-		Hashtable	loadedSchemas = new Hashtable ();
+		Hashtable<String, SchemaRelease> loadedSchemas = new Hashtable<String, SchemaRelease> ();
 		
 		logger.log (Level.INFO, "Bootstrapping Specifications");
 		

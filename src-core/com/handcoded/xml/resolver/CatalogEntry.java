@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -15,7 +15,7 @@ package com.handcoded.xml.resolver;
 
 /**
  * An instance of the <CODE>CatalogEntry</CODE> class represents the
- * &lt;catlog&gt; element within a parsed catalog file.
+ * &lt;catalog&gt; element within a parsed catalog file.
  * 
  * @author	BitWise
  * @version	$Id$

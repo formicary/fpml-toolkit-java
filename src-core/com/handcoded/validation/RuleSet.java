@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -39,10 +39,9 @@ public final class RuleSet extends Validator
 {
 	/**
 	 * Constructs an unnamed empty <CODE>RuleSet</CODE>.
-	 * 
 	 * @since 	TFP 1.0
-	 * @deprecated
 	 */
+	@Deprecated
 	public RuleSet ()
 	{
 		this (null);
@@ -69,7 +68,7 @@ public final class RuleSet extends Validator
 	public static RuleSet forName (final String name)
 	{
 		synchronized (extent) {
-			RuleSet			result = (RuleSet) extent.get(name);
+			RuleSet			result = extent.get(name);
 			
 			if (result == null) result = new RuleSet (name);
 			return (result);
@@ -95,7 +94,7 @@ public final class RuleSet extends Validator
 	 * <P>
 	 * If the <CODE>Rule</CODE> has the same name as a previously added
 	 * one then it will replace it. This feature can be used to overwrite
-	 * standard rules with customized ones.
+	 * standard rules with customised ones.
 	 *
 	 * @param 	rule			The <CODE>Rule</CODE> to be added.
 	 * @since 	TFP 1.0
@@ -114,7 +113,7 @@ public final class RuleSet extends Validator
 	 */
 	public void add (RuleSet ruleSet)
 	{
-		for (Enumeration keys = ruleSet.rules.keys (); keys.hasMoreElements ();)
+		for (Enumeration<String> keys = ruleSet.rules.keys (); keys.hasMoreElements ();)
 			add ((Rule) ruleSet.rules.get (keys.nextElement ()));
 	}
 	
@@ -163,6 +162,7 @@ public final class RuleSet extends Validator
 	 * @return 	A text description of the instance.
 	 * @since 	TFP 1.0
 	 */
+	@Override
 	public String toString ()
 	{
 		return (getClass ().getName () + " [" + toDebug () + "]");
@@ -172,19 +172,20 @@ public final class RuleSet extends Validator
 	 * {@inheritDoc}
 	 * @since 	TFP 1.0
 	 */
+	@Override
 	protected boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 	{
 		boolean			result = true;
-		Hashtable		cache  = new Hashtable ();
+		Hashtable<Precondition, Boolean> cache = new Hashtable<Precondition, Boolean> ();
 	
-		for (Enumeration keys = rules.keys (); keys.hasMoreElements ();) {
-			Rule 			rule = (Rule) rules.get (keys.nextElement ());
+		for (Enumeration<String> keys = rules.keys (); keys.hasMoreElements ();) {
+			Rule 			rule = rules.get (keys.nextElement ());
 			Precondition 	condition = rule.getPrecondition ();
-			Boolean			cached = (Boolean) cache.get(condition);
+			Boolean			cached = cache.get(condition);
 			boolean 		applies;
 			
 			if (cached == null) {
-				applies = condition.evaluate (nodeIndex);
+				applies = condition.evaluate (nodeIndex, cache);
 				cache.put (condition, applies ? Boolean.TRUE : Boolean.FALSE);
 			}
 			else
@@ -207,10 +208,10 @@ public final class RuleSet extends Validator
 	{
 		StringBuffer		buffer = new StringBuffer ();
 		
-		for (Enumeration keys = rules.keys (); keys.hasMoreElements ();) {
+		for (Enumeration<String> keys = rules.keys (); keys.hasMoreElements ();) {
 			if (buffer.length () > 0) buffer.append (',');
 			buffer.append ('\"');
-			buffer.append (((Rule) rules.get (keys.nextElement ())).getName ());
+			buffer.append (rules.get (keys.nextElement ()).getName ());
 			buffer.append ('\"');
 		}
 		return ("rules=" + buffer);
@@ -326,7 +327,8 @@ public final class RuleSet extends Validator
 	 * The set of all named <CODE>RuleSet</CODE> instances.
 	 * @since	TFP 1.2
 	 */
-	private static Hashtable extent = new Hashtable ();
+	private static Hashtable<String, RuleSet> extent
+		= new Hashtable<String, RuleSet> ();
 	
 	/**
 	 * The name of the <CODE>RuleSet</CODE> or <CODE>null</CODE> if not named
@@ -339,7 +341,8 @@ public final class RuleSet extends Validator
 	 * The underlying collection of rules indexed by name.
 	 * @since 	TFP 1.0
 	 */
-	private Hashtable		rules	= new Hashtable ();
+	private Hashtable<String, Rule>	rules
+		= new Hashtable<String, Rule> ();
 
 	/**
 	 * Causes the <CODE>RuleSet</CODE> class to try and bootstrap the business

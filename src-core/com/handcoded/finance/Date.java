@@ -24,7 +24,7 @@ import java.io.Serializable;
  * @since	TFP 1.0
  */
 public final class Date extends TemporalDate
-	implements ImmutableDate, Comparable, Serializable
+	implements ImmutableDate, Comparable<Date>, Serializable
 {
 	/**
 	 * The earliest possible date that can be correctly represented,
@@ -410,21 +410,6 @@ public final class Date extends TemporalDate
 			return (toDateTime ().equals (other.toDateTime ()));
 	}
 
-	/**
-	 * Returns the result of comparing this instance to another <CODE>Object
-	 * </CODE>.
-	 *
-	 * @param	other			The <CODE>Object</CODE> instance to compare with.
-	 * @return	An integer value indicating the relative ordering.
-	 * @throws	ClassCastException If the argument is not a <CODE>Date</CODE>
-	 *			instance.
-	 * @since	TFP 1.0
-	 */
-	public int compareTo (final Object other)
-	{
-		return (compareTo ((Date) other));
-	}
-	
 	/**
 	 * Returns the result of comparing this instance to another <CODE>Date
 	 * </CODE>.

@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -17,7 +17,7 @@ import java.util.Hashtable;
 
 /**
  * The <CODE>Weekend</CODE> class provides a mechanism to test if a <CODE>Date
- * </CODE> falls on a weekend (e.g. non-working day). In tradionally Christian
+ * </CODE> falls on a weekend (e.g. non-working day). In traditionally Christian
  * countries Saturday and Sunday are non-working days but other religions have
  * selected other days.
  * 
@@ -31,7 +31,8 @@ public abstract class Weekend
 	 * The extent set of all <CODE>Weekend</CODE> instances.
 	 * @since	TFP 1.0
 	 */
-	private static Hashtable	extent = new Hashtable ();
+	private static Hashtable<String, Weekend> extent
+		= new Hashtable<String, Weekend> ();
 	
 	/**
 	 * A <CODE>Weekend</CODE> instance that detects normal Western-European
@@ -45,6 +46,7 @@ public abstract class Weekend
 		 * {@inheritDoc}
 		 * @since	TFP 1.0
 		 */
+		@Override
 		public boolean isWeekend (final Date date)
 		{
 			int day = date.weekday ();
@@ -65,6 +67,7 @@ public abstract class Weekend
 		 * {@inheritDoc}
 		 * @since	TFP 1.0
 		 */
+		@Override
 		public boolean isWeekend (final Date date)
 		{
 			int day = date.weekday ();
@@ -85,6 +88,7 @@ public abstract class Weekend
 		 * {@inheritDoc}
 		 * @since	TFP 1.0
 		 */
+		@Override
 		public boolean isWeekend (final Date date)
 		{
 			int day = date.weekday ();
@@ -104,7 +108,7 @@ public abstract class Weekend
 	 */
 	public static Weekend forName (final String name)
 	{
-		return ((Weekend) extent.get (name));
+		return (extent.get (name));
 	}
 	
 	/**

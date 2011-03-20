@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -56,7 +56,7 @@ public final class CatalogManager
 	{
 		Catalog 			catalog;
 		
-		if ((catalog = (Catalog) catalogs.get (url)) == null) {
+		if ((catalog = catalogs.get (url)) == null) {
 			try {
 				SAXParser parser = new SAXParser (validate, true, validate, false, null, null);
 
@@ -106,7 +106,8 @@ public final class CatalogManager
 	 * The set of previously processed catalogs indexed by filename.
 	 * @since	TFP 1.0
 	 */
-	private static Hashtable	catalogs = new Hashtable ();
+	private static Hashtable<String, Catalog> catalogs
+		= new Hashtable<String, Catalog> ();
 
 	/**
 	 * This <CODE>ContentHandler</CODE> instance is used to handle the parse
@@ -117,7 +118,7 @@ public final class CatalogManager
 	{
 		/**
 		 * Constructs a <CODE>CatalogHandler</CODE> and records the details of
-		 * the <CODE>Catalog</CODE> to be poplulated by the parse.
+		 * the <CODE>Catalog</CODE> to be populated by the parse.
 		 *
 		 * @param	url			The catalog's URI.
 		 * @since	TFP 1.0
@@ -246,14 +247,22 @@ public final class CatalogManager
 		 */
 		private Catalog		catalog;
 		
+		/**
+		 * The URL of the catalog being processed.
+		 * @since	TFP 1.0
+		 */
 		private String		url;
 		
-		private Stack		stack		= new Stack ();
+		/**
+		 * A stack of <CODE>GroupEntry</CODE> instances used to prevent
+		 * recursing loading of multi-file catalogs.
+		 * @since	TFP 1.0
+		 */
+		private Stack<GroupEntry> stack	= new Stack<GroupEntry> ();
 	};
 
 	/**
 	 * Prevents an instance from being created.
-	 * 
 	 * @since	TFP 1.0
 	 */
 	private CatalogManager ()

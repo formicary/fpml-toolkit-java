@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -24,7 +24,7 @@ import java.io.Serializable;
  * @version	$Id$
  * @since	TFP 1.5
  */
-public final class Version implements Serializable, Comparable
+public final class Version implements Serializable, Comparable<Version>
 {
 	/**
 	 * Constructs a <CODE>Version</CODE> instance from a 'major-minor' format
@@ -80,18 +80,9 @@ public final class Version implements Serializable, Comparable
 	{
 		return ((major == other.major) && (minor == other.minor));
 	}
-	
+		
 	/**
-	 * {@inheritDoc}
-	 * @since	TFP 1.5
-	 */
-	public int compareTo (final Object other)
-	{
-		return (compareTo ((Version) other));
-	}
-	
-	/**
-	 * Compares two <CODE>Version</CODE> instances to determine thier relative
+	 * Compares two <CODE>Version</CODE> instances to determine their relative
 	 * ordering. 
 	 * 
 	 * @param	other			The <CODE>Version</CODE> instance to compare with.

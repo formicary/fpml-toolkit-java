@@ -1,4 +1,4 @@
-// Copyright (C),2006 HandCoded Software Ltd.
+// Copyright (C),2006-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is the confidential and proprietary information of HandCoded
@@ -56,7 +56,7 @@ public final class ValidationErrorSet
 	 */
 	public ValidationError getItem (int index)
 	{
-		return ((ValidationError) errors.elementAt (index));
+		return (errors.elementAt (index));
 	}
 
 	/**
@@ -118,5 +118,6 @@ public final class ValidationErrorSet
 	 * The <CODE>Vector</CODE> used to the hold the errors.
 	 * @since	TFP 1.0
 	 */
-	private Vector			errors 	= new Vector ();
+	private Vector<ValidationError> errors
+		= new Vector<ValidationError> ();
 }

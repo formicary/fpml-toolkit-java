@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -22,6 +22,7 @@ import org.w3c.dom.NodeList;
 import com.handcoded.finance.Date;
 import com.handcoded.finance.Interval;
 import com.handcoded.finance.Period;
+import com.handcoded.validation.Precondition;
 import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
 import com.handcoded.validation.ValidationErrorHandler;
@@ -42,6 +43,26 @@ import com.handcoded.xml.XPath;
 public final class CdsRules extends Logic
 {
 	/**
+	 * A <CODE>Precondition</CODE> instance that detect documents containing
+	 * at least one credit product.
+	 * @since	TFP 1.6
+	 */
+	private static final Precondition	CDS_PRODUCT
+//		= new ProductPrecondition (ProductType.FOREIGN_EXCHANGE);
+		= new ContentPrecondition (
+				new String [] { "creditDefaultSwap" },
+				new String [] { "CreditDefaultSwap" });
+	
+	private static final Precondition	R4_0__LATER
+		= Precondition.and (CDS_PRODUCT, Preconditions.R4_0__LATER);
+	
+	private static final Precondition	R4_2__LATER
+	= Precondition.and (CDS_PRODUCT, Preconditions.R4_2__LATER);
+
+	private static final Precondition	R4_3__LATER
+	= Precondition.and (CDS_PRODUCT, Preconditions.R4_3__LATER);
+
+	/**
 	 * A <CODE>Rule</CODE> that ensures <CODE>tradeHeader/tradeDate</CODE> is before
 	 * <CODE>creditDefaultSwap/generalTerms/effectiveDate/unadjustedDate</CODE>.
 	 * <P>
@@ -49,7 +70,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE01
-		= new Rule (Preconditions.R4_0__LATER, "cd-1")
+		= new Rule (R4_0__LATER, "cd-1")
 		{
 			/**
 			 * {@inheritDoc}
@@ -100,7 +121,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE01B
-		= new Rule (Preconditions.R4_0__LATER, "cd-1b")
+		= new Rule (R4_0__LATER, "cd-1b")
 		{
 			/**
 			 * {@inheritDoc}
@@ -151,7 +172,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE02
-		= new Rule (Preconditions.R4_0__LATER, "cd-2")
+		= new Rule (R4_0__LATER, "cd-2")
 		{
 			/**
 			 * {@inheritDoc}
@@ -216,7 +237,7 @@ public final class CdsRules extends Logic
 	 * @deprecated
 	 */
 	public static final Rule	RULE03
-		= new Rule (Preconditions.R4_0__LATER, "cd-3")
+		= new Rule (R4_0__LATER, "cd-3")
 		{
 			/**
 			 * {@inheritDoc}
@@ -264,7 +285,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE03B
-		= new Rule (Preconditions.R4_2__LATER, "cd-3b")
+		= new Rule (R4_2__LATER, "cd-3b")
 		{
 			/**
 			 * {@inheritDoc}
@@ -313,7 +334,7 @@ public final class CdsRules extends Logic
 	 * @deprecated
 	 */
 	public static final Rule	RULE04
-		= new Rule (Preconditions.R4_0__LATER, "cd-4")
+		= new Rule (R4_0__LATER, "cd-4")
 		{
 			/**
 			 * {@inheritDoc}
@@ -361,7 +382,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE04B
-		= new Rule (Preconditions.R4_2__LATER, "cd-4b")
+		= new Rule (R4_2__LATER, "cd-4b")
 		{
 			/**
 			 * {@inheritDoc}
@@ -410,7 +431,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE05
-		= new Rule (Preconditions.R4_0__LATER, "cd-5")
+		= new Rule (R4_0__LATER, "cd-5")
 		{
 			/**
 			 * {@inheritDoc}
@@ -496,7 +517,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE07
-		= new Rule (Preconditions.R4_0__LATER, "cd-7")
+		= new Rule (R4_0__LATER, "cd-7")
 		{
 			/**
 			 * {@inheritDoc}
@@ -538,7 +559,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE08
-		= new Rule (Preconditions.R4_0__LATER, "cd-8")
+		= new Rule (R4_0__LATER, "cd-8")
 		{
 			/**
 			 * {@inheritDoc}
@@ -583,7 +604,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE09
-		= new Rule (Preconditions.R4_0__LATER, "cd-9")
+		= new Rule (R4_0__LATER, "cd-9")
 		{
 			/**
 			 * {@inheritDoc}
@@ -625,7 +646,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE10
-		= new Rule (Preconditions.R4_0__LATER, "cd-10")
+		= new Rule (R4_0__LATER, "cd-10")
 		{
 			/**
 			 * {@inheritDoc}
@@ -667,7 +688,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE11
-		= new Rule (Preconditions.R4_0__LATER, "cd-11")
+		= new Rule (R4_0__LATER, "cd-11")
 		{
 			/**
 			 * {@inheritDoc}
@@ -705,7 +726,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE12
-		= new Rule (Preconditions.R4_0__LATER, "cd-12")
+		= new Rule (R4_0__LATER, "cd-12")
 		{
 			/**
 			 * {@inheritDoc}
@@ -743,7 +764,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE13
-		= new Rule (Preconditions.R4_0__LATER, "cd-13")
+		= new Rule (R4_0__LATER, "cd-13")
 		{
 			/**
 			 * {@inheritDoc}
@@ -786,7 +807,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE14
-		= new Rule (Preconditions.R4_0__LATER, "cd-14")
+		= new Rule (R4_0__LATER, "cd-14")
 		{
 			/**
 			 * {@inheritDoc}
@@ -873,7 +894,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE16
-		= new Rule (Preconditions.R4_0__LATER, "cd-16")
+		= new Rule (R4_0__LATER, "cd-16")
 		{
 			/**
 			 * {@inheritDoc}
@@ -925,7 +946,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE17
-		= new Rule (Preconditions.R4_0__LATER, "cd-17")
+		= new Rule (R4_0__LATER, "cd-17")
 		{
 			/**
 			 * {@inheritDoc}
@@ -973,7 +994,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE18
-		= new Rule (Preconditions.R4_0__LATER, "cd-18")
+		= new Rule (R4_0__LATER, "cd-18")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1021,7 +1042,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE19
-		= new Rule (Preconditions.R4_0__LATER, "cd-19")
+		= new Rule (R4_0__LATER, "cd-19")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1077,7 +1098,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE20
-		= new Rule (Preconditions.R4_0__LATER, "cd-20")
+		= new Rule (R4_0__LATER, "cd-20")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1121,7 +1142,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE21
-		= new Rule (Preconditions.R4_0__LATER, "cd-21")
+		= new Rule (R4_0__LATER, "cd-21")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1193,7 +1214,7 @@ public final class CdsRules extends Logic
 		 * @since	TFP 1.0
 		 */
 		public static final Rule	RULE21B
-			= new Rule (Preconditions.R4_0__LATER, "cd-21b")
+			= new Rule (R4_0__LATER, "cd-21b")
 			{
 				/**
 				 * {@inheritDoc}
@@ -1255,7 +1276,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE22
-		= new Rule (Preconditions.R4_0__LATER, "cd-22")
+		= new Rule (R4_0__LATER, "cd-22")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1313,7 +1334,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE23
-		= new Rule (Preconditions.R4_0__LATER, "cd-23")
+		= new Rule (R4_0__LATER, "cd-23")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1359,7 +1380,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE24
-		= new Rule (Preconditions.R4_0__LATER, "cd-24")
+		= new Rule (R4_0__LATER, "cd-24")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1418,7 +1439,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE25
-		= new Rule (Preconditions.R4_0__LATER, "cd-25")
+		= new Rule (R4_0__LATER, "cd-25")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1488,7 +1509,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE26
-		= new Rule (Preconditions.R4_0__LATER, "cd-26")
+		= new Rule (R4_0__LATER, "cd-26")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1529,7 +1550,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE27
-		= new Rule (Preconditions.R4_0__LATER, "cd-27")
+		= new Rule (R4_0__LATER, "cd-27")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1569,7 +1590,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE28
-		= new Rule (Preconditions.R4_0__LATER, "cd-28")
+		= new Rule (R4_0__LATER, "cd-28")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1608,7 +1629,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE29
-		= new Rule (Preconditions.R4_0__LATER, "cd-29")
+		= new Rule (R4_0__LATER, "cd-29")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1648,7 +1669,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE30
-		= new Rule (Preconditions.R4_0__LATER, "cd-30")
+		= new Rule (R4_0__LATER, "cd-30")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1729,7 +1750,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.0
 	 */
 	public static final Rule	RULE32
-		= new Rule (Preconditions.R4_0__LATER, "cd-32")
+		= new Rule (R4_0__LATER, "cd-32")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1975,7 +1996,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.1
 	 */
 	public static final Rule	RULE38
-		= new Rule (Preconditions.R4_2__LATER, "cd-38")
+		= new Rule (R4_2__LATER, "cd-38")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2021,7 +2042,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.1
 	 */
 	public static final Rule	RULE39
-		= new Rule (Preconditions.R4_2__LATER, "cd-39")
+		= new Rule (R4_2__LATER, "cd-39")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2061,7 +2082,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.1
 	 */
 	public static final Rule	RULE40
-		= new Rule (Preconditions.R4_2__LATER, "cd-40")
+		= new Rule (R4_2__LATER, "cd-40")
 		{
 		/**
 		 * {@inheritDoc}
@@ -2101,7 +2122,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.1
 	 */
 	public static final Rule	RULE41
-		= new Rule (Preconditions.R4_3__LATER, "cd-41")
+		= new Rule (R4_3__LATER, "cd-41")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2139,7 +2160,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.1
 	 */
 	public static final Rule	RULE42
-		= new Rule (Preconditions.R4_3__LATER, "cd-42")
+		= new Rule (R4_3__LATER, "cd-42")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2177,7 +2198,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.1
 	 */
 	public static final Rule	RULE43
-		= new Rule (Preconditions.R4_3__LATER, "cd-43")
+		= new Rule (R4_3__LATER, "cd-43")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2223,7 +2244,7 @@ public final class CdsRules extends Logic
 	 * @since	TFP 1.1
 	 */
 	public static final Rule	RULE44
-		= new Rule (Preconditions.R4_2__LATER, "cd-44")
+		= new Rule (R4_2__LATER, "cd-44")
 		{
 			/**
 			 * {@inheritDoc}

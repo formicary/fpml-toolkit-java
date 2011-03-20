@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -72,7 +72,8 @@ public abstract class RefinableCategory extends AbstractCategory
 	 * 
  	 * @since	TFP 1.0
 	 */
-	protected Category classify (final Object value, HashSet visited)
+	@Override
+	protected Category classify (final Object value, HashSet<Category> visited)
 	{
 		Category		match	= null;
 

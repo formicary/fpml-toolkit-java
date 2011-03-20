@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -64,7 +64,7 @@ public final class NodeIndex
 	 * Provides access to the <CODE>Document</CODE> that this instance
 	 * indexes.
 	 *
-	 * @return	The orginal XML <CODE>Document</CODE>
+	 * @return	The original XML <CODE>Document</CODE>
 	 * @since	TFP 1.0
 	 */
 	public Document getDocument ()
@@ -95,7 +95,7 @@ public final class NodeIndex
 	 */
 	public NodeList getElementsByName (final String name)
 	{
-		NodeList list = (NodeList) elementsByName.get (name);
+		NodeList list = elementsByName.get (name);
 		
 		return ((list != null) ? list : EMPTY);
 	}
@@ -120,7 +120,7 @@ public final class NodeIndex
 
 	/**
 	 * Creates a (possibly empty) <CODE>NodeList</CODE> containing all the
-	 * element nodes of a given type (or a derived subtype).
+	 * element nodes of a given type (or a derived sub-type).
 	 *
 	 * @param	ns				The required namespace URI.
 	 * @param	type			The required type name.
@@ -129,20 +129,20 @@ public final class NodeIndex
 	 */
 	public NodeList getElementsByType (final String ns, final String type)
 	{
-		Vector	matches = (Vector) compatibleTypes.get (type);
+		Vector<TypeInfo>	matches = compatibleTypes.get (type);
 		
 		if (matches == null) {
-			compatibleTypes.put (type, matches = new Vector ());
+			compatibleTypes.put (type, matches = new Vector<TypeInfo> ());
 			
 //			System.err.println ("%% Looking for " + ns + ":" + type);
 			
-			Enumeration cursor = typesByName.keys ();
+			Enumeration<String> cursor = typesByName.keys ();
 			while (cursor.hasMoreElements ()) {
 				String key  = (String) cursor.nextElement ();
-				Vector types = (Vector) typesByName.get (key);
+				Vector<TypeInfo> types = typesByName.get (key);
 				
 				for (int index = 0; index < types.size (); ++index) {
-					TypeInfo info = (TypeInfo) types.elementAt (index);
+					TypeInfo info = types.elementAt (index);
 					
 					if (type.equals (info.getTypeName ()) || info.isDerivedFrom (ns, type,
 							TypeInfo.DERIVATION_EXTENSION | TypeInfo.DERIVATION_RESTRICTION)) {
@@ -156,8 +156,8 @@ public final class NodeIndex
 		MutableNodeList		result = new MutableNodeList ();
 		
 		for (int index = 0; index < matches.size (); ++index) {
-			TypeInfo info  = (TypeInfo) matches.elementAt (index);
-			NodeList nodes = (NodeList) elementsByType.get (info.getTypeName ());
+			TypeInfo info  = matches.elementAt (index);
+			NodeList nodes = elementsByType.get (info.getTypeName ());
 			
 //			System.err.println ("-- Matching elements of type: " + info.getTypeName ());
 			
@@ -224,42 +224,48 @@ public final class NodeIndex
 	 * instances indexed by element name.
 	 * @since	TFP 1.0
 	 */
-	private Hashtable		elementsByName 	= new Hashtable ();
+	private Hashtable<String, MutableNodeList> elementsByName
+		= new Hashtable<String, MutableNodeList> ();
 	
 	/**
 	 * A <CODE>Hashtable</CODE> containing <CODE>MutableNodeList</CODE>
 	 * instances indexed by element type.
 	 * @since	TFP 1.1
 	 */
-	private Hashtable		elementsByType	= new Hashtable ();
+	private Hashtable<String, MutableNodeList> elementsByType
+		= new Hashtable<String, MutableNodeList> ();
 	
 	/**
 	 * A <CODE>Hashtable</CODE> containing <CODE>Element</CODE>
 	 * instances indexed by id value.
 	 * @since	TFP 1.0
 	 */
-	private Hashtable		elementsById	= new Hashtable ();
+	private Hashtable<String, Node> elementsById
+		= new Hashtable<String, Node> ();
 	
 	/**
 	 * A <CODE>Hashtable</CODE> containing <CODE>TypeInfo</CODE>
 	 * instances indexed by name.
 	 * @since	TFP 1.2
 	 */
-	private Hashtable		typesByName		= new Hashtable ();
+	private Hashtable<String, Vector<TypeInfo>>	typesByName
+		= new Hashtable<String, Vector<TypeInfo>> ();
 	
 	/**
 	 * For each explored type <CODE>compatibleType</CODE> contains a
 	 * <CODE>Vector</CODE> of types derived by extension or restriction.
 	 * @since	TFP 1.2
 	 */
-	private Hashtable		compatibleTypes	= new Hashtable ();
+	private Hashtable<String, Vector<TypeInfo>> compatibleTypes
+		= new Hashtable<String, Vector<TypeInfo>> ();
 	
 	/**
 	 * A <CODE>Hashtable</CODE> containing <CODE>MutableNodeList</CODE>
 	 * instances indexed by attribute name.
 	 * @since	TFP 1.5
 	 */
-	private Hashtable		attributesByName = new Hashtable ();
+	private Hashtable<String, MutableNodeList> attributesByName
+		= new Hashtable<String, MutableNodeList> ();
 	
 	/**
 	 * Recursively walks a DOM tree creating an index of the elements by
@@ -288,11 +294,11 @@ public final class NodeIndex
 								
 				TypeInfo typeInfo = ((Element) node).getSchemaTypeInfo ();
 				if ((typeInfo != null) && ((name = typeInfo.getTypeName ()) != null)) {
-					Vector 	types = (Vector) typesByName.get (name);
+					Vector<TypeInfo> types = typesByName.get (name);
 					int		index;
 					
 					if (types == null)
-						typesByName.put(name, types = new Vector ());
+						typesByName.put(name, types = new Vector<TypeInfo> ());
 					
 					for (index = 0; index < types.size (); ++index) {
 						TypeInfo info = (TypeInfo) types.elementAt (index);

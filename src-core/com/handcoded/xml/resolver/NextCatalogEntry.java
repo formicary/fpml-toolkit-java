@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -45,10 +45,8 @@ final class NextCatalogEntry extends RelativeEntry implements EntityRule, UriRul
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
-	public String applyTo (
-	final String		publicId,
-	final String		systemId,
-	Stack				catalogs)
+	public String applyTo (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		try {
@@ -64,9 +62,7 @@ final class NextCatalogEntry extends RelativeEntry implements EntityRule, UriRul
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
-	public String applyTo (
-	final String		uri,
-	Stack				catalogs)
+	public String applyTo (final String uri, Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		try {
@@ -82,6 +78,7 @@ final class NextCatalogEntry extends RelativeEntry implements EntityRule, UriRul
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	protected String toDebug ()
 	{
 		return ("catalog=\"" + catalog + "\"," + super.toDebug ());

@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -32,13 +32,13 @@ interface UriRule
 	 * attempt to locate the URI of a resource with can provide the required
 	 * information.
 	 *
-	 * @param	uri				The uri needing to be resolved.
+	 * @param	uri				The URI needing to be resolved.
 	 * @param	catalogs		The stack of catalogs being processed
 	 * @return	A new URI if the rule was successfully applied, otherwise
 	 *			<CODE>null</CODE>.
 	 * @throws	SAXException If an occur was detected during processing.
 	 * @since	TFP 1.0
 	 */
-	public abstract String applyTo (final String uri, Stack	catalogs)
+	public abstract String applyTo (final String uri, Stack<GroupEntry>	catalogs)
 		throws SAXException;	
 }

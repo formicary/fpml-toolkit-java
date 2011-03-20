@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -47,7 +47,7 @@ public abstract class Conversion
 	public static Conversion conversionFor (Release source, Release target)
 	{
 		if (source != target)
-			return (depthFirstSearch (source, target, new Stack ()));
+			return (depthFirstSearch (source, target, new Stack<Release> ()));
 	
 		return (null);
 	}
@@ -112,16 +112,17 @@ public abstract class Conversion
 	 * 			possible.
 	 * @since	TFP 1.0
 	 */
-	private static Conversion depthFirstSearch (Release source, Release target, Stack stack)
+	private static Conversion depthFirstSearch (Release source, Release target,
+			Stack<Release> stack)
 	{
 		Conversion		best   = null;
 		
 		if (!stack.contains (source)) {
 			stack.push (source);
 			
-			Enumeration targets = source.getSourceConversions ();
+			Enumeration<Conversion> targets = source.getSourceConversions ();
 			while (targets.hasMoreElements ()) {
-				Conversion first   = (Conversion) targets.nextElement ();
+				Conversion first   = targets.nextElement ();
 				Release    release = first.getTargetRelease ();
 				Conversion result  = null;
 				

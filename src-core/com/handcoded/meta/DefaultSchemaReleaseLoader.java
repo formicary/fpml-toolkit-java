@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -37,7 +37,8 @@ public class DefaultSchemaReleaseLoader implements ReleaseLoader
 	 * {@inheritDoc}
 	 * @since	TFP 1.5
 	 */
-	public void loadData (Specification specification, Element context, Hashtable loadedSchemas)
+	public void loadData (Specification specification, Element context,
+			Hashtable<String, SchemaRelease> loadedSchemas)
 	{
 		Attr		id 		= context.getAttributeNode ("id");
 		
@@ -143,14 +144,15 @@ public class DefaultSchemaReleaseLoader implements ReleaseLoader
 	 * @param	loadedSchemas	A <CODE>Hashtable</CODE> of previous bootstrapped schemas.
 	 * @since	TFP 1.5
 	 */
-	protected final void handleImports (SchemaRelease release, Element context, Hashtable loadedSchemas)
+	protected final void handleImports (SchemaRelease release, Element context,
+			Hashtable<String, SchemaRelease> loadedSchemas)
 	{
 		NodeList	list = XPath.paths (context, "import");
 		
 		for (int index = 0; index < list.getLength (); ++index) {
 			Attr href = ((Element) list.item (index)).getAttributeNode ("href");
 			if (href != null)
-				release.addImport ((SchemaRelease) loadedSchemas.get (href.getValue ()));
+				release.addImport (loadedSchemas.get (href.getValue ()));
 		}
 	}
 }

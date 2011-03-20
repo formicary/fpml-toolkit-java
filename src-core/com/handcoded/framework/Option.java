@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -114,11 +114,11 @@ public final class Option
 		
 		// Attempt to match options with command line
 		for (index = 0; index < arguments.length; ++index) {
-			Enumeration cursor = options.elements ();
+			Enumeration<Option> cursor = options.elements ();
 			boolean matched = false;
 			
 			while (cursor.hasMoreElements ()) {
-				Option option = (Option) cursor.nextElement ();
+				Option option = cursor.nextElement ();
 				
 				if (matched = arguments [index].equals (option.name)) {
 					option.present = true;
@@ -149,10 +149,10 @@ public final class Option
 	public static String listOptions ()
 	{
 		StringBuffer	buffer = new StringBuffer ();
-		Enumeration		cursor = options.elements ();
+		Enumeration<Option>	cursor = options.elements ();
 		
 		while (cursor.hasMoreElements ()) {
-			Option option = (Option) cursor.nextElement();
+			Option option = cursor.nextElement();
 			
 			if (buffer.length () == 0) buffer.append (' ');
 			
@@ -176,10 +176,10 @@ public final class Option
 	public static void describeOptions ()
 	{
 		String 		spaces = "                                            ";
-		Enumeration cursor = options.elements ();
+		Enumeration<Option> cursor = options.elements ();
 		
 		while (cursor.hasMoreElements ()) {
-			Option option = (Option) cursor.nextElement ();
+			Option option = cursor.nextElement ();
 		
 			if (option.parameter != null)
 				System.out.println ("    "
@@ -221,7 +221,7 @@ public final class Option
 	 * The set of all defined <CODE>Option</CODE> instances.
 	 * @since	TFP 1.0
 	 */
-	private static Vector	options		= new Vector ();
+	private static Vector<Option>	options		= new Vector<Option> ();
 	
 	/**
 	 * The name of the option (including any leading dash).

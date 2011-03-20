@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -29,7 +29,7 @@ import java.util.Calendar;
  * @version	$Id$
  * @since	TFP 1.0
  */
-final class DateValue implements ImmutableDate, Comparable, Serializable
+final class DateValue implements ImmutableDate, Comparable<DateValue>, Serializable
 {
 	/**
 	 * The earliest possible date that can be correctly represented,
@@ -351,21 +351,6 @@ final class DateValue implements ImmutableDate, Comparable, Serializable
 	public boolean equals (DateValue other)
 	{
 		return (date == other.date);
-	}
-	
-	/**
-	 * Returns the result of comparing this instance to another <CODE>Object
-	 * </CODE>.
-	 *
-	 * @param	other			The <CODE>Object</CODE> instance to compare with.
-	 * @return	An integer value indicating the relative ordering.
-	 * @throws	ClassCastException If the argument is not a <CODE>DateValue</CODE>
-	 *			instance.
-	 * @since	TFP 1.1
-	 */
-	public int compareTo (Object other)
-	{
-		return (compareTo ((DateValue) other));
 	}
 	
 	/**

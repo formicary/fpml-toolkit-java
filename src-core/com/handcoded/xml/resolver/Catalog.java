@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -67,7 +67,7 @@ public final class Catalog implements EntityResolver2
 //		logger.info ("\npublicId = " + ((publicId != null) ? publicId : "null") +
 //					 "\nsystemId = " + ((systemId != null) ? systemId : "null"));
 
-		String				result = definition.applyRules (publicId, systemId, new Stack ());
+		String				result = definition.applyRules (publicId, systemId, new Stack<GroupEntry> ());
 		
 //		logger.info ("\nresult   = " + ((result   != null) ? result   : "null"));
 
@@ -89,7 +89,7 @@ public final class Catalog implements EntityResolver2
 //				     "\nbaseUri = " + ((baseUri != null) ? baseUri : "null") +
 //				     "\nsystemId = " + ((systemId != null) ? systemId : "null"));
 
-		String				result = definition.applyRules (publicId, systemId, new Stack ());
+		String				result = definition.applyRules (publicId, systemId, new Stack<GroupEntry> ());
 		
 //		logger.info ("\nresult   = " + ((result   != null) ? result   : "null"));
 
@@ -133,7 +133,7 @@ public final class Catalog implements EntityResolver2
 	 * Attempts to resolve a URI.
 	 * 
 	 * @param 	uri			The URI to be resolved.
-	 * @return 	A xxx <CODE>null</CODE> if the URI was not resolved.
+	 * @return 	A <CODE>null</CODE> if the URI was not resolved.
 	 * @since	TFP 1.0
 	 */
 	public final String resolve (final String uri)
@@ -141,7 +141,7 @@ public final class Catalog implements EntityResolver2
 	{
 //		logger.info ("\nuri    = " + ((uri != null) ? uri : "null"));
 
-		String				result = definition.applyRules (uri, new Stack ());
+		String				result = definition.applyRules (uri, new Stack<GroupEntry> ());
 
 //		logger.info ("\nresult = " + ((result != null) ? result   : "null"));
 		return (result);	
@@ -157,7 +157,7 @@ public final class Catalog implements EntityResolver2
 	 */
 	protected Catalog (final String url, final String prefer, final String xmlbase)
 	{
-		this.url  = url;
+		logger.info ("Creating catalog '" + (this.url = url) + "'");
 
 		definition = new CatalogEntry (prefer, (xmlbase != null) ? xmlbase : url);
 	}
@@ -165,7 +165,7 @@ public final class Catalog implements EntityResolver2
 	/**
 	 * Converts the instance's member values to <CODE>String</CODE> representations
 	 * and concatenates them all together. This function is used by toString and
-	 * may be overriden in derived classes.
+	 * may be overridden in derived classes.
 	 *
 	 * @return	The object's <CODE>String</CODE> representation.
 	 * @since	TFP 1.1
@@ -175,12 +175,12 @@ public final class Catalog implements EntityResolver2
 		return ("url=\"" + url + "\",definition={" + definition.toDebug() + "}");
 	}
 	
-//	/**
-//	 * Logging instance used to record runtime problems.
-//	 * @since	TFP 1.0
-//	 */
-//	private static Logger		logger
-//		= Logger.getLogger ("com.handcoded.xml.resolver.Catalog");
+	/**
+	 * Logging instance used to record runtime problems.
+	 * @since	TFP 1.0
+	 */
+	private static Logger		logger
+		= Logger.getLogger ("com.handcoded.xml.resolver.Catalog");
 
 	/**
 	 * The URL of this catalog.
@@ -190,6 +190,7 @@ public final class Catalog implements EntityResolver2
 	
 	/**
 	 * The component containing the catalog.
+	 * @since	TFP 1.0
 	 */
 	private final CatalogEntry	definition;
 	

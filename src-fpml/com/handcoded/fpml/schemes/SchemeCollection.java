@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -85,11 +85,11 @@ public final class SchemeCollection
 	 */
 	public Scheme add (final Scheme scheme)
 	{
-		Scheme		resultA = (Scheme) schemes.put (scheme.getUri (), scheme);
+		Scheme		resultA = schemes.put (scheme.getUri (), scheme);
 		Scheme		resultB = null;
 		
 		if (scheme.getCanonicalUri () != null)
-			resultB = (Scheme) schemes.put (scheme.getCanonicalUri (), scheme);
+			resultB = schemes.put (scheme.getCanonicalUri (), scheme);
 		
 		return ((resultA != null) ? resultA : resultB);
 	}
@@ -104,8 +104,8 @@ public final class SchemeCollection
 	 */
 	public Scheme remove (final Scheme scheme)
 	{
-		Scheme		resultA = (Scheme) schemes.remove (scheme.getUri());
-		Scheme		resultB = (Scheme) schemes.remove (scheme.getCanonicalUri());
+		Scheme		resultA = schemes.remove (scheme.getUri());
+		Scheme		resultB = schemes.remove (scheme.getCanonicalUri());
 		
 		return ((resultA != null) ? resultA : resultB);
 	}
@@ -140,7 +140,7 @@ public final class SchemeCollection
 	 */
 	public Scheme findSchemeForUri (final String uri)
 	{
-		return ((Scheme) schemes.get (uri));
+		return (schemes.get (uri));
 	}
 
 	/**
@@ -268,5 +268,6 @@ public final class SchemeCollection
 	 * The extent set of all currently defined <CODE>Scheme</CODE> instances.
 	 * @since	TFP 1.0
 	 */	
-	private Hashtable			schemes = new Hashtable ();
+	private Hashtable<String, Scheme> schemes
+		= new Hashtable<String, Scheme> ();
 }

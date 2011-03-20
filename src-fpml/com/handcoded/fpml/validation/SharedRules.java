@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -496,7 +496,7 @@ public final class SharedRules extends Logic
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context = (Element) list.item (index);
 					NodeList refs 	= context.getElementsByTagName ("calculationAgentPartyReference");
-					Vector	values 	= new Vector ();
+					Vector<String>	values 	= new Vector<String> ();
 					
 					for (int count = 0; count < refs.getLength(); ++count) {
 						String href = ((Element) refs.item (count)).getAttribute ("href");

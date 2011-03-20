@@ -13,6 +13,8 @@
 
 package com.handcoded.fpml.validation;
 
+import java.util.Hashtable;
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -48,7 +50,7 @@ public final class VersionPrecondition extends Precondition
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
-	public boolean evaluate (NodeIndex nodeIndex)
+	public boolean evaluate (final NodeIndex nodeIndex, Hashtable<Precondition, Boolean> cache)
 	{
 		Version 		version;
 		

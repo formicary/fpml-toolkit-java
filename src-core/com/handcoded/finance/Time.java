@@ -25,7 +25,7 @@ import java.math.BigDecimal;
  * @since	TFP 1.0
  */
 public final class Time extends Temporal
-	implements ImmutableTime, Comparable, Serializable
+	implements ImmutableTime, Comparable<Time>, Serializable
 {
 	/**
 	 * A constant <CODE>Time</CODE> instance representing the first instant of
@@ -307,21 +307,6 @@ public final class Time extends Temporal
 			return (timeValue.equals (other.timeValue));
 		else
 			return (toDateTime ().equals (other.toDateTime ()));
-	}
-
-	/**
-	 * Returns the result of comparing this instance to another <CODE>Object
-	 * </CODE>.
-	 *
-	 * @param	other			The <CODE>Object</CODE> instance to compare with.
-	 * @return	An integer value indicating the relative ordering.
-	 * @throws	ClassCastException If the argument is not a <CODE>Time</CODE>
-	 *			instance.
-	 * @since	TFP 1.0
-	 */
-	public int compareTo (final Object other)
-	{
-		return (compareTo ((Time) other));
 	}	
 	
 	/**

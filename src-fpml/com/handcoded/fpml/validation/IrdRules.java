@@ -21,6 +21,7 @@ import org.w3c.dom.NodeList;
 import com.handcoded.finance.Date;
 import com.handcoded.finance.Interval;
 import com.handcoded.finance.Period;
+import com.handcoded.validation.Precondition;
 import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
 import com.handcoded.validation.ValidationErrorHandler;
@@ -38,6 +39,17 @@ import com.handcoded.xml.XPath;
  */
 public final class IrdRules extends FpMLRuleSet
 {
+	/**
+	 * A <CODE>Precondition</CODE> instance that detect documents containing
+	 * at least one FX product.
+	 * @since	TFP 1.6
+	 */
+	private static final Precondition	IRD_PRODUCT
+//		= new ProductPrecondition (ProductType.FOREIGN_EXCHANGE);
+		= new ContentPrecondition (
+				new String [] { "swap", "swaption", "fra", "capFloor", "bulletPayment" },
+				new String [] { "Swap", "Swaption", "Fra", "CapFloor", "BulletPayment" });
+	
 	/**
 	 * A <CODE>Rule</CODE> that ensures reset dates are present for
 	 * floating rate interest streams.

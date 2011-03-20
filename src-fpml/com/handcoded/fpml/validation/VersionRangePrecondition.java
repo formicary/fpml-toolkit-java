@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -12,6 +12,8 @@
 // OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
 
 package com.handcoded.fpml.validation;
+
+import java.util.Hashtable;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -53,7 +55,8 @@ public class VersionRangePrecondition extends Precondition
 	 * {@inheritDoc}
 	 * @since	TFP 1.5
 	 */
-	public boolean evaluate (NodeIndex nodeIndex)
+	@Override
+	public boolean evaluate (final NodeIndex nodeIndex, Hashtable<Precondition, Boolean> cache)
 	{
 		Version 		version;
 		

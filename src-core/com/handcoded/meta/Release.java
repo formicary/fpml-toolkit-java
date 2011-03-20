@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -20,7 +20,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * The <CODE>Release</CODE> class represents an recognizable version of a
+ * The <CODE>Release</CODE> class represents an recognisable version of a
  * grammar used by XML instance documents.
  * 
  * @author 	BitWise
@@ -170,7 +170,7 @@ public abstract class Release implements Grammar
 	 * @return	An <CODE>Enumeration</CODE> instance.
 	 * @since	TFP 1.0
 	 */
-	protected Enumeration getSourceConversions ()
+	protected Enumeration<Conversion> getSourceConversions ()
 	{
 		return (sourceConversions.elements ());
 	}
@@ -183,7 +183,7 @@ public abstract class Release implements Grammar
 	 * @return	An <CODE>Enumeration</CODE> instance.
 	 * @since	TFP 1.0
 	 */
-	protected Enumeration getTargetConversions ()
+	protected Enumeration<Conversion> getTargetConversions ()
 	{
 		return (targetConversions.elements ());
 	}
@@ -201,7 +201,7 @@ public abstract class Release implements Grammar
 	private final String		version;
 	
 	/**
-	 * The root element name
+	 * The root element names
 	 * @since	TFP 1.0
 	 */
 	private final String []		rootElements;
@@ -210,11 +210,11 @@ public abstract class Release implements Grammar
 	 * The set of conversions for which this release is the source format.
 	 * @since	TFP 1.0
 	 */
-	private Vector				sourceConversions = new Vector ();
+	private Vector<Conversion>	sourceConversions = new Vector<Conversion> ();
 	
 	/**
 	 * The set of conversions for which this release is the target format.
 	 * @since	TFP 1.0
 	 */
-	private Vector				targetConversions = new Vector ();
+	private Vector<Conversion>	targetConversions = new Vector<Conversion> ();
 }

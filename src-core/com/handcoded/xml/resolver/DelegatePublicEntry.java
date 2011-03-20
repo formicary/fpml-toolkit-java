@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -10,6 +10,7 @@
 // PARTICULAR PURPOSE, OR NON-INFRINGEMENT. HANDCODED SOFTWARE LTD SHALL NOT BE
 // LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
 // OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
+
 package com.handcoded.xml.resolver;
 
 import java.util.Stack;
@@ -48,10 +49,8 @@ final class DelegatePublicEntry extends RelativeEntry implements EntityRule
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
-	public String applyTo (
-	final String		publicId,
-	final String		systemId,
-	Stack				catalogs)
+	public String applyTo (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		if (publicId.startsWith (prefix))
@@ -64,6 +63,7 @@ final class DelegatePublicEntry extends RelativeEntry implements EntityRule
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	protected String toDebug ()
 	{
 		return ("prefix=\"" + prefix + "\",catalog=\"" + catalog + "\"," + super.toDebug ());

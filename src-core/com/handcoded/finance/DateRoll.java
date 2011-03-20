@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -31,7 +31,8 @@ public abstract class DateRoll
 	 * The set of all existing <CODE>DateRoll</CODE> instances.
 	 * @since	TFP 1.0
 	 */
-	private static Hashtable	extent	= new Hashtable ();
+	private static Hashtable<String, DateRoll> extent
+		= new Hashtable<String, DateRoll> ();
 	
 	/**
 	 * A <CODE>DateRoll</CODE> that performs no adjustment.
@@ -44,6 +45,7 @@ public abstract class DateRoll
 			 * {@inheritDoc}
 			 * @since	TFP 1.0
 			 */
+			@Override
 			public Date adjust (Calendar calendar, Date date)
 			{
 				return (date);
@@ -62,6 +64,7 @@ public abstract class DateRoll
 			 * {@inheritDoc}
 			 * @since	TFP 1.0
 			 */
+			@Override
 			public Date adjust (Calendar calendar, Date date)
 			{
 				Date				result = date;
@@ -84,6 +87,7 @@ public abstract class DateRoll
 			 * {@inheritDoc}
 			 * @since	TFP 1.0
 			 */
+			@Override
 			public Date adjust (Calendar calendar, Date date)
 			{
 				Date				result = date;
@@ -107,6 +111,7 @@ public abstract class DateRoll
 			 * {@inheritDoc}
 			 * @since	TFP 1.0
 			 */
+			@Override
 			public Date adjust (Calendar calendar, Date date)
 			{
 				Date				result = FOLLOWING.adjust (calendar, date);
@@ -130,6 +135,7 @@ public abstract class DateRoll
 			 * {@inheritDoc}
 			 * @since	TFP 1.0
 			 */
+			@Override
 			public Date adjust (Calendar calendar, Date date)
 			{
 				Date				result = PRECEDING.adjust (calendar, date);
@@ -154,6 +160,7 @@ public abstract class DateRoll
 			 * {@inheritDoc}
 			 * @since	TFP 1.0
 			 */
+			@Override
 			public Date adjust (Calendar calendar, Date date)
 			{
 				switch (date.weekday ()) {
@@ -175,7 +182,7 @@ public abstract class DateRoll
 	 */
 	public static DateRoll forName (final String name)
 	{
-		return ((DateRoll) extent.get (name));
+		return (extent.get (name));
 	}
 
 	/**

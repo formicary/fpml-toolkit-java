@@ -1,4 +1,4 @@
-// Copyright (C),2005-2008 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -121,7 +121,7 @@ public class Classify extends Application
 	 * Uses the predefined FpML product types to attempt to classify a
 	 * product within the document.
 	 *  
-	 * @param 	list		A set of context elements to analyze.
+	 * @param 	list		A set of context elements to analyse.
 	 * @param 	container	The type of product container for display.
 	 * @since	TFP 1.0.1
 	 */

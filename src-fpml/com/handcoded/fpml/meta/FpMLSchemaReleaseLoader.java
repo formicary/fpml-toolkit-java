@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -40,7 +40,9 @@ public class FpMLSchemaReleaseLoader extends DefaultSchemaReleaseLoader
 	 * {@inheritDoc}
 	 * @since	TFP 1.5
 	 */
-	public void loadData (Specification specification, Element context, Hashtable loadedSchemas)
+	@Override
+	public void loadData (Specification specification, Element context,
+			Hashtable<String, com.handcoded.meta.SchemaRelease> loadedSchemas)
 	{
 		Attr		id 		= context.getAttributeNode ("id");
 		

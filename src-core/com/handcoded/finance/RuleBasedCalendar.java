@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,7 +13,6 @@
 
 package com.handcoded.finance;
 
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -47,6 +46,7 @@ public final class RuleBasedCalendar extends Calendar
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	public boolean isBusinessDay (final Date date)
 	{
 		if (weekend.isWeekend (date)) return (false);
@@ -56,7 +56,7 @@ public final class RuleBasedCalendar extends Calendar
 		if ((holidays == null) || (year < minYear) || (year > maxYear))
 			synchronized (this) {
 				if (holidays == null) {
-					holidays = new Hashtable ();
+					holidays = new Hashtable<Date, CalendarRule> ();
 				
 					generate (minYear = maxYear = year, year);
 				}
@@ -98,7 +98,8 @@ public final class RuleBasedCalendar extends Calendar
 	 * The set of <CODE>Rule</CODE> instance used to define holidays.
 	 * @since	TFP 1.0
 	 */
-	private Vector				rules		= new Vector ();
+	private Vector<CalendarRule> rules
+		= new Vector<CalendarRule> ();
 	
 	/**
 	 * The oldest year for which holiday dates have been calculated.
@@ -116,11 +117,11 @@ public final class RuleBasedCalendar extends Calendar
 	 * The set of all holiday dates determined so far.
 	 * @since	TFP 1.0
 	 */
-	private Hashtable			holidays	= null;
+	private Hashtable<Date, CalendarRule> holidays = null;
 
 	/**
 	 * Uses the <CODE>CalendarRule</CODE> instances to extend the holiday
-	 * set for the years specificed.
+	 * set for the years specified.
 	 *  
 	 * @param 	min				The first year in the period required.
 	 * @param 	max				The last year in the period required.
@@ -128,11 +129,7 @@ public final class RuleBasedCalendar extends Calendar
 	 */
 	private void generate (int min, int max)
 	{
-		Enumeration			cursor = rules.elements ();
-
-		while (cursor.hasMoreElements ()) {
-			CalendarRule rule = (CalendarRule) cursor.nextElement ();
-			
+		for (CalendarRule rule : rules) {
 			int		from  = Math.max (min, rule.getFrom ());
 			int		until = Math.min (max, rule.getUntil ());
 

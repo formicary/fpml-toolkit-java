@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -73,7 +73,7 @@ public abstract class Application extends com.handcoded.framework.Application
 		}
 
 		// Activate the all FpML Schemas
-		Enumeration releases = Releases.FPML.releases ();
+		Enumeration<Release> releases = Releases.FPML.releases ();
 		
 		while (releases.hasMoreElements ()) {
 			Release release = (Release) releases.nextElement ();
@@ -105,7 +105,7 @@ public abstract class Application extends com.handcoded.framework.Application
 	 */
 	protected String [] findFiles (String [] arguments)
 	{
-		Vector			result = new Vector ();
+		Vector<String>	result = new Vector<String> ();
 		
 		for (int index = 0; index < arguments.length; ++index)
 			addFile (result, new File (arguments [index]));
@@ -144,7 +144,7 @@ public abstract class Application extends com.handcoded.framework.Application
 	 * @param 	file			The <CODE>File</CODE> under consideration.
 	 * @since	TFP 1.2
 	 */
-	private void addFile (Vector paths, File file)
+	private void addFile (Vector<String> paths, File file)
 	{
 		if (file.isDirectory ()) {
 			File [] files = file.listFiles (

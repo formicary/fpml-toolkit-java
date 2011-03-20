@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -209,7 +209,7 @@ public final class Conversions
 			}
 			
 			// Transcribe each of the first level child elements
-			Vector		parties = new Vector ();
+			Vector<Node> 	parties = new Vector<Node> ();
 			for (Node node = oldRoot.getFirstChild (); node != null;) {
 				transcribe (node, target, newRoot, parties);
 				node = node.getNextSibling ();
@@ -217,7 +217,7 @@ public final class Conversions
 	
 			// Then append the saved party elements
 			for (int index = 0; index < parties.size (); ++index)
-				transcribe ((Node) parties.elementAt (index), target, newRoot, null);
+				transcribe (parties.elementAt (index), target, newRoot, null);
 	
 			return (target);
 		}
@@ -233,14 +233,14 @@ public final class Conversions
 		 * @param	parties			A <CODE>Vector</CODE> used to collect elements.
 		 * @since	TFP 1.0
 		 */
-		private void transcribe (Node context, Document document, Node parent, Vector parties)
+		private void transcribe (Node context, Document document, Node parent, Vector<Node> parties)
 		{
 			switch (context.getNodeType ()) {
 			case Node.ELEMENT_NODE:
 				{
 					Element		element = (Element) context;
 		
-					// If this is the first pass thru the tree then save
+					// If this is the first pass through the tree then save
 					// party elements instead of processing them.
 					if ((parties != null) && element.getNodeName ().equals ("party")) {
 						parties.add (element);
@@ -328,7 +328,7 @@ public final class Conversions
 			Document		target = getTargetRelease ().newInstance ("FpML");
 			Element			oldRoot = source.getDocumentElement ();
 			Element			newRoot	= target.getDocumentElement ();
-			Hashtable		cache	= new Hashtable ();
+			Hashtable<String, Object> cache	= new Hashtable<String, Object> ();
 			
 			newRoot.setAttributeNS (Schema.INSTANCE_URL, "xsi:type", "DataDocument");
 			
@@ -354,7 +354,7 @@ public final class Conversions
 		 * @since	TFP 1.0
 		 */
 		private void transcribe (Node context, Document document, Node parent,
-				Hashtable cache, boolean caching)
+				Hashtable<String, Object> cache, boolean caching)
 		{
 			switch (context.getNodeType ()) {
 			case Node.ELEMENT_NODE:
@@ -1788,7 +1788,8 @@ public final class Conversions
 		return (null);
 	}
 	
-	private static Hashtable	messageMap	= new Hashtable ();
+	private static Hashtable<String, MessageType> messageMap
+		= new Hashtable<String, MessageType> ();
 
 	/**
 	 * Ensures no instances can be constructed.

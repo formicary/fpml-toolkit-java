@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -39,7 +39,7 @@ public abstract class Rule extends Validator
 	 */
 	public static Rule forName (final String name)
 	{
-		return ((Rule) extent.get (name));
+		return (extent.get (name));
 	}
 	
 	/**
@@ -73,9 +73,9 @@ public abstract class Rule extends Validator
 	 * 			applicable.
 	 * @since	TFP 1.0
 	 */
-	public final boolean appliesTo (NodeIndex nodeIndex)
+	public final boolean appliesTo (final NodeIndex nodeIndex)
 	{
-		return (precondition.evaluate (nodeIndex));
+		return (precondition.evaluate (nodeIndex, new Hashtable<Precondition, Boolean> ()));
 	}
 	
 	/**
@@ -84,6 +84,7 @@ public abstract class Rule extends Validator
 	 * @return 	A text description of the instance.
 	 * @since	TFP 1.0
 	 */
+	@Override
 	public String toString ()
 	{
 		return (getClass ().getName () + " [" + toDebug () + "]");
@@ -132,7 +133,7 @@ public abstract class Rule extends Validator
 	 * The set of all <CODE>Rule</CODE> instances indexed by name.
 	 * @since	TFP 1.2
 	 */
-	private static Hashtable	extent	= new Hashtable ();
+	private static Hashtable<String, Rule> extent = new Hashtable<String, Rule> ();
 	
 	/**
 	 * The <CODE>Precondition</CODE> for this rule.

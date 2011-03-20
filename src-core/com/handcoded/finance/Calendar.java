@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -29,7 +29,7 @@ import com.handcoded.xml.parser.SAXParser;
  * <CODE>Date</CODE> is a business day in the location it represents.
  * <P>
  * The rules for public holidays vary from country to country and with the
- * exception of special occaisions (eg. royal weddings, funerals, etc.) can
+ * exception of special occasions (e.g. royal weddings, funerals, etc.) can
  * usually be predicted years in advance.
  * <P>
  * On first reference this class bootstraps an initial set of <CODE>Calendar
@@ -53,26 +53,23 @@ public abstract class Calendar
 	 */
 	public static Calendar forName (final String name)
 	{
-		return ((Calendar) extent.get (name));
+		return (extent.get (name));
 	}
 	
 	/**
 	 * Constructs an array containing all of the <CODE>Calendars</CODE>
-	 * instances in the extent set at the time its method is called. A
-	 * clone of the extent is made first to allow updates in parallel by
-	 * other threads.
+	 * instances in the extent set at the time its method is called. 
 	 * 
 	 * @return	The members of the extent set as an array.
 	 * @since	TFP 1.0
 	 */
-	public static Calendar [] extentAsArray ()
+	public synchronized static Calendar []  extentAsArray ()
 	{
-		Hashtable		copy 	= (Hashtable) extent.clone ();
-		Enumeration		cursor 	= copy.keys ();
-		Calendar []		result	= new Calendar [copy.size ()];
+		Enumeration<String>	cursor 	= extent.keys ();
+		Calendar []		result	= new Calendar [extent.size ()];
 	
 		for (int index = 0; cursor.hasMoreElements (); ++index)
-			result [index] = (Calendar) copy.get (cursor.nextElement());
+			result [index] = (Calendar) extent.get (cursor.nextElement());
 		
 		return (result);
 	}
@@ -275,7 +272,8 @@ public abstract class Calendar
 	 * The set of all names <CODE>Calendar</CODE> instances.
 	 * @since	TFP 1.0
 	 */
-	private static Hashtable	extent	= new Hashtable ();
+	private static Hashtable<String, Calendar> extent
+		= new Hashtable<String, Calendar> ();
 	
 	/**
 	 * The name of this <CODE>Calendar</CODE>, <CODE>null</CODE> if not

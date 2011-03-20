@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
 interface EntityRule
 {
 	/**
-	 * Applys the rule instance to the public or system identifier in an
+	 * Applies the rule instance to the public or system identifier in an
 	 * attempt to locate the URI of a resource with can provide the required
 	 * information.
 	 *
@@ -42,6 +42,7 @@ interface EntityRule
 	 * @throws	SAXException If an occur was detected during processing.
 	 * @since	TFP 1.0
 	 */
-	public abstract String applyTo (final String publicId, final String systemId, Stack	catalogs)
+	public abstract String applyTo (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException;	
 }

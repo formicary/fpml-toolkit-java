@@ -1,4 +1,4 @@
-// Copyright (C),2007-2010 HandCoded Software Ltd.
+// Copyright (C),2007-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -14,7 +14,6 @@
 package com.handcoded.xml;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,11 +73,9 @@ public final class SchemaSet
 	 */
 	public void add (SchemaRelease release, Catalog catalog)
 	{
-		Vector	imports = release.getImportSet ();
+		Vector<SchemaRelease> imports = release.getImportSet ();
 		
-		for (Iterator cursor = imports.iterator (); cursor.hasNext ();) {
-			SchemaRelease schema = (SchemaRelease) cursor.next ();
-
+		for (SchemaRelease schema : imports) {
 			try {
 				String source = catalog.resolve (schema.getNamespaceUri());
 	
@@ -101,9 +98,9 @@ public final class SchemaSet
 	}
 		
 	/**
-	 * Returns the compiled representation of the schema(s), if neccesary compiling
-	 * them from thier source streams.
-	 * 
+	 * Returns the compiled representation of the schema(s), if necessary compiling
+	 * them from their source streams.
+	 *
 	 * @return	The compiled schema representation for the set.
 	 * @since	TFP 1.0
 	 */
@@ -139,13 +136,13 @@ public final class SchemaSet
 	 * The set of <CODE>SchemaReleases</CODE> added to the set.
 	 * @since	TFP 1.1
 	 */
-	private HashSet			schemas		= new HashSet ();
+	private HashSet<SchemaRelease> schemas = new HashSet<SchemaRelease> ();
 	
 	/**
 	 * The set of <CODE>String</CODE> instances for the schemas paths.
 	 * @since	TFP 1.0
 	 */
-	private Vector			sources		= new Vector ();
+	private Vector<String>	sources		= new Vector<String> ();
 	
 	/**
 	 * The compiled schema representation of the schemas.

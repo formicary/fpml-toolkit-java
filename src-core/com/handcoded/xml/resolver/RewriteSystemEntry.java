@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -49,10 +49,8 @@ final class RewriteSystemEntry extends CatalogComponent implements EntityRule
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
-	public String applyTo (
-	final String		publicId,
-	final String		systemId,
-	Stack				catalogs)
+	public String applyTo (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		if (systemId.startsWith (oldPrefix))
@@ -65,6 +63,7 @@ final class RewriteSystemEntry extends CatalogComponent implements EntityRule
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	protected String toDebug ()
 	{
 		return ("oldPrefix=\"" + oldPrefix + "\",newPrefix=\"" + newPrefix + "\"");

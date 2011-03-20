@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -46,9 +46,7 @@ final class RewriteUriEntry extends CatalogComponent implements UriRule
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
-	public String applyTo (
-	final String		uri,
-	Stack				catalogs)
+	public String applyTo (final String uri, Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		if (uri.startsWith (startString))
@@ -61,6 +59,7 @@ final class RewriteUriEntry extends CatalogComponent implements UriRule
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	protected String toDebug ()
 	{
 		return ("startString=\"" + startString + "\",rewritePrefix=\"" + rewritePrefix + "\"");

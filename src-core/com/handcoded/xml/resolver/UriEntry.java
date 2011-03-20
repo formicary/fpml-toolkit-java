@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -52,9 +52,7 @@ final class UriEntry extends RelativeEntry implements UriRule
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
-	public String applyTo (
-	final String		uri,
-	Stack				catalogs)
+	public String applyTo (final String uri, Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		URI					targetUri;

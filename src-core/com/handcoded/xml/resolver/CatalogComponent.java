@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -74,7 +74,7 @@ abstract class CatalogComponent
 	/**
 	 * Converts the instance's member values to <CODE>String</CODE> representations
 	 * and concatenates them all together. This function is used by toString and
-	 * may be overriden in derived classes.
+	 * may be overridden in derived classes.
 	 *
 	 * @return	The object's <CODE>String</CODE> representation.
 	 * @since	TFP 1.0

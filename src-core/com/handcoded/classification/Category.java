@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -44,6 +44,7 @@ public abstract class Category
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	public final String toString ()
 	{
 		return (name);
@@ -53,6 +54,7 @@ public abstract class Category
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	public final int hashCode ()
 	{
 		return (name.hashCode ());
@@ -64,7 +66,7 @@ public abstract class Category
 	 * @return	An <CODE>Enumeration</CODE> of super-categories.
 	 * @since	TFP 1.0
 	 */
-	public final Enumeration getSuperCategories ()
+	public final Enumeration<Category> getSuperCategories ()
 	{
 		return (superCategories.elements ());
 	}
@@ -75,14 +77,14 @@ public abstract class Category
 	 * @return	An <CODE>Enumeration</CODE> of sub-categories.
 	 * @since	TFP 1.0
 	 */
-	public final Enumeration getSubCategories ()
+	public final Enumeration<Category> getSubCategories ()
 	{
 		return (subCategories.elements ());
 	}
 
 	/**
 	 * Determines if this <CODE>Category</CODE> is the same as or is a
-	 * subcategory of another <CODE>Category</CODE> (e.g. a Swaption
+	 * sub-category of another <CODE>Category</CODE> (e.g. a Swaption
 	 * is-a Option).
 	 *
 	 * @param 	superCategory		The super category.
@@ -93,9 +95,9 @@ public abstract class Category
 	{
 		if (this == superCategory) return (true);
 
-		Enumeration cursor = superCategories.elements ();
+		Enumeration<Category> cursor = superCategories.elements ();
 		while (cursor.hasMoreElements ()) {
-			Category parent = (Category) cursor.nextElement ();
+			Category parent = cursor.nextElement ();
 
 			if (parent.isA (superCategory)) return (true);
 		}
@@ -113,7 +115,7 @@ public abstract class Category
 	 */
 	public final Category classify (final Object value)
 	{
-		return (classify (value, new HashSet ()));
+		return (classify (value, new HashSet<Category> ()));
 	}
 
 	/**
@@ -121,14 +123,14 @@ public abstract class Category
 	 *
 	 * @since	TFP 1.0
 	 */
-	protected Vector		superCategories		= new Vector ();
+	protected Vector<Category> superCategories	= new Vector<Category> ();
 
 	/**
 	 * <CODE>Category</CODE> instances referenced by this instance.
 	 *
 	 * @since	TFP 1.0
 	 */
-	protected Vector		subCategories		= new Vector ();
+	protected Vector<Category> subCategories	= new Vector<Category> ();
 
 	/**
 	 * Construct a <CODE>Category</CODE> with a given name.
@@ -183,7 +185,7 @@ public abstract class Category
 	 * 			or <CODE>null</CODE> if none could be determined.
 	 * @since	TFP 1.0
 	 */
-	protected abstract Category classify (final Object value, HashSet visited);
+	protected abstract Category classify (final Object value, HashSet<Category> visited);
 
 	/**
 	 * The name of this <CODE>Category</CODE>.

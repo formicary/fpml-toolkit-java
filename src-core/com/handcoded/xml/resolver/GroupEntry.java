@@ -1,4 +1,4 @@
-// Copyright (C),2005-2007 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -330,7 +330,8 @@ class GroupEntry extends RelativeEntry
 	 * The set of all rules in order of definition.
 	 * @since	TFP 1.0
 	 */
-	protected Vector			rules		= new Vector ();
+	protected Vector<CatalogComponent> rules
+		= new Vector<CatalogComponent> ();
 
 	/**
 	 * {@inheritDoc}
@@ -366,7 +367,8 @@ class GroupEntry extends RelativeEntry
 	 * @throws	SAXException If an error occurs during processing.
 	 * @since	TFP 1.0
 	 */
-	protected String applyRules (final String publicId, final String systemId, Stack catalogs)
+	protected String applyRules (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String				result = null;
@@ -395,7 +397,7 @@ class GroupEntry extends RelativeEntry
 			}
 		}
 
-		// If a public identifier is provided then try to match it explicity
+		// If a public identifier is provided then try to match it explicitly
 		// or through delegation.
 		if ((publicId != null) && (publicId.length () > 0)) {
 			if ((result = applyPublicEntries (publicId, systemId, catalogs)) != null) {
@@ -428,7 +430,7 @@ class GroupEntry extends RelativeEntry
 	 * @return  The URI of the resolved entity or <CODE>null</CODE>.
 	 * @throws	SAXException If an error occurs during processing.
 	 */
-	protected String applyRules (final String uri, Stack catalogs)
+	protected String applyRules (final String uri, Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String				result = null;
@@ -485,7 +487,8 @@ class GroupEntry extends RelativeEntry
 	 * @throws 	SAXException	If an occur was detected during processing.
 	 * @since	TFP 1.0 
 	 */
-	private String applySystemEntries (final String publicId, final String systemId, Stack catalogs)
+	private String applySystemEntries (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String		result = null;
@@ -522,7 +525,8 @@ class GroupEntry extends RelativeEntry
 	 * @throws 	SAXException	If an occur was detected during processing.
 	 * @since	TFP 1.0 
 	 */
-	private String applyRewriteSystemEntries (final String publicId, final String systemId, Stack catalogs)
+	private String applyRewriteSystemEntries (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String		result = null;
@@ -559,7 +563,8 @@ class GroupEntry extends RelativeEntry
 	 * @throws 	SAXException	If an occur was detected during processing.
 	 * @since	TFP 1.0 
 	 */
-	private String applyDelegateSystemEntries (final String publicId, final String systemId, Stack catalogs)
+	private String applyDelegateSystemEntries (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String		result = null;
@@ -596,7 +601,8 @@ class GroupEntry extends RelativeEntry
 	 * @throws 	SAXException	If an occur was detected during processing.
 	 * @since	TFP 1.0 
 	 */
-	private String applyPublicEntries (final String publicId, final String systemId, Stack catalogs)
+	private String applyPublicEntries (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String		result = null;
@@ -633,7 +639,8 @@ class GroupEntry extends RelativeEntry
 	 * @throws 	SAXException	If an occur was detected during processing.
 	 * @since	TFP 1.0 
 	 */
-	private String applyDelegatePublicEntries (final String publicId, final String systemId, Stack catalogs)
+	private String applyDelegatePublicEntries (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String		result = null;
@@ -670,7 +677,8 @@ class GroupEntry extends RelativeEntry
 	 * @throws 	SAXException	If an occur was detected during processing.
 	 * @since	TFP 1.0 
 	 */
-	private String applyNextCatalogEntries (final String publicId, final String systemId, Stack catalogs)
+	private String applyNextCatalogEntries (final String publicId, final String systemId,
+			Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String		result = null;
@@ -704,7 +712,7 @@ class GroupEntry extends RelativeEntry
 	 * @throws	SAXException If an error occurs during processing.
 	 * @since	TFP 1.0 
 	 */
-	private String applyUriEntries (final String uri, Stack catalogs)
+	private String applyUriEntries (final String uri, Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String		result = null;
@@ -738,7 +746,7 @@ class GroupEntry extends RelativeEntry
 	 * @throws	SAXException If an error occurs during processing.
 	 * @since	TFP 1.0 
 	 */
-	private String applyRewriteUriEntries (final String uri, Stack catalogs)
+	private String applyRewriteUriEntries (final String uri, Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String		result = null;
@@ -772,7 +780,7 @@ class GroupEntry extends RelativeEntry
 	 * @throws	SAXException If an error occurs during processing.
 	 * @since	TFP 1.0 
 	 */
-	private String applyDelegateUriEntries (final String uri, Stack catalogs)
+	private String applyDelegateUriEntries (final String uri, Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String		result = null;
@@ -806,7 +814,7 @@ class GroupEntry extends RelativeEntry
 	 * @throws	SAXException If an error occurs during processing.
 	 * @since	TFP 1.0 
 	 */
-	private String applyNextCatalogEntries (final String uri, Stack catalogs)
+	private String applyNextCatalogEntries (final String uri, Stack<GroupEntry> catalogs)
 		throws SAXException
 	{
 		String		result = null;

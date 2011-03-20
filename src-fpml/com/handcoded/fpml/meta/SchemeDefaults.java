@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -64,7 +64,7 @@ public final class SchemeDefaults
 	 */
 	public String getDefaultUriForAttribute (String name)
 	{
-		return ((String) defaultValues.get (name));
+		return (defaultValues.get (name));
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public final class SchemeDefaults
 	 */
 	public String getDefaultAttributeForScheme (String name)
 	{
-		return ((String) defaultAttrs.get (name));
+		return (defaultAttrs.get (name));
 	}
 	
 	/**
@@ -88,7 +88,8 @@ public final class SchemeDefaults
 	 * scheme default attribute.
 	 * @since	TFP 1.0
 	 */
-	private Hashtable		defaultValues	= new Hashtable ();
+	private Hashtable<String, String> defaultValues
+		= new Hashtable<String, String> ();
 
 	/**
 	 * A <CODE>Hashtable</CODE> relating a scheme attribute name to its
@@ -96,5 +97,6 @@ public final class SchemeDefaults
 	 * partyIdSchemeDefault).
 	 * @since	TFP 1.0
 	 */
-	private Hashtable		defaultAttrs 	= new Hashtable ();
+	private Hashtable<String, String> defaultAttrs
+		= new Hashtable<String, String> ();
 }

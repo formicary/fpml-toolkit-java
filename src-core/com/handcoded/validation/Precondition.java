@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -12,6 +12,8 @@
 // OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
 
 package com.handcoded.validation;
+
+import java.util.Hashtable;
 
 import com.handcoded.xml.NodeIndex;
 
@@ -37,7 +39,8 @@ public abstract class Precondition
 				 * {@inheritDoc}
 				 * @since	TFP 1.0
 				 */
-				public boolean evaluate (NodeIndex nodeIndex)
+				@Override
+				public boolean evaluate (final NodeIndex nodeIndex, Hashtable<Precondition, Boolean> cache)
 				{
 					return (true);
 				}
@@ -49,6 +52,7 @@ public abstract class Precondition
 				 * @return	The <CODE>Precondition</CODE> expression as a string.
 				 * @since	TFP 1.0
 				 */
+				@Override
 				public String toString ()
 				{
 					return ("true");
@@ -67,7 +71,8 @@ public abstract class Precondition
 				 * {@inheritDoc}
 				 * @since	TFP 1.0
 				 */
-				public boolean evaluate (NodeIndex nodeIndex)
+			    @Override
+				public boolean evaluate (final NodeIndex nodeIndex, Hashtable<Precondition, Boolean> cache)
 				{
 					return (true);
 				}
@@ -79,6 +84,7 @@ public abstract class Precondition
 				 * @return	The <CODE>Precondition</CODE> expression as a string.
 				 * @since	TFP 1.0
 				 */
+			    @Override
 				public String toString ()
 				{
 					return ("false");
@@ -131,26 +137,22 @@ public abstract class Precondition
 	 * indicated <CODE>NodeIndex</CODE>.
 	 * 
 	 * @param 	nodeIndex		The <CODE>NodeIndex</CODE> of a <CODE>Document</CODE>.
+	 * @param	cache			A <CODE>HashTable</CODE> of previous calculated precondition
+	 * 							results.
 	 * @return	A <CODE>boolean</CODE> value indicating the applicability of this
 	 * 			<CODE>Precondition</CODE> to the <CODE>Document</CODE>.
 	 * @since	TFP 1.0
 	 */
-	public abstract boolean evaluate (NodeIndex nodeIndex);
+	public abstract boolean evaluate (final NodeIndex nodeIndex, Hashtable<Precondition, Boolean> cache);
 
 	/**
 	 * The <CODE>BinaryPrecondition</CODE> class records the left and right
-	 * handside arguments for some binary logical operator.
+	 * hand side arguments for some binary logical operator.
 	 * 
 	 * @since	TFP 1.0
 	 */
 	protected static abstract class UnaryPrecondition extends Precondition
 	{
-		/**
-		 * {@inheritDoc}
-		 * @since	TFP 1.0
-		 */
-		public abstract boolean evaluate (NodeIndex nodeIndex);
-		
 		/**
 		 * Constructs a <CODE>UnaryPrecondition</CODE> that will operate on
 		 * the given underlying <CODE>Precondition</CODE> instance.
@@ -172,18 +174,12 @@ public abstract class Precondition
 
 	/**
 	 * The <CODE>BinaryPrecondition</CODE> class records the left and right
-	 * handside arguments for some binary logical operator.
+	 * hand side arguments for some binary logical operator.
 	 * 
 	 * @since	TFP 1.0
 	 */
 	protected static abstract class BinaryPrecondition extends Precondition
 	{
-		/**
-		 * {@inheritDoc}
-		 * @since	TFP 1.0
-		 */
-		public abstract boolean evaluate (NodeIndex nodeIndex);
-		
 		/**
 		 * Constructs a <CODE>BinaryPrecondition</CODE> that will operate on
 		 * the given left and right hand side <CODE>Precondition</CODE>
@@ -236,9 +232,14 @@ public abstract class Precondition
 		 * {@inheritDoc}
 		 * @since	TFP 1.0
 		 */
-		public boolean evaluate (NodeIndex nodeIndex)
+		public boolean evaluate (final NodeIndex nodeIndex, Hashtable<Precondition, Boolean> cache)
 		{
-			return (!pre.evaluate (nodeIndex));
+			Boolean	preValue = cache.get (pre);
+			
+			if (preValue == null)
+				cache.put (pre, preValue = pre.evaluate (nodeIndex, cache));
+
+			return (!preValue);
 		}
 
 		/**
@@ -279,9 +280,22 @@ public abstract class Precondition
 		 * {@inheritDoc}
 		 * @since	TFP 1.0
 		 */
-		public boolean evaluate (NodeIndex nodeIndex)
+		public boolean evaluate (final NodeIndex nodeIndex, Hashtable<Precondition, Boolean> cache)
 		{
-			return (lhs.evaluate (nodeIndex) && rhs.evaluate (nodeIndex));
+			Boolean	lhsValue = cache.get (lhs);
+			Boolean rhsValue = cache.get (rhs);
+			
+			if (lhsValue == null)
+				cache.put (lhs, lhsValue = lhs.evaluate (nodeIndex, cache));
+			
+			if (!lhsValue) return (false);
+				
+			if (rhsValue == null)
+				cache.put (rhs, rhsValue = rhs.evaluate (nodeIndex, cache));
+			
+			if (!rhsValue) return (false);
+			
+			return (true);
 		}
 
 		/**
@@ -322,9 +336,22 @@ public abstract class Precondition
 		 * {@inheritDoc}
 		 * @since	TFP 1.0
 		 */
-		public boolean evaluate (NodeIndex nodeIndex)
+		public boolean evaluate (NodeIndex nodeIndex, Hashtable<Precondition, Boolean> cache)
 		{
-			return (lhs.evaluate (nodeIndex) || rhs.evaluate (nodeIndex));
+			Boolean	lhsValue = cache.get (lhs);
+			Boolean rhsValue = cache.get (rhs);
+			
+			if (lhsValue == null)
+				cache.put (lhs, lhsValue = lhs.evaluate (nodeIndex, cache));
+				
+			if (lhsValue) return (true);
+			
+			if (rhsValue == null)
+				cache.put (rhs, rhsValue = rhs.evaluate (nodeIndex, cache));
+			
+			if (rhsValue) return (true);
+			
+			return (false);
 		}
 		
 		/**

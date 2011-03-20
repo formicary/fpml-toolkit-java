@@ -1,4 +1,4 @@
-// Copyright (C),2005-2010 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -13,7 +13,6 @@
 
 package com.handcoded.meta;
 
-import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +40,7 @@ public class SchemaRelease extends Release implements Schema
 	 * based release of a particular <CODE>Specification</CODE>.
 	 * <P>
 	 * This constructor should be used when creating a description of a pure
-	 * extension schema, i.e. one that contains no useable root elements.
+	 * extension schema, i.e. one that contains no usable root elements.
 	 * <P>
 	 * Default implementations of <CODE>InstanceInitialiser</CODE> and
 	 * <CODE>SchemaRecogniser</CODE> will be created during construction.
@@ -67,7 +66,7 @@ public class SchemaRelease extends Release implements Schema
 	 * based release of a particular <CODE>Specification</CODE>.
 	 * <P>
 	 * This constructor should be used when creating a description of a pure
-	 * extension schema, i.e. one that contains no useable root elements.
+	 * extension schema, i.e. one that contains no usable root elements.
 	 * <P>
 	 * If <CODE>InstanceInitialiser</CODE> and <CODE>SchemaRecogniser</CODE>
 	 * instances are not provided then default ones will be created during
@@ -263,15 +262,14 @@ public class SchemaRelease extends Release implements Schema
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	public Document newInstance (final String rootElement)
 	{
-		Vector			releases	= new Vector ();
+		Vector<SchemaRelease> releases = new Vector<SchemaRelease> ();
 		SchemaRelease	mainSchema	= null;
 
 		findAllImports (releases);
-		for (Iterator cursor = releases.iterator (); cursor.hasNext ();) {
-			SchemaRelease	release		= (SchemaRelease) cursor.next ();
-
+		for (SchemaRelease	release	: releases) {
 			if (release.hasRootElement (rootElement)) {
 				if (mainSchema != null) {
 					logger.severe ("Multiple schemas define root element '" + rootElement + "'");
@@ -292,9 +290,7 @@ public class SchemaRelease extends Release implements Schema
 		root.setAttributeNS (NAMESPACES_URL, "xmlns:xsi", INSTANCE_URL);
 		root.setAttributeNS (INSTANCE_URL, "xsi:schemaLocation", "");
 
-		for (Iterator cursor = releases.iterator (); cursor.hasNext ();) {
-			SchemaRelease	release		= (SchemaRelease) cursor.next ();
-
+		for (SchemaRelease release : releases) {
 			release.initialiser.initialise (release, root, release == mainSchema);
 		}
 
@@ -320,8 +316,6 @@ public class SchemaRelease extends Release implements Schema
 	public boolean isInstance (Document document)
 	{
 		if (recogniser.recognises (this, document)) {
-			//Element			root = document.getDocumentElement ();
-
 			// TODO: Improve import detection
 			return (true);
 		}
@@ -329,7 +323,7 @@ public class SchemaRelease extends Release implements Schema
 	}
 
 	/**
-	 * Creates a bi-directional reference between this <CODE>SchemaRelease</CODE>
+	 * Creates a bidirectional reference between this <CODE>SchemaRelease</CODE>
 	 * and the meta data for other instance that it imports.
 	 *
 	 * @param 	release			The imported <CODE>SchemaRelease</CODE>.
@@ -358,12 +352,12 @@ public class SchemaRelease extends Release implements Schema
 	 * Returns a <CODE>Vector</CODE> containing this <CODE>schemaRelease</CODE>
 	 * and any it imports in dependency order.
 	 *
-	 * @return	The <CODE>Vector</CODE> of <CODE>SchemeRelease</CODE> instances.
+	 * @return	The <CODE>Vector</CODE> of <CODE>SchemaRelease</CODE> instances.
 	 * @since	TFP 1.1
 	 */
-	public final Vector getImportSet ()
+	public final Vector<SchemaRelease> getImportSet ()
 	{
-		return (findAllImports (new Vector ()));
+		return (findAllImports (new Vector<SchemaRelease> ()));
 	}
 
 	/**
@@ -399,7 +393,7 @@ public class SchemaRelease extends Release implements Schema
 	private final String		preferredPrefix;
 
 	/**
-	 * The altername prefix for the namespace.
+	 * The alternate prefix for the namespace.
 	 * @since	TFP 1.0
 	 */
 	private final String		alternatePrefix;
@@ -421,14 +415,14 @@ public class SchemaRelease extends Release implements Schema
 	 * one.
 	 * @since	TFP 1.0
 	 */
-	private Vector				imports		= new Vector ();
+	private Vector<SchemaRelease> imports	= new Vector<SchemaRelease> ();
 
 	/**
-	 * The set of other <CODE>SchemaRelease</CODE> instances that import thia
+	 * The set of other <CODE>SchemaRelease</CODE> instances that import this
 	 * one.
 	 * @since	TFP 1.0
 	 */
-	private Vector				importedBy	= new Vector ();
+	private Vector<SchemaRelease> importedBy = new Vector<SchemaRelease> ();
 
 	/**
 	 * Recursively build a set of <CODE>SchemaRelease</CODE> instances
@@ -439,14 +433,14 @@ public class SchemaRelease extends Release implements Schema
 	 * @return	The updated set of imported releases.
 	 * @since	TFP 1.1
 	 */
-	private Vector findAllImports (Vector releases)
+	private Vector<SchemaRelease> findAllImports (Vector<SchemaRelease> releases)
 	{
 		if (!releases.contains (this)) {
-			// Add this schema to prevent infinte recursion
+			// Add this schema to prevent infinite recursion
 			releases.add (this);
 
 			for (int index = 0; index < imports.size (); ++index) {
-				((SchemaRelease) imports.elementAt (index)).findAllImports (releases);
+				imports.elementAt (index).findAllImports (releases);
 
 				// But reposition it after any schemas it imports
 				releases.remove (this);

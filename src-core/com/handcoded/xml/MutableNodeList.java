@@ -1,4 +1,4 @@
-// Copyright (C),2005-2006 HandCoded Software Ltd.
+// Copyright (C),2005-2011 HandCoded Software Ltd.
 // All rights reserved.
 //
 // This software is licensed in accordance with the terms of the 'Open Source
@@ -53,7 +53,7 @@ public final class MutableNodeList implements NodeList, Cloneable
 	public void add (Node node)
 	{
 		if (node != null) {
-			if (nodes == null) nodes = new Vector ();
+			if (nodes == null) nodes = new Vector<Node> ();
 				
 			nodes.add (node);
 		}
@@ -72,7 +72,7 @@ public final class MutableNodeList implements NodeList, Cloneable
 		
 		if (length > 0) {
 			if (nodes == null)
-				nodes = new Vector ();	
+				nodes = new Vector<Node> ();	
 		
 			for (int index = 0; index < length; ++index)
 				nodes.add (list.item (index));
@@ -146,9 +146,13 @@ public final class MutableNodeList implements NodeList, Cloneable
 	 * @return	A clone of this <CODE>MutableNodeList</CODE>.
 	 * @since	TFP 1.0
 	 */
+	@Override
 	public Object clone ()
 	{
-		return (new MutableNodeList ((nodes != null) ? (Vector) nodes.clone () : null));
+		if (nodes != null)
+			return (new MutableNodeList (new Vector<Node> (nodes)));
+		else
+			return (new MutableNodeList (null));
 	}
 	
 	/**
@@ -157,6 +161,7 @@ public final class MutableNodeList implements NodeList, Cloneable
 	 * @return 	A text description of the instance.
 	 * @since	TFP 1.0
 	 */
+	@Override
 	public String toString ()
 	{
 		return (getClass ().getName () + " [" + toDebug () + "]");
@@ -169,7 +174,7 @@ public final class MutableNodeList implements NodeList, Cloneable
 	 * @param 	nodes			The <CODE>Vector</CODE> to use for storage.
 	 * @since	TFP 1.0				
 	 */
-	protected MutableNodeList (Vector nodes)
+	protected MutableNodeList (Vector<Node> nodes)
 	{
 		this.nodes = nodes;
 	}
@@ -201,5 +206,5 @@ public final class MutableNodeList implements NodeList, Cloneable
 	 * added.
 	 * @since	TFP 1.0
 	 */
-	private Vector		nodes;
+	private Vector<Node>	nodes;
 }
