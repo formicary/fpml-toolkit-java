@@ -657,8 +657,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context	= (Element) list.item (index);
@@ -707,8 +715,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
@@ -743,8 +759,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context		= (Element) list.item (index);
@@ -779,8 +803,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
@@ -815,8 +847,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
@@ -851,8 +891,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
@@ -887,8 +935,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
@@ -923,8 +979,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
@@ -959,8 +1023,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
@@ -999,8 +1071,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
@@ -1035,8 +1115,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex, nodeIndex.getElementsByType (determineNamespace (nodeIndex), "StubCalculationPeriodAmount"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex, nodeIndex.getElementsByName ("stubCalculationPeriodAmount"), errorHandler));
+			}
+			
+			private boolean validate (NodeIndex nodeIndex, NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("stubCalculationPeriodAmount");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context		= (Element) list.item (index);
@@ -1086,8 +1174,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex, nodeIndex.getElementsByType (determineNamespace (nodeIndex), "StubCalculationPeriodAmount"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex, nodeIndex.getElementsByName ("stubCalculationPeriodAmount"), errorHandler));
+			}
+			
+			private boolean validate (NodeIndex nodeIndex, NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("stubCalculationPeriodAmount");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element		context		= (Element) list.item (index);
@@ -1188,8 +1284,16 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex, nodeIndex.getElementsByType (determineNamespace (nodeIndex), "BusinessCentersReference"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex, nodeIndex.getElementsByName ("businessCentersReference"), errorHandler));
+			}
+			
+			private boolean validate (NodeIndex nodeIndex, NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("businessCentersReference");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context		= (Element) list.item (index);
@@ -1228,6 +1332,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "MandatoryEarlyTermination"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("mandatoryEarlyTermination"), errorHandler));
 			}
 
@@ -1266,6 +1373,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "MandatoryEarlyTermination"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("mandatoryEarlyTermination"), errorHandler));
 			}
 
@@ -1314,6 +1424,9 @@ public final class IrdRules extends FpMLRuleSet
 				 */
 				public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 				{
+					if (nodeIndex.hasTypeInformation()) 
+						return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "MandatoryEarlyTermination"), errorHandler));
+					
 					return (validate (nodeIndex.getElementsByName ("mandatoryEarlyTermination"), errorHandler));
 				}
 
@@ -1358,6 +1471,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Calculation"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("calculation"), errorHandler));
 			}
 
@@ -1402,6 +1518,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriod"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("calculationPeriod"), errorHandler));
 			}
 
@@ -1443,6 +1562,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriod"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("calculationPeriod"), errorHandler));
 			}
 
@@ -1473,7 +1595,7 @@ public final class IrdRules extends FpMLRuleSet
 
 	/**
 	 * A <CODE>Rule</CODE> that ensures that discount rate day count
-	 * fraction is only present if there is a discont rate.
+	 * fraction is only present if there is a discount rate.
 	 * <P>
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
@@ -1485,6 +1607,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Discounting"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("discounting"), errorHandler));
 			}
 
@@ -1526,6 +1651,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Fra"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("fra"), errorHandler));
 			}
 
@@ -1565,6 +1693,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "PaymentCalculationPeriod"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("paymentCalculationPeriod"), errorHandler));
 			}
 
@@ -1607,6 +1738,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "PaymentDates"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("paymentDates"), errorHandler));
 			}
 
@@ -1648,6 +1782,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "PaymentDates"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("paymentDates"), errorHandler));
 			}
 
@@ -1693,6 +1830,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "StubCalculationPeriodAmount"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("stubCalculationPeriodAmount"), errorHandler));
 			}
 
@@ -1735,6 +1875,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "EarlyTerminationEvent"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("earlyTerminationEvent"), errorHandler));
 			}
 
@@ -1775,6 +1918,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "EarlyTerminationEvent"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("earlyTerminationEvent"), errorHandler));
 			}
 
@@ -1817,6 +1963,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "EarlyTerminationEvent"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("earlyTerminationEvent"), errorHandler));
 			}
 
