@@ -41,23 +41,33 @@ public final class IrdRules extends FpMLRuleSet
 {
 	/**
 	 * A <CODE>Precondition</CODE> instance that detect documents containing
-	 * at least one FX product.
+	 * at least one interest rate stream.
 	 * @since	TFP 1.6
 	 */
-	private static final Precondition	IRD_PRODUCT
-//		= new ProductPrecondition (ProductType.FOREIGN_EXCHANGE);
+	private static final Precondition	INTEREST_RATE_STREAM
 		= new ContentPrecondition (
-				new String [] { "swap", "swaption", "fra", "capFloor", "bulletPayment" },
-				new String [] { "Swap", "Swaption", "Fra", "CapFloor", "BulletPayment" });
+				new String [] { "swapStream", "capFloorStream" },
+				new String [] { "InterestRateStream" });
 	
+	
+	/**
+	 * A <CODE>Precondition</CODE> instance that detect documents containing
+	 * at least one set of calculation period dates.
+	 * @since	TFP 1.6
+	 */
+	private static final Precondition	CALCULATION_PERIOD_DATES
+		= new ContentPrecondition (
+				new String [] { "calculationPeriodDates" },
+				new String [] { "CalculationPeriodDates" });
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures reset dates are present for
 	 * floating rate interest streams.
 	 * <P>
-	 * Applies to all FpML releases.
+	 *e Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE01 = new Rule ("ird-1")
+	public static final Rule	RULE01 = new Rule (INTEREST_RATE_STREAM, "ird-1")
 		{
 			/**
 			 * {@inheritDoc}
@@ -88,7 +98,7 @@ public final class IrdRules extends FpMLRuleSet
 
 					errorHandler.error ("305", context,
 						"resetDates must be present if and only if a floatingRateCalculation " +
-						"element is present in calculationPeriodAmount",
+						"or inflationRateCalculation element is present in calculationPeriodAmount",
 						getName (), null);
 
 					result = false;
@@ -105,7 +115,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE02 = new Rule ("ird-2")
+	public static final Rule	RULE02 = new Rule (INTEREST_RATE_STREAM, "ird-2")
 		{
 			/**
 			 * {@inheritDoc}
@@ -158,7 +168,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE03 = new Rule ("ird-3")
+	public static final Rule	RULE03 = new Rule (INTEREST_RATE_STREAM, "ird-3")
 		{
 			/**
 			 * {@inheritDoc}
@@ -217,7 +227,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE04 = new Rule ("ird-4")
+	public static final Rule	RULE04 = new Rule (INTEREST_RATE_STREAM, "ird-4")
 		{
 			/**
 			 * {@inheritDoc}
@@ -276,7 +286,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE05 = new Rule ("ird-5")
+	public static final Rule	RULE05 = new Rule (INTEREST_RATE_STREAM, "ird-5")
 		{
 			/**
 			 * {@inheritDoc}
@@ -330,7 +340,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE06 = new Rule ("ird-6")
+	public static final Rule	RULE06 = new Rule (INTEREST_RATE_STREAM, "ird-6")
 		{
 			/**
 			 * {@inheritDoc}
@@ -379,7 +389,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE07 = new Rule ("ird-7")
+	public static final Rule	RULE07 = new Rule (INTEREST_RATE_STREAM, "ird-7")
 		{
 			/**
 			 * {@inheritDoc}
@@ -437,9 +447,8 @@ public final class IrdRules extends FpMLRuleSet
 	 * <P>
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
-	 * @deprecated
 	 */
-	public static final Rule	RULE08 = new Rule ("ird-8")
+	public static final Rule	RULE08 = new Rule (INTEREST_RATE_STREAM, "ird-8")
 		{
 			/**
 			 * {@inheritDoc}
@@ -482,7 +491,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE09 = new Rule ("ird-9")
+	public static final Rule	RULE09 = new Rule (INTEREST_RATE_STREAM, "ird-9")
 		{
 			/**
 			 * {@inheritDoc}
@@ -527,15 +536,23 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE10 = new Rule ("ird-10")
+	public static final Rule	RULE10 = new Rule (CALCULATION_PERIOD_DATES, "ird-10")
 		{
 			/**
 			 * {@inheritDoc}
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context = (Element) list.item (index);
@@ -575,15 +592,23 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE11 = new Rule ("ird-11")
+	public static final Rule	RULE11 = new Rule (CALCULATION_PERIOD_DATES, "ird-11")
 		{
 			/**
 			 * {@inheritDoc}
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CalculationPeriodDates"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("calculationPeriodDates"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
 				boolean		result = true;
-				NodeList	list = nodeIndex.getElementsByName ("calculationPeriodDates");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context = (Element) list.item (index);
@@ -625,7 +650,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE12 = new Rule ("ird-12")
+	public static final Rule	RULE12 = new Rule (CALCULATION_PERIOD_DATES, "ird-12")
 		{
 			/**
 			 * {@inheritDoc}
@@ -675,7 +700,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE14 = new Rule ("ird-14")
+	public static final Rule	RULE14 = new Rule (CALCULATION_PERIOD_DATES, "ird-14")
 		{
 			/**
 			 * {@inheritDoc}
@@ -711,7 +736,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE15 = new Rule ("ird-15")
+	public static final Rule	RULE15 = new Rule (CALCULATION_PERIOD_DATES, "ird-15")
 		{
 			/**
 			 * {@inheritDoc}
@@ -747,7 +772,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE16 = new Rule ("ird-16")
+	public static final Rule	RULE16 = new Rule (CALCULATION_PERIOD_DATES, "ird-16")
 		{
 			/**
 			 * {@inheritDoc}
@@ -783,7 +808,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE17 = new Rule ("ird-17")
+	public static final Rule	RULE17 = new Rule (CALCULATION_PERIOD_DATES, "ird-17")
 		{
 			/**
 			 * {@inheritDoc}
@@ -819,7 +844,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE18 = new Rule ("ird-18")
+	public static final Rule	RULE18 = new Rule (CALCULATION_PERIOD_DATES, "ird-18")
 		{
 			/**
 			 * {@inheritDoc}
@@ -855,7 +880,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE19 = new Rule ("ird-19")
+	public static final Rule	RULE19 = new Rule (CALCULATION_PERIOD_DATES, "ird-19")
 		{
 			/**
 			 * {@inheritDoc}
@@ -891,7 +916,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE20 = new Rule ("ird-20")
+	public static final Rule	RULE20 = new Rule (CALCULATION_PERIOD_DATES, "ird-20")
 		{
 			/**
 			 * {@inheritDoc}
@@ -927,7 +952,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE21 = new Rule ("ird-21")
+	public static final Rule	RULE21 = new Rule (CALCULATION_PERIOD_DATES, "ird-21")
 		{
 			/**
 			 * {@inheritDoc}
@@ -967,7 +992,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE22 = new Rule ("ird-22")
+	public static final Rule	RULE22 = new Rule (CALCULATION_PERIOD_DATES, "ird-22")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2192,7 +2217,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE50 = new Rule ("ird-50")
+	public static final Rule	RULE50 = new Rule (INTEREST_RATE_STREAM, "ird-50")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2252,7 +2277,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE51 = new Rule ("ird-51")
+	public static final Rule	RULE51 = new Rule (INTEREST_RATE_STREAM, "ird-51")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2313,7 +2338,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE52 = new Rule ("ird-52")
+	public static final Rule	RULE52 = new Rule (INTEREST_RATE_STREAM, "ird-52")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2373,7 +2398,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE53 = new Rule ("ird-53")
+	public static final Rule	RULE53 = new Rule (INTEREST_RATE_STREAM, "ird-53")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2433,7 +2458,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE54 = new Rule ("ird-54")
+	public static final Rule	RULE54 = new Rule (INTEREST_RATE_STREAM, "ird-54")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2657,7 +2682,7 @@ public final class IrdRules extends FpMLRuleSet
 		 * Applies to all FpML releases.
 		 * @since	TFP 1.0
 		 */
-		public static final Rule	RULE59 = new Rule ("ird-59")
+		public static final Rule	RULE59 = new Rule (INTEREST_RATE_STREAM, "ird-59")
 			{
 				/**
 				 * {@inheritDoc}
