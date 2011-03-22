@@ -80,6 +80,10 @@ public final class Validate extends Application
 		XmlUtility.getDefaultSchemaSet ().getSchema ();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @since	TFP 1.0
+	 */
 	protected void cleanUp ()
 	{
 		super.cleanUp ();
