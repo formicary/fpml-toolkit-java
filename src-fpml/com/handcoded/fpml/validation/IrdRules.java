@@ -616,7 +616,7 @@ public final class IrdRules extends FpMLRuleSet
 
 					if (!isNumber (toToken (rollConvention))) continue;
 
-					Element	endDate = XPath.path (context, "firstRegularPeriodEndDate");
+					Element	endDate = XPath.path (context, "lastRegularPeriodEndDate");
 					if (!exists (endDate))
 						endDate = XPath.path (context, "terminationDate", "unadjustedDate");
 
@@ -625,7 +625,7 @@ public final class IrdRules extends FpMLRuleSet
 					
 					if (end == null) continue;
 
-					if (rollDate < end.lastDayOfMonth ()) {
+					if (rollDate <= end.lastDayOfMonth ()) {
 						if (rollDate == end.dayOfMonth ()) continue;
 					}
 					else
