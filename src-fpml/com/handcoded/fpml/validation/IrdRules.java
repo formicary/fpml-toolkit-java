@@ -193,16 +193,16 @@ public final class IrdRules extends FpMLRuleSet
 					if (!isParametric (context)) continue;
 
 					Element paymentDate = XPath.path (context, "paymentDates", "firstPaymentDate");
-
 					Element	startDate	= XPath.path (context, "calculationPeriodDates", "firstRegularPeriodStartDate");
+					Element	endDate		= XPath.path (context, "calculationPeriodDates", "lastRegularPeriodEndDate");
+
 					if (!exists (startDate))
 						startDate = XPath.path (context, "calculationPeriodDates", "effectiveDate", "unadjustedDate");
 
-					Element	endDate		= XPath.path (context, "calculationPeriodDates", "lastRegularPeriodEndDate");
-					if (!exists (startDate))
-						startDate = XPath.path (context, "calculationPeriodDates", "terminationDate", "unadjustedDate");
+					if (!exists (endDate))
+						endDate = XPath.path (context, "calculationPeriodDates", "terminationDate", "unadjustedDate");
 
-					Interval interval	= toInterval (XPath.path (context, "calculationPeriodDate", "calculationPeriodFrequency"));
+					Interval interval	= toInterval (XPath.path (context, "calculationPeriodDates", "calculationPeriodFrequency"));
 
 					if ((paymentDate == null) || (startDate == null) || (endDate == null) || (interval == null) ||
 							isUnadjustedCalculationPeriodDate (
@@ -252,16 +252,16 @@ public final class IrdRules extends FpMLRuleSet
 					if (!isParametric (context)) continue;
 
 					Element paymentDate = XPath.path (context, "paymentDates", "lastRegularPaymentDate");
-
-					Element	startDate	= XPath.path (context, "calculationPeriodDates", "firstRegularPeriodStartDate", "unadjustedDate");
+					Element	startDate	= XPath.path (context, "calculationPeriodDates", "firstRegularPeriodStartDate");
+					Element	endDate		= XPath.path (context, "calculationPeriodDates", "lastRegularPeriodEndDate");
+					
 					if (!exists (startDate))
 						startDate = XPath.path (context, "calculationPeriodDates", "effectiveDate", "unadjustedDate");
 
-					Element	endDate		= XPath.path (context, "calculationPeriodDates", "lastRegularPeriodStartDate", "unadjustedDate");
-					if (!exists (startDate))
-						startDate = XPath.path (context, "calculationPeriodDates", "terminationDate", "unadjustedDate");
+					if (!exists (endDate))
+						endDate = XPath.path (context, "calculationPeriodDates", "terminationDate", "unadjustedDate");
 
-					Interval interval	= toInterval (XPath.path (context, "calculationPeriodDate", "calculationPeriodFrequency"));
+					Interval interval	= toInterval (XPath.path (context, "calculationPeriodDates", "calculationPeriodFrequency"));
 
 					if ((paymentDate == null) || (startDate == null) || (endDate == null) || (interval == null) ||
 							isUnadjustedCalculationPeriodDate (
@@ -1751,9 +1751,9 @@ public final class IrdRules extends FpMLRuleSet
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element context 	= (Element) list.item (index);
 					Element	firstDate	= XPath.path (context, "firstPaymentDate");
-					Element	lastDate	= XPath.path (context, "lastRegularPaymentDate ");
+					Element	lastDate	= XPath.path (context, "lastRegularPaymentDate");
 
-					if ((firstDate == null) || (lastDate == null) || less (firstDate, lastDate))
+					if ((firstDate == null) || (lastDate == null) || less (toDate (firstDate), toDate (lastDate)))
 						continue;
 
 					errorHandler.error ("305", context,
@@ -2615,7 +2615,7 @@ public final class IrdRules extends FpMLRuleSet
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
 				boolean		result 	= true;
-				NodeList	list	= nodeIndex.getElementsByName ("knownAmounSchedule");
+				NodeList	list	= nodeIndex.getElementsByName ("knownAmountSchedule");
 
 				for (int index = 0; index < list.getLength (); ++index) {
 					Element	context		= (Element) list.item (index);
@@ -3017,7 +3017,7 @@ public final class IrdRules extends FpMLRuleSet
 	 *
 	 * @param 	paymentDate		The payment date.
 	 * @param 	startDate		The calculation period start date.
-	 * @param 	endDate			The calculation perion end date.
+	 * @param 	endDate			The calculation period end date.
 	 * @param 	freq			The period frequency.
 	 * @return	<CODE>true</CODE> if the payment date falls on a calculated date.
 	 * @since	TFP 1.0
