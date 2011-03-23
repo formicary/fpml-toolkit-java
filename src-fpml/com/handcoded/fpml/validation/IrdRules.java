@@ -1366,7 +1366,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to FpML 1-0, 2-0 and 3-0.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE28A = new Rule (Preconditions.R1_0__R3_0, "ird-28a")
+	public static final Rule	RULE28_XLINK = new Rule (Preconditions.R1_0__R3_0, "ird-28[XLINK]")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1417,7 +1417,7 @@ public final class IrdRules extends FpMLRuleSet
 		 * Applies to FpML 4-0 and later.
 		 * @since	TFP 1.0
 		 */
-		public static final Rule	RULE28B = new Rule (Preconditions.R4_0__LATER, "ird-28b")
+		public static final Rule	RULE28 = new Rule (Preconditions.R4_0__LATER, "ird-28")
 			{
 				/**
 				 * {@inheritDoc}
@@ -2007,6 +2007,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "ExtensionEvent"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("extensionEvent"), errorHandler));
 			}
 
@@ -2034,7 +2037,7 @@ public final class IrdRules extends FpMLRuleSet
 		};
 
 	/**
-	 * A <CODE>Rule</CODE> that ensures that atleast one child element is
+	 * A <CODE>Rule</CODE> that ensures that at least one child element is
 	 * present.
 	 * <P>
 	 * Applies to all FpML releases.
@@ -2047,6 +2050,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxLinkedNotionalAmount"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("fxLinkedNotionalAmount"), errorHandler));
 			}
 
@@ -2083,6 +2089,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "MandatoryEarlyTerminationAdjustedDates"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("mandatoryEarlyTerminationAdjustedDates"), errorHandler));
 			}
 
@@ -2122,8 +2131,8 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to FpML 1.0, 2.0 and 3.0.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE46A
-		= new Rule (Preconditions.R1_0__R3_0, "ird-46a")
+	public static final Rule	RULE46_XLINK
+		= new Rule (Preconditions.R1_0__R3_0, "ird-46[XLINK]")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2171,14 +2180,17 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML 4.0 and later.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE46B
-		= new Rule (Preconditions.R4_0__LATER, "ird-46b")
+	public static final Rule	RULE46
+		= new Rule (Preconditions.R4_0__LATER, "ird-46")
 		{
 			/**
 			 * {@inheritDoc}
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "OptionalEarlyTermination"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("optionalEarlyTermination"), errorHandler));
 			}
 
@@ -2216,7 +2228,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE47 = new Rule ("ird-47")
+	public static final Rule	RULE47_XLINK = new Rule (Preconditions.R1_0__R3_0, "ird-47[XLINK]")
 		{
 			/**
 			 * {@inheritDoc}
@@ -2266,6 +2278,60 @@ public final class IrdRules extends FpMLRuleSet
 
 	/**
 	 * A <CODE>Rule</CODE> that ensures the cash settlement payment
+	 * date for an early termination is relative to an exercise definition.
+	 * <P>
+	 * Applies to all FpML releases.
+	 * @since	TFP 1.0
+	 */
+	public static final Rule	RULE47 = new Rule (Preconditions.R4_0__LATER, "ird-47")
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "OptionalEarlyTermination"), errorHandler));
+				
+				return (validate (nodeIndex.getElementsByName ("optionalEarlyTermination"), errorHandler));
+			}
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+
+				for (int index = 0; index < list.getLength (); ++index) {
+					Element context 	= (Element) list.item (index);
+					Element	reference	= XPath.path (context, "cashSettlement", "cashSettlementPaymentDate", "relativeDate", "dateRelativeTo");
+					Element	exercise	= XPath.path (context, "americanExercise");
+
+					if (exercise == null) {
+						exercise = XPath.path (context, "bermudaExercise");
+						if (exercise == null)
+							exercise = XPath.path (context, "europeanExercise");
+					}
+
+					if ((reference == null) || (exercise == null)) continue;
+
+					String		href	= reference.getAttribute ("href");
+					String		id		= exercise.getAttribute ("id");
+
+					if ((href != null) && (id != null) && equal (href, id))
+						continue;
+
+					errorHandler.error ("305", context,
+						"dateRelativeTo element in cash settlement payment date must " +
+						"be relative to the exercise structure",
+						getName (), href);
+
+					result = false;
+				}
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures the cash settlement payment
 	 * date for a swaption is relative to an exercise definition.
 	 * <P>
 	 * Applies to all FpML releases.
@@ -2278,6 +2344,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Swaption"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("swaption"), errorHandler));
 			}
 
@@ -2333,6 +2402,9 @@ public final class IrdRules extends FpMLRuleSet
 			 */
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "ResetFrequency"), errorHandler));
+				
 				return (validate (nodeIndex.getElementsByName ("resetFrequency"), errorHandler));
 			}
 
