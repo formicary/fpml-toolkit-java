@@ -23,7 +23,6 @@ import com.handcoded.finance.Date;
 import com.handcoded.finance.DateRoll;
 import com.handcoded.finance.Interval;
 import com.handcoded.finance.Period;
-import com.handcoded.fpml.ProductType;
 import com.handcoded.validation.Precondition;
 import com.handcoded.validation.Rule;
 import com.handcoded.validation.RuleSet;
@@ -48,78 +47,45 @@ public final class FxRules extends FpMLRuleSet
 {
 	/**
 	 * A <CODE>Precondition</CODE> instance that detect documents containing
-	 * at least one FX product.
+	 * at least one FX single leg.
 	 * @since	TFP 1.6
 	 */
-	private static final Precondition	FX_PRODUCT
+	private static final Precondition	FX_SINGLE_LEG
 		= new ContentPrecondition (
-				new String [] { "fxSingleLeg", "fxSwap", "fxSimpleOption",
-						"fxAverageRateOption", "fxBarrierOption", "fxDigitalOption",
-						"termDeposit" },
-				new String [] { "FxSingleLeg", "FXSingleLeg", "FxSwap", "FXSwap",
-						"FxSimpleOption", "FXSimpleOption", "FxOption",
-						"FxAveragerateOption", "FXAverageRateOption",
-						"FxBarrierOption", "FXBarrierOption",
-						"FxDigitalOption", "FXDigitalOption", "TermDeposit" }
+				new String [] { "fxSingleLeg", },
+				new String [] { "FxSingleLeg", "FXSingleLeg" }
 				);
 				
 	/**
-	 * A <CODE>Precondition</CODE> instance that detect documents that could
-	 * contains new style FX products.
-	 * @since	TFP 1.5
+	 * A <CODE>Precondition</CODE> instance that detect documents containing
+	 * at least one trade.
+	 * @since	TFP 1.6
 	 */
-	private static final Precondition 	R3_0__LATER
-		= Precondition.and (FX_PRODUCT, Preconditions.R3_0__LATER);
-	
+	private static final Precondition	TRADE
+		= new ContentPrecondition (
+				new String [] { "trade" },
+				new String [] { "Trade" }
+				);
+				
 	/**
-	 * A <CODE>Precondition</CODE> instance that detect documents that could
-	 * contains new style FX products.
-	 * @since	TFP 1.5
+	 * A <CODE>Precondition</CODE> instance that detect documents containing
+	 * at least one contract.
+	 * @since	TFP 1.6
 	 */
-	private static final Precondition 	R4_0__LATER
-		= Precondition.and (FX_PRODUCT, Preconditions.R4_0__LATER);
-	
-	/**
-	 * A <CODE>Precondition</CODE> instance that detect documents that could
-	 * contains new style FX products.
-	 * @since	TFP 1.5
-	 */
-	private static final Precondition 	R4_2__LATER
-		= Precondition.and (FX_PRODUCT, Preconditions.R4_2__LATER);
-	
-	/**
-	 * A <CODE>Precondition</CODE> instance that detects any FpML 4-x compatible
-	 * document.
-	 * @since	TFP 1.5
-	 */
-	private static final Precondition 	R3_0__R4_X
-		= Precondition.and (FX_PRODUCT,
-				Precondition.or (Preconditions.R3_0, Preconditions.R4_X));
-	
-	/**
-	 * A <CODE>Precondition</CODE> instance that detects any FpML 4-x compatible
-	 * document.
-	 * @since	TFP 1.5
-	 */
-	private static final Precondition 	R4_0__R4_X
-		= Precondition.and (FX_PRODUCT, Preconditions.R4_X);
-	
-	/**
-	 * A <CODE>Precondition</CODE> instance that detect documents that could
-	 * contains new style FX products.
-	 * @since	TFP 1.5
-	 */
-	private static final Precondition 	R5_1__LATER
-		= Precondition.and (FX_PRODUCT, Preconditions.R5_1__LATER);
+	private static final Precondition	CONTRACT
+		= new ContentPrecondition (
+				new String [] { "contract" },
+				new String [] { "Contract" }
+				);
 	
 	/**
 	 * A <CODE>Rule</CODE> that ensures that the rate is positive.
 	 * <P>
-	 * Applies to FpML 3.0 up to 5.0.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE01
-		= new Rule (R3_0__R4_X, "fx-1")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-1")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -155,11 +121,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures that if forwardPoints exists then
 	 * spotRate should also exist.
 	 * <P>
-	 * Applies to FpML 3.0 up to 5.0.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE02
-		= new Rule (R3_0__R4_X, "fx-2")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-2")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -200,7 +166,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE03
-		= new Rule (R3_0__LATER, "fx-3")
+		= new Rule (Preconditions.R3_0__LATER, "fx-3")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -241,11 +207,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures sideRates/baseCurrency must be neither
 	 * quotedCurrencyPair/currency1 nor quotedCurrencyPair/currency2.
 	 * <P>
-	 * Applies to FpML 3.0 up to 5.0.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE04
-		= new Rule (R3_0__R4_X, "fx-4")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-4")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -285,11 +251,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures sideRates/currency1SideRate/currency
 	 * must be the same as quotedCurrencyPair/currency1.
 	 * <P>
-	 * Applies to FpML 3.0 up to 5.0.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE05
-		= new Rule (R3_0__R4_X, "fx-5")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-5")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -327,11 +293,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures sideRates/currency2SideRate/currency
 	 * must be the same as quotedCurrencyPair/currency2.
 	 * <P>
-	 * Applies to FpML 3.0 up to 5.0.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE06
-		= new Rule (R3_0__R4_X, "fx-6")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-6")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -368,11 +334,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures triggerRate is positive.
 	 * <P>
-	 * Applies to FpML 3.0 up to 5.0.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE07
-		= new Rule (R3_0__R4_X, "fx-7")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-7")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -410,11 +376,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures if observationStartDate and observationEndDate
 	 * both exist then observationStartDate &lt;= observationEndDate.
 	 * <P>
-	 * Applies to FpML 3.0 up to 5.0.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE08_A
-		= new Rule (R3_0__R4_X, "fx-8[A]")
+	public static final Rule 	RULE08_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-8[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -457,8 +423,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 5.1 and later.
 	 * @since	TFP 1.5
 	 */
-	public static final Rule 	RULE08_B
-		= new Rule (R5_1__LATER, "fx-8[B]")
+	public static final Rule 	RULE08
+		= new Rule (Preconditions.R5_1__LATER, "fx-8")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -497,11 +463,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures if observationStartDate and observationEndDate
 	 * both exist then observationStartDate &lt;= observationEndDate.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE09
-		= new Rule (Preconditions.R3_0__LATER, "fx-9")
+	public static final Rule 	RULE09_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-9[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -538,15 +504,58 @@ public final class FxRules extends FpMLRuleSet
 		};
 
 	/**
+	 * A <CODE>Rule</CODE> that ensures if ostartDate and endDate
+	 * both exist then startDate &lt;= endDate.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE09
+		= new Rule (Preconditions.R5_1__LATER, "fx-9")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (
+						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxAverageRateObservationSchedule"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("averageRateObservationSchedule"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element		start	= XPath.path (context, "startDate");
+					Element		end		= XPath.path (context, "endDate");
+					
+					if ((start == null) || (end == null) || 
+						lessOrEqual (toDate (start), toDate (end))) continue;
+										
+					errorHandler.error ("305", context,
+							"The startDate must not be after the endDate",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+			
+	/**
 	 * A <CODE>Rule</CODE> that ensures the observation period defined by
 	 * observationStartDate and observationEndDate should be an integer
 	 * multiple of the calculationPeriodFrequency.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE10
-		= new Rule (Preconditions.R3_0__LATER, "fx-10")
+	public static final Rule 	RULE10_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-10[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -584,13 +593,57 @@ public final class FxRules extends FpMLRuleSet
 		};
 
 	/**
-	 * A <CODE>Rule</CODE> that ensures each observationDate is unique.
+	 * A <CODE>Rule</CODE> that ensures the observation period defined by
+	 * startDate and endDate should be an integer multiple of the calculationPeriodFrequency.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 5.1 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE11_A
-		= new Rule (R3_0__R4_X, "fx-11[A]")
+	public static final Rule 	RULE10
+		= new Rule (Preconditions.R5_1__LATER, "fx-10")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (
+						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxAverageRateObservationSchedule"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("averageRateObservationSchedule"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element		start	= XPath.path (context, "startDate");
+					Element		end		= XPath.path (context, "endDate");
+					Element		period	= XPath.path (context, "calculationPeriodFrequency");
+					
+					if ((start == null) || (end == null) || (period == null) ||
+							toInterval (period).dividesDates (toDate (start), toDate (end))) continue;
+								
+					errorHandler.error ("305", context,
+							"The observation period is not a multiple of the calculationPeriodFrequency",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures each observationDate is unique.
+	 * <P>
+	 * Applies to FpML 3.0 up to 4.x.
+	 * @since	TFP 1.2
+	 */
+	public static final Rule 	RULE11_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-11[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -640,8 +693,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 5.1 and later.
 	 * @since	TFP 1.5
 	 */
-	public static final Rule 	RULE11_B
-		= new Rule (R5_1__LATER, "fx-11[B]")
+	public static final Rule 	RULE11
+		= new Rule (Preconditions.R5_1__LATER, "fx-11")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -659,7 +712,7 @@ public final class FxRules extends FpMLRuleSet
 				
 				for (int index = 0; index < list.getLength(); ++index) {
 					Element		context = (Element) list.item (index);
-					NodeList	nodes	= XPath.paths (context, "observedRate", "date");
+					NodeList	nodes	= XPath.paths (context, "rateObservation", "date");
 					
 					int			limit	= nodes.getLength ();
 					Date []		dates	= new Date [limit];
@@ -688,11 +741,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures each observationDate matches one defined
 	 * by the schedule.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE12
-		= new Rule (Preconditions.R3_0__LATER, "fx-12")
+	public static final Rule 	RULE12_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-12[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -756,14 +809,83 @@ public final class FxRules extends FpMLRuleSet
 		};
 
 	/**
+	 * A <CODE>Rule</CODE> that ensures each observationDate matches one defined
+	 * by the schedule.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE12
+		= new Rule (Preconditions.R5_1__LATER, "fx-12")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (
+						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxAsianFeature"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("asian"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context 	= (Element) list.item (index);
+					Element		schedule	= XPath.path (context, "observationSchedule");
+					
+					if (schedule == null) continue;
+					
+					Element		start	= XPath.path (schedule, "observationStartDate");
+					Element		end		= XPath.path (schedule, "observationEndDate");
+					Element		freq	= XPath.path (schedule, "calculationPeriodFrequency");
+					Element		roll	= XPath.path (freq, "rollConvention");
+					
+					if ((start == null) || (end == null) || (freq == null) || (roll == null)) continue;
+					
+					Date [] 	dates	= generateSchedule (toDate (start), toDate (end),
+							toInterval (freq), DateRoll.forName (toToken (roll)), null);
+					
+					NodeList	nodes	= XPath.paths (context, "observedRates", "observationDate");
+										
+					for (int count = 0; count < nodes.getLength(); ++count) {
+						Element 	observed = (Element) nodes.item (count);
+						Date		date 	 = toDate (observed);
+						
+						boolean		found = false;
+						for (int match = 0; match < dates.length; ++match) {
+							if (equal (date, dates [match])) {
+								found = true;
+								break;
+							}
+						}
+						
+						if (!found) {
+							errorHandler.error ("305", observed,
+									"Observation date '" + toToken (observed) +
+									"' does not match with the schedule.",
+									getName (), toToken(observed));
+							
+							result = false;
+						}
+					}
+					dates = null;
+				}
+				
+				return (result);
+			}
+		};
+	/**
 	 * A <CODE>Rule</CODE> that if explicit observation dates have been given
 	 * then the observed rates must correspond to them.
 	 * <P>
-	 * Applies to FpML 3.0 up to 5.0.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE13_A
-		= new Rule (R3_0__R4_X, "fx-13[A]")
+	public static final Rule 	RULE13
+		= new Rule (Preconditions.R3_0__R4_X, "fx-13")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -822,82 +944,15 @@ public final class FxRules extends FpMLRuleSet
 			}
 		};
 
-
-	/**
-	 * A <CODE>Rule</CODE> that if explicit observation dates have been given
-	 * then the observed rates must correspond to them.
-	 * <P>
-	 * Applies to FpML 5.1 and later.
-	 * @since	TFP 1.5
-	 */
-	public static final Rule 	RULE13_B
-		= new Rule (R5_1__LATER, "fx-13[B]")
-		{
-			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
-			{
-				if (nodeIndex.hasTypeInformation()) 
-					return (
-						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxAsianFeature"), errorHandler));					
-					
-				return (
-					  validate (nodeIndex.getElementsByName ("asian"), errorHandler));
-			}
-			
-			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
-			{
-				boolean		result	= true;
-				
-				for (int index = 0; index < list.getLength(); ++index) {
-					Element		context 	= (Element) list.item (index);
-					NodeList	schedule	= XPath.paths (context, "observationDate", "date");
-					int			limit		= (schedule != null) ? schedule.getLength () : 0;
-					
-					if (limit == 0) continue;
-					
-					Date []		dates	= new Date [limit];
-					
-					for (int count = 0; count < limit; ++count)
-						dates [count] = toDate (schedule.item (count));					
-					
-					NodeList	nodes	= XPath.paths (context, "observedRate", "date");
-										
-					for (int count = 0; count < nodes.getLength(); ++count) {
-						Element 	observed = (Element) nodes.item (count);
-						Date		date 	 = toDate (observed);
-						
-						boolean		found = false;
-						for (int match = 0; match < dates.length; ++match) {
-							if (equal (date, dates [match])) {
-								found = true;
-								break;
-							}
-						}
-						
-						if (!found) {
-							errorHandler.error ("305", observed,
-									"Observation date '" + toToken (observed) +
-									"' does not match with a defined observationDate.",
-									getName (), toToken(observed));
-							
-							result = false;
-						}
-					}
-					dates = null;
-				}
-				
-				return (result);
-			}
-		};
-
 	/**
 	 * A <CODE>Rule</CODE> that ensures observationStartDate and observationEndDate
 	 * both exist then observationStartDate &lt;= observationEndDate.
 	 * <P>
-	 * Applies to FpML 3.0 up to 5.0.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE14_A
-		= new Rule (R3_0__R4_X, "fx-14[A]")
+	public static final Rule 	RULE14_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-14[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -940,8 +995,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 5.1 and later.
 	 * @since	TFP 1.5
 	 */
-	public static final Rule 	RULE14_B
-		= new Rule (R5_1__LATER, "fx-14[B]")
+	public static final Rule 	RULE14
+		= new Rule (Preconditions.R5_1__LATER, "fx-14")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -979,11 +1034,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures spotRate is positive if it exists.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE15
-		= new Rule (R3_0__LATER, "fx-15")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-15")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1022,11 +1077,11 @@ public final class FxRules extends FpMLRuleSet
 	 * <P>
 	 * A <CODE>Rule</CODE> that ensures spotRate is positive if it exists.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE16
-		= new Rule (R3_0__LATER, "fx-16")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-16")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1063,11 +1118,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures triggerRate is positive.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.9.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE17
-		= new Rule (R3_0__LATER, "fx-17")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-17")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1104,13 +1159,13 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * Context>: FxLeg (Complex Type)
 	 * <P>
-	 * A <CODE>Rule</CODE> that ensures payer and reciever are correct.
+	 * A <CODE>Rule</CODE> that ensures payer and receiver are correct.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE18
-		= new Rule (R3_0__LATER, "fx-18")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-18")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1156,11 +1211,11 @@ public final class FxRules extends FpMLRuleSet
 	 * <P>
 	 * A <CODE>Rule</CODE> that ensures exchanged currencies are different.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE19
-		= new Rule (R3_0__LATER, "fx-19")
+	public static final Rule	RULE19_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-19[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1196,13 +1251,56 @@ public final class FxRules extends FpMLRuleSet
 		};
 		
 	/**
+	 * Context: FxLeg (Complex Type)
+	 * <P>
+	 * A <CODE>Rule</CODE> that ensures exchanged currencies are different.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.2
+	 */
+	public static final Rule	RULE19
+		= new Rule (Preconditions.R5_1__LATER, "fx-19")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (
+						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxSingleLeg"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("fxSingleLeg"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element		ccy1	= XPath.path (context, "exchangedCurrency1", "paymentAmount", "currency");
+					Element		ccy2	= XPath.path (context, "exchangedCurrency2", "paymentAmount", "currency");
+					
+					if ((ccy1 == null) || (ccy2 == null) || !isSameCurrency (ccy1, ccy2)) continue;
+					
+					errorHandler.error ("305", context,
+							"Exchanged currencies must be different.",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+			
+	/**
 	 * A <CODE>Rule</CODE> that ensures split settlement dates are different.
 	 * <P>
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE20
-		= new Rule (R3_0__LATER, "fx-20")
+		= new Rule (Preconditions.R3_0__LATER, "fx-20")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1247,7 +1345,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE21
-		= new Rule (R3_0__LATER, "fx-21")
+		= new Rule (Preconditions.R3_0__LATER, "fx-21")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1289,7 +1387,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE22
-		= new Rule (R3_0__LATER, "fx-22")
+		= new Rule (Preconditions.R3_0__LATER, "fx-22")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1338,7 +1436,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE23
-		= new Rule (R3_0__LATER, "fx-23")
+		= new Rule (Preconditions.R3_0__LATER, "fx-23")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1381,7 +1479,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE24
-		= new Rule (R3_0__LATER, "fx-24")
+		= new Rule (Preconditions.R3_0__LATER, "fx-24")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1424,7 +1522,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE25
-		= new Rule (R3_0__LATER, "fx-25")
+		= new Rule (Preconditions.R3_0__LATER, "fx-25")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1466,7 +1564,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE26
-		= new Rule (R3_0__LATER, "fx-26")
+		= new Rule (Preconditions.R3_0__LATER, "fx-26")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1512,7 +1610,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE27
-		= new Rule (R3_0__LATER, "fx-27")
+		= new Rule (Preconditions.R3_0__LATER, "fx-27")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1552,7 +1650,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE28
-		= new Rule (R3_0__R4_X, "fx-28")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-28")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1593,7 +1691,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE29
-		= new Rule (R3_0__R4_X, "fx-29")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-29")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1635,7 +1733,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE30
-		= new Rule (R3_0__LATER, "fx-30")
+		= new Rule (Preconditions.R3_0__LATER, "fx-30")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1681,7 +1779,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE31
-		= new Rule (R3_0__LATER, "fx-31")
+		= new Rule (Preconditions.R3_0__LATER, "fx-31")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1724,7 +1822,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE32
-		= new Rule (R4_0__LATER, "fx-32")
+		= new Rule (Preconditions.R4_0__LATER, "fx-32")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1767,7 +1865,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE33
-		= new Rule (R4_0__LATER, "fx-33")
+		= new Rule (Preconditions.R4_0__LATER, "fx-33")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1808,7 +1906,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE34
-		= new Rule (R4_0__R4_X, "fx-34")
+		= new Rule (Preconditions.R4_0__R4_X, "fx-34")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1847,7 +1945,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE35
-		= new Rule (R4_0__R4_X, "fx-35")
+		= new Rule (Preconditions.R4_0__R4_X, "fx-35")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1886,7 +1984,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE36
-		= new Rule (R3_0__LATER, "fx-36")
+		= new Rule (Preconditions.R3_0__LATER, "fx-36")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1928,7 +2026,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE36B
-		= new Rule (R4_2__LATER, "fx-36b")
+		= new Rule (Preconditions.R4_2__LATER, "fx-36b")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1970,7 +2068,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE37
-		= new Rule (R3_0__LATER, "fx-37")
+		= new Rule (Preconditions.R3_0__LATER, "fx-37")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2012,7 +2110,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE37B
-		= new Rule (R4_2__LATER, "fx-37b")
+		= new Rule (Preconditions.R4_2__LATER, "fx-37b")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2054,7 +2152,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE38
-		= new Rule (R3_0__LATER, "fx-38")
+		= new Rule (Preconditions.R3_0__LATER, "fx-38")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2096,7 +2194,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE38B
-		= new Rule (R4_2__LATER, "fx-38b")
+		= new Rule (Preconditions.R4_2__LATER, "fx-38b")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2138,7 +2236,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE39
-		= new Rule (R3_0__LATER, "fx-39")
+		= new Rule (Preconditions.R3_0__LATER, "fx-39")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2204,7 +2302,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE39B
-		= new Rule (R4_2__LATER, "fx-39b")
+		= new Rule (Preconditions.R4_2__LATER, "fx-39b")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2271,7 +2369,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE40
-		= new Rule (R3_0__LATER, "fx-40")
+		= new Rule (Preconditions.R3_0__LATER, "fx-40")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2343,7 +2441,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE40B
-		= new Rule (R4_2__LATER, "fx-40b")
+		= new Rule (Preconditions.R4_2__LATER, "fx-40b")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2414,7 +2512,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE41
-		= new Rule (R3_0__LATER, "fx-41")
+		= new Rule (Preconditions.R3_0__LATER, "fx-41")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2456,7 +2554,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE42
-		= new Rule (R3_0__LATER, "fx-42")
+		= new Rule (Preconditions.R3_0__LATER, "fx-42")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2507,7 +2605,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE43
-		= new Rule (R3_0__LATER, "fx-43")
+		= new Rule (Preconditions.R3_0__LATER, "fx-43")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2549,7 +2647,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE44
-		= new Rule (R3_0__LATER, "fx-44")
+		= new Rule (Preconditions.R3_0__LATER, "fx-44")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2597,7 +2695,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE45
-		= new Rule (R3_0__LATER, "fx-45")
+		= new Rule (Preconditions.R3_0__LATER, "fx-45")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2646,7 +2744,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE46
-		= new Rule (R3_0__R4_X, "fx-46")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-46")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2688,7 +2786,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE47
-		= new Rule (R3_0__R4_X, "fx-47")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-47")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
