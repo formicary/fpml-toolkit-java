@@ -417,7 +417,7 @@ public final class IrdRules extends FpMLRuleSet
 					Element	paymentFreq	= XPath.path (context, "paymentDates", "paymentFrequency");
 					Element	calcFreq	= XPath.path (context, "calculationPeriodDates", "calculationPeriodFrequency");
 
-					if ((paymentFreq == null) || (calcFreq == null) || (compounding == null)) continue;
+					if ((paymentFreq == null) || (calcFreq == null)) continue;
 
 					Interval payment = toInterval (paymentFreq);
 					Interval calc    = toInterval (calcFreq);
