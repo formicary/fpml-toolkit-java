@@ -84,8 +84,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE01
-		= new Rule (Preconditions.R3_0__R4_X, "fx-1")
+	public static final Rule 	RULE01_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-1[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -124,8 +124,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE02
-		= new Rule (Preconditions.R3_0__R4_X, "fx-2")
+	public static final Rule 	RULE02_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-2[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -210,8 +210,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE04
-		= new Rule (Preconditions.R3_0__R4_X, "fx-4")
+	public static final Rule 	RULE04_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-4[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -254,8 +254,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE05
-		= new Rule (Preconditions.R3_0__R4_X, "fx-5")
+	public static final Rule 	RULE05_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-5[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -296,8 +296,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE06
-		= new Rule (Preconditions.R3_0__R4_X, "fx-6")
+	public static final Rule 	RULE06_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-6[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -337,8 +337,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE07
-		= new Rule (Preconditions.R3_0__R4_X, "fx-7")
+	public static final Rule 	RULE07_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-7[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -884,8 +884,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE13
-		= new Rule (Preconditions.R3_0__R4_X, "fx-13")
+	public static final Rule 	RULE13_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-13[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1037,8 +1037,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE15
-		= new Rule (Preconditions.R3_0__R4_X, "fx-15")
+	public static final Rule 	RULE15_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-15[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1080,8 +1080,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE16
-		= new Rule (Preconditions.R3_0__R4_X, "fx-16")
+	public static final Rule 	RULE16_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-16[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1121,8 +1121,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.9.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE17
-		= new Rule (Preconditions.R3_0__R4_X, "fx-17")
+	public static final Rule 	RULE17_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-17[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1164,8 +1164,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE18
-		= new Rule (Preconditions.R3_0__R4_X, "fx-18")
+	public static final Rule	RULE18_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-18[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1296,11 +1296,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures split settlement dates are different.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up tp 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE20
-		= new Rule (Preconditions.R3_0__LATER, "fx-20")
+	public static final Rule	RULE20_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-20[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1338,14 +1338,57 @@ public final class FxRules extends FpMLRuleSet
 		};
 			
 	/**
+	 * A <CODE>Rule</CODE> that ensures split settlement dates are different.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule	RULE20
+		= new Rule (Preconditions.R5_1__LATER, "fx-20")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (
+						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxSingleLeg"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("fxSingleLeg"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element		date1	= XPath.path (context, "currency1ValueDate");
+					Element		date2	= XPath.path (context, "currency2ValueDate");
+					
+					if ((date1 == null) || (date2 == null)) continue;
+					
+					if (notEqual (toDate (date1), toDate (date2))) continue;
+										
+					errorHandler.error ("305", context,
+							"currency1ValueDate and currency2ValueDate must be different.",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+			
+	/**
 	 * A <CODE>Rule</CODE> that ensures non-deliverable forwards contains
 	 * a specification of the forward points.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE21
-		= new Rule (Preconditions.R3_0__LATER, "fx-21")
+	public static final Rule	RULE21_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-21[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1381,13 +1424,55 @@ public final class FxRules extends FpMLRuleSet
 		};
 
 	/**
-	 * A <CODE>Rule</CODE> that ensures buyer, seller, payer and reciever are correct.
+	 * A <CODE>Rule</CODE> that ensures non-deliverable forwards contains
+	 * a specification of the forward points.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule	RULE21
+		= new Rule (Preconditions.R5_1__LATER, "fx-21")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (
+						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxSingleLeg"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("fxSingleLeg"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element		ndf		= XPath.path (context, "nonDeliverableSettlement");
+					Element		fwd		= XPath.path (context, "exchangeRate", "forwardPoints");
+					
+					if ((ndf == null) || (fwd != null)) continue;
+					
+					errorHandler.error ("305", context,
+							"Non-deliverable forward does not specify forwardPoints.",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures buyer, seller, payer and receiver are correct.
+	 * <P>
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE22
-		= new Rule (Preconditions.R3_0__LATER, "fx-22")
+	public static final Rule	RULE22_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-22[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1430,13 +1515,74 @@ public final class FxRules extends FpMLRuleSet
 		};
 		
 	/**
+	 * A <CODE>Rule</CODE> that ensures buyer, seller, payer and receiver are correct.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule	RULE22
+		= new Rule (Preconditions.R5_1__LATER, "fx-22")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (
+						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxOption"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("fxOption"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  = (Element) list.item (index);
+					Element		buyer	 		= XPath.path (context, "buyerPartyReference");
+					Element		seller	 		= XPath.path (context, "sellerPartyReference");
+					Element		payer	 		= XPath.path (context, "premium", "payerPartyReference");
+					Element		receiver 		= XPath.path (context, "premium", "receiverPartyReference");
+					
+					if ((buyer != null) && (seller != null) ||
+						(payer != null) && (receiver != null)) {
+					
+						if (equal (DOM.getAttribute(buyer, "href"), DOM.getAttribute(seller, "href"))) {
+							Element		buyerAccount	= XPath.path (context, "buyerAccountReference");
+							Element		sellerAccount	= XPath.path (context, "sellerAccountReference");
+							Element		payerAccount	= XPath.path (context, "premium", "payerAccountReference");
+							Element		receiverAccount = XPath.path (context, "premium", "receiverAccountReference");
+							
+							if ((buyerAccount != null) && (sellerAccount != null) &&
+								equal (DOM.getAttribute(buyer, "href"), DOM.getAttribute(payer, "href")) &&
+								equal (DOM.getAttribute(seller, "href"), DOM.getAttribute(receiver, "href")) &&
+								equal (DOM.getAttribute(buyerAccount, "href"), DOM.getAttribute(payerAccount, "href")) &&
+								equal (DOM.getAttribute(sellerAccount, "href"), DOM.getAttribute(receiverAccount, "href"))) continue;
+						}
+						else
+							if (equal (DOM.getAttribute(buyer, "href"), DOM.getAttribute(payer, "href")) &&
+								equal (DOM.getAttribute(seller, "href"), DOM.getAttribute(receiver, "href"))) continue;
+					}
+										
+					errorHandler.error ("305", context,
+							"Premium payer and receiver don't match with option buyer and seller.",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+			
+	/**
 	 * A <CODE>Rule</CODE> that ensures the put and call currencies are different.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE23
-		= new Rule (Preconditions.R3_0__LATER, "fx-23")
+	public static final Rule	RULE23_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-23[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1473,13 +1619,54 @@ public final class FxRules extends FpMLRuleSet
 		};
 			
 	/**
+	 * A <CODE>Rule</CODE> that ensures the put and call currencies are different.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule	RULE23
+		= new Rule (Preconditions.R5_1__LATER, "fx-23")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (
+						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxOption"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("fxOption"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element		ccy1	= XPath.path (context, "putCurrencyAmount", "currency");
+					Element		ccy2	= XPath.path (context, "callCurrencyAmount", "currency");
+					
+					if ((ccy1 == null) || (ccy2 == null) || !isSameCurrency (ccy1, ccy2)) continue;
+					
+					errorHandler.error ("305", context,
+							"Put and call currencies must be different.",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+				
+	/**
 	 * A <CODE>Rule</CODE> that ensures rate is positive.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE24
-		= new Rule (Preconditions.R3_0__LATER, "fx-24")
+	public static final Rule 	RULE24_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-24[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1518,11 +1705,11 @@ public final class FxRules extends FpMLRuleSet
 	 * <P>
 	 * A <CODE>Rule</CODE> that ensures two or more legs are present.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE25
-		= new Rule (Preconditions.R3_0__LATER, "fx-25")
+	public static final Rule 	RULE25_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-25[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1560,11 +1747,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures if two legs are present they must have
 	 * different value dates.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE26
-		= new Rule (Preconditions.R3_0__LATER, "fx-26")
+	public static final Rule 	RULE26_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-26[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1603,6 +1790,49 @@ public final class FxRules extends FpMLRuleSet
 			}
 		};
 
+	/**
+	 * A <CODE>Rule</CODE> that ensures that value date of the near leg of an
+	 * FX swap is before that of the far leg.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE26
+		= new Rule (Preconditions.R5_1__LATER, "fx-26")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (
+						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxSwap"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("fxSwap"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element 	nearDate = XPath.path (context, "nearLeg", "valueDate");
+					Element 	farDate  = XPath.path (context, "farLeg", "valueDate");
+					
+					if ((nearDate == null) || (farDate == null) ||
+						notEqual (toDate (nearDate), toDate (farDate))) continue;
+					
+					errorHandler.error ("305", context,
+							"The value date of the near leg must be before that of the far leg.",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+			
 	/**
 	 * A <CODE>Rule</CODE> that ensures two different currencies are specified.
 	 * <P>
@@ -1646,11 +1876,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures triggerRate is positive.
 	 * <P>
-	 * Applies to FpML 3.0 and 4.x.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE28
-		= new Rule (Preconditions.R3_0__R4_X, "fx-28")
+	public static final Rule 	RULE28_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-28[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1687,11 +1917,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures that if forwardPoints exists then
 	 * spotRate should also exist.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE29
-		= new Rule (Preconditions.R3_0__R4_X, "fx-29")
+	public static final Rule 	RULE29_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-29[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1729,11 +1959,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures that if both forwardPoints and spotRate
 	 * exist then rate equals 'spotRate + forwardRate'.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE30
-		= new Rule (Preconditions.R3_0__LATER, "fx-30")
+	public static final Rule 	RULE30_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-30[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1772,14 +2002,59 @@ public final class FxRules extends FpMLRuleSet
 		};
 
 	/**
+	 * A <CODE>Rule</CODE> that ensures that if both forwardPoints and spotRate
+	 * exist then rate equals 'spotRate + forwardRate'.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE30
+		= new Rule (Preconditions.R5_1__LATER, "fx-30")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "CrossRate"), errorHandler));					
+					
+				return (
+						  validate (nodeIndex.getElementsByName ("crossRate"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element 	forward = XPath.path (context, "forwardPoints");
+					Element		spot	= XPath.path (context, "spotRate");
+					Element		rate	= XPath.path (context, "rate");
+					
+					if ((rate == null) || (forward == null) || (spot == null)) continue;
+					
+					if (toDecimal (rate).equals(toDecimal (spot).add (toDecimal (forward))))
+						continue;
+					
+					errorHandler.error ("305", context,
+							"Sum of spotRate and forwardPoints does not equal rate.",
+							getName (), toToken (rate));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
 	 * A <CODE>Rule</CODE> that ensures that side rates are obtained relative
 	 * to another currency.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE31
-		= new Rule (Preconditions.R3_0__LATER, "fx-31")
+	public static final Rule 	RULE31_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-31[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
