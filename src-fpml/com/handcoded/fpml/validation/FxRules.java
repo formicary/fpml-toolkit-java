@@ -2093,11 +2093,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures the initial payer and receiver
 	 * are different.
 	 * <P>
-	 * Applies to FpML 4.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE32
-		= new Rule (Preconditions.R4_0__LATER, "fx-32")
+	public static final Rule 	RULE32_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-32[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2133,6 +2133,56 @@ public final class FxRules extends FpMLRuleSet
 			}
 		};
 			
+	/**
+	 * A <CODE>Rule</CODE> that ensures the initial payer and receiver
+	 * are different.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE32
+		= new Rule (Preconditions.R5_1__LATER, "fx-32")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "TermDeposit"), errorHandler));					
+					
+				return (
+						  validate (nodeIndex.getElementsByName ("termDeposit"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context 	= (Element) list.item (index);
+					Element		payerParty	  = XPath.path (context, "payerPayerReference");
+					Element		receiverParty = XPath.path (context, "receiverPartyReference");
+					
+					if ((payerParty == null) || (receiverParty == null) ||
+							notEqual (DOM.getAttribute(payerParty, "href"),
+									DOM.getAttribute(receiverParty, "href"))) continue;
+					
+					Element		payerAccount	= XPath.path (context, "payerAccountReference");
+					Element		receiverAccount = XPath.path (context, "receiverAccountReference");
+					
+					if ((payerAccount != null) && (receiverAccount != null) &&
+							notEqual (DOM.getAttribute (payerAccount, "href"),
+									DOM.getAttribute (receiverAccount, "href"))) continue;
+					
+					errorHandler.error ("305", context,
+							"The payer and receiver must be different",
+							getName (), DOM.getAttribute (payerParty, "href"));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
 	/**
 	 * A <CODE>Rule</CODE> that ensures the maturity date is after the start date.
 	 * <P>
@@ -2177,11 +2227,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures the principal amount is positive.
 	 * <P>
-	 * Applies to FpML 4.0 and later.
+	 * Applies to FpML 4.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE34
-		= new Rule (Preconditions.R4_0__R4_X, "fx-34")
+		= new Rule (Preconditions.R4_0__R4_X, "fx-34[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2216,11 +2266,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures the fixed rate is positive.
 	 * <P>
-	 * Applies to FpML 4.0 and later.
+	 * Applies to FpML 4.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule 	RULE35
-		= new Rule (Preconditions.R4_0__R4_X, "fx-35")
+		= new Rule (Preconditions.R4_0__R4_X, "fx-35[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2255,11 +2305,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures expiry date is after trade date.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE36
-		= new Rule (Preconditions.R3_0__LATER, "fx-36")
+	public static final Rule	RULE36_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-36[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2295,13 +2345,55 @@ public final class FxRules extends FpMLRuleSet
 		};
 					
 	/**
+	 * A <CODE>Rule</CODE> that ensures expiry date is after trade date.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule	RULE36
+		= new Rule (Preconditions.R5_1__LATER, "fx-36")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Trade"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  = (Element) list.item (index);
+					Element		tradeDate	 = XPath.path (context, "tradeHeader", "tradeDate");
+					Element		expiryDate	 = XPath.path (context, "fxOption", "europeanExercise", "expiryDate");
+					
+					if ((tradeDate == null) || (expiryDate == null)) continue;
+					
+					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
+										
+					errorHandler.error ("305", context,
+							"Expiry date must be after trade date.",
+							getName (), toToken (expiryDate));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
 	 * A <CODE>Rule</CODE> that ensures expiry date is after contract trade date.
 	 * <P>
-	 * Applies to FpML 4.2 and later.
+	 * Applies to FpML 4.2 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE36B
-		= new Rule (Preconditions.R4_2__LATER, "fx-36b")
+	public static final Rule	RULE36B_OLD
+		= new Rule (Preconditions.R4_2__R4_X, "fx-36b[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2339,11 +2431,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures expiry date is after trade date.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE37
-		= new Rule (Preconditions.R3_0__LATER, "fx-37")
+	public static final Rule	RULE37_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-37[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2381,11 +2473,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures expiry date is after contract trade date.
 	 * <P>
-	 * Applies to FpML 4.2 and later.
+	 * Applies to FpML 4.2 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE37B
-		= new Rule (Preconditions.R4_2__LATER, "fx-37b")
+	public static final Rule	RULE37B_OLD
+		= new Rule (Preconditions.R4_2__R4_X, "fx-37b[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2423,11 +2515,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures expiry date is after trade date.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE38
-		= new Rule (Preconditions.R3_0__LATER, "fx-38")
+	public static final Rule	RULE38_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-38[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2463,13 +2555,55 @@ public final class FxRules extends FpMLRuleSet
 		};
 						
 	/**
+	 * A <CODE>Rule</CODE> that ensures expiry date is after trade date.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule	RULE38
+		= new Rule (Preconditions.R5_1__LATER, "fx-38")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Trade"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  = (Element) list.item (index);
+					Element		tradeDate	 = XPath.path (context, "tradeHeader", "tradeDate");
+					Element		expiryDate	 = XPath.path (context, "fxDigitalOption", "europeanExercise", "expiryDate");
+					
+					if ((tradeDate == null) || (expiryDate == null)) continue;
+					
+					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
+										
+					errorHandler.error ("305", context,
+							"Expiry date must be after trade date.",
+							getName (), toToken (expiryDate));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+							
+	/**
 	 * A <CODE>Rule</CODE> that ensures expiry date is after contract trade date.
 	 * <P>
-	 * Applies to FpML 4.2 and later.
+	 * Applies to FpML 4.2 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE38B
-		= new Rule (Preconditions.R4_2__LATER, "fx-38b")
+	public static final Rule	RULE38B_OLD
+		= new Rule (Preconditions.R4_2__R4_X, "fx-38b[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2576,8 +2710,8 @@ public final class FxRules extends FpMLRuleSet
 	 * Applies to FpML 3.0 and later.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE39B
-		= new Rule (Preconditions.R4_2__LATER, "fx-39b")
+	public static final Rule	RULE39B_OLD
+		= new Rule (Preconditions.R4_2__LATER, "fx-39b[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2640,11 +2774,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures all FX swap value dates are after the
 	 * trade date.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE40
-		= new Rule (Preconditions.R3_0__LATER, "fx-40")
+	public static final Rule	RULE40_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-40[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2710,13 +2844,123 @@ public final class FxRules extends FpMLRuleSet
 
 	/**
 	 * A <CODE>Rule</CODE> that ensures all FX swap value dates are after the
+	 * trade date.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule	RULE40
+		= new Rule (Preconditions.R5_1__LATER, "fx-40")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Trade"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("trade"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  	= (Element) list.item (index);
+					Element		tradeDate 	= XPath.path (context, "tradeHeader", "tradeDate");
+					Element		nearLeg  	= XPath.path (context, "fxSwap", "nearLeg");
+					Element		farLeg  	= XPath.path (context, "fxSwap", "nearLeg");
+					
+					{
+						Element		valueDate 	= XPath.path (nearLeg, "valueDate");
+						Element		value1Date 	= XPath.path (nearLeg, "currency1ValueDate");
+						Element		value2Date 	= XPath.path (nearLeg, "currency2ValueDate");
+						
+						if (tradeDate != null) {
+							if (valueDate != null) {
+								if (less (toDate (tradeDate), toDate (valueDate))) continue;
+								
+								errorHandler.error ("305", nearLeg,
+										"value date must be after trade date.",
+										getName (), toToken (valueDate));
+								
+								result = false;
+							}
+							
+							if (value1Date != null) {
+								if (less (toDate (tradeDate), toDate (value1Date))) continue;
+								
+								errorHandler.error ("305", nearLeg,
+										"value1date must be after trade date.",
+										getName (), toToken (value1Date));
+								
+								result = false;
+							}
+
+							if (value2Date != null) {
+								if (less (toDate (tradeDate), toDate (value2Date))) continue;
+								
+								errorHandler.error ("305", nearLeg,
+										"value2date must be after trade date.",
+										getName (), toToken (value2Date));
+								
+								result = false;
+							}
+						}
+					}
+						
+					{
+						Element		valueDate 	= XPath.path (farLeg, "valueDate");
+						Element		value1Date 	= XPath.path (farLeg, "currency1ValueDate");
+						Element		value2Date 	= XPath.path (farLeg, "currency2ValueDate");
+						
+						if (tradeDate != null) {
+							if (valueDate != null) {
+								if (less (toDate (tradeDate), toDate (valueDate))) continue;
+								
+								errorHandler.error ("305", farLeg,
+										"value date must be after trade date.",
+										getName (), toToken (valueDate));
+								
+								result = false;
+							}
+							
+							if (value1Date != null) {
+								if (less (toDate (tradeDate), toDate (value1Date))) continue;
+								
+								errorHandler.error ("305", farLeg,
+										"value1date must be after trade date.",
+										getName (), toToken (value1Date));
+								
+								result = false;
+							}
+
+							if (value2Date != null) {
+								if (less (toDate (tradeDate), toDate (value2Date))) continue;
+								
+								errorHandler.error ("305", farLeg,
+										"value2date must be after trade date.",
+										getName (), toToken (value2Date));
+								
+								result = false;
+							}
+						}
+					}
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures all FX swap value dates are after the
 	 * contract trade date.
 	 * <P>
-	 * Applies to FpML 4.2 and later.
+	 * Applies to FpML 4.2 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE40B
-		= new Rule (Preconditions.R4_2__LATER, "fx-40b")
+		= new Rule (Preconditions.R4_2__R4_X, "fx-40b[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2783,11 +3027,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures triggerRate is positive.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE41
-		= new Rule (Preconditions.R3_0__LATER, "fx-41")
+	public static final Rule 	RULE41_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-41[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2825,11 +3069,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures each averageRateObservationDate/observationDate
 	 * is unique.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE42
-		= new Rule (Preconditions.R3_0__LATER, "fx-42")
+	public static final Rule 	RULE42_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-42[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2876,11 +3120,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures the put and call currencies are different.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE43
-		= new Rule (Preconditions.R3_0__LATER, "fx-43")
+	public static final Rule	RULE43_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-43[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2916,13 +3160,13 @@ public final class FxRules extends FpMLRuleSet
 		};
 			
 	/**
-	 * A <CODE>Rule</CODE> that ensures buyer, seller, payer and reciever are correct.
+	 * A <CODE>Rule</CODE> that ensures buyer, seller, payer and receiver are correct.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE44
-		= new Rule (Preconditions.R3_0__LATER, "fx-44")
+		= new Rule (Preconditions.R3_0__R4_X, "fx-44[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2966,11 +3210,11 @@ public final class FxRules extends FpMLRuleSet
 	/**
 	 * A <CODE>Rule</CODE> that ensures buyer, seller, payer and receiver are correct.
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule	RULE45
-		= new Rule (Preconditions.R3_0__LATER, "fx-45")
+	public static final Rule	RULE45_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-45[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -3012,14 +3256,74 @@ public final class FxRules extends FpMLRuleSet
 		};
 			
 	/**
+	 * A <CODE>Rule</CODE> that ensures buyer, seller, payer and receiver are correct.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule	RULE45
+		= new Rule (Preconditions.R5_1__LATER, "fx-45")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxDigitalOption"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("fxDigitalOption"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  = (Element) list.item (index);
+					Element		buyerParty	 = XPath.path (context, "buyerPartyReference");
+					Element		sellerParty	 = XPath.path (context, "sellerPartyReference");
+					Element		payerParty	 = XPath.path (context, "premium", "payerPartyReference");
+					Element		receiverParty = XPath.path (context, "premium", "receiverPartyReference");
+					
+					if ((buyerParty == null) || (sellerParty == null) ||
+						(payerParty == null) || (receiverParty == null)) continue;
+					
+					if (equal (buyerParty.getAttribute ("href"), sellerParty.getAttribute ("href"))) {
+						Element		buyerAccount	 = XPath.path (context, "buyerAccountReference");
+						Element		sellerAccount	 = XPath.path (context, "sellerAccountReference");
+						Element		payerAccount	 = XPath.path (context, "premium", "payerAccountReference");
+						Element		receiverAccount = XPath.path (context, "premium", "receiverAccountReference");
+					
+	                    if ((buyerAccount != null) && (sellerAccount != null) &&
+	                        (payerAccount != null) && (receiverAccount != null) &&
+	                        equal (buyerParty.getAttribute("href"), payerParty.getAttribute("href")) &&
+	    					equal (sellerParty.getAttribute("href"), receiverParty.getAttribute("href")) &&
+	                        equal (buyerAccount.getAttribute("href"), payerAccount.getAttribute("href")) &&
+	    					equal (sellerAccount.getAttribute("href"), receiverAccount.getAttribute("href"))) continue;
+					}
+					else
+						if (equal (DOM.getAttribute(buyerParty, "href"), DOM.getAttribute(payerParty, "href")) &&
+							equal (DOM.getAttribute(sellerParty, "href"), DOM.getAttribute(receiverParty, "href"))) continue;
+										
+					errorHandler.error ("305", context,
+							"Premium payer and receiver don't match with option buyer and seller.",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
 	 * A <CODE>Rule</CODE> that ensures the side rates definition for currency1
 	 * uses an appropriate basis. 
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE46
-		= new Rule (Preconditions.R3_0__R4_X, "fx-46")
+	public static final Rule 	RULE46_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-46[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -3057,11 +3361,11 @@ public final class FxRules extends FpMLRuleSet
 	 * A <CODE>Rule</CODE> that ensures the side rates definition for currency2
 	 * uses an appropriate basis. 
 	 * <P>
-	 * Applies to FpML 3.0 and later.
+	 * Applies to FpML 3.0 up to 4.x.
 	 * @since	TFP 1.2
 	 */
-	public static final Rule 	RULE47
-		= new Rule (Preconditions.R3_0__R4_X, "fx-47")
+	public static final Rule 	RULE47_OLD
+		= new Rule (Preconditions.R3_0__R4_X, "fx-47[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -3095,6 +3399,263 @@ public final class FxRules extends FpMLRuleSet
 			}
 		};
 					
+	/**
+	 * A <CODE>Rule</CODE> that ensures if one rateObservation/rate exists,
+	 * then rateObservationQuoteBasis must exist.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE48
+		= new Rule (Preconditions.R5_1__LATER, "fx-48")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxAsianFeature"), errorHandler));					
+					
+				return (
+						  validate (nodeIndex.getElementsByName ("asian"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					NodeList	rates	= XPath.paths (context, "rateObservation", "rate");
+					Element		basis	= XPath.path (context, "rateObservationQuoteBasis");
+					
+					if ((rates.getLength () == 0) ||
+						(rates.getLength () > 0) && (basis != null)) continue;
+					
+					errorHandler.error ("305", context,
+							"If one rateObservation/rate exists, then rateObservationQuoteBasis must exist.",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures that two different currencies are used
+	 * in each FxSwapLeg.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE49
+		= new Rule (Preconditions.R5_1__LATER, "fx-49")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxSwapLeg"), errorHandler));					
+					
+				return (
+						  validate (nodeIndex.getElementsByName ("nearLeg"), errorHandler)
+						& validate (nodeIndex.getElementsByName ("farLeg"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element	context = (Element) list.item (index);
+					Element	ccy1	= XPath.path (context, "exchangedCurrency1", "paymentAmount", "currency");
+					Element	ccy2	= XPath.path (context, "exchangedCurrency2", "paymentAmount", "currency");
+					
+					if ((ccy1 == null) || (ccy2 == null) ||
+	                    notEqual (ccy1.getAttribute ("currencyScheme"), ccy2.getAttribute ("currencyScheme")) ||
+	                    notEqual (ccy1, ccy2)) continue;
+					
+					errorHandler.error ("305", context,
+							"The two currencies must be different",
+							getName (), toToken (ccy1));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures if split settlement is specified then
+	 * the settlement dates must be different.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE50
+		= new Rule (Preconditions.R5_1__LATER, "fx-50")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxSwapLeg"), errorHandler));					
+					
+				return (
+						  validate (nodeIndex.getElementsByName ("nearLeg"), errorHandler)
+						& validate (nodeIndex.getElementsByName ("farLeg"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element		date1	= XPath.path (context, "currency1ValueDate");
+					Element		date2	= XPath.path (context, "currency2ValueDate");
+					
+					if ((date1 == null) || (date2 == null) ||
+						notEqual (toDate (date1), toDate (date2))) continue;
+					
+					errorHandler.error ("305", context,
+							"currency1ValueDate and currency2ValueDate must be different.",
+							getName (), toToken (date1));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures if cash settlement is specified the
+	 * deal must be a forward.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE51
+		= new Rule (Preconditions.R5_1__LATER, "fx-51")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxSwapLeg"), errorHandler));					
+					
+				return (
+						  validate (nodeIndex.getElementsByName ("nearLeg"), errorHandler)
+						& validate (nodeIndex.getElementsByName ("farLeg"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element		cash	= XPath.path (context, "nonDeliverableSettlement");
+					Element		forward	= XPath.path (context, "exchangeRate", "forwardPoints");
+					
+					if ((cash == null) || (forward != null)) continue;
+					
+					errorHandler.error ("305", context,
+							"If nonDeliverableSettlement is specified then forwardPoints must be present.",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures the expiry date of an American option
+	 * falls after the trade date.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE52
+		= new Rule (Preconditions.R5_1__LATER, "fx-52")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Trade"), errorHandler));					
+					
+				return (
+						  validate (nodeIndex.getElementsByName ("trade"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  = (Element) list.item (index);
+					Element		tradeDate	 = XPath.path (context, "tradeHeader", "tradeDate");
+					Element		expiryDate	 = XPath.path (context, "fxOption", "americanExercise", "expiryDate");
+					
+					if ((tradeDate == null) || (expiryDate == null)) continue;
+					
+					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
+										
+					errorHandler.error ("305", context,
+							"Expiry date must be after trade date.",
+							getName (), toToken (expiryDate));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures the expiry date of an American option
+	 * falls after the trade date.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.6
+	 */
+	public static final Rule 	RULE53
+		= new Rule (Preconditions.R5_1__LATER, "fx-53")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Trade"), errorHandler));					
+					
+				return (
+						  validate (nodeIndex.getElementsByName ("trade"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context  = (Element) list.item (index);
+					Element		tradeDate	 = XPath.path (context, "tradeHeader", "tradeDate");
+					Element		expiryDate	 = XPath.path (context, "fxDigitalOption", "americanExercise", "expiryDate");
+					
+					if ((tradeDate == null) || (expiryDate == null)) continue;
+					
+					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
+										
+					errorHandler.error ("305", context,
+							"Expiry date must be after trade date.",
+							getName (), toToken (expiryDate));
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+
 	/**
 	 * Provides access to the FX validation rule set.
 	 *

@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXParseException;
 
@@ -120,7 +121,13 @@ public final class Validate extends Application
 					else
 						System.err.println (">> " + arguments [which]);
 					
-					FpMLUtility.parseAndValidate (schemaOnly, new File (arguments [which]), rules, parserErrorHandler, validationErrorHandler);
+					File file = new File (arguments [which]);
+					if (noValidationOption.isPresent ()) {
+						Document document = XmlUtility.nonValidatingParse (file);
+						FpMLUtility.validate (document, validationErrorHandler);
+					}
+					else
+						FpMLUtility.parseAndValidate (schemaOnly, file, rules, parserErrorHandler, validationErrorHandler);
 					
 					if (reportOption.isPresent ())
 						System.out.println ("\t</file>");
@@ -253,7 +260,14 @@ public final class Validate extends Application
 		= new Option ("-report", "Generate an XML report of the results");
 	
 	/**
-	 * A counter for the number of time to reprocess the files.
+	 * The <CODE>Option</CODE> instance use to detect <CODE>-report</CODE>
+	 * @since	TFP 1.5
+	 */
+	private Option			noValidationOption
+		= new Option ("-noValidation", "Don't perform XML validation");
+	
+	/**
+	 * A counter for the number of time to re-process the files.
 	 * @since	TFP 1.0
 	 */
 	private int				repeat = 1;
