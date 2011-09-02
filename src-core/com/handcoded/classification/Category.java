@@ -135,24 +135,28 @@ public abstract class Category
 	/**
 	 * Construct a <CODE>Category</CODE> with a given name.
 	 *
+	 * @param	classification	The owning <CODE>Classification</CODE>.
 	 * @param 	name			The name of the <CODE>Category</CODE>.
 	 * @since	TFP 1.0
 	 */
-	protected Category (final String name)
+	protected Category (Classification classification, final String name)
 	{
 		this.name = name;
+		
+		classification.add (this);
 	}
 
 	/**
 	 * Construct a <CODE>Category</CODE> with a given name.
 	 *
+	 * @param	classification	The owning <CODE>Classification</CODE>.
 	 * @param 	name			The name of the <CODE>Category</CODE>.
 	 * @param 	parent			The parent <CODE>Category</CODE>.
 	 * @since	TFP 1.0
 	 */
-	protected Category (final String name, Category parent)
+	protected Category (Classification classification, final String name, Category parent)
 	{
-		this (name);
+		this (classification, name);
 
 		this.superCategories.add (parent);
 		parent.subCategories.add (this);
@@ -161,13 +165,14 @@ public abstract class Category
 	/**
 	 * Construct a <CODE>Category</CODE> with a given name.
 	 *
+	 * @param	classification	The owning <CODE>Classification</CODE>.
 	 * @param 	name			The name of the <CODE>Category</CODE>.
 	 * @param 	parents			The parent <CODE>Category</CODE> instances.
 	 * @since	TFP 1.0
 	 */
-	protected Category (final String name, Category [] parents)
+	protected Category (Classification classification, final String name, Category [] parents)
 	{
-		this (name);
+		this (classification, name);
 
 		for (int index = 0; index < parents.length; ++index) {
 			this.superCategories.add (parents [index]);

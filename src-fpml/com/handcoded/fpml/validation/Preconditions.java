@@ -195,6 +195,14 @@ public interface Preconditions
 		= new VersionRangePrecondition (Releases.R1_0, Releases.R3_0);
 
     /**
+	 * A <CODE>Precondition</CODE> instance that detects FpML 1-0 up to
+	 * 4-6 compatible documents.
+	 * @since	TFP 1.6
+	 */
+	public static final Precondition	R1_0__R4_6
+		= new VersionRangePrecondition (Releases.R1_0, Releases.R4_6);
+
+    /**
 	 * A <CODE>Precondition</CODE> instance that detects either FpML 2-0 or
 	 * 3-0 compatible documents.
 	 * @since	TFP 1.0
@@ -225,6 +233,14 @@ public interface Preconditions
 	 */
 	public static final Precondition	R4_0__R4_X
 		= new VersionRangePrecondition (Releases.R4_0, Releases.R5_0_CONFIRMATION);
+
+    /**
+	 * A <CODE>Precondition</CODE> instance that detects any FpML 4-2
+	 * thru 4-4 compatible document.
+	 * @since	TFP 1.6
+	 */
+	public static final Precondition	R4_2__R4_4
+		= new VersionRangePrecondition (Releases.R4_2, Releases.R4_4);
 
     /**
 	 * A <CODE>Precondition</CODE> instance that detects any FpML 4-*

@@ -46,18 +46,29 @@ import com.handcoded.xml.XPath;
 public final class FxRules extends FpMLRuleSet
 {
 	/**
-	 * A <CODE>Precondition</CODE> instance that detect documents containing
+	 * A <CODE>Precondition</CODE> instance that detects documents containing
 	 * at least one FX single leg.
 	 * @since	TFP 1.6
 	 */
 	private static final Precondition	FX_SINGLE_LEG
 		= new ContentPrecondition (
 				new String [] { "fxSingleLeg", },
-				new String [] { "FxSingleLeg", "FXSingleLeg" }
+				new String [] { "FxLeg", "FXLeg", "FxSingleLeg" }
 				);
 				
 	/**
-	 * A <CODE>Precondition</CODE> instance that detect documents containing
+	 * A <CODE>Precondition</CODE> instance that detects documents containing
+	 * at least one FX swap leg.
+	 * @since	TFP 1.6
+	 */
+	private static final Precondition	FX_SWAP_LEG
+		= new ContentPrecondition (
+				new String [] { "nearLeg", "farLeg"},
+				new String [] { "FxSwapLeg" }
+				);
+				
+	/**
+	 * A <CODE>Precondition</CODE> instance that detects documents containing
 	 * at least one trade.
 	 * @since	TFP 1.6
 	 */
@@ -68,7 +79,7 @@ public final class FxRules extends FpMLRuleSet
 				);
 				
 	/**
-	 * A <CODE>Precondition</CODE> instance that detect documents containing
+	 * A <CODE>Precondition</CODE> instance that detects documents containing
 	 * at least one contract.
 	 * @since	TFP 1.6
 	 */
@@ -1207,6 +1218,63 @@ public final class FxRules extends FpMLRuleSet
 		};
 	
 	/**
+	 * Context>: FxLeg (Complex Type)
+	 * <P>
+	 * A <CODE>Rule</CODE> that ensures payer and receiver are correct.
+	 * <P>
+	 * Applies to FpML 5.1 and later.
+	 * @since	TFP 1.2
+	 */
+	public static final Rule	RULE18
+		= new Rule (Precondition.and (FX_SINGLE_LEG, Preconditions.R5_1__LATER), "fx-18")
+		{
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (
+						  validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "FxSingleLeg"), errorHandler));					
+					
+				return (
+					  validate (nodeIndex.getElementsByName ("fxSingleLeg"), errorHandler));
+			}
+			
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result	= true;
+				
+				for (int index = 0; index < list.getLength(); ++index) {
+					Element		context = (Element) list.item (index);
+					Element		ccy1PayPty	= XPath.path (context, "exchangedCurrency1", "payerPartyReference");
+					Element		ccy1RecPty	= XPath.path (context, "exchangedCurrency1", "receiverPartyReference");
+					Element		ccy2PayPty	= XPath.path (context, "exchangedCurrency2", "payerPartyReference");
+					Element		ccy2RecPty	= XPath.path (context, "exchangedCurrency2", "receiverPartyReference");
+					
+					if ((ccy1PayPty == null) || (ccy1RecPty == null) ||
+						(ccy2PayPty == null) || (ccy2RecPty == null)) continue;
+
+					Element		ccy1PayAcc	= XPath.path (context, "exchangedCurrency1", "payerAccountReference");
+					Element		ccy1RecAcc	= XPath.path (context, "exchangedCurrency1", "receiverAccountReference");
+					Element		ccy2PayAcc	= XPath.path (context, "exchangedCurrency2", "payerAccountReference");
+					Element		ccy2RecAcc	= XPath.path (context, "exchangedCurrency2", "receiverAccountReference");
+					
+					if (equal (DOM.getAttribute(ccy1PayPty, "href"), DOM.getAttribute(ccy2RecPty, "href")) &&
+						equal (DOM.getAttribute(ccy2PayPty, "href"), DOM.getAttribute(ccy1RecPty, "href")) &&
+						((!exists (ccy1PayAcc) && !exists (ccy2RecAcc)) || equal (DOM.getAttribute (ccy1PayAcc, "href"), DOM.getAttribute (ccy2RecAcc, "href"))) &&
+						((!exists (ccy2PayAcc) && !exists (ccy1RecAcc)) || equal (DOM.getAttribute (ccy2PayAcc, "href"), DOM.getAttribute (ccy1RecAcc, "href"))))
+						continue;
+										
+					errorHandler.error ("305", context,
+							"Exchanged currency payers and receivers don't match.",
+							getName (), null);
+					
+					result = false;
+				}
+				
+				return (result);
+			}
+		};
+		
+	/**
 	 * Context: FxLeg (Complex Type)
 	 * <P>
 	 * A <CODE>Rule</CODE> that ensures exchanged currencies are different.
@@ -1215,7 +1283,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE19_OLD
-		= new Rule (Preconditions.R3_0__R4_X, "fx-19[OLD]")
+		= new Rule (Precondition.and (FX_SINGLE_LEG, Preconditions.R3_0__R4_X), "fx-19[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1259,7 +1327,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE19
-		= new Rule (Preconditions.R5_1__LATER, "fx-19")
+		= new Rule (Precondition.and (FX_SINGLE_LEG, Preconditions.R5_1__LATER), "fx-19")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1300,7 +1368,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE20_OLD
-		= new Rule (Preconditions.R3_0__R4_X, "fx-20[OLD]")
+		= new Rule (Precondition.and (FX_SINGLE_LEG, Preconditions.R3_0__R4_X), "fx-20[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1344,7 +1412,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.6
 	 */
 	public static final Rule	RULE20
-		= new Rule (Preconditions.R5_1__LATER, "fx-20")
+		= new Rule (Precondition.and (FX_SINGLE_LEG, Preconditions.R5_1__LATER), "fx-20")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1388,7 +1456,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE21_OLD
-		= new Rule (Preconditions.R3_0__R4_X, "fx-21[OLD]")
+		= new Rule (Precondition.and (FX_SINGLE_LEG, Preconditions.R3_0__R4_X), "fx-21[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -1431,7 +1499,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.6
 	 */
 	public static final Rule	RULE21
-		= new Rule (Preconditions.R5_1__LATER, "fx-21")
+		= new Rule (Precondition.and (FX_SINGLE_LEG, Preconditions.R5_1__LATER), "fx-21")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2309,7 +2377,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE36_OLD
-		= new Rule (Preconditions.R3_0__R4_X, "fx-36[OLD]")
+		= new Rule (Precondition.and (TRADE, Preconditions.R3_0__R4_X), "fx-36[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2351,7 +2419,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.6
 	 */
 	public static final Rule	RULE36
-		= new Rule (Preconditions.R5_1__LATER, "fx-36")
+		= new Rule (Precondition.and (TRADE, Preconditions.R5_1__LATER), "fx-36")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2393,7 +2461,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE36B_OLD
-		= new Rule (Preconditions.R4_2__R4_X, "fx-36b[OLD]")
+		= new Rule (Precondition.and (CONTRACT, Preconditions.R4_2__R4_X), "fx-36b[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2435,7 +2503,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE37_OLD
-		= new Rule (Preconditions.R3_0__R4_X, "fx-37[OLD]")
+		= new Rule (Precondition.and (TRADE, Preconditions.R3_0__R4_X), "fx-37[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2477,7 +2545,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE37B_OLD
-		= new Rule (Preconditions.R4_2__R4_X, "fx-37b[OLD]")
+		= new Rule (Precondition.and (CONTRACT, Preconditions.R4_2__R4_X), "fx-37b[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2519,7 +2587,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE38_OLD
-		= new Rule (Preconditions.R3_0__R4_X, "fx-38[OLD]")
+		= new Rule (Precondition.and (TRADE, Preconditions.R3_0__R4_X), "fx-38[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2561,7 +2629,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.6
 	 */
 	public static final Rule	RULE38
-		= new Rule (Preconditions.R5_1__LATER, "fx-38")
+		= new Rule (Precondition.and (TRADE, Preconditions.R5_1__LATER), "fx-38")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2603,7 +2671,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE38B_OLD
-		= new Rule (Preconditions.R4_2__R4_X, "fx-38b[OLD]")
+		= new Rule (Precondition.and (CONTRACT, Preconditions.R4_2__R4_X), "fx-38b[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2645,7 +2713,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE39
-		= new Rule (Preconditions.R3_0__LATER, "fx-39")
+		= new Rule (Precondition.and (TRADE, Preconditions.R3_0__LATER), "fx-39")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2711,7 +2779,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE39B_OLD
-		= new Rule (Preconditions.R4_2__LATER, "fx-39b[OLD]")
+		= new Rule (Precondition.and (CONTRACT, Preconditions.R4_2__LATER), "fx-39b[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2778,7 +2846,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE40_OLD
-		= new Rule (Preconditions.R3_0__R4_X, "fx-40[OLD]")
+		= new Rule (Precondition.and (TRADE, Preconditions.R3_0__R4_X), "fx-40[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2850,7 +2918,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.6
 	 */
 	public static final Rule	RULE40
-		= new Rule (Preconditions.R5_1__LATER, "fx-40")
+		= new Rule (Precondition.and (TRADE, Preconditions.R5_1__LATER), "fx-40")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -2960,7 +3028,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.2
 	 */
 	public static final Rule	RULE40B
-		= new Rule (Preconditions.R4_2__R4_X, "fx-40b[OLD]")
+		= new Rule (Precondition.and (CONTRACT, Preconditions.R4_2__R4_X), "fx-40b[OLD]")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -3449,7 +3517,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.6
 	 */
 	public static final Rule 	RULE49
-		= new Rule (Preconditions.R5_1__LATER, "fx-49")
+		= new Rule (Precondition.and (FX_SWAP_LEG, Preconditions.R5_1__LATER), "fx-49")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -3493,7 +3561,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.6
 	 */
 	public static final Rule 	RULE50
-		= new Rule (Preconditions.R5_1__LATER, "fx-50")
+		= new Rule (Precondition.and (FX_SWAP_LEG, Preconditions.R5_1__LATER), "fx-50")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -3536,7 +3604,7 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.6
 	 */
 	public static final Rule 	RULE51
-		= new Rule (Preconditions.R5_1__LATER, "fx-51")
+		= new Rule (Precondition.and (FX_SWAP_LEG, Preconditions.R5_1__LATER), "fx-51")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
@@ -3578,15 +3646,14 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.6
 	 */
 	public static final Rule 	RULE52
-		= new Rule (Preconditions.R5_1__LATER, "fx-52")
+		= new Rule (Precondition.and (TRADE, Preconditions.R5_1__LATER), "fx-52")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
 				if (nodeIndex.hasTypeInformation()) 
 					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Trade"), errorHandler));					
 					
-				return (
-						  validate (nodeIndex.getElementsByName ("trade"), errorHandler));
+				return (validate (nodeIndex.getElementsByName ("trade"), errorHandler));
 			}
 			
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
@@ -3598,9 +3665,8 @@ public final class FxRules extends FpMLRuleSet
 					Element		tradeDate	 = XPath.path (context, "tradeHeader", "tradeDate");
 					Element		expiryDate	 = XPath.path (context, "fxOption", "americanExercise", "expiryDate");
 					
-					if ((tradeDate == null) || (expiryDate == null)) continue;
-					
-					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
+					if ((tradeDate == null) || (expiryDate == null) ||
+						less (toDate (tradeDate), toDate (expiryDate))) continue;
 										
 					errorHandler.error ("305", context,
 							"Expiry date must be after trade date.",
@@ -3621,15 +3687,14 @@ public final class FxRules extends FpMLRuleSet
 	 * @since	TFP 1.6
 	 */
 	public static final Rule 	RULE53
-		= new Rule (Preconditions.R5_1__LATER, "fx-53")
+		= new Rule (Precondition.and (TRADE, Preconditions.R5_1__LATER), "fx-53")
 		{
 			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
 			{
 				if (nodeIndex.hasTypeInformation()) 
 					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Trade"), errorHandler));					
 					
-				return (
-						  validate (nodeIndex.getElementsByName ("trade"), errorHandler));
+				return (validate (nodeIndex.getElementsByName ("trade"), errorHandler));
 			}
 			
 			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
@@ -3641,9 +3706,8 @@ public final class FxRules extends FpMLRuleSet
 					Element		tradeDate	 = XPath.path (context, "tradeHeader", "tradeDate");
 					Element		expiryDate	 = XPath.path (context, "fxDigitalOption", "americanExercise", "expiryDate");
 					
-					if ((tradeDate == null) || (expiryDate == null)) continue;
-					
-					if (less (toDate (tradeDate), toDate (expiryDate))) continue;
+					if ((tradeDate == null) || (expiryDate == null) ||
+						less (toDate (tradeDate), toDate (expiryDate))) continue;
 										
 					errorHandler.error ("305", context,
 							"Expiry date must be after trade date.",

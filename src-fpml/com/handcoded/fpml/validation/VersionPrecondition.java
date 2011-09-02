@@ -43,7 +43,7 @@ public final class VersionPrecondition extends Precondition
 	 */
 	public VersionPrecondition (final Release release)
 	{
-		targetVersion = new Version ((this.release = release).getVersion ());	
+		targetVersion = Version.parse ((this.release = release).getVersion ());	
 	}
 	
 	/**
@@ -57,11 +57,11 @@ public final class VersionPrecondition extends Precondition
 		// Find the document version
 		NodeList list = nodeIndex.getElementsByName ("FpML");
 		if (list.getLength () > 0)
-			version = new Version (((Element) list.item (0)).getAttribute ("version"));
+			version = Version.parse (((Element) list.item (0)).getAttribute ("version"));
 		else {
 			list = nodeIndex.getAttributesByName ("fpmlVersion");
 			if (list.getLength () > 0)
-				version = new Version (((Attr) list.item (0)).getValue ());
+				version = Version.parse (((Attr) list.item (0)).getValue ());
 			else
 				return (false);
 		}

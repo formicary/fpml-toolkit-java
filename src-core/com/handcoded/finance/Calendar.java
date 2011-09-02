@@ -22,6 +22,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.handcoded.framework.Application;
 import com.handcoded.xml.parser.SAXParser;
 
 /**
@@ -293,9 +294,9 @@ public abstract class Calendar
 			SAXParser parser = new SAXParser (false, true, true, false, null, null);
 			
 			try {
-				parser.parse (new InputSource (
-					ClassLoader.getSystemResourceAsStream ("com/handcoded/fpml/data/calendars.xml")),
-					new BootStrap ());
+				parser.parse (
+						new InputSource (Application.openStream ("file/data/calendars.xml")),
+						new BootStrap ());
 			}
 			catch (Exception error) {
 				logger.log (Level.SEVERE, "Unable to load calendars definitions", error);	

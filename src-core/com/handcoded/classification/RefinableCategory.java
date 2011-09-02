@@ -28,38 +28,41 @@ public abstract class RefinableCategory extends AbstractCategory
 	/**
 	 * Construct an <CODE>AbstractCategory</CODE> with a given name.
 	 * 
+	 * @param	classification	The owning <CODE>Classification</CODE>.
 	 * @param 	name			The name of the <CODE>Category</CODE>.
 	 * @since	TFP 1.0
 	 */
-	protected RefinableCategory (final String name)
+	protected RefinableCategory (Classification classification, final String name)
 	{
-		super (name);
+		super (classification, name);
 	}
 	
 	/**
 	 * Construct an <CODE>RefinableCategory</CODE> that is a sub-classification
 	 * of another <CODE>Category</CODE>.
 	 * 
+	 * @param	classification	The owning <CODE>Classification</CODE>.
 	 * @param 	name			The name of the <CODE>Category</CODE>.
 	 * @param 	parent			The parent <CODE>Category</CODE>.
 	 * @since	TFP 1.0
 	 */
-	protected RefinableCategory (final String name, Category parent)
+	protected RefinableCategory (Classification classification, final String name, Category parent)
 	{
-		super (name, parent);
+		super (classification, name, parent);
 	}
 	
 	/**
 	 * Construct an <CODE>RefinableCategory</CODE> that is a sub-classification
 	 * of other <CODE>Category</CODE> instances.
 	 * 
+	 * @param	classification	The owning <CODE>Classification</CODE>.
 	 * @param 	name			The name of the <CODE>Category</CODE>.
 	 * @param 	parents			The parent <CODE>Category</CODE> instances.
 	 * @since	TFP 1.0
 	 */
-	protected RefinableCategory (final String name, Category [] parents)
+	protected RefinableCategory (Classification classification, final String name, Category [] parents)
 	{
-		super (name, parents);
+		super (classification, name, parents);
 	}
 
 	/**

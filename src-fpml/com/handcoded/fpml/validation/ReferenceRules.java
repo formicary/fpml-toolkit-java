@@ -142,10 +142,9 @@ public final class ReferenceRules extends FpMLRuleSet
 	 * <P>
 	 * Applies to FpML 4.0 and later.
 	 * @since	TFP 1.2
-	 * @deprecated
 	 */
 	public static final Rule	RULE06
-		= new ReferenceRule (Preconditions.R4_0__LATER, "ref-6",
+		= new ReferenceRule (Preconditions.R4_2__R4_4, "ref-6",
 				"InterestCalculationReference", new String [] {
 					"interestLegRate" },
 				"Rate", new String [] {

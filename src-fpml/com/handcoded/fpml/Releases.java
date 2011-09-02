@@ -176,11 +176,43 @@ public final class Releases
 		= (SchemaRelease) FPML.getReleaseForVersionAndNamespace ("5-1", "http://www.fpml.org/FpML-5/reporting");
 	
 	/**
+	 * A <CODE>SchemaRelease</CODE> instance containing the details for
+	 * FpML 5-2 confirmation view working draft.
+	 * @since	TFP 1.6
+	 */
+	public static SchemaRelease	R5_2_CONFIRMATION
+		= (SchemaRelease) FPML.getReleaseForVersionAndNamespace ("5-2", "http://www.fpml.org/FpML-5/confirmation");
+	
+	/**
+	 * A <CODE>SchemaRelease</CODE> instance containing the details for
+	 * FpML 5-2 reporting view working draft.
+	 * @since	TFP 1.6
+	 */
+	public static SchemaRelease	R5_2_REPORTING
+		= (SchemaRelease) FPML.getReleaseForVersionAndNamespace ("5-2", "http://www.fpml.org/FpML-5/reporting");
+	
+	/**
+	 * A <CODE>SchemaRelease</CODE> instance containing the details for
+	 * FpML 5-2 record keeping view working draft.
+	 * @since	TFP 1.6
+	 */
+	public static SchemaRelease	R5_2_RECORDKEEPING
+		= (SchemaRelease) FPML.getReleaseForVersionAndNamespace ("5-2", "http://www.fpml.org/FpML-5/recordkeeping");
+	
+	/**
+	 * A <CODE>SchemaRelease</CODE> instance containing the details for
+	 * FpML 5-2 transparency view working draft.
+	 * @since	TFP 1.6
+	 */
+	public static SchemaRelease	R5_2_TRANSPARENCY
+		= (SchemaRelease) FPML.getReleaseForVersionAndNamespace ("5-2", "http://www.fpml.org/FpML-5/transparency");
+	
+	/**
 	 * A <CODE>Conversion</CODE> instance configured for FpML 1-0 to 2-0
 	 * transformation. The specific changes needed (other than basic DOCTYPE
 	 * changes) are:
 	 * <UL>
-	 * <LI>The &lt;product&gt; constainer element was removed.</LI>
+	 * <LI>The &lt;product&gt; container element was removed.</LI>
 	 * <LI>Superfluous <CODE>type</CODE> attributes are removed.</LI>
 	 * </UL> 
 	 * @since	TFP 1.0
@@ -323,12 +355,16 @@ public final class Releases
 	public static Release releaseFor (Document document)
 	{
 		Element		root = document.getDocumentElement ();
+		String		version;
 		
 		if (root.getLocalName ().equals ("FpML")) {
-			String version = root.getAttribute ("version");
-		
-			if (version != null) return (FPML.getReleaseForVersion (version));
+			if ((version = root.getAttribute ("version")) != null)
+				return (FPML.getReleaseForVersion (version));
 		}
+		
+		if ((version = root.getAttribute ("fpmlVersion")) != null)
+			return (FPML.getReleaseForVersionAndNamespace (version, root.getNamespaceURI ()));
+		
 		return (null);
 	}
 

@@ -29,7 +29,7 @@ import org.w3c.dom.NodeList;
 public final class MutableNodeList implements NodeList, Cloneable
 {
 	/**
-	 * An empty <CODE>Nodelist</CODE>
+	 * An empty <CODE>NodeList</CODE>
 	 * @since	TFP 1.0
 	 */
 	public static final NodeList	EMPTY	= new MutableNodeList ();
@@ -40,7 +40,18 @@ public final class MutableNodeList implements NodeList, Cloneable
 	 */
 	public MutableNodeList ()
 	{
-		this (null);
+		nodes = null;
+	}
+	
+	/**
+	 * Constructs a <CODE>MutableNodeList</CODE> instance containing a single
+	 * <CODE>Node</CODE>.
+	 * @since	TFP 1.6
+	 */
+	public MutableNodeList (Node value)
+	{
+		this ();
+		add (value);
 	}
 	
 	/**
@@ -152,7 +163,7 @@ public final class MutableNodeList implements NodeList, Cloneable
 		if (nodes != null)
 			return (new MutableNodeList (new Vector<Node> (nodes)));
 		else
-			return (new MutableNodeList (null));
+			return (new MutableNodeList ());
 	}
 	
 	/**

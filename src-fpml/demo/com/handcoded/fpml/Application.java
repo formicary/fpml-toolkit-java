@@ -55,7 +55,7 @@ public abstract class Application extends com.handcoded.framework.Application
 		super.startUp();
 
 		// Initialise the default catalog
-		String		catalogPath = "files/catalog-fpml-5-1.xml";
+		String		catalogPath = "files/catalog-fpml-5-2.xml";
 		
 		if (catalogOption.isPresent ()) {
 			if (catalogOption.getValue() != null)
@@ -76,7 +76,7 @@ public abstract class Application extends com.handcoded.framework.Application
 		Enumeration<Release> releases = Releases.FPML.releases ();
 		
 		while (releases.hasMoreElements ()) {
-			Release release = (Release) releases.nextElement ();
+			Release release = releases.nextElement ();
 			if (release instanceof SchemaRelease)
 				XmlUtility.getDefaultSchemaSet ().add ((SchemaRelease) release);	
 		}

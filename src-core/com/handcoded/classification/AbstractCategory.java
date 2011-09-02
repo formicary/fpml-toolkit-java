@@ -29,38 +29,41 @@ public class AbstractCategory extends Category
 	/**
 	 * Construct an <CODE>AbstractCategory</CODE> with a given name.
 	 * 
+	 * @param	classification	The owning <CODE>Classification</CODE>.
 	 * @param 	name			The name of the <CODE>Category</CODE>.
 	 * @since	TFP 1.0
 	 */
-	public AbstractCategory (final String name)
+	public AbstractCategory (Classification classification, final String name)
 	{
-		super (name);
+		super (classification, name);
 	}
 	
 	/**
 	 * Construct an <CODE>AbstractCategory</CODE> that is a sub-classification
 	 * of another <CODE>Category</CODE>.
 	 * 
+	 * @param	classification	The owning <CODE>Classification</CODE>.
 	 * @param 	name			The name of the <CODE>Category</CODE>.
 	 * @param 	parent			The parent <CODE>Category</CODE>.
 	 * @since	TFP 1.0
 	 */
-	public AbstractCategory (final String name, Category parent)
+	public AbstractCategory (Classification classification, final String name, Category parent)
 	{
-		super (name, parent);
+		super (classification, name, parent);
 	}
 	
 	/**
 	 * Construct an <CODE>AbstractCategory</CODE> that is a sub-classification
 	 * of other <CODE>Category</CODE> instances.
 	 * 
+	 * @param	classification	The owning <CODE>Classification</CODE>.
 	 * @param	name			The name of the <CODE>Category</CODE>.
 	 * @param 	parents			The parent <CODE>Category</CODE> instances.
 	 * @since	TFP 1.0
 	 */
-	public AbstractCategory (final String name, Category [] parents)
+	public AbstractCategory (Classification classification, final String name, Category [] parents)
 	{
-		super (name, parents);
+		super (classification, name, parents);
 	}
 	
 	/**

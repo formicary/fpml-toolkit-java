@@ -14,6 +14,7 @@
 package com.handcoded.fpml.util;
 
 import java.io.Serializable;
+import java.util.Hashtable;
 
 /**
  * Instances of the <CODE>Version</CODE> class hold a version number expressed
@@ -27,15 +28,23 @@ import java.io.Serializable;
 public final class Version implements Serializable, Comparable<Version>
 {
 	/**
-	 * Constructs a <CODE>Version</CODE> instance from a 'major-minor' format
-	 * string value.
+	 * Parse the FpML version number given as an argument and return a corresponding
+	 * <CODE>Version</CODE> instance. A hash table is used to lookup previously
+	 * converted strings.
 	 * 
 	 * @param 	version			The version number string.
-	 * @since	TFP 1.5
+	 * @return	A <CODE>Version</CODE> instance containing the decoded major and
+	 * 			minor values.
+	 * @since	TFP 1.6
 	 */
-	public Version (final String version)
+	public static Version parse (final String version)
 	{
-		this (version.split ("-"));
+		Version 	result;
+		
+		if ((result = extent.get (version)) == null)
+			extent.put (version, result = new Version (version));
+		
+		return (result);
 	}
 	
 	/**
@@ -127,6 +136,13 @@ public final class Version implements Serializable, Comparable<Version>
 	private static final long	serialVersionUID	= 8982448319622238464L;
 	
 	/**
+	 * The extent set of all <CODE>Version</CODE> instances.
+	 * @since	TFP 1.6
+	 */
+	private static Hashtable<String, Version> extent
+		= new Hashtable<String, Version> ();
+	
+	/**
 	 * The major component of the version number.
 	 * @since	TFP 1.5
 	 */
@@ -137,6 +153,18 @@ public final class Version implements Serializable, Comparable<Version>
 	 * @since	TFP 1.5
 	 */
 	private final int		minor;
+	
+	/**
+	 * Constructs a <CODE>Version</CODE> instance from a 'major-minor' format
+	 * string value.
+	 * 
+	 * @param 	version			The version number string.
+	 * @since	TFP 1.5
+	 */
+	private Version (final String version)
+	{
+		this (version.split ("-"));
+	}
 	
 	/**
 	 * Constructs a <CODE>Version</CODE> instance from an array of two

@@ -1224,7 +1224,7 @@ public final class IrdRules extends FpMLRuleSet
 	 * Applies to all FpML releases.
 	 * @since	TFP 1.0
 	 */
-	public static final Rule	RULE25 = new Rule ("ird-25")
+	public static final Rule	RULE25_OLD = new Rule (Preconditions.R1_0__R4_6, "ird-25[OLD]")
 		{
 			/**
 			 * {@inheritDoc}
@@ -1243,6 +1243,58 @@ public final class IrdRules extends FpMLRuleSet
 					& validate (nodeIndex.getElementsByName ("floorRateSchedule"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("knownAmountSchedule"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("notionalStepSchedule"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("feeAmountSchedule"), errorHandler));
+			}
+
+			private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+			{
+				boolean		result = true;
+
+				for (int index = 0; index < list.getLength (); ++index) {
+					Element		context		= (Element) list.item (index);
+
+					if (implies (
+							not (exists (XPath.path (context, "step"))),
+							notEqual (
+								XPath.path (context, "initialValue"),
+								ZERO))) continue;
+
+					errorHandler.error ("305", context,
+						"An non-zero initial value must be provided when there are no steps " +
+						"in the schedule",
+						getName (), null);
+
+					result = false;
+				}
+				return (result);
+			}
+		};
+
+	/**
+	 * A <CODE>Rule</CODE> that ensures that if not steps are present
+	 * the initial value is non-zero.
+	 * <P>
+	 * Applies to all FpML releases.
+	 * @since	TFP 1.0
+	 */
+	public static final Rule	RULE25 = new Rule (Preconditions.R4_7__LATER, "ird-25")
+		{
+			/**
+			 * {@inheritDoc}
+			 */
+			public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+			{
+				if (nodeIndex.hasTypeInformation()) 
+					return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "Schedule"), errorHandler));					
+
+				return (
+					  validate (nodeIndex.getElementsByName ("floatingRateMultiplierSchedule"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("spreadSchedule"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("fixedRateSchedule"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("feeRateSchedule"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("capRateSchedule"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("floorRateSchedule"), errorHandler)
+					& validate (nodeIndex.getElementsByName ("knownAmountSchedule"), errorHandler)
 					& validate (nodeIndex.getElementsByName ("feeAmountSchedule"), errorHandler));
 			}
 
@@ -2968,6 +3020,51 @@ public final class IrdRules extends FpMLRuleSet
 						errorHandler.error ("305", context,
 							"Calculation period frequency roll convention '" + toToken (convention) +
 							"' is inconsistent with the calculation period '" + toToken (period) + "'",
+							getName (), null);
+
+						result = false;
+					}
+					return (result);
+				}
+			};
+
+		/**
+		 * A <CODE>Rule</CODE> that ensures that if not steps are present
+		 * the initial value is non-zero.
+		 * <P>
+		 * Applies to FpML 4.7 and later.
+		 * @since	TFP 1.6
+		 */
+		public static final Rule	RULE61 = new Rule (Preconditions.R4_7__LATER, "ird-61")
+			{
+				/**
+				 * {@inheritDoc}
+				 */
+				public boolean validate (NodeIndex nodeIndex, ValidationErrorHandler errorHandler)
+				{
+					if (nodeIndex.hasTypeInformation()) 
+						return (validate (nodeIndex.getElementsByType (determineNamespace (nodeIndex), "NonNegativeSchedule"), errorHandler));					
+
+					return (
+						validate (nodeIndex.getElementsByName ("notionalStepSchedule"), errorHandler));
+				}
+
+				private boolean validate (NodeList list, ValidationErrorHandler errorHandler)
+				{
+					boolean		result = true;
+
+					for (int index = 0; index < list.getLength (); ++index) {
+						Element		context		= (Element) list.item (index);
+
+						if (implies (
+								not (exists (XPath.path (context, "step"))),
+								notEqual (
+									XPath.path (context, "initialValue"),
+									ZERO))) continue;
+
+						errorHandler.error ("305", context,
+							"An non-zero initial value must be provided when there are no steps " +
+							"in the schedule",
 							getName (), null);
 
 						result = false;

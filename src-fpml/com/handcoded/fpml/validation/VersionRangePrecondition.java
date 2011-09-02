@@ -46,9 +46,9 @@ public class VersionRangePrecondition extends Precondition
 	public VersionRangePrecondition (final Release minimum, final Release maximum)
 	{
 		minimumVersion = ((this.minimum = minimum) != null)
-			? new Version (minimum.getVersion ()) : null;
+			? Version.parse (minimum.getVersion ()) : null;
 		maximumVersion = ((this.maximum = maximum) != null)
-			? new Version (maximum.getVersion ()) : null;
+			? Version.parse (maximum.getVersion ()) : null;
 	}
 	
 	/**
@@ -63,11 +63,11 @@ public class VersionRangePrecondition extends Precondition
 		// Find the document version
 		NodeList list = nodeIndex.getElementsByName ("FpML");
 		if (list.getLength () > 0)
-			version = new Version (((Element) list.item (0)).getAttribute ("version"));
+			version = Version.parse (((Element) list.item (0)).getAttribute ("version"));
 		else {
 			list = nodeIndex.getAttributesByName ("fpmlVersion");
 			if (list.getLength () > 0)
-				version = new Version (((Attr) list.item (0)).getValue ());
+				version = Version.parse (((Attr) list.item (0)).getValue ());
 			else
 				return (false);
 		}
