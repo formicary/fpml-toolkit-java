@@ -62,7 +62,7 @@ final class XPathNode extends ExprNode
 				return (((Boolean) result).booleanValue ());
 			}
 			catch (XPathExpressionException error) {
-				logger.log (Level.SEVERE, "Failed to evaluate XPath", error);
+				logger.log (Level.SEVERE, "Failed to evaluate XPath (" + test + ")", error);
 			}
 			return (false);
 		}
