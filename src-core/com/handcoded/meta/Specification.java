@@ -419,7 +419,7 @@ public final class Specification
 		
 		try {
 			Document document = XmlUtility.nonValidatingParse (
-					new InputSource (Application.openStream ("files/releases.xml")));
+					new InputSource (Application.openStream ("files-core/releases.xml")));
 				
 			NodeList specifications = XPath.paths (document.getDocumentElement (), "specification");
 			for (int index = 0; index < specifications.getLength (); ++index) {

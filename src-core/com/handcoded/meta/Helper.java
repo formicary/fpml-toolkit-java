@@ -16,7 +16,7 @@ package com.handcoded.meta;
 /**
  * An instance implementing the <CODE>Helper</CODE> interface is passed to
  * <CODE>Conversion</CODE> objects during the document conversion process.
- * If a conversion needs additional guidenance during processing then it should
+ * If a conversion needs additional guidance during processing then it should
  * cast the helper instance to a more specific interface and use it to gain
  * the information it needs.
  *  

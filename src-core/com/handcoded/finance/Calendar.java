@@ -295,7 +295,7 @@ public abstract class Calendar
 			
 			try {
 				parser.parse (
-						new InputSource (Application.openStream ("file/data/calendars.xml")),
+						new InputSource (Application.openStream ("files-core/data/calendars.xml")),
 						new BootStrap ());
 			}
 			catch (Exception error) {

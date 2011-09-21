@@ -354,7 +354,7 @@ public final class RuleSet extends Validator
 			SAXParser parser = new SAXParser (false, true, false, false, null, null);
 			
 			try {
-				parser.parse (new InputSource (Application.openStream ("files/business-rules.xml")),	new BootStrap ());
+				parser.parse (new InputSource (Application.openStream ("files-core/business-rules.xml")),	new BootStrap ());
 			}
 			catch (Exception error) {
 				logger.log (Level.SEVERE, "Unable to load rule set definitions", error);	
