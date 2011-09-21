@@ -14,42 +14,38 @@
 package com.handcoded.fpml.classification;
 
 import com.handcoded.classification.Category;
+import com.handcoded.classification.Classification;
+import com.handcoded.classification.xml.ClassificationLoader;
 
 /**
- * 
+ * The <CODE>ISDATaxonomy</CODE> class provides easy access the to the
+ * categories defined in the taxonomy provided by the ISDA product
+ * working groups initiated in response to the Dodd-Frank Act.
+ *
  * @author 	BitWise
  * @version	$Id$
  * @since	FTP 1.6
  */
-public final class DocumentForm
+public final class ISDATaxonomy
 {
 	/**
-	 * A <CODE>Category</CODE> representing all documents forms.
+	 * The default FpML Product classification.
 	 * @since	TFP 1.6
 	 */
-	public static final Category	DOCUMENT_FORM
-		= DefaultClassification.getCategoryByName ("DocumentForm");
+	private static Classification	defaultClassification
+		= ClassificationLoader.load ("files/isda-classification.xml");
 	
 	/**
-	 * A <CODE>Category</CODE> representing all short form documents in which some
-	 * details of the trade are defined outside the transaction record.
-	 * @since	TFP 1.6
+	 * A <CODE>Category</CODE> representing all product types.
+	 * @since	TFP 1.0
 	 */
-	public static final Category	SHORT_FORM
-		= DefaultClassification.getCategoryByName ("ShortForm");
+	public static final Category	ISDA
+		= defaultClassification.getCategoryByName ("{ISDA}");
 
-	/**
-	 * A <CODE>Category</CODE> representing all long form documents in which all
-	 * the details of the trade are defined within the transaction record.
-	 * @since	TFP 1.6
-	 */
-	public static final Category	LONG_FORM
-		= DefaultClassification.getCategoryByName ("LongForm");
-	
 	/**
 	 * Prevents an instance being created.
 	 * @since	TFP 1.6
 	 */
-	private DocumentForm ()
+	private ISDATaxonomy ()
 	{ }
 }

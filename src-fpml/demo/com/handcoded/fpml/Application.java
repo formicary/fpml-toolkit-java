@@ -50,6 +50,7 @@ public abstract class Application extends com.handcoded.framework.Application
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	protected void startUp ()
 	{
 		super.startUp();
@@ -123,7 +124,7 @@ public abstract class Application extends com.handcoded.framework.Application
 		= Logger.getLogger ("demo.com.handcoded.fpml");
 
 	/**
-	 * A command line option that allows the default catalog to be overriden.
+	 * A command line option that allows the default catalog to be overridden.
 	 * @since	TFP 1.0
 	 */
 	private Option				catalogOption

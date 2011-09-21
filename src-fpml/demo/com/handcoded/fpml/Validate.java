@@ -55,6 +55,7 @@ public final class Validate extends Application
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	protected void startUp ()
 	{
 		super.startUp ();
@@ -85,6 +86,7 @@ public final class Validate extends Application
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	protected void cleanUp ()
 	{
 		super.cleanUp ();
@@ -98,6 +100,7 @@ public final class Validate extends Application
 	 * {@inheritDoc}
 	 * @since	TFP 1.0
 	 */
+	@Override
 	protected void execute ()
 	{
 		RuleSet					rules = strictOption.isPresent () ? FpMLRules.getRules() : AllRules.getRules ();
@@ -161,6 +164,7 @@ public final class Validate extends Application
 	 * {@inheritDoc} 
 	 * @since	TFP 1.0
 	 */
+	@Override
 	protected String describeArguments ()
 	{
 		return (" files or directories ...");
