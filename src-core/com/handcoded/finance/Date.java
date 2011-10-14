@@ -168,7 +168,7 @@ public final class Date extends TemporalDate
 			return (new Date (day, month, year));
 		}
 
-		throw new IllegalArgumentException ("Value is not in ISO date format");
+		throw new IllegalArgumentException ("Value is not in ISO date format (" + text +")");
 	}
 	
 	/**
