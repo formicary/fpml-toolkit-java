@@ -25,6 +25,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 import com.handcoded.framework.Application;
 
@@ -49,7 +50,7 @@ public final class Transformation
 	public Transformation (final String filename)
 	{
 		try {
-			factory.newTransformer (new StreamSource (Application.openStream (filename)));
+			transformer = factory.newTransformer (new StreamSource (Application.openStream (filename)));
 		}
 		catch (TransformerConfigurationException error) {
 			logger.log(Level.SEVERE, "Failed to create an XSL transformation", error);
@@ -57,20 +58,20 @@ public final class Transformation
 	}
 	
 	/**
-	 * Applies the XSL transformation to the indicated DOM <CODE>Document</CODE>
+	 * Applies the XSL transformation to the indicated DOM <CODE>Node</CODE>
 	 * and returns the resulting document.
 	 * 
-	 * @param	document		The source DOM <CODE>Document</CODE>.
+	 * @param	document		The source DOM <CODE>Node</CODE>.
 	 * @return	A new DOM <CODE>Document</CODE> containing the result of the
 	 * 			XSL transformation.
 	 * @since	TFP 1.6
 	 */
-	public synchronized Document transform (final Document document)
+	public synchronized Document transform (final Node node)
 	{
 		DOMResult	result	= new DOMResult ();
 		
 		try {
-			transformer.transform (new DOMSource (document), result);
+			transformer.transform (new DOMSource (node), result);
 		}
 		catch (TransformerException error) {
 			logger.log (Level.SEVERE, "Unexpected exception during XSL transformation", error);
@@ -98,5 +99,5 @@ public final class Transformation
 	 * a DOM <CODE>Document</CODE> instance.
 	 * @since	TFP 1.6 
 	 */
-	private Transformer			transformer;
+	private Transformer		transformer	= null;
 }
